@@ -6,7 +6,7 @@
 
 * **src/app/app.routes.ts**: Redireccionamiento de rutas
 
-* Estilos en **tailwind.config.js**: Tailwind 3 y **src/scss/** Sass
+* Estilos en Tailwind 4 y **src/style/** Sass
 
 * **src/enviroments/**: Variables de entorno
 
@@ -24,8 +24,6 @@
 
 * **src/app/service/RxJS-BehaviorSubject/layout/loader.service.ts**: loader general. Cuando se ejecuta **http.service.ts** el loader se muestra y oculta
 
-* **src/app/components/home-route/dialog/dialog-accept-or-cancel**: modal aceptar o cancelar accion
-
 * **src/app/utils/func/sessionStorage.ts** funciones con sessionStorage en base 64
 
 * **src/app/types/constants**: constantes generales para usar en toda la web
@@ -34,7 +32,7 @@
 
 * **src/app/utils/class/GeneralClass.ts**: Clase general con funciones (metodos) generales para usar en toda la web
 
-* **src/app/utils/class/SweetAlertClass.ts**: Clase para abrir ventanas modales de Sweet Alert
+* **src/app/utils/class/SweetAlertClass.ts**: Clase para abrir ventana modal de Swet Alert 2
 
 * **src/assets/icon**: Iconos de la pagina web
 
