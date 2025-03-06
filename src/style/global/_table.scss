@@ -1,0 +1,86 @@
+@use "./branding";
+
+/*
+*******************
+* <table> - tabla *
+******************* */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  // borde redondeado de tabla
+  border: 1px solid branding.$gray-light;
+  border-style: hidden;
+  overflow: hidden;
+
+  thead,
+  tfoot,
+  th {
+    background-color: branding.$blue-dark !important;
+    color: white;
+
+    span,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: white !important;
+    }
+  }
+
+  td {
+    // borde de las casillas de las tablas
+    border: 1px solid branding.$gray-light;
+  }
+
+  th {
+    text-align: center;
+    background: transparent !important;
+
+    // borde de las casillas de las tablas
+    border: 1px solid white;
+  }
+
+  td,
+  th {
+    padding: 0.125rem 0.375rem !important;
+
+    text-wrap: nowrap;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span {
+      text-wrap: nowrap;
+    }
+  }
+
+  tr {
+    &:nth-child(even) {
+      // cambiar color de fondo de filas pares de la tabla: 2, 4, 6, etc.
+       background-color: branding.$white-smoke;
+    }
+  }
+
+  tbody {
+    tr:hover {
+      // cambiar color al situar mouse sobre las filas q NO son el <th>
+      background-color: branding.$white-smoke !important;
+      color: branding.$blue-dark;
+    }
+
+    // Evitar hover en filas que contienen <th>
+    tr:has(th):hover {
+      background-color: transparent !important;
+      color: inherit !important;
+    }
+  }
+}
