@@ -58,6 +58,7 @@
             ],
             "styles": [
               "src/style/styles.scss",
+              "src/style/tailwind.css",
               "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
             "scripts": []
@@ -144,7 +145,8 @@
               }
             ],
             "styles": [
-              "src/style/styles.scss"
+              "src/style/styles.scss",
+              "src/style/tailwind.css"
             ],
             "scripts": []
           }

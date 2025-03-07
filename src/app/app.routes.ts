@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import path from './types/constants/cons-path';
 import { AuthGuard } from './guards/auth.guard';
+import path from './types/constants/cons-path';
 
 //#region componentes de Angular
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
 
 // home
 import { HomeComponent } from './components/main-layout/home/home.component';

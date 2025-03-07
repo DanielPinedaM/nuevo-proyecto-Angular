@@ -1,14 +1,15 @@
-// variables de DESARROLLO (LOCAL)
+// variables de DESARROLLO (LOCAL HOST)
 
 import IEnvironment from "./interface-environment";
 
-const domain: string = "http://localhost:3000";
+const api: string = "http://localhost:3000";
 
 export const environment: IEnvironment = {
+  publicEnvironment: 'development',
   production: false,
-  domain,
+  api,
 
-  user: {
-    login: `${domain}/login`
+  auth: {
+    login: "https://localhost:4000/api/vi/login"
   }
 };

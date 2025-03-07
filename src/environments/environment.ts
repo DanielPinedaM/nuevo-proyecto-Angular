@@ -2,13 +2,14 @@
 
 import IEnvironment from "./interface-environment";
 
-const domain: string = "https://aqui escribir dominio de PRODUCCION";
+const api: string = "https://aqui escribir dominio de PRODUCCION";
 
 export const environment: IEnvironment = {
+  publicEnvironment: 'production',
   production: true,
-  domain,
+  api,
 
-  user: {
-    login: `${domain}/login`
+  auth: {
+    login: "https://dominio.com:4000/api/vi/login",
   }
 };

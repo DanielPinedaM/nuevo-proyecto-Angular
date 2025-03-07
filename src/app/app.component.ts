@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CheckboxModule } from 'primeng/checkbox';
-import { Router } from '@angular/router';
-import { LoaderService } from './service/RxJS-BehaviorSubject/layout/loader.service';
-import { BnNgIdleService } from 'bn-ng-idle';
-import { sessionStorageSearch } from './utils/func/sessionStorage';
-import { constImmutableProperties, objSessionStorage } from './types/constants/const-session-storage';
-import path from './types/constants/cons-path';
-import SweetAlertClass from './utils/class/SweetAlertClass';
 import { environment } from '@/environments/environment';
+import { Component } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { BnNgIdleService } from 'bn-ng-idle';
+import { CheckboxModule } from 'primeng/checkbox';
+import { LoaderService } from './service/RxJS-BehaviorSubject/layout/loader.service';
+import path from './types/constants/cons-path';
+import { constImmutableProperties, objSessionStorage } from './types/constants/const-session-storage';
+import SweetAlertClass from './utils/class/SweetAlertClass';
+import { sessionStorageSearch } from './utils/func/sessionStorage';
 
 @Component({
   selector: 'app-root',
@@ -33,11 +32,12 @@ export class AppComponent {
   private getLoader(): void {
     this.loaderService.getLoader().subscribe((loader: boolean) => {
       if (loader) {
-        const _timeout: number =  1000 * 60;
+        const milliseconds: number = 120000;
 
         setTimeout(() => {
           this.loader = false;
-        }, _timeout)
+          console.warn(`⚠️ se oculto el icono de cargando despues de ${milliseconds / 120000} minutos porque una peticion HTTP tardo en responder`);
+        }, milliseconds)
       }
 
       this.loader = loader;

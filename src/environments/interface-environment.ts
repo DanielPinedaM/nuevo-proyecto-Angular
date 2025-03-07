@@ -1,8 +1,9 @@
 export default interface IEnvironment {
-  production: boolean,
-  domain: string;
+  publicEnvironment: 'production' | 'development' | 'test';
+  production: boolean;
+  api: string;
 
-  user: {
+  auth: {
     login: string;
-  }
+  };
 }
