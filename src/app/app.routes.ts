@@ -18,12 +18,12 @@ import { BotsComponent } from './components/home/bots/bots.component';
 export const routes: Routes = [
   {
     path: path.empty,
-    redirectTo: '/' + path.login.login,
+    redirectTo: '/' + path.auth.login,
     pathMatch: 'full',
   },
   // iniciar-sesion
   {
-    path: path.login.login,
+    path: path.auth.login,
     component: LoginComponent,
   },
 

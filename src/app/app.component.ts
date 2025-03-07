@@ -50,7 +50,7 @@ export class AppComponent {
     this.bnIdle.startWatching(300).subscribe((isTimedOut: boolean) => {
       if (isTimedOut) {
         if (sessionStorageSearch(objSessionStorage.token!)) {
-          this.router.navigate(['/' + path.login.login]);
+          this.router.navigate(['/' + path.auth.login]);
           SweetAlertClass.MessageAlert('Sesión Inactiva', 'Su sesión ya no se encuentra activa, ingrese nuevamente', 'info');
         }
       }
@@ -64,7 +64,7 @@ export class AppComponent {
       const indexOf: number = immutableProperties.indexOf(modifiedProperty);
 
       if (indexOf > -1) {
-        this.router.navigate(['/' + path.login.login]);
+        this.router.navigate(['/' + path.auth.login]);
         SweetAlertClass.MessageAlert('Sesión Inactiva', 'Su sesión ya no se encuentra activa, ingrese nuevamente', 'info');
       }
     });

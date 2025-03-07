@@ -2,7 +2,7 @@ export interface IPath {
   empty: string;
   root: string;
   error404NonExistentPathComponent: string;
-  login: {
+  auth: {
     login: string;
   };
   home: {

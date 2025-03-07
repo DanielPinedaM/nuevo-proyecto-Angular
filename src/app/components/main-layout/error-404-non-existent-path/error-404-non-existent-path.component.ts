@@ -15,5 +15,5 @@ export class Error404NonExistentPathComponent {
     this.currentRoute = this.router.url;
   }
 
-  onClickLogout = (): Promise<boolean> => this.router.navigate(['/' + path.login.login]);
+  onClickLogout = (): Promise<boolean> => this.router.navigate(['/' + path.auth.login]);
 }

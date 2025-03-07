@@ -4,7 +4,7 @@ const path: IPath = {
   empty: '',
   root: '/',
   error404NonExistentPathComponent: '**',
-  login: {
+  auth: {
     login: 'iniciar-sesion',
   },
   home: {

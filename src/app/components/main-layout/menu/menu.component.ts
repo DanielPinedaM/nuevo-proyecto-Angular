@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import SweetAlertClass from '@/app/utils/class/SweetAlertClass';
 import { CurrentRouteService } from '@/app/service/RxJS-BehaviorSubject/current-route.service';
+import path from '@/app/types/constants/cons-path';
 import menuOptions from '@/app/types/constants/const-menu';
 import IMenuOptions from '@/app/types/interfaces/interface-menu';
-import path from '@/app/types/constants/cons-path';
+import SweetAlertClass from '@/app/utils/class/SweetAlertClass';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit {
       'warning'
     ).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/' + path.login.login]);
+        this.router.navigate(['/' + path.auth.login]);
       }
     });
   }
