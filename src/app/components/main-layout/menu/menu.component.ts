@@ -2,7 +2,7 @@ import { CurrentRouteService } from '@/app/service/RxJS-BehaviorSubject/current-
 import path from '@/app/types/constants/cons-path';
 import menuOptions from '@/app/types/constants/const-menu';
 import IMenuOptions from '@/app/types/interfaces/interface-menu';
-import SweetAlertClass from '@/app/utils/class/SweetAlertClass';
+import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 

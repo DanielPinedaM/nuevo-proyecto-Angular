@@ -6,7 +6,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { LoaderService } from './service/RxJS-BehaviorSubject/layout/loader.service';
 import path from './types/constants/cons-path';
 import { constImmutableProperties, objSessionStorage } from './types/constants/const-session-storage';
-import SweetAlertClass from './utils/class/SweetAlertClass';
+import SweetAlertClass from './utils/class/notification/SweetAlertClass';
 import { sessionStorageSearch } from './utils/func/sessionStorage';
 
 @Component({

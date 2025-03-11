@@ -11,6 +11,7 @@ import { environment } from '@/environments/environment';
 import { IPath } from '@/app/types/interfaces/interface-path';
 import DataTypeClass from '@/app/utils/class/DataTypeClass';
 import { HttpService } from '@/app/service/generalService/http.service';
+import HotToastClass from '@/app/utils/class/notification/HotToastClass';
 
 @Component({
   selector: 'app-login',
@@ -32,10 +33,14 @@ export class LoginComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
     ]),
-    rememberMe: new FormControl(false)
+    rememberMe: new FormControl(false),
   });
 
-  constructor(private router: Router, private httpService: HttpService) {}
+  constructor(
+    private router: Router,
+    private httpService: HttpService,
+    private hotToast: HotToastClass
+  ) {}
 
   ngOnInit() {
     sessionStorageDeleteAll();
@@ -84,8 +89,8 @@ export class LoginComponent implements OnInit {
       this.setSessionStorage(data);
       this.router.navigate(data.initRoute);
     } else {
-      console.error(message);
-    } */
+      this.hotToast.errorNotification(message);
+    }*/
 
     const data = {
       token: 'hola mundo',

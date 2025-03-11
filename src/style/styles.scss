@@ -45,3 +45,10 @@
 
 // sobrescribir escribir estilos generales de Prime NG
 @use "./global/prime-ng" as primeNg;
+
+/*
+*********************
+* ngxpert hot toast *
+********************* */
+
+@use '@ngxpert/hot-toast/styles';
