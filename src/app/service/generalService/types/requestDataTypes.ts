@@ -26,13 +26,19 @@ export interface IRequestOptions {
   responseType?: IResponseType;
 }
 
+interface IData {
+  timestamp: string;
+  path: string;
+  error: string | null;
+}
+
 /**
 asi es como responde la API */
 export interface IResponse {
   success: boolean;
   status: number;
   message: string;
-  data: any;
+  data: IData | any;
 }
 
 export type ResponseType = IResponse | Blob | FormData | any;
@@ -40,8 +46,25 @@ export type ResponseType = IResponse | Blob | FormData | any;
 /**
 parametros de funcion errorLogs() q se imprimen por consola  cuando hay errores */
 export interface IObjectLogs {
-  message?: string;
   method?: TMethod;
   url?: string;
   options?: IRequestOptions;
+  response: IResponse;
+}
+
+/**
+este es el formato (tipo de dato) q Angular le da a los errores */
+export interface IHttpErrorResponse {
+  headers: {
+    headers: any;
+    normalizedNames: any;
+    lazyUpdate: any;
+  };
+  status: number;
+  statusText: string;
+  url: string;
+  ok: boolean;
+  name: string;
+  message: string;
+  error: IResponse;
 }
