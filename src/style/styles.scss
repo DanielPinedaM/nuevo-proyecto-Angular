@@ -15,6 +15,13 @@
 @use "./global/reset-CSS" as reset;
 
 /*
+*******************
+* <table> - tabla *
+******************* */
+
+@use "./global/table" as table;
+
+/*
 ***************
 * sweet alert *
 *************** */
@@ -27,13 +34,6 @@
 ******************* */
 
 @use "./global/scroll-bar" as scrollBar;
-
-/*
-*******************
-* <table> - tabla *
-******************* */
-
-@use "./global/table" as table;
 
 /*
 ************

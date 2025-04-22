@@ -13,7 +13,17 @@ table {
   // borde redondeado de tabla
   border: 1px solid branding.$gray-light;
   border-style: hidden;
+  border-radius: 15px;
   overflow: hidden;
+
+  // centrar <th>
+  div.p-column-header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+  }
 
   thead,
   tfoot,
@@ -36,6 +46,12 @@ table {
   td {
     // borde de las casillas de las tablas
     border: 1px solid branding.$gray-light;
+
+    &.p-selection-column {
+      // Prime NG - centrar campos chequeables: checkbox, radio button, etc
+      text-align: center;
+      vertical-align: middle;
+    }
   }
 
   th {
@@ -66,15 +82,15 @@ table {
   tr {
     &:nth-child(even) {
       // cambiar color de fondo de filas pares de la tabla: 2, 4, 6, etc.
-       background-color: branding.$white-smoke;
+      background-color: #f2f2f2;
     }
   }
 
   tbody {
     tr:hover {
       // cambiar color al situar mouse sobre las filas q NO son el <th>
-      background-color: branding.$white-smoke !important;
-      color: branding.$blue-dark;
+      background-color: #eff6ff !important;
+      color: #1d4ed8;
     }
 
     // Evitar hover en filas que contienen <th>
@@ -82,5 +98,19 @@ table {
       background-color: transparent !important;
       color: inherit !important;
     }
+  }
+}
+
+/*
+**************************************
+* Prime NG - paginador de las tablas *
+************************************** */
+
+div.p-paginator-bottom {
+  padding: 5px !important;
+
+  button {
+    width: 30px;
+    height: 30px;
   }
 }

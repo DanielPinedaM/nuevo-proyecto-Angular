@@ -16,7 +16,6 @@ import { enterFields } from '@/app/types/constants/const-error-message';
 import { IBodyLogin } from '@/app/types/interfaces/interface-auth';
 import { initRoute, minLengthPassword } from '@/app/types/constants/const-auth';
 import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
-import DownloadFileClass from '@/app/utils/class/DownloadFileClass';
 
 @Component({
   selector: 'app-login',
