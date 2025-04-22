@@ -5,7 +5,7 @@ import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
-import { routes } from './app.routes';
+import { routes } from '@/app/app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [

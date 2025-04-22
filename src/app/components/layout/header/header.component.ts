@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { objSessionStorage } from '../../../types/constants/const-session-storage';
-import { sessionStorageListValue } from '../../../utils/func/sessionStorage';
+import { objSessionStorage } from '@/app/types/constants/const-session-storage';
+import { sessionStorageListValue } from '@/app/utils/func/sessionStorage';
 import IObjSessionStorage from '@/app/types/interfaces/interface-session-storage';
 
 @Component({

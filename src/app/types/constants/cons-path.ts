@@ -1,4 +1,4 @@
-import { IPath } from '../interfaces/interface-path';
+import { IPath } from '@/app/types/interfaces/interface-path';
 
 const path: IPath = {
   empty: '',

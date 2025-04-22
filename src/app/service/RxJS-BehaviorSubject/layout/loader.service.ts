@@ -1,4 +1,5 @@
-// ocultar y mostrar loader global en todos los componentes
+/**
+ocultar y mostrar loader global en todos los componentes */
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';

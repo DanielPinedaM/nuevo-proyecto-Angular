@@ -4,9 +4,8 @@ import {
 } from '@/app/types/constants/const-auth';
 import { constRegex } from '@/app/types/constants/const-regex';
 import { IObjValidatePassword } from '@/app/types/interfaces/interface-auth';
-import DataTypeClass from './DataTypeClass';
+import DataTypeClass from '@/app/utils/class/DataTypeClass';
 import { specialWords } from '@/app/types/constants/const-special-words';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export default class GeneralClass {
   public static strongPassword = (password: string): boolean => {

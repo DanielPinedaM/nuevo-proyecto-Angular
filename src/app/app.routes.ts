@@ -1,22 +1,22 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
-import path from './types/constants/cons-path';
+import { AuthGuard } from '@/app/guards/auth.guard';
+import path from '@/app/types/constants/cons-path';
 
 //#region componentes de Angular
 // home
-import { HomeComponent } from './components/main-layout/home/home.component';
+import { HomeComponent } from '@/app/components/layout/home/home.component';
 
 // auth
-import { LoginComponent } from './components/auth/login/login.component';
-import { RecoverPasswordComponent } from './components/auth/recover-password/recover-password.component';
-import { RegisterComponent } from './components/auth/register/register.component';
-import { AssignPasswordComponent } from './components/auth/assign-password/assign-password.component';
+import { LoginComponent } from '@/app/components/auth/login/login.component';
+import { RecoverPasswordComponent } from '@/app/components/auth/recover-password/recover-password.component';
+import { RegisterComponent } from '@/app/components/auth/register/register.component';
+import { AssignPasswordComponent } from '@/app/components/auth/assign-password/assign-password.component';
 
 // error 404 - ruta inexistente
-import { Error404NonExistentPathComponent } from './components/main-layout/error-404-non-existent-path/error-404-non-existent-path.component';
+import { Error404NonExistentPathComponent } from '@/app/components/layout/error-404-non-existent-path/error-404-non-existent-path.component';
 
 // bots
-import { BotsComponent } from './components/home/bots/bots.component';
+import { BotsComponent } from '@/app/components/home/bots/bots.component';
 //#endregion componentes de Angular
 
 export const routes: Routes = [

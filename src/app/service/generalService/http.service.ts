@@ -6,8 +6,8 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom, Observable, timeout } from 'rxjs';
-import path from '../../types/constants/cons-path';
-import { LoaderService } from '../RxJS-BehaviorSubject/layout/loader.service';
+import path from '@/app/types/constants/cons-path';
+import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.service';
 import { objSessionStorage } from '@/app/types/constants/const-session-storage';
 import {
   sessionStorageListValue,
@@ -20,7 +20,7 @@ import {
   IResponse,
   ResponseType,
   TMethod,
-} from './types/requestDataTypes';
+} from '@/app/service/generalService/types/requestDataTypes';
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/app/utils/class/DataTypeClass';
 import HotToastClass from '@/app/utils/class/notification/HotToastClass';

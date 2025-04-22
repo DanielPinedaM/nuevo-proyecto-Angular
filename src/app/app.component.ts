@@ -2,16 +2,19 @@ import { environment } from '@/environments/environment';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { CheckboxModule } from 'primeng/checkbox';
-import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.service'
-import path from './types/constants/cons-path';
-import { constImmutableProperties, objSessionStorage } from './types/constants/const-session-storage';
-import SweetAlertClass from './utils/class/notification/SweetAlertClass';
-import { sessionStorageSearch } from './utils/func/sessionStorage';
+import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.service';
+import path from '@/app/types/constants/cons-path';
+import {
+  constImmutableProperties,
+  objSessionStorage,
+} from '@/app/types/constants/const-session-storage';
+import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass';
+import { sessionStorageSearch } from '@/app/utils/func/sessionStorage';
+import { LoaderComponent } from '@/app/components/layout/loader/loader.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, LoaderComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
@@ -20,8 +23,8 @@ export class AppComponent {
   constructor(
     private bnIdle: BnNgIdleService,
     private router: Router,
-    private loaderService: LoaderService,
-  ) { }
+    private loaderService: LoaderService
+  ) {}
 
   ngOnInit(): void {
     this.getLoader();
@@ -36,8 +39,12 @@ export class AppComponent {
 
         setTimeout(() => {
           this.loader = false;
-          console.warn(`⚠️ se oculto el icono de cargando despues de ${milliseconds / 120000} minutos porque una peticion HTTP tardo en responder`);
-        }, milliseconds)
+          console.warn(
+            `⚠️ se oculto el icono de cargando despues de ${
+              milliseconds / 120000
+            } minutos porque una peticion HTTP tardo en responder`
+          );
+        }, milliseconds);
       }
 
       this.loader = loader;
@@ -51,7 +58,11 @@ export class AppComponent {
       if (isTimedOut) {
         if (sessionStorageSearch(objSessionStorage.token!)) {
           this.router.navigate(['/' + path.auth.login]);
-          SweetAlertClass.MessageAlert('Sesión Inactiva', 'Su sesión ya no se encuentra activa, ingrese nuevamente', 'info');
+          SweetAlertClass.MessageAlert(
+            'Sesión Inactiva',
+            'Su sesión ya no se encuentra activa, ingrese nuevamente',
+            'info'
+          );
         }
       }
     });
@@ -65,7 +76,11 @@ export class AppComponent {
 
       if (indexOf > -1) {
         this.router.navigate(['/' + path.auth.login]);
-        SweetAlertClass.MessageAlert('Sesión Inactiva', 'Su sesión ya no se encuentra activa, ingrese nuevamente', 'info');
+        SweetAlertClass.MessageAlert(
+          'Sesión Inactiva',
+          'Su sesión ya no se encuentra activa, ingrese nuevamente',
+          'info'
+        );
       }
     });
   }

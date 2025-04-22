@@ -4,7 +4,7 @@
  * Iniciar sesion, registro y recuparar contraseña *
  *************************************************** */
 
-import path from './cons-path';
+import path from '@/app/types/constants/cons-path';
 
 /**
 cambiar numero de esta variable minLengthContrasena
