@@ -2,7 +2,7 @@ import { IVAuth, secretKeyAuthentication } from '@/app/types/constants/const-aut
 import { enc, mode, pad, AES } from 'crypto-js';
 
 export default class CryptoServiceClass {
-  public static encrypt(text: string): string {
+  public static async encrypt(text: string): Promise<string> {
     const key = enc.Utf8.parse(secretKeyAuthentication); // número hexadecimal de 16 dígitos como clave
     const iv = enc.Utf8.parse(IVAuth); // Número hexadecimal como desplazamiento de clave
 
@@ -18,7 +18,7 @@ export default class CryptoServiceClass {
     return encrypted.toString();
   }
 
-  public static decrypt(encryptedText: string): string {
+  public static async decrypt(encryptedText: string): Promise<string> {
     const key = enc.Utf8.parse(secretKeyAuthentication);
     const iv = enc.Utf8.parse(IVAuth);
 
