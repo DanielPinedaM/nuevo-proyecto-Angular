@@ -11,8 +11,10 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
-    return true;
-    /* if (sessionStorageSearch(objSessionStorage.token!)) {
+    return true; // borrar esta linea de codigo para activar proteccion de rutas
+    /* 
+    descomentar para activar proteccion de rutas
+    if (sessionStorageSearch(objSessionStorage.token!)) {
       return true;
     } else {
       this.router.navigate(['/' + path.auth.login]);

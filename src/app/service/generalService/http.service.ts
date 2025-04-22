@@ -11,7 +11,6 @@ import { LoaderService } from '../RxJS-BehaviorSubject/layout/loader.service';
 import { objSessionStorage } from '@/app/types/constants/const-session-storage';
 import {
   sessionStorageListValue,
-  
   sessionStorageSearch,
 } from '@/app/utils/func/sessionStorage';
 import {
@@ -99,14 +98,14 @@ export class HttpService {
           `Bearer ${token}`
         );
       } else {
-        const message: string = `error no se pudo obtener el token ${token}`;
+        console.error(`❌ error no se pudo obtener el token ${token}`)
 
         this.unauthorized();
 
         return Promise.resolve({
           success: false,
           status: 401,
-          message,
+          message: "Inice sesion para continuar",
           data: [],
         }) as T;
       }
@@ -147,12 +146,14 @@ export class HttpService {
 
       const result: IResponse = (await lastValueFrom<T>(response)) as IResponse;
 
+      /*
+      descomentar para imprimir logs de peticiones HTTP
       this.successLogs({
         method,
         url,
         options,
         response: result,
-      });
+      }); */
 
       return result;
     } catch (error: IHttpErrorResponse | any) {

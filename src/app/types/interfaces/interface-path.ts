@@ -4,6 +4,12 @@ export interface IPath {
   error404NonExistentPathComponent: string;
   auth: {
     login: string;
+    recoverPassword: string;
+    assignNewPassword: {
+      assignNewPassword: string;
+      id: string;
+    };
+    register: string;
   };
   home: {
     home: string;

@@ -43,7 +43,21 @@ export default class HotToastClass {
       duration: 4000,
       position: 'top-right',
       style: {
-        background: '#2196f3',
+        background: '#61aaec',
+        color: '#fff',
+      },
+    });
+  }
+
+  warningNotification(message: string): void {
+    if (!message) return;
+
+    this.toast.success(`Advertencia: ${message}`, {
+      icon: '<span class="material-symbols-outlined !text-white">warning</span>',
+      duration: 4000,
+      position: 'top-right',
+      style: {
+        background: '#f4d745',
         color: '#fff',
       },
     });

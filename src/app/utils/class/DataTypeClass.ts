@@ -72,10 +72,18 @@ Ejemplo: "-1,2.1", "-2", "3" */
     return null;
   };
 
+  public static trimLowerCase = (string: string | any): string | any => {
+    if (DataTypeClass.isString(string)) {
+      return string.trim().toLowerCase()
+    }
+
+    return string;
+  };
+
   /**
    Ejemplo: '  Compañía ' devuelve 'compania', true devuelve true */
   public static normalizeStr = (string: string | any): string | any => {
-    if (typeof string === 'string' || string instanceof String) {
+    if (DataTypeClass.isString(string)) {
       return string
         .trim()
         .toLowerCase()
