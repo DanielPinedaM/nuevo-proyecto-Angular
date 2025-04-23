@@ -45,12 +45,10 @@ export class HttpService {
     options: IRequestOptions = {}
   ): Promise<ResponseType> {
     if (!environment.auth.login) {
-      const message: string = ` la VARIABLE DE ENTORNO PARA EL LOGIN ${environment.auth.login} tiene que ser tipo string y NO puede estar vacia ''`;
-
       return Promise.resolve({
         success: false,
         status: 401,
-        message,
+        message: `la VARIABLE DE ENTORNO PARA EL LOGIN ${environment.auth.login} tiene que ser tipo string y NO puede estar vacia ''`,
         data: [],
       }) as T;
     }
@@ -67,6 +65,19 @@ export class HttpService {
         success: false,
         status: 400,
         message: `La URL '${url}' es invalida`,
+        data: [],
+      }) as T;
+    }
+
+    if (!window.navigator.onLine) {
+      const message: string = "Conéctese a internet para que la página web pueda funcionar";
+
+      this.hotToast.errorNotification(message);
+
+      return Promise.resolve({
+        success: false,
+        status: 503,
+        message,
         data: [],
       }) as T;
     }
