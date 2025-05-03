@@ -58,13 +58,13 @@ export const routes: Routes = [
   {
     path: path.home.home,
     component: HomeComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         // inicio/bots
         path: path.home.bots,
         component: BotsComponent,
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
     ],
   },
