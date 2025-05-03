@@ -60,7 +60,7 @@ nvm use 22.14.0
 
 comando | apunta a... | ruta archivo
 ------------ | ------------- | -------------
-node --run start | localhost | src/environments/environment.development.ts
+node --run start:dev | localhost | src/environments/environment.development.ts
 node --run start:test | pruebas | src/environments/environment.test.ts
 node --run start:prod | producción | src/environments/environment.ts
 
