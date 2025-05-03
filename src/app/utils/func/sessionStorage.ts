@@ -42,7 +42,8 @@ const convertToString = (value: TSessionStorageValue): TSessionStorageValue => {
   return value;
 };
 
-/* saber si puedo o no convertir de string a array u objeto con JSON.parse() */
+/**
+saber si puedo o no convertir de string a array u objeto con JSON.parse() */
 const isValidJSONparse = (string: string): boolean => {
   if (typeof string !== 'string') return false;
 
@@ -54,7 +55,8 @@ const isValidJSONparse = (string: string): boolean => {
   }
 };
 
-/* sessionStorage - listar todas las propiedad: valor en un objeto literal {} */
+/**
+sessionStorage - listar todas las propiedad: valor en un objeto literal {} */
 export const sessionStorageListAll = (): ISessionStorageObject | null => {
   const storageObject: ISessionStorageObject = {};
   const length: number = sessionStorage.length;
@@ -73,21 +75,24 @@ export const sessionStorageListAll = (): ISessionStorageObject | null => {
   return storageObject;
 };
 
-/* sessionStorage - Object.keys() - array [] con nombres de todas las propiedades */
+/**
+sessionStorage - Object.keys() - array [] con nombres de todas las propiedades */
 export const sessionStorageProperties = (): string[] | null => {
   const listAll: ISessionStorageObject | null = sessionStorageListAll();
 
   return listAll ? Object.keys(listAll) : null;
 };
 
-/* sessionStorage - Object.values() - array [] con nombres de todos los valores */
+/**
+sessionStorage - Object.values() - array [] con nombres de todos los valores */
 export const sessionStorageValues = (): string[] | null => {
   const listAll: ISessionStorageObject | null = sessionStorageListAll();
 
   return listAll ? Object.values(listAll) : null;
 };
 
-/* sessionStorage - listar un solo valor de una propiedad en especifico */
+/**
+sessionStorage - listar un solo valor de una propiedad en especifico */
 export const sessionStorageListValue = (property: string): string | any[] | any => {
   if (!isValidString(property)) {
     errorMessage('sessionStorageListValue', property);
@@ -121,7 +126,8 @@ export const sessionStorageListValue = (property: string): string | any[] | any 
     return value;
 };
 
-/* sessionStorage - buscar una propiedad
+/** 
+sessionStorage - buscar una propiedad
 true:  la propiedad SI existe  en sessionStorage
 false: la propuedad NO existe  en sessionStorage */
 export const sessionStorageSearch = (property: string): boolean => {
@@ -134,8 +140,9 @@ export const sessionStorageSearch = (property: string): boolean => {
   return value !== null ? true : false;
 };
 
-/* sessionStorage - guardar una nueva propiedad: valor
-   "cuando NO existe lo creo" */
+/** 
+sessionStorage - guardar una nueva propiedad: valor
+"cuando NO existe lo creo" */
 export const sessionStorageSave = (property: string, value: TSessionStorageValue): boolean => {
   if (!isValidString(property)) {
     errorMessage('sessionStorageSave', property, value);
@@ -156,8 +163,9 @@ export const sessionStorageSave = (property: string, value: TSessionStorageValue
   return true;
 };
 
-/* sessionStorage - actualizar (sobrescribir) el valor de una propiedad SI existe
-   "cuando SI existe lo actualizo" */
+/**
+sessionStorage - actualizar (sobrescribir) el valor de una propiedad SI existe
+"cuando SI existe lo actualizo" */
 export const sessionStorageUpdate = (property: string, value: TSessionStorageValue): boolean => {
   if (!isValidString(property)) {
     errorMessage('sessionStorageUpdate', property, value);
@@ -179,7 +187,7 @@ export const sessionStorageUpdate = (property: string, value: TSessionStorageVal
   return true;
 };
 
-/*
+/**
 SIEMPRE se guarda una propiedad: valor
 
 Cuando NO existe la propiedad en sessionStorage, GUARDA una NUEVA propiedad: valor
@@ -215,7 +223,8 @@ export const sessionStorageDeleteAll = (): boolean => {
 };
 
 
-/* sessionStorage - eliminar TODAS las propiedad: valor EXCEPTO las q estan en el array properties
+/** 
+sessionStorage - eliminar TODAS las propiedad: valor EXCEPTO las q estan en el array properties
 
 Ejemplo:
 eliminar TODAS las propiedades EXCEPTO 'token' y 'nombre'
@@ -261,7 +270,8 @@ export const sessionStorageDeleteExcept = (properties: string[]): boolean => {
   return properties.length === sessionStorage.length;
 };
 
-/* sessionStorage - eliminar UNA SOLA propiedad: valor en ESPECIFICO */
+/**
+sessionStorage - eliminar UNA SOLA propiedad: valor en ESPECIFICO */
 export const sessionStorageDeleteSpecific = (property: string): boolean => {
   if (!isValidString(property)) {
     errorMessage('sessionStorageDeleteSpecific', property);

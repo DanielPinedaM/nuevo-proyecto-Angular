@@ -64,7 +64,8 @@ export default class LuxonClass {
   /**
   formato de fecha y hora con a.m y p.m */
   public static dateAndTimeFormat = (
-    date: Date | string | Nullable<Date>
+    date: Date | string | Nullable<Date>,
+    format: string = 'd-LLL-yyyy hh:mm a'
   ): string | any => {
     let dateTime: DateTime;
 
@@ -80,17 +81,17 @@ export default class LuxonClass {
 
     const finalDate: string = dateTime
       .setLocale('es')
-      .toFormat('d-LLL-yyyy hh:mm a');
+      .toFormat(format);
 
     return this.replaceAmPm(finalDate);
   };
 
   /**
   fecha y hora actual con a.m y p.m  */
-  public static currentDateAndTime = (): string => {
+  public static currentDateAndTime = (format: string = 'd-LLL-yyyy hh:mm:ss a'): string => {
     const finalDate: string = DateTime.now()
       .setLocale('es')
-      .toFormat('d-LLL-yyyy hh:mm:ss a')
+      .toFormat(format)
       .replace(/\.$/, '');
 
     return this.replaceAmPm(finalDate);
