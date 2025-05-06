@@ -1,0 +1,56 @@
+<section class="h-screen flex flex-col rounded-tr-3xl p-3 w-fit bg-orange-700 text-white">
+  <div class="px-3.5 mb-10">
+    @if (showText) {
+      <img class="w-44" src="https://robohash.org/1" alt="Logo de Bios">
+    } @else {
+      <img class="w-10" src="https://robohash.org/2" alt="Logo de Bios">
+    }
+  </div>
+
+  <div [ngClass]="{'p-2': true,
+                   'flex justify-center': !showText
+                  }">
+    <button (click)="onClickMinimizeOrMaximizeMenu()" 
+             class="flex items-center gap-x-2 cursor-pointer"
+             [pTooltip]="!showText ? 'Maximizar Menú' : ''"
+             matTooltipPosition="right">
+      @if (showText) {
+        <img class="w-8" src="/assets/icon/menu/close-menu.svg" alt="cerrar menu">
+        <p>Minimizar Menú</p>
+      } @else {
+        <img class="w-8" src="/assets/icon/menu/open-menu.svg" alt="abrir menu">
+      }
+    </button>
+  </div>
+
+  <menu class="flex flex-col justify-between h-full">
+    <div class="flex flex-col gap-y-2">
+      @for (item of menuOptions; track $index) {
+      <li [ngClass]="{'bg-orange-900': currentRoute === item.path }"
+          class="rounded-md">
+        <a [routerLink]="item.path"
+           [pTooltip]="!showText ? item.tooltip : ''"
+           tooltipPosition="right"
+           class="hover:bg-orange-800 p-1 rounded cursor-pointer flex items-center gap-x-2">
+          <i class="pi pi-users"></i>
+          @if (showText) {
+          <span>{{ item.text }}</span>
+          }
+        </a>
+      </li>
+    }
+    </div>
+
+    <li>
+      <button (click)="onClickLogOut()" 
+              [pTooltip]="!showText ? 'Cerrar sesión' : ''" 
+              tooltipPosition="right"
+              class="block w-full hover:bg-orange-800 p-1 rounded cursor-pointer flex items-center gap-x-2">
+        <i class="pi pi-sign-out"></i>
+        @if (showText) {
+        <span>Cerrar sesión</span>
+        }
+      </button>
+    </li>
+  </menu>
+</section>
