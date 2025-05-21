@@ -6,8 +6,15 @@ import { constRegex } from '@/app/types/constants/const-regex';
 import { IObjValidatePassword } from '@/app/types/interfaces/interface-auth';
 import DataTypeClass from '@/app/utils/class/DataTypeClass';
 import { specialWords } from '@/app/types/constants/const-special-words';
+import HotToastClass from './notification/HotToastClass';
+import { Injectable } from '@angular/core';
+
 
 export default class GeneralClass {
+  constructor(
+    private hotToast: HotToastClass,
+  ) {}
+
   public static strongPassword = (password: string): boolean => {
     return constRegex.text.strongPassword.test(password);
   };
@@ -106,10 +113,13 @@ export default class GeneralClass {
   /**
   prime NG - calcular paginador y numero de filas q se muestran en <table>
   el algoritmo funciona mejor si rows es multiplo de 3, pero puede ser cualquier numero */
-  public static rowsPerPageOptions = (length: number = 0, rows: number = 0): number[] => {
-    if (typeof length !== "number") {
+  public static rowsPerPageOptions = (
+    length: number = 0,
+    rows: number = 0
+  ): number[] => {
+    if (typeof length !== 'number') {
       console.error(
-        "para calcular el numero de filas del paginador de prime NG la el parametro de la longitud length del array debe ser tipo number",
+        'para calcular el numero de filas del paginador de prime NG la el parametro de la longitud length del array debe ser tipo number',
         typeof length
       );
       return [];
@@ -145,17 +155,22 @@ export default class GeneralClass {
     // 2) <= longitud de la data q se muestra en la tabla
     // 3) ...new Set todos los numeros de pagina tienen q ser unicos
     // 4) ordenar ascendente (de menor a mayor)
-    return [...new Set(opciones.filter((option: number) => option >= rows && option <= length))].sort(
-      (a, b) => a - b
-    );
-  }
+    return [
+      ...new Set(
+        opciones.filter((option: number) => option >= rows && option <= length)
+      ),
+    ].sort((a, b) => a - b);
+  };
 
   /**
   recortar un string a un tamaño de caracteres máximo,
   agregando "..." si excede la longitud especificada */
-  public static truncateString = (string: string | any, maxLength: number): string | any => {
-    if (typeof string === "string" && string.length > maxLength) {
-      return string.slice(0, maxLength) + "...";
+  public static truncateString = (
+    string: string | any,
+    maxLength: number
+  ): string | any => {
+    if (typeof string === 'string' && string.length > maxLength) {
+      return string.slice(0, maxLength) + '...';
     }
 
     return string;
@@ -166,27 +181,55 @@ export default class GeneralClass {
   Ejemplo: [1, 2, 3] devuelve 1, 2 y 3 */
   public static listFormat = (array: any[]): string => {
     const arrayString: string[] = array.map((item) => String(item));
-    return new Intl.ListFormat("es").format(arrayString);
+    return new Intl.ListFormat('es').format(arrayString);
   };
 
-    /**
+  /**
   devuleve string con mayusculas iniciales */
-    public static titleCase = (string: string | any): string | any => {
-      if (typeof string !== "string") return string;
-      if (string.trim() === "") return string;
+  public static titleCase = (string: string | any): string | any => {
+    if (typeof string !== 'string') return string;
+    if (string.trim() === '') return string;
 
-      return string
-        .replaceAll("-", " ")
-        .replace(/\w\S*/g, (word: string): string => {
-          const wordNormalize: string = DataTypeClass.normalizeStr(word);
+    return string
+      .replaceAll('-', ' ')
+      .replace(/\w\S*/g, (word: string): string => {
+        const wordNormalize: string = DataTypeClass.normalizeStr(word);
 
-          // SI la palabra existe en la key del objeto "specialWords" entonces reempalzarlo por el value
-          if (specialWords[wordNormalize]) return specialWords[wordNormalize];
+        // SI la palabra existe en la key del objeto "specialWords" entonces reempalzarlo por el value
+        if (specialWords[wordNormalize]) return specialWords[wordNormalize];
 
-          if (word.length <= 3) return word.toLowerCase();
+        if (word.length <= 3) return word.toLowerCase();
 
-          return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
-        })
-        .trim();
-    };
+        return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
+      })
+      .trim();
+  };
+
+   /**
+   copiar texto en portapapeles */
+   public copyText = async (text: string): Promise<void> => {
+    const errorMessage: string = 'No se pudo copiar el texto';
+
+    if (!text) {
+      console.error('❌ error, el texto a copiar NO puede ser falsy \n', text);
+      return;
+    }
+
+    if (!navigator?.clipboard?.writeText) {
+      this.hotToast.errorNotification(errorMessage);
+      console.error(
+        errorMessage,
+        ' porque el navegador no es compatible con navigator?.clipboard?.writeText'
+      );
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(text);
+      this.hotToast.successNotification('Texto copiado');
+    } catch (e) {
+      this.hotToast.errorNotification(errorMessage);
+      console.error(errorMessage, '\n', e);
+    }
+  };
 }
