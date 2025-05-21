@@ -39,9 +39,15 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification(message);
       return;
     }
+    
+    if (!fileName) {
+      this.hotToast.errorNotification(message);
+      console.error('❌ el nombre del archivo fileName NO puede ser falsy\n', fileName);
+      return;
+    }
 
     const extension: string | undefined = fileName?.split('.')?.at(-1);
-    if (!fileName || !fileName?.includes('.') || !extension) {
+    if (!fileName?.includes('.') || !extension) {
       console.error(
         '❌ error, no se puede descargar archivo ',
         fileName,
@@ -89,9 +95,33 @@ export default class DownloadFileClass {
   ): void => {
     const errroMessage: string = 'Ocurrió un error al descargar Excel';
 
-    if (!nonNestedArrayOfObjects || nonNestedArrayOfObjects?.length === 0) {
+    if (!nonNestedArrayOfObjects) {
+      this.hotToast.errorNotification(errroMessage);
+      console.error(
+        '❌ el array de objetos NO puede ser falsy\n',
+        nonNestedArrayOfObjects
+      );
+      return;
+    }
+
+   if (!(Array.isArray(nonNestedArrayOfObjects))) {
+      this.hotToast.errorNotification(errroMessage);
+      console.error(
+        '❌ el parametro nonNestedArrayOfObjects tiene q ser un array de objetos NO anidado\n',
+        nonNestedArrayOfObjects
+      );
+      return;
+    }
+
+    if (nonNestedArrayOfObjects.length === 0) {
       this.hotToast.errorNotification(errroMessage);
       console.error('❌ el array de objetos NO puede estar vacio, NI puede ser falsy\n', nonNestedArrayOfObjects);
+      return;
+    }
+    
+    if (!fileName) {
+      this.hotToast.errorNotification(errroMessage);
+      console.error('❌ el nombre del archivo fileName NO puede ser falsy\n', fileName);
       return;
     }
 
