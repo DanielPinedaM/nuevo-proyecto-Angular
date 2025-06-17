@@ -29,7 +29,9 @@ const isValidString = (property: string): boolean => {
   return true;
 };
 
-const convertToString = (value: TSessionStorageValue): TSessionStorageValue => {
+/**
+convertir a JSON.stringify() SI ES POSIBLE */
+export const convertToStringify = (value: TSessionStorageValue): TSessionStorageValue => {
   // solamente se puede hacer JSON.stringify() de un
   // 1) array []
   if (Array.isArray(value)) return JSON.stringify(value);
@@ -153,7 +155,7 @@ export const sessionStorageSave = (property: string, value: TSessionStorageValue
 
   if (search) return false;
 
-  const stringValue: TSessionStorageValue = convertToString(value);
+  const stringValue: TSessionStorageValue = convertToStringify(value);
   // NO convertir el token a Base 64
   if (property === objSessionStorage.token) {
     sessionStorage.setItem(btoa(property), stringValue as string);
@@ -177,7 +179,7 @@ export const sessionStorageUpdate = (property: string, value: TSessionStorageVal
   // NO se puede actualizar el valor de una propiedad q no existe
   if (!search) return false;
 
-  const stringValue: TSessionStorageValue = convertToString(value);
+  const stringValue: TSessionStorageValue = convertToStringify(value);
   // NO convertir el token a Base 64
   if (property === objSessionStorage.token) {
     sessionStorage.setItem(btoa(property), stringValue as string);
@@ -201,7 +203,7 @@ export const sessionStorageSaveAndUpdate = (property: string, value: TSessionSto
     return false;
   }
 
-  const stringValue: TSessionStorageValue = convertToString(value);
+  const stringValue: TSessionStorageValue = convertToStringify(value);
 
   // NO convertir el token a Base 64
   if (property === objSessionStorage.token) {
