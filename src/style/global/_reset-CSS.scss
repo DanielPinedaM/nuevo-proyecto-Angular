@@ -24,6 +24,13 @@
   color-scheme: only light !important;
 }
 
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background-color: branding.$white-smoke;
+  }
+}
+
 /*
 ***********************************************
 * etiquetas padre contenedoras de toda la web *
@@ -52,9 +59,12 @@ html {
 
 html,
 body {
-  background-color: branding.$white-smoke;
   line-height: 1.2;
   font-family: branding.$inter !important;
+
+  // suavizar texto
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /*
@@ -66,15 +76,12 @@ body {
   font-family: branding.$monospace !important;
 }
 
-/*
-*****************
-* Sweet Alert 2 *
-***************** */
+a {
+  text-decoration-line: none;
 
-div.swal2-container {
-  * {
-    font-family: branding.$inter !important;
-  }
+  // Eliminar color de fondo azul cuando se hace click en los enlaces <a>
+  // https://stackoverflow.com/questions/21003535/anyway-to-prevent-the-blue-highlighting-of-elements-in-chrome-when-clicking-quic
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 /*
@@ -125,16 +132,6 @@ tr,
 th,
 td {
   font-variant-numeric: tabular-nums !important;
-}
-
-/*
-*********************************************************************************************************************************
-* Eliminar color de fondo azul cuando se hace click en los enlaces <a>                                                          *
-* https://stackoverflow.com/questions/21003535/anyway-to-prevent-the-blue-highlighting-of-elements-in-chrome-when-clicking-quic *
-********************************************************************************************************************************* */
-
-a {
-  -webkit-tap-highlight-color: transparent !important;
 }
 
 /*
