@@ -24,6 +24,7 @@ export interface IRequestOptions {
     [name: string]: string | number | (string | number)[];
   };
   responseType?: IResponseType;
+  showLoader?: boolean;
 }
 
 interface IData {

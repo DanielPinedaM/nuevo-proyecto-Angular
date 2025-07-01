@@ -94,6 +94,7 @@ export class HttpService {
       queryParams,
       headers = {},
       responseType = 'json',
+      showLoader = true,
     } = options;
 
     if (body && method === 'GET') {
@@ -105,7 +106,9 @@ export class HttpService {
       }) as T;
     }
 
-    this.loaderService.setLoader(true);
+    if (showLoader) {
+      this.loaderService.setLoader(true);
+    }
 
     this.httpHeader = new HttpHeaders(headers);
 
@@ -216,7 +219,9 @@ export class HttpService {
         data: null,
       }) as T;
     } finally {
-      this.loaderService.setLoader(false);
+      if (showLoader) {
+        this.loaderService.setLoader(false);
+      }
     }
   }
 
