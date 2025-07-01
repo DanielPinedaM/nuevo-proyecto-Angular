@@ -1,4 +1,4 @@
-@use "./branding";
+@use "./variable";
 
 /*
 *******************
@@ -17,7 +17,7 @@
 
 
 *::-webkit-scrollbar-thumb {
-  background-color: branding.$gray-dark !important;
+  background-color: variable.$gray-dark !important;
   border-radius: 10px;
   border-right: none;
   border-left: none;

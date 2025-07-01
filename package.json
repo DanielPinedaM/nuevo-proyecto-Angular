@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch --configuration development ",
     "test": "ng test",
-    "start:dev": "npx ng serve --configuration=development",
-    "start:test": "npx ng serve --configuration=test",
-    "start:prod": "npx ng serve --configuration=production",
+    "start:dev": "npx ng serve --configuration=development --port=4200",
+    "start:test": "npx ng serve --configuration=test --port=4200",
+    "start:prod": "npx ng serve --configuration=production --port=4200",
     "build:test": "node --max_old_space_size=100000 node_modules/@angular/cli/bin/ng build --aot --configuration=test",
     "build:prod": "node --max_old_space_size=100000 node_modules/@angular/cli/bin/ng build --aot --configuration=production"
   },

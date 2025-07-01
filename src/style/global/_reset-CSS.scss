@@ -1,4 +1,4 @@
-@use "./branding";
+@use "./variable";
 
 // Reset CSS
 
@@ -7,8 +7,13 @@
 * selector universal *
 ********************** */
 
-*:not([class*="swal"]):not([class*="p-"]) {
+*:not([class*='swal']):not([class*='p-']) {
   box-sizing: border-box;
+}
+
+*:not([class="swal"]):not([class*='p-']):not([class*="button-"]):not([class*="m-"]):not([class*="mx-"]):not([class*="my-"]):not([class*="ms-"]):not([class*="me-"]):not([class*="mt-"]):not([class*="mr-"]):not([class*="mb-"]):not([class*="ml-"]):not([class*="space-"]):not([class*="p-"]):not([class*="px-"]):not([class*="py-"]):not([class*="ps-"]):not([class*="pe-"]):not([class*="pt-"]):not([class*="pr-"]):not([class*="pb-"]):not([class*="pl-"]) {
+  margin: 0;
+  padding: 0;
 }
 
 /*
@@ -27,7 +32,7 @@
 @media (prefers-color-scheme: dark) {
   html,
   body {
-    background-color: branding.$white-smoke;
+    background-color: variable.$white-smoke;
   }
 }
 
@@ -60,7 +65,7 @@ html {
 html,
 body {
   line-height: 1.2;
-  font-family: branding.$inter !important;
+  font-family: variable.$inter !important;
 
   // suavizar texto
   -webkit-font-smoothing: antialiased;
@@ -73,10 +78,13 @@ body {
 **************/
 
 .font-monospace {
-  font-family: branding.$monospace !important;
+  font-family: variable.$monospace !important;
 }
 
 a {
+  // color de texto
+  color: black;
+
   text-decoration-line: none;
 
   // Eliminar color de fondo azul cuando se hace click en los enlaces <a>
@@ -103,12 +111,6 @@ h6 {
   text-wrap: pretty;
 }
 
-/*
-*********************************************************************
-* alineacion uniforme de los numeros                                *
-* https://css-tricks.com/almanac/properties/f/font-variant-numeric/ *
-********************************************************************* */
-
 // etiquetas para texto
 h1, h2, h3, h4, h5, h6,
 p,
@@ -131,6 +133,11 @@ tfoot,
 tr,
 th,
 td {
+  // color de texto
+  color: black;
+
+  //  alineacion uniforme de los numeros
+  // https://css-tricks.com/almanac/properties/f/font-variant-numeric/
   font-variant-numeric: tabular-nums !important;
 }
 

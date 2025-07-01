@@ -8,32 +8,15 @@
 @use "./../../node_modules/material-symbols/index.css";
 
 /*
-*************
-* Reset CSS *
-************* */
+**********
+* Global *
+********** */
 
 @use "./global/reset-CSS" as reset;
-
-/*
-*******************
-* <table> - tabla *
-******************* */
-
 @use "./global/table" as table;
-
-/*
-***************
-* sweet alert *
-*************** */
-
 @use "./global/sweet-alert-2" as sweetAlert;
-
-/*
-*******************
-* Barra de scroll *
-******************* */
-
 @use "./global/scroll-bar" as scrollBar;
+@use "./global/button" as button;
 
 /*
 ************
