@@ -44,6 +44,7 @@ export class HttpService {
     url: string = '',
     options: IRequestOptions = {}
   ): Promise<ResponseType> {
+    // validar env en los q NO se incluye en token
     if (!environment.auth.login) {
       return Promise.resolve({
         success: false,
@@ -53,13 +54,14 @@ export class HttpService {
       }) as T;
     }
 
+    // validar URL q llama al endpoint
     if (
-        !DataTypeClass.isString(url)
-        || String(url).trim() === ''
-        || String(url).includes("undefined")
-        || String(url).includes("null")
-        || String(url).includes("NaN")
-        || !(String(url).startsWith("http"))
+      !DataTypeClass.isString(url) ||
+      String(url).trim() === '' ||
+      String(url).includes('undefined') ||
+      String(url).includes('null') ||
+      String(url).includes('NaN') ||
+      !String(url).startsWith('http')
     ) {
       return Promise.resolve({
         success: false,
@@ -69,8 +71,10 @@ export class HttpService {
       }) as T;
     }
 
+    // validar q tenga conexion a internet
     if (!window.navigator.onLine) {
-      const message: string = "Conéctese a internet para que la página web pueda funcionar";
+      const message: string =
+        'Conéctese a internet para que la página web pueda funcionar';
 
       this.hotToast.errorNotification(message);
 
@@ -82,8 +86,6 @@ export class HttpService {
       }) as T;
     }
 
-    this.loaderService.setLoader(true);
-
     const {
       // enviar token en TODOS los endpoint, EXCEPTO al iniciar sesion
       isASecurityEndpoint = url !== environment.auth.login,
@@ -93,6 +95,17 @@ export class HttpService {
       headers = {},
       responseType = 'json',
     } = options;
+
+    if (body && method === 'GET') {
+      return Promise.resolve({
+        success: false,
+        status: 400,
+        message: `❌ el metodo GET NO puede tener body ${JSON.stringify(body)}`,
+        data: [],
+      }) as T;
+    }
+
+    this.loaderService.setLoader(true);
 
     this.httpHeader = new HttpHeaders(headers);
 
@@ -109,14 +122,14 @@ export class HttpService {
           `Bearer ${token}`
         );
       } else {
-        console.error(`❌ error no se pudo obtener el token ${token}`)
+        console.error(`❌ error no se pudo obtener el token ${token}`);
 
         this.unauthorized();
 
         return Promise.resolve({
           success: false,
           status: 401,
-          message: "Inice sesion para continuar",
+          message: 'Inice sesion para continuar',
           data: [],
         }) as T;
       }
