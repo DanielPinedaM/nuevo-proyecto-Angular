@@ -54,12 +54,12 @@ export class HttpService {
     }
 
     if (
-      !url ||
-      String(url)?.trim() === '' ||
-      String(url)?.includes('undefined') ||
-      String(url)?.includes('null') ||
-      String(url)?.includes('NaN') ||
-      !String(url)?.includes('http')
+        !DataTypeClass.isString(url)
+        || String(url).trim() === ''
+        || String(url).includes("undefined")
+        || String(url).includes("null")
+        || String(url).includes("NaN")
+        || !(String(url).startsWith("http"))
     ) {
       return Promise.resolve({
         success: false,
