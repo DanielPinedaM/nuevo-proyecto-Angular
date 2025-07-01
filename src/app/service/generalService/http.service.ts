@@ -72,7 +72,7 @@ export class HttpService {
     }
 
     // validar q tenga conexion a internet
-    if (!window.navigator.onLine) {
+    if (!(window?.navigator?.onLine)) {
       const message: string =
         'Conéctese a internet para que la página web pueda funcionar';
 
