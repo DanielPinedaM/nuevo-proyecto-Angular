@@ -51,16 +51,18 @@ export class LoginComponent implements OnInit {
   }
 
   setSessionStorage(data: { [key: string]: any }): void {
-    if (!data 
-        || DataTypeClass.literalObjectLength(data) <= 0
-        || !(DataTypeClass.isLiteralObject(data))
-      ) {
-      console.error(
-        '❌ error, NO se puede setear el Session Storage porque la api NO ha respondido con los datos para guardar',
-        '\n',
-        data
-      );
+    if (!data) {
+      console.error('❌ error, NO se puede setear Session Storage porque la api ha respondido con un valor falsy\n', data);
+      return;
+    }
 
+    if (!(DataTypeClass.isLiteralObject(data))) {
+      console.error('❌ error, NO se puede setear Session Storage porque la api NO ha respondido con un objeto literal\n', data);
+      return;
+    }
+
+     if (DataTypeClass.literalObjectLength(data) <= 0) {
+      console.error('❌ error, NO se puede setear Session Storage porque la api ha respondido con un objeto literal vacio\n', data);
       return;
     }
 

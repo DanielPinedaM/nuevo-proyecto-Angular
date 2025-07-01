@@ -161,10 +161,12 @@ Ejemplo: "-1,2.1", "-2", "3" */
   /**
   ¿la variable es un objeto literal? */
   public static isLiteralObject = (literalObject: any): boolean => {
-    return (
-      Object.getPrototypeOf(literalObject) === Object.prototype ||
-      Object.prototype.toString.call(literalObject) === '[object Object]'
-    );
+    return typeof literalObject === "object"
+           && literalObject !== null
+           && (
+              Object.getPrototypeOf(literalObject) === Object.prototype ||
+              Object.prototype.toString.call(literalObject) === '[object Object]'
+           )
   };
 
   /**
