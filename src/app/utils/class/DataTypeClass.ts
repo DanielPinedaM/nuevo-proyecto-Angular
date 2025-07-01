@@ -80,18 +80,21 @@ Ejemplo: "-1,2.1", "-2", "3" */
     return string;
   };
 
-  /**
-   Ejemplo: '  Compañía ' devuelve 'compania', true devuelve true */
+   /**
+   Normalizar string
+   Ejemplo:
+   ' COMunicaciÓN    ' devuelve  'comunicacion'
+   [1, 2, 3]           devuelve   [1, 2, 3] */
   public static normalizeStr = (string: string | any): string | any => {
-    if (DataTypeClass.isString(string)) {
-      return string
-        .trim()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '');
-    }
+     if (!(DataTypeClass.isString(string))) return string;
+     if (String(string).trim() === "") return "";
 
-    return string;
+      return string.trim()                              // borrar espacio en blanco al principio y final
+                    .toLowerCase()                      // convertir a minuscula
+                    .normalize("NFD")
+                    .replaceAll(/ñ/g, 'n')              // reemplazar ñ minúscula por n
+                    .replaceAll(/[\u0300-\u036f]/g, "") // borrar acentos (tildes)
+                    .replaceAll(/\s+/g, ' ')            // reemplazar múltiples espacios en blanco por un solo espacio en blanco
   };
 
   public static isBoolean = (variable: boolean | string | any): boolean => {
