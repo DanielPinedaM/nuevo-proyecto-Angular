@@ -91,7 +91,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
    * @param {boolean} [options.clearSpecialCharacters] — true = BORRAR caracteres especiales,  false = CONSERVAR caracteres especiales
    * @param {boolean} [options.enyeWithN] — true = REEMPLAZAR "ñ" y "Ñ" por "n", false = CONSERVAR letra "ñ"
    * @param {boolean} [options.clearNumbers] — true = BORRAR numeros, false = CONSERVAR numeros
-   * @returns {string|any} — la cadena normalizada o el valor original si no es string. */
+   * @returns {string|any} — la cadena normalizada o el valor original si no es string */
   public static normalizeStr = (string: string | any, options?: { clearSpecialCharacters?: boolean, enyeWithN?: boolean, clearNumbers?:boolean }): string | any => {
      if (!(DataTypeClass.isString(string))) return string;
      if (String(string).trim() === "") return "";
