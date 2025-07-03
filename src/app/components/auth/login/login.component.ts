@@ -22,7 +22,6 @@ import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
   templateUrl: './login.component.html',
   imports: [...PrimeNgModules, RouterModule],
 })
-
 export class LoginComponent implements OnInit {
   path: IPath = path;
 
@@ -43,7 +42,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private httpService: HttpService,
-    private hotToast: HotToastClass,
+    private hotToast: HotToastClass
   ) {}
 
   ngOnInit() {
@@ -52,17 +51,26 @@ export class LoginComponent implements OnInit {
 
   setSessionStorage(data: { [key: string]: any }): void {
     if (!data) {
-      console.error('❌ error, NO se puede setear Session Storage porque la api ha respondido con un valor falsy\n', data);
+      console.error(
+        '❌ error, NO se puede setear Session Storage porque la api ha respondido con un valor falsy\n',
+        data
+      );
       return;
     }
 
-    if (!(DataTypeClass.isLiteralObject(data))) {
-      console.error('❌ error, NO se puede setear Session Storage porque la api NO ha respondido con un objeto literal\n', data);
+    if (!DataTypeClass.isLiteralObject(data)) {
+      console.error(
+        '❌ error, NO se puede setear Session Storage porque la api NO ha respondido con un objeto literal\n',
+        data
+      );
       return;
     }
 
-     if (DataTypeClass.literalObjectLength(data) <= 0) {
-      console.error('❌ error, NO se puede setear Session Storage porque la api ha respondido con un objeto literal vacio\n', data);
+    if (DataTypeClass.literalObjectLength(data) <= 0) {
+      console.error(
+        '❌ error, NO se puede setear Session Storage porque la api ha respondido con un objeto literal vacio\n',
+        data
+      );
       return;
     }
 
@@ -80,7 +88,7 @@ export class LoginComponent implements OnInit {
         return;
       }
 
-       sessionStorageSaveAndUpdate(key, value);
+      sessionStorageSaveAndUpdate(key, value);
     });
   }
 
@@ -118,6 +126,5 @@ export class LoginComponent implements OnInit {
     } else {
       this.hotToast.errorNotification(message);
     }
-
   }
 }
