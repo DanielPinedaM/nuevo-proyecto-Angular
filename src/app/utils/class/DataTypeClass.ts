@@ -80,21 +80,51 @@ Ejemplo: "-1,2.1", "-2", "3" */
     return string;
   };
 
-   /**
-   Normalizar string
-   Ejemplo:
-   ' COMunicaciÓN    ' devuelve  'comunicacion'
-   [1, 2, 3]           devuelve   [1, 2, 3] */
-  public static normalizeStr = (string: string | any): string | any => {
+  /**
+   * Normalizar string
+   * Ejemplo:
+   * ' COMunicaciÓN    ' devuelve  'comunicacion'
+   * [1, 2, 3]           devuelve   [1, 2, 3]
+   * 
+   * @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual.
+   * @param {Object} [options] — opciones de normalización.
+   * @param {boolean} [options.clearSpecialCharacters] — true = BORRAR caracteres especiales,  false = CONSERVAR caracteres especiales
+   * @param {boolean} [options.enyeWithN] — true = REEMPLAZAR "ñ" y "Ñ" por "n", false = CONSERVAR letra "ñ"
+   * @param {boolean} [options.clearNumbers] — true = BORRAR numeros, false = CONSERVAR numeros
+   * @returns {string|any} — la cadena normalizada o el valor original si no es string. */
+  public static normalizeStr = (string: string | any, options?: { clearSpecialCharacters?: boolean, enyeWithN?: boolean, clearNumbers?:boolean }): string | any => {
      if (!(DataTypeClass.isString(string))) return string;
      if (String(string).trim() === "") return "";
 
-      return string.trim()                              // borrar espacio en blanco al principio y final
-                    .toLowerCase()                      // convertir a minuscula
-                    .normalize("NFD")
-                    .replaceAll(/ñ/g, 'n')              // reemplazar ñ minúscula por n
-                    .replaceAll(/[\u0300-\u036f]/g, "") // borrar acentos (tildes)
-                    .replaceAll(/\s+/g, ' ')            // reemplazar múltiples espacios en blanco por un solo espacio en blanco
+     const {
+        clearSpecialCharacters = false,
+        enyeWithN = false,
+        clearNumbers = false,
+     } = options ?? {};
+
+     let newString: string = string.toLowerCase()                                    // convertir a minuscula
+                                   .normalize("NFD")                                 // hacer q funcionen las expresiones regulares
+                                   .replaceAll(/[\u0300-\u0302\u0304-\u036f]/g, "")  // eliminar acentos (todos menos U+0303)
+                                   .normalize("NFC")                                 // conservar la "ñ" "Ñ"
+                                   
+
+      if (enyeWithN) {
+        newString = newString.replaceAll(/ñ/g, 'n');                                 // reemplazar ñ minúscula por n
+      }
+
+      if (clearSpecialCharacters) {
+        newString = newString.replaceAll(/[^a-zA-Z0-9 ñÑ]/g, '');                    // borrar caracteres especiales
+      }
+
+      if (clearNumbers) {
+       newString = newString.replaceAll(/\d+/g, '');                                 // borrar todos los numeros 0123456789
+      }
+      
+      // esto TIENE q estar al final de la funcion
+      newString = newString.trim()                                                   // borrar espacio en blanco al principio y final
+                           .replaceAll(/\s+/g, ' ')                                  // reemplazar múltiples espacios en blanco '   ' por un solo espacio en blanco ' ';
+      
+      return newString;
   };
 
   public static isBoolean = (variable: boolean | string | any): boolean => {
