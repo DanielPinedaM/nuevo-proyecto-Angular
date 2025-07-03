@@ -86,8 +86,8 @@ Ejemplo: "-1,2.1", "-2", "3" */
    * ' COMunicaciÓN    ' devuelve  'comunicacion'
    * [1, 2, 3]           devuelve   [1, 2, 3]
    * 
-   * @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual.
-   * @param {Object} [options] — opciones de normalización.
+   * @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual
+   * @param {Object} [options] — opciones de normalización
    * @param {boolean} [options.clearSpecialCharacters] — true = BORRAR caracteres especiales,  false = CONSERVAR caracteres especiales
    * @param {boolean} [options.enyeWithN] — true = REEMPLAZAR "ñ" y "Ñ" por "n", false = CONSERVAR letra "ñ"
    * @param {boolean} [options.clearNumbers] — true = BORRAR numeros, false = CONSERVAR numeros
