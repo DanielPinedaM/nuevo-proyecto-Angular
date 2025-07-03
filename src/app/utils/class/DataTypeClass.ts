@@ -128,16 +128,15 @@ Ejemplo: "-1,2.1", "-2", "3" */
   };
 
   public static isBoolean = (variable: boolean | string | any): boolean => {
-    const normalized: string = String(variable)?.trim()?.toLowerCase();
-
     if (
       // true
-      normalized === 'true' ||
-      normalized === '1' ||
+      DataTypeClass.normalizeStr(variable) === 'true' ||
+      DataTypeClass.normalizeStr(variable) === '1' ||
       DataTypeClass.normalizeStr(variable) === 'si' ||
+      DataTypeClass.normalizeStr(variable) === 'yes' ||
       // false
-      normalized === 'false' ||
-      normalized === '0' ||
+      DataTypeClass.normalizeStr(variable) === 'false' ||
+      DataTypeClass.normalizeStr(variable) === '0' ||
       DataTypeClass.normalizeStr(variable) === 'no'
     ) {
       return true;
