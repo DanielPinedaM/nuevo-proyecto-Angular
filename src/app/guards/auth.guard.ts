@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import path from '@/app/types/constants/cons-path';
 import { objSessionStorage } from '@/app/types/constants/const-session-storage';
 import { sessionStorageSearch } from '@/app/utils/func/sessionStorage';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import path from '@/app/types/constants/cons-path';
+import { CurrentRouteService } from '@/app/service/RxJS-BehaviorSubject/current-route.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+/**
+Proteccion de rutas */
+export const AuthGuard: CanActivateFn = (route, state) => {
+  return true; // borrar esto y des-comentar las siguientes lineas de codigo para activar la proteccion de rutas
 
-  canActivate(): boolean {
-    return true; // borrar esta linea de codigo para activar proteccion de rutas
-    /* 
-    descomentar para activar proteccion de rutas
-    if (sessionStorageSearch(objSessionStorage.token!)) {
-      return true;
-    } else {
-      this.router.navigate(['/' + path.auth.login]);
-      return false;
-    } */
+  /* 
+  const router = inject(Router);
+   
+  const userIsAuth: boolean = sessionStorageSearch(objSessionStorage.token!);
+
+  if (!userIsAuth) {
+    router.navigate(['/' + path.auth.login]);
   }
-}
+
+  return userIsAuth; 
+  */
+};

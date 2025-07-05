@@ -120,11 +120,13 @@ export class LoginComponent implements OnInit {
       { body: bodyLogin }
     );
 
-    if (success) {
+    this.router.navigate(['/' + path.home.home + '/' + path.home.bots])
+
+    /* if (success) {
       this.setSessionStorage(data);
       this.router.navigate([initRoute]);
     } else {
       this.hotToast.errorNotification(message);
-    }
+    } */
   }
 }
