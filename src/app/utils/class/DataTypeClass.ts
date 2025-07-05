@@ -91,8 +91,9 @@ Ejemplo: "-1,2.1", "-2", "3" */
    * @param {boolean} [options.clearSpecialCharacters] — true = BORRAR caracteres especiales,  false = CONSERVAR caracteres especiales
    * @param {boolean} [options.enyeWithN] — true = REEMPLAZAR "ñ" y "Ñ" por "n", false = CONSERVAR letra "ñ"
    * @param {boolean} [options.clearNumbers] — true = BORRAR numeros, false = CONSERVAR numeros
+   * @param {boolean} [options.upperCase] — true = convertir texto a MAYUSCULA, false = convertir texto a minuscula
    * @returns {string|any} — la cadena normalizada o el valor original si no es string */
-  public static normalizeStr = (string: string | any, options?: { clearSpecialCharacters?: boolean, enyeWithN?: boolean, clearNumbers?:boolean }): string | any => {
+  public static normalizeStr = (string: string | any, options?: { clearSpecialCharacters?: boolean, enyeWithN?: boolean, clearNumbers?:boolean, upperCase?: boolean }): string | any => {
      if (!(DataTypeClass.isString(string))) return string;
      if (String(string).trim() === "") return "";
 
@@ -100,6 +101,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
         clearSpecialCharacters = false,
         enyeWithN = false,
         clearNumbers = false,
+        upperCase = false
      } = options ?? {};
 
      let newString: string = string.toLowerCase()                                    // convertir a minuscula
@@ -121,6 +123,10 @@ Ejemplo: "-1,2.1", "-2", "3" */
       }
       
       // esto TIENE q estar al final de la funcion
+      if (upperCase) {
+        newString = newString.toLocaleUpperCase("es-ES");
+      }
+
       newString = newString.trim()                                                   // borrar espacio en blanco al principio y final
                            .replaceAll(/\s+/g, ' ')                                  // reemplazar múltiples espacios en blanco '   ' por un solo espacio en blanco ' ';
       
