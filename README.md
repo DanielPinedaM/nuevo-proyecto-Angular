@@ -1,4 +1,4 @@
-# Nuevo proyecto en Angular 19, Prime NG 19, Tailwind 4 y Sass
+# Angular 20 + Prime NG 20 + Tailwind 4
 
 #### Estructura del Proyecto
 
@@ -41,11 +41,11 @@
 #### Instalar paquetes
 
 ```javascript
-nvm install 22.14.0
+nvm install 22.17.1
 ```
 
 ```javascript
-nvm use 22.14.0
+nvm use 22.17.1
 ```
 
 ```javascript
@@ -55,7 +55,7 @@ npm i
 #### [Ejecutar proyecto](https://youtu.be/xBMEvd7PyEY?si=4KH0nBKGi1dz0rW1)
 
 ```javascript
-nvm use 22.14.0
+nvm use 22.17.1
 ```
 
 comando | apunta a... | ruta archivo
@@ -67,7 +67,7 @@ node --run start:prod | producción | src/environments/environment.ts
 #### Generar build (dist) para desplegar
 
 ```javascript
-nvm use 22.14.0
+nvm use 22.17.1
 ```
 
 comando | apunta a... | ruta archivo
