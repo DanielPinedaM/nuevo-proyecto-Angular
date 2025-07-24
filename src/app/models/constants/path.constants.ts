@@ -1,4 +1,4 @@
-import { IPath } from '@/app/models/interfaces/interface-path';
+import { IPath } from '@/app/models/interfaces/path.interfaces';
 
 const path: IPath = {
   empty: '',

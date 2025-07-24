@@ -1,4 +1,4 @@
-import path from '@/app/models/constants/cons-path';
+import path from '@/app//models/constants/path.constants';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 

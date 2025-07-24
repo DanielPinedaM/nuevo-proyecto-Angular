@@ -1,5 +1,5 @@
 import { CurrentRouteService } from '@/app/service/RxJS-BehaviorSubject/current-route.service';
-import path from '@/app/models/constants/cons-path';
+import path from '@/app//models/constants/path.constants';
 import HotToastClass from '@/app/utils/class/notification/HotToastClass';
 import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass';
 import { CommonModule } from '@angular/common';

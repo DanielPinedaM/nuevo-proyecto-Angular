@@ -1,19 +1,15 @@
 import {
   minLengthPassword,
   securePasswordErrorMessage,
-} from '@/app/models/constants/const-auth';
-import { constRegex } from '@/app/models/constants/const-regex';
-import { IObjValidatePassword } from '@/app/models/interfaces/interface-auth';
+} from '@/app/models/constants/auth.constants';
+import { constRegex } from '@/app/models/constants/regex.constants';
+import { IObjValidatePassword } from '@/app/models/interfaces/auth.interfaces';
 import DataTypeClass from '@/app/utils/class/DataTypeClass';
-import { specialWords } from '@/app/models/constants/const-special-words';
+import { specialWords } from '@/app/models/constants/special-words.constants';
 import HotToastClass from './notification/HotToastClass';
-import { Injectable } from '@angular/core';
-
 
 export default class GeneralClass {
-  constructor(
-    private hotToast: HotToastClass,
-  ) {}
+  constructor(private hotToast: HotToastClass) {}
 
   public static strongPassword = (password: string): boolean => {
     return constRegex.text.strongPassword.test(password);
@@ -205,9 +201,9 @@ export default class GeneralClass {
       .trim();
   };
 
-   /**
+  /**
    copiar texto en portapapeles */
-   public copyText = async (text: string): Promise<void> => {
+  public copyText = async (text: string): Promise<void> => {
     const errorMessage: string = 'No se pudo copiar el texto';
 
     if (!text) {

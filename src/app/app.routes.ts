@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@/app/guards/auth.guard';
-import path from '@/app/models/constants/cons-path';
+import path from '@/app//models/constants/path.constants';
 
 //#region componentes de Angular
 // home
@@ -17,6 +17,7 @@ import { Error404NonExistentPathComponent } from '@/app/components/layout/error-
 
 // bots
 import { BotsComponent } from '@/app/components/home/bots/bots.component';
+
 //#endregion componentes de Angular
 
 export const routes: Routes = [

@@ -1,5 +1,5 @@
-import IMenuOptions from '@/app/models/interfaces/interface-menu';
-import path from '@/app/models/constants/cons-path';
+import IMenuOptions from '@/app/models/interfaces/menu.interfaces';
+import path from '@/app//models/constants/path.constants';
 
 const menuOptions: IMenuOptions[] = [
   {
