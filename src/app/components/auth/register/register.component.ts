@@ -3,19 +3,19 @@ import { PrimeNgModules } from '@/app/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/app/service/generalService/http.service';
 import { environment } from '@/environments/environment';
-import { constRegex } from '@/app/types/constants/const-regex';
-import path from '@/app/types/constants/cons-path';
-import { IPath } from '@/app/types/interfaces/interface-path';
+import { constRegex } from '@/app/models/constants/const-regex';
+import path from '@/app/models/constants/cons-path';
+import { IPath } from '@/app/models/interfaces/interface-path';
 import { Router, RouterModule } from '@angular/router';
 import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass';
 import HotToastClass from '@/app/utils/class/notification/HotToastClass';
-import { enterFields } from '@/app/types/constants/const-error-message';
+import { enterFields } from '@/app/models/constants/const-error-message';
 import {
   IBodyRegister,
   IInputValuePassword,
   IObjValidatePassword,
-} from '@/app/types/interfaces/interface-auth';
-import { minLengthPassword } from '@/app/types/constants/const-auth';
+} from '@/app/models/interfaces/interface-auth';
+import { minLengthPassword } from '@/app/models/constants/const-auth';
 import GeneralClass from '@/app/utils/class/GeneralClass';
 import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
 

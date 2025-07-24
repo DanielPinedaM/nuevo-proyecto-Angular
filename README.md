@@ -26,9 +26,9 @@
 
 * **src/app/utils/func/sessionStorage.ts** funciones con sessionStorage en base 64
 
-* **src/app/types/constants**: constantes generales para usar en toda la web
+* **src/app/models/constants**: constantes generales para usar en toda la web
 
-* **src/app/types/interface**: interface generales para usar en toda la web
+* **src/app/models/interface**: interface generales para usar en toda la web
 
 * **src/app/utils/class/GeneralClass.ts**: Clase general con funciones (metodos) generales para usar en toda la web
 

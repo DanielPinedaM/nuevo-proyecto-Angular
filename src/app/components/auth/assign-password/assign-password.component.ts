@@ -3,21 +3,21 @@ import { PrimeNgModules } from '@/app/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/app/service/generalService/http.service';
 import { environment } from '@/environments/environment';
-import path from '@/app/types/constants/cons-path';
-import { IPath } from '@/app/types/interfaces/interface-path';
+import path from '@/app/models/constants/cons-path';
+import { IPath } from '@/app/models/interfaces/interface-path';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import HotToastClass from '@/app/utils/class/notification/HotToastClass';
 import {
   contactSupport,
   enterFields,
-} from '@/app/types/constants/const-error-message';
+} from '@/app/models/constants/const-error-message';
 import {
   IBodyAssignPassword,
   IInputValuePassword,
   IObjValidatePassword,
-} from '@/app/types/interfaces/interface-auth';
-import { minLengthPassword } from '@/app/types/constants/const-auth';
-import { constRegex } from '@/app/types/constants/const-regex';
+} from '@/app/models/interfaces/interface-auth';
+import { minLengthPassword } from '@/app/models/constants/const-auth';
+import { constRegex } from '@/app/models/constants/const-regex';
 import DataTypeClass from '@/app/utils/class/DataTypeClass';
 import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
 import GeneralClass from '@/app/utils/class/GeneralClass';

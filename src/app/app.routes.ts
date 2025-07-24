@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@/app/guards/auth.guard';
-import path from '@/app/types/constants/cons-path';
+import path from '@/app/models/constants/cons-path';
 
 //#region componentes de Angular
 // home

@@ -1,4 +1,4 @@
-import IObjSessionStorage from "@/app/types/interfaces/interface-session-storage";
+import IObjSessionStorage from "@/app/models/interfaces/interface-session-storage";
 
 // nombres de las propiedades q se guardar en SessionStorage
 export const objSessionStorage: IObjSessionStorage = {

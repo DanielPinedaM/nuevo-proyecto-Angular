@@ -4,17 +4,17 @@ import {
   sessionStorageDeleteAll,
   sessionStorageSaveAndUpdate,
 } from '@/app/utils/func/sessionStorage';
-import path from '@/app/types/constants/cons-path';
+import path from '@/app/models/constants/cons-path';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PrimeNgModules } from '@/app/imports/import-prime-ng';
 import { environment } from '@/environments/environment';
-import { IPath } from '@/app/types/interfaces/interface-path';
+import { IPath } from '@/app/models/interfaces/interface-path';
 import DataTypeClass from '@/app/utils/class/DataTypeClass';
 import { HttpService } from '@/app/service/generalService/http.service';
 import HotToastClass from '@/app/utils/class/notification/HotToastClass';
-import { enterFields } from '@/app/types/constants/const-error-message';
-import { IBodyLogin } from '@/app/types/interfaces/interface-auth';
-import { initRoute, minLengthPassword } from '@/app/types/constants/const-auth';
+import { enterFields } from '@/app/models/constants/const-error-message';
+import { IBodyLogin } from '@/app/models/interfaces/interface-auth';
+import { initRoute, minLengthPassword } from '@/app/models/constants/const-auth';
 import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
 
 @Component({

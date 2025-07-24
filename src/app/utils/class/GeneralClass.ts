@@ -1,11 +1,11 @@
 import {
   minLengthPassword,
   securePasswordErrorMessage,
-} from '@/app/types/constants/const-auth';
-import { constRegex } from '@/app/types/constants/const-regex';
-import { IObjValidatePassword } from '@/app/types/interfaces/interface-auth';
+} from '@/app/models/constants/const-auth';
+import { constRegex } from '@/app/models/constants/const-regex';
+import { IObjValidatePassword } from '@/app/models/interfaces/interface-auth';
 import DataTypeClass from '@/app/utils/class/DataTypeClass';
-import { specialWords } from '@/app/types/constants/const-special-words';
+import { specialWords } from '@/app/models/constants/const-special-words';
 import HotToastClass from './notification/HotToastClass';
 import { Injectable } from '@angular/core';
 

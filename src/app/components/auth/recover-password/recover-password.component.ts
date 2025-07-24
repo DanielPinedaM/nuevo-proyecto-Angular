@@ -3,11 +3,11 @@ import { PrimeNgModules } from '@/app/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/app/service/generalService/http.service';
 import { environment } from '@/environments/environment';
-import path from '@/app/types/constants/cons-path';
-import { IPath } from '@/app/types/interfaces/interface-path';
+import path from '@/app/models/constants/cons-path';
+import { IPath } from '@/app/models/interfaces/interface-path';
 import { RouterModule } from '@angular/router';
 import HotToastClass from '@/app/utils/class/notification/HotToastClass';
-import { enterFields } from '@/app/types/constants/const-error-message';
+import { enterFields } from '@/app/models/constants/const-error-message';
 
 @Component({
   selector: 'app-recover-password',

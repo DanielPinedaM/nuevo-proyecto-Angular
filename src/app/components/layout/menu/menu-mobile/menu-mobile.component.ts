@@ -1,5 +1,5 @@
 import { CurrentRouteService } from '@/app/service/RxJS-BehaviorSubject/current-route.service';
-import path from '@/app/types/constants/cons-path';
+import path from '@/app/models/constants/cons-path';
 import HotToastClass from '@/app/utils/class/notification/HotToastClass';
 import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass';
 import { CommonModule } from '@angular/common';
@@ -58,7 +58,7 @@ export class MenuMobileComponent implements OnInit {
       '¿Está seguro que desea cerrar sesión?',
       'warning'
     ).then((result) => {
-      this.isMenuOpen = false; 
+      this.isMenuOpen = false;
 
       if (result.isConfirmed) {
         this.hotToast.infoNotification("Se ha cerrado sesión");

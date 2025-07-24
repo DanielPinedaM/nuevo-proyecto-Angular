@@ -3,7 +3,7 @@
  █ funciones para CRUD y buscar en el sessionStorage con Base64 █
  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ */
 
-import { objSessionStorage } from '@/app/types/constants/const-session-storage';
+import { objSessionStorage } from '@/app/models/constants/const-session-storage';
 
 export interface ISessionStorageObject {
   [key: string]: string;
@@ -173,7 +173,7 @@ export const sessionStorageListValue = (
   return value;
 };
 
-/** 
+/**
 sessionStorage - buscar una propiedad
 true:  la propiedad SI existe  en sessionStorage
 false: la propuedad NO existe  en sessionStorage */
@@ -194,7 +194,7 @@ export const sessionStorageSearch = (property: string): boolean => {
   return value !== null ? true : false;
 };
 
-/** 
+/**
 sessionStorage - guardar una nueva propiedad: valor
 "cuando NO existe lo creo" */
 export const sessionStorageSave = (
@@ -285,7 +285,7 @@ export const sessionStorageDeleteAll = (): boolean => {
   return true;
 };
 
-/** 
+/**
 sessionStorage - eliminar TODAS las propiedad: valor EXCEPTO las q estan en el array properties
 
 Ejemplo:

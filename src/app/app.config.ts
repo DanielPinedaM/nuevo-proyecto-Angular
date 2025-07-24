@@ -3,7 +3,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
-import MyPreset from '@/app/types/constants/const-my-preset';
+import MyPreset from '@/app/models/constants/const-my-preset';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from '@/app/app.routes';
 

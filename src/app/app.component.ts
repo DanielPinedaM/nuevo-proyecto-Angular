@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.service';
-import path from '@/app/types/constants/cons-path';
+import path from '@/app/models/constants/cons-path';
 import {
   constImmutableProperties,
   objSessionStorage,
-} from '@/app/types/constants/const-session-storage';
+} from '@/app/models/constants/const-session-storage';
 import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass';
 import { sessionStorageSearch } from '@/app/utils/func/sessionStorage';
 import { LoaderComponent } from '@/app/components/layout/loader/loader.component';
