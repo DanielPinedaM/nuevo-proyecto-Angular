@@ -1,5 +1,42 @@
 # Angular 20 + Prime NG 20 + Tailwind 4
 
+#### Instalar paquetes
+
+```javascript
+nvm install 22.17.1
+```
+
+```javascript
+nvm use 22.17.1
+```
+
+```javascript
+npm i
+```
+
+#### [Ejecutar proyecto](https://youtu.be/xBMEvd7PyEY?si=4KH0nBKGi1dz0rW1)
+
+```javascript
+nvm use 22.17.1
+```
+
+comando | apunta a... | ruta archivo
+------------ | ------------- | -------------
+node --run start:dev | localhost | src/environments/environment.development.ts
+node --run start:test | pruebas | src/environments/environment.test.ts
+node --run start:prod | producción | src/environments/environment.ts
+
+#### Generar build (dist) para desplegar
+
+```javascript
+nvm use 22.17.1
+```
+
+comando | apunta a... | ruta archivo
+------------ | ------------- | -------------
+node --run build:test | pruebas | src/environments/environment.test.ts
+node --run build:prod | producción | src/environments/environment.ts
+
 #### Estructura del Proyecto
 
 * **src/app/guards/auth.guard.ts**: Protección de rutas
@@ -37,43 +74,6 @@
 * **src/assets/icon**: Iconos de la pagina web
 
 * **src/assets/img**: Imagenes de la pagina web
-
-#### Instalar paquetes
-
-```javascript
-nvm install 22.17.1
-```
-
-```javascript
-nvm use 22.17.1
-```
-
-```javascript
-npm i
-```
-
-#### [Ejecutar proyecto](https://youtu.be/xBMEvd7PyEY?si=4KH0nBKGi1dz0rW1)
-
-```javascript
-nvm use 22.17.1
-```
-
-comando | apunta a... | ruta archivo
------------- | ------------- | -------------
-node --run start:dev | localhost | src/environments/environment.development.ts
-node --run start:test | pruebas | src/environments/environment.test.ts
-node --run start:prod | producción | src/environments/environment.ts
-
-#### Generar build (dist) para desplegar
-
-```javascript
-nvm use 22.17.1
-```
-
-comando | apunta a... | ruta archivo
------------- | ------------- | -------------
-node --run build:test | pruebas | src/environments/environment.test.ts
-node --run build:prod | producción | src/environments/environment.ts
 
 #### Maquetación
 * Todos los componentes de Angular **no** pueden tener archivos de Sass con ```styleUrls```, se tiene que maquetar en Tailwind.
