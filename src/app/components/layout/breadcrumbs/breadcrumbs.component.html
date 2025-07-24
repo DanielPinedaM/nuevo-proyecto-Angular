@@ -1,6 +1,6 @@
 <nav class="text-white h-full p-2">
   <ul class="flex space-x-2 flex-wrap">
-    @for (item of breadcrumbs; track trackByIndex; let i = $index) {
+    @for (item of breadcrumbs; let i = $index; track trackByIndex(i)) {
     <li [ngClass]="{
          'bg-red-900': currentRoute === item,
          'bg-red-700': currentRoute !== item

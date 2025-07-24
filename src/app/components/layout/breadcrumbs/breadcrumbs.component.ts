@@ -7,7 +7,6 @@ import { CurrentRouteService } from '@/app/service/RxJS-BehaviorSubject/current-
 @Component({
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.scss'],
   imports: [CommonModule],
 })
 export class BreadcrumbsComponent implements OnInit {
