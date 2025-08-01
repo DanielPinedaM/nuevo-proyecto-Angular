@@ -14,7 +14,7 @@
 
 @use "./global/reset-CSS" as reset;
 @use "./global/table" as table;
-@use "./global/sweet-alert-2" as sweetAlert;
+@use "./global/library/sweet-alert-2" as sweetAlert;
 @use "./global/scroll-bar" as scrollBar;
 @use "./global/button" as button;
 
@@ -27,7 +27,7 @@
 @use "../../node_modules/primeicons/primeicons.css";
 
 // sobrescribir escribir estilos generales de Prime NG
-@use "./global/prime-ng" as primeNg;
+@use "./global/library/prime-ng" as primeNg;
 
 /*
 *********************
