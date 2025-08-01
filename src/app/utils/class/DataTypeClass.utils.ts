@@ -38,18 +38,30 @@ Ejemplo: "-1,2.1", "-2", "3" */
   /**
   SI es posible convierte a NUMERO,
   cuando NO es posible devuleve null */
-  public static convertToNumber = (number: number | any): number | null => {
-    if (DataTypeClass.isNumber(number)) return number as number;
+  public static convertToNumber = (value: number | any): number | null => {
+  const stringValue: string = String(value).trim();
 
-    if (DataTypeClass.isStringNumber(number)) {
-      const removeCommas: string = number.trim().replaceAll(',', '.');
-      return Number(removeCommas);
-    }
+  if (
+      stringValue === ""
 
-    if (DataTypeClass.isString(number) && String(number)?.trim() !== '')
-      return number;
+      || value === null
+      || stringValue === "null"
 
+      || value === undefined
+      || stringValue === "undefined"
+
+      || typeof value === "boolean"
+      || typeof value === "function"
+      || typeof value === "object"
+      || typeof value === "symbol"
+
+      || Array.isArray(value)
+  ) {
     return null;
+  }
+
+  const number: number = Number(value);
+  return isNaN(number) ? null : number;
   };
 
   /**
