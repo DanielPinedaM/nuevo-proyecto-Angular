@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HotToastService, ToastPosition } from '@ngxpert/hot-toast';
-import DataTypeClass from '@/app/utils/class/DataTypeClass';
+import DataTypeClass from '@/app/utils/class/DataTypeClass.utils';
 
 /**
 funciones para mostrar toast */

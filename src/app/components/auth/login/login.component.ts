@@ -3,22 +3,22 @@ import { Router, RouterModule } from '@angular/router';
 import {
   sessionStorageDeleteAll,
   sessionStorageSaveAndUpdate,
-} from '@/app/utils/func/sessionStorage';
+} from '@/app/utils/func/sessionStorage.utils';
 import path from '@/app//models/constants/path.constants';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PrimeNgModules } from '@/app/imports/import-prime-ng';
 import { environment } from '@/environments/environment';
 import { IPath } from '@/app/models/interfaces/path.interfaces';
-import DataTypeClass from '@/app/utils/class/DataTypeClass';
+import DataTypeClass from '@/app/utils/class/DataTypeClass.utils';
 import { HttpService } from '@/app/service/generalService/http.service';
-import HotToastClass from '@/app/utils/class/notification/HotToastClass';
+import HotToastClass from '@/app/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/app/models/constants/error-message.constants';
 import { IBodyLogin } from '@/app/models/interfaces/auth.interfaces';
 import {
   initRoute,
   minLengthPassword,
 } from '@/app/models/constants/auth.constants';
-import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
+import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass.utils';
 
 @Component({
   selector: 'app-login',

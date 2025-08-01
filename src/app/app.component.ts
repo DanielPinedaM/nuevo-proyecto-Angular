@@ -7,8 +7,8 @@ import {
   constImmutableProperties,
   objSessionStorage,
 } from '@/app/models/constants/session-storage.constants';
-import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass';
-import { sessionStorageSearch } from '@/app/utils/func/sessionStorage';
+import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass.utils';
+import { sessionStorageSearch } from '@/app/utils/func/sessionStorage.utils';
 import { LoaderComponent } from '@/app/components/layout/loader/loader.component';
 import path from '@/app//models/constants/path.constants';
 

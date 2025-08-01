@@ -1,5 +1,5 @@
 import { objSessionStorage } from '@/app/models/constants/session-storage.constants';
-import { sessionStorageSearch } from '@/app/utils/func/sessionStorage';
+import { sessionStorageSearch } from '@/app/utils/func/sessionStorage.utils';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import path from '@/app//models/constants/path.constants';

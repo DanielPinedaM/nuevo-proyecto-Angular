@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import {
   sessionStorageListValue,
   sessionStorageSaveAndUpdate,
-} from '@/app/utils/func/sessionStorage';
+} from '@/app/utils/func/sessionStorage.utils';
 import { CurrentRouteService } from '@/app/service/RxJS-BehaviorSubject/current-route.service';
 
 @Component({

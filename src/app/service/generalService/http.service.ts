@@ -12,7 +12,7 @@ import { objSessionStorage } from '@/app/models/constants/session-storage.consta
 import {
   sessionStorageListValue,
   sessionStorageSearch,
-} from '@/app/utils/func/sessionStorage';
+} from '@/app/utils/func/sessionStorage.utils';
 import {
   IHttpErrorResponse,
   IObjectLogs,
@@ -22,8 +22,8 @@ import {
   TMethod,
 } from '@/app/service/generalService/types/requestDataTypes';
 import { environment } from '@/environments/environment';
-import DataTypeClass from '@/app/utils/class/DataTypeClass';
-import HotToastClass from '@/app/utils/class/notification/HotToastClass';
+import DataTypeClass from '@/app/utils/class/DataTypeClass.utils';
+import HotToastClass from '@/app/utils/class/notification/HotToastClass.utils';
 
 @Injectable({
   providedIn: 'root',

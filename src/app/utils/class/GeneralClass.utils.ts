@@ -4,9 +4,9 @@ import {
 } from '@/app/models/constants/auth.constants';
 import { constRegex } from '@/app/models/constants/regex.constants';
 import { IObjValidatePassword } from '@/app/models/interfaces/auth.interfaces';
-import DataTypeClass from '@/app/utils/class/DataTypeClass';
+import DataTypeClass from '@/app/utils/class/DataTypeClass.utils';
 import { specialWords } from '@/app/models/constants/special-words.constants';
-import HotToastClass from './notification/HotToastClass';
+import HotToastClass from './notification/HotToastClass.utils';
 
 export default class GeneralClass {
   constructor(private hotToast: HotToastClass) {}

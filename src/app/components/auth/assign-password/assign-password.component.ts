@@ -6,7 +6,7 @@ import { environment } from '@/environments/environment';
 import path from '@/app//models/constants/path.constants';
 import { IPath } from '@/app/models/interfaces/path.interfaces';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import HotToastClass from '@/app/utils/class/notification/HotToastClass';
+import HotToastClass from '@/app/utils/class/notification/HotToastClass.utils';
 import {
   contactSupport,
   enterFields,
@@ -18,9 +18,9 @@ import {
 } from '@/app/models/interfaces/auth.interfaces';
 import { minLengthPassword } from '@/app/models/constants/auth.constants';
 import { constRegex } from '@/app/models/constants/regex.constants';
-import DataTypeClass from '@/app/utils/class/DataTypeClass';
-import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
-import GeneralClass from '@/app/utils/class/GeneralClass';
+import DataTypeClass from '@/app/utils/class/DataTypeClass.utils';
+import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass.utils';
+import GeneralClass from '@/app/utils/class/GeneralClass.utils';
 
 @Component({
   selector: 'app-assign-password',

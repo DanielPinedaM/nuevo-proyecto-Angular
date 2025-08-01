@@ -7,8 +7,8 @@ import { constRegex } from '@/app/models/constants/regex.constants';
 import path from '@/app//models/constants/path.constants';
 import { IPath } from '@/app/models/interfaces/path.interfaces';
 import { Router, RouterModule } from '@angular/router';
-import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass';
-import HotToastClass from '@/app/utils/class/notification/HotToastClass';
+import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass.utils';
+import HotToastClass from '@/app/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/app/models/constants/error-message.constants';
 import {
   IBodyRegister,
@@ -16,8 +16,8 @@ import {
   IObjValidatePassword,
 } from '@/app/models/interfaces/auth.interfaces';
 import { minLengthPassword } from '@/app/models/constants/auth.constants';
-import GeneralClass from '@/app/utils/class/GeneralClass';
-import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
+import GeneralClass from '@/app/utils/class/GeneralClass.utils';
+import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass.utils';
 
 @Component({
   selector: 'app-register',

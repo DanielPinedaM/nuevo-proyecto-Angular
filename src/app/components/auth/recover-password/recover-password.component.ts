@@ -6,7 +6,7 @@ import { environment } from '@/environments/environment';
 import path from '@/app//models/constants/path.constants';
 import { IPath } from '@/app/models/interfaces/path.interfaces';
 import { RouterModule } from '@angular/router';
-import HotToastClass from '@/app/utils/class/notification/HotToastClass';
+import HotToastClass from '@/app/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/app/models/constants/error-message.constants';
 
 @Component({

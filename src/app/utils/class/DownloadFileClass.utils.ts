@@ -4,9 +4,9 @@
 
 import { saveAs } from 'file-saver';
 import { IResponse } from '@/app/service/generalService/types/requestDataTypes';
-import HotToastClass from '@/app/utils/class/notification/HotToastClass';
-import LuxonClass from '@/app/utils/class/LuxonClass';
-import GeneralClass from '@/app/utils/class/GeneralClass';
+import HotToastClass from '@/app/utils/class/notification/HotToastClass.utils';
+import LuxonClass from '@/app/utils/class/LuxonClass.utils';
+import GeneralClass from '@/app/utils/class/GeneralClass.utils';
 import { Injectable } from '@angular/core';
 import * as ExcelJS from 'exceljs';
 import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.service';
