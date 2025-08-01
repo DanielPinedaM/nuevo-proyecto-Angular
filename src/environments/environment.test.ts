@@ -1,6 +1,6 @@
 // variables de PRUEBAS
 
-import IEnvironment from "./interface-environment";
+import IEnvironment from "./environment.interface";
 
 const api: string = "https://aqui escribir dominio de PRUEBAS";
 
