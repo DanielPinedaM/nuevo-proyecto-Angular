@@ -24,11 +24,12 @@ export default class HotToastClass {
   };
 
   private normalizeMessage(message: string): string {
-    return message.trim()
-                  .replaceAll(/\s+/g, ' ') // reemplazar múltiples espacios en blanco por un solo espacio en blanco
-                  .replaceAll('undefined', '')
-                  .replaceAll('null', '')
-                  .replaceAll('NaN', '');
+    return message
+      .trim()
+      .replaceAll(/\s+/g, ' ') // reemplazar múltiples espacios en blanco por un solo espacio en blanco
+      .replaceAll('undefined', '')
+      .replaceAll('null', '')
+      .replaceAll('NaN', '');
   }
 
   successNotification(message: string): void {

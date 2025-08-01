@@ -74,7 +74,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
 
   public static trimLowerCase = (string: string | any): string | any => {
     if (DataTypeClass.isString(string)) {
-      return string.trim().toLowerCase()
+      return string.trim().toLowerCase();
     }
 
     return string;
@@ -85,7 +85,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
    * Ejemplo:
    * ' COMunicaciÓN    ' devuelve  'comunicacion'
    * [1, 2, 3]           devuelve   [1, 2, 3]
-   * 
+   *
    * @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual
    * @param {Object} [options] — opciones de normalización
    * @param {boolean} [options.clearSpecialCharacters] — true = BORRAR caracteres especiales,  false = CONSERVAR caracteres especiales
@@ -93,59 +93,68 @@ Ejemplo: "-1,2.1", "-2", "3" */
    * @param {boolean} [options.clearNumbers] — true = BORRAR numeros, false = CONSERVAR numeros
    * @param {boolean} [options.upperCase] — true = convertir texto a MAYUSCULA, false = convertir texto a minuscula
    * @returns {string|any} — la cadena normalizada o el valor original si no es string */
-  public static normalizeStr = (string: string | any, options?: { clearSpecialCharacters?: boolean, enyeWithN?: boolean, clearNumbers?:boolean, upperCase?: boolean }): string | any => {
-     if (!(DataTypeClass.isString(string))) return string;
-     if (String(string).trim() === "") return "";
+  public static normalizeStr = (
+    string: string | any,
+    options?: {
+      clearSpecialCharacters?: boolean;
+      enyeWithN?: boolean;
+      clearNumbers?: boolean;
+      upperCase?: boolean;
+    }
+  ): string | any => {
+    if (!DataTypeClass.isString(string)) return string;
+    if (String(string).trim() === '') return '';
 
-     const {
-        clearSpecialCharacters = false,
-        enyeWithN = false,
-        clearNumbers = false,
-        upperCase = false
-     } = options ?? {};
+    const {
+      clearSpecialCharacters = false,
+      enyeWithN = false,
+      clearNumbers = false,
+      upperCase = false,
+    } = options ?? {};
 
-     let newString: string = string.toLowerCase()                                    // convertir a minuscula
-                                   .normalize("NFD")                                 // hacer q funcionen las expresiones regulares
-                                   .replaceAll(/[\u0300-\u0302\u0304-\u036f]/g, "")  // eliminar acentos (todos menos U+0303)
-                                   .normalize("NFC")                                 // conservar la "ñ" "Ñ"
-                                   
+    let newString: string = string
+      .toLowerCase() // convertir a minuscula
+      .normalize('NFD') // hacer q funcionen las expresiones regulares
+      .replaceAll(/[\u0300-\u0302\u0304-\u036f]/g, '') // eliminar acentos (todos menos U+0303)
+      .normalize('NFC'); // conservar la "ñ" "Ñ"
 
-      if (enyeWithN) {
-        newString = newString.replaceAll(/ñ/g, 'n');                                 // reemplazar ñ minúscula por n
-      }
+    if (enyeWithN) {
+      newString = newString.replaceAll(/ñ/g, 'n'); // reemplazar ñ minúscula por n
+    }
 
-      if (clearSpecialCharacters) {
-        newString = newString.replaceAll(/[^a-zA-Z0-9 ñÑ]/g, '');                    // borrar caracteres especiales
-      }
+    if (clearSpecialCharacters) {
+      newString = newString.replaceAll(/[^a-zA-Z0-9 ñÑ]/g, ''); // borrar caracteres especiales
+    }
 
-      if (clearNumbers) {
-       newString = newString.replaceAll(/\d+/g, '');                                 // borrar todos los numeros 0123456789
-      }
-      
-      // esto TIENE q estar al final de la funcion
-      if (upperCase) {
-        newString = newString.toLocaleUpperCase("es-ES");
-      }
+    if (clearNumbers) {
+      newString = newString.replaceAll(/\d+/g, ''); // borrar todos los numeros 0123456789
+    }
 
-      newString = newString.trim()                                                   // borrar espacio en blanco al principio y final
-                           .replaceAll(/\s+/g, ' ')                                  // reemplazar múltiples espacios en blanco '   ' por un solo espacio en blanco ' ';
-      
-      return newString;
+    // esto TIENE q estar al final de la funcion
+    if (upperCase) {
+      newString = newString.toLocaleUpperCase('es-ES');
+    }
+
+    newString = newString
+      .trim() // borrar espacio en blanco al principio y final
+      .replaceAll(/\s+/g, ' '); // reemplazar múltiples espacios en blanco '   ' por un solo espacio en blanco ' ';
+
+    return newString;
   };
 
   public static isBoolean = (variable: boolean | string | any): boolean => {
-    const normalized: string = String(variable)?.trim()?.toLowerCase(); 
+    const normalized: string = String(variable)?.trim()?.toLowerCase();
 
     if (
       // true
-       normalized === 'true' ||
-       normalized === '1' ||
-       DataTypeClass.normalizeStr(variable) === 'si' ||
-       DataTypeClass.normalizeStr(variable) === 'yes' ||
+      normalized === 'true' ||
+      normalized === '1' ||
+      DataTypeClass.normalizeStr(variable) === 'si' ||
+      DataTypeClass.normalizeStr(variable) === 'yes' ||
       // false
-       normalized === 'false' ||
-       normalized === '0' ||
-       DataTypeClass.normalizeStr(variable) === 'no'
+      normalized === 'false' ||
+      normalized === '0' ||
+      DataTypeClass.normalizeStr(variable) === 'no'
     ) {
       return true;
     }
@@ -201,12 +210,12 @@ Ejemplo: "-1,2.1", "-2", "3" */
   /**
   ¿la variable es un objeto literal? */
   public static isLiteralObject = (literalObject: any): boolean => {
-    return typeof literalObject === "object"
-           && literalObject !== null
-           && (
-              Object.getPrototypeOf(literalObject) === Object.prototype ||
-              Object.prototype.toString.call(literalObject) === '[object Object]'
-           )
+    return (
+      typeof literalObject === 'object' &&
+      literalObject !== null &&
+      (Object.getPrototypeOf(literalObject) === Object.prototype ||
+        Object.prototype.toString.call(literalObject) === '[object Object]')
+    );
   };
 
   /**

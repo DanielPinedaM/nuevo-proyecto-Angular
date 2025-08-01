@@ -1,15 +1,24 @@
 <nav class="text-white h-full p-2">
   <ul class="flex space-x-2 flex-wrap">
     @for (item of breadcrumbs; let i = $index; track trackByIndex(i)) {
-    <li [ngClass]="{
-         'bg-red-900': currentRoute === item,
-         'bg-red-700': currentRoute !== item
-       }" class="rounded-full px-4 py-2 flex items-center justify-center">
-      <button (click)="onClickOpenBreadcrumb(item)" class="text-white flex items-center cursor-pointer">
-        <span>{{ item.replaceAll('/inicio/', '') }}</span>
+    <li
+      [ngClass]="{
+        'bg-red-900': currentRoute === item,
+        'bg-red-700': currentRoute !== item
+      }"
+      class="rounded-full px-4 py-2 flex items-center justify-center"
+    >
+      <button
+        (click)="onClickOpenBreadcrumb(item)"
+        class="text-white flex items-center cursor-pointer"
+      >
+        <span>{{ item.replaceAll("/inicio/", "") }}</span>
       </button>
 
-      <button (click)="onClickCloseBreadcrumb(i)" class="ml-2 text-white flex items-center cursor-pointer">
+      <button
+        (click)="onClickCloseBreadcrumb(i)"
+        class="ml-2 text-white flex items-center cursor-pointer"
+      >
         <i class="pi pi-times"></i>
       </button>
     </li>

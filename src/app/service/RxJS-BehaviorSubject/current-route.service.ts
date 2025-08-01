@@ -15,8 +15,6 @@ export class CurrentRouteService {
   constructor(private router: Router) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() =>
-        this.currentRouteSubject.next(this.router.url)
-      );
+      .subscribe(() => this.currentRouteSubject.next(this.router.url));
   }
 }

@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { sessionStorageListValue, sessionStorageSaveAndUpdate } from '@/app/utils/func/sessionStorage';
+import {
+  sessionStorageListValue,
+  sessionStorageSaveAndUpdate,
+} from '@/app/utils/func/sessionStorage';
 import { CurrentRouteService } from '@/app/service/RxJS-BehaviorSubject/current-route.service';
 
 @Component({

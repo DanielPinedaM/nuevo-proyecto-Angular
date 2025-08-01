@@ -27,7 +27,7 @@ export class MenuMobileComponent implements OnInit {
   constructor(
     private currentRouteService: CurrentRouteService,
     private router: Router,
-    private hotToast: HotToastClass,
+    private hotToast: HotToastClass
   ) {}
 
   ngOnInit() {
@@ -61,7 +61,7 @@ export class MenuMobileComponent implements OnInit {
       this.isMenuOpen = false;
 
       if (result.isConfirmed) {
-        this.hotToast.infoNotification("Se ha cerrado sesión");
+        this.hotToast.infoNotification('Se ha cerrado sesión');
         this.router.navigate(['/' + path.auth.login]);
       }
     });

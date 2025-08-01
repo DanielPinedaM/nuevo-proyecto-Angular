@@ -1,4 +1,7 @@
-import { IVAuth, secretKeyAuthentication } from '@/app/models/constants/auth.constants';
+import {
+  IVAuth,
+  secretKeyAuthentication,
+} from '@/app/models/constants/auth.constants';
 import { enc, mode, pad, AES } from 'crypto-js';
 
 export default class CryptoServiceClass {

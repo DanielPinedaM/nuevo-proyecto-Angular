@@ -9,7 +9,7 @@ import LuxonClass from '@/app/utils/class/LuxonClass';
 import GeneralClass from '@/app/utils/class/GeneralClass';
 import { Injectable } from '@angular/core';
 import * as ExcelJS from 'exceljs';
-import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.service'
+import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.
 export default class DownloadFileClass {
   constructor(
     private hotToast: HotToastClass,
-    private loaderService: LoaderService,
+    private loaderService: LoaderService
   ) {}
 
   /**
@@ -39,10 +39,13 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification(message);
       return;
     }
-    
+
     if (!fileName) {
       this.hotToast.errorNotification(message);
-      console.error('❌ el nombre del archivo fileName NO puede ser falsy\n', fileName);
+      console.error(
+        '❌ el nombre del archivo fileName NO puede ser falsy\n',
+        fileName
+      );
       return;
     }
 
@@ -82,8 +85,11 @@ export default class DownloadFileClass {
 
       setTimeout(() => URL.revokeObjectURL(fileURL), 5000);
     } else {
-      this.hotToast.errorNotification("Al ver archivo");
-      console.error('❌ error, para poder ver el archivo, tiene q ser tipo blob\n', blob);
+      this.hotToast.errorNotification('Al ver archivo');
+      console.error(
+        '❌ error, para poder ver el archivo, tiene q ser tipo blob\n',
+        blob
+      );
     }
   };
 
@@ -104,7 +110,7 @@ export default class DownloadFileClass {
       return;
     }
 
-   if (!(Array.isArray(nonNestedArrayOfObjects))) {
+    if (!Array.isArray(nonNestedArrayOfObjects)) {
       this.hotToast.errorNotification(errroMessage);
       console.error(
         '❌ el parametro nonNestedArrayOfObjects tiene q ser un array de objetos NO anidado\n',
@@ -115,19 +121,28 @@ export default class DownloadFileClass {
 
     if (nonNestedArrayOfObjects.length === 0) {
       this.hotToast.errorNotification(errroMessage);
-      console.error('❌ el array de objetos NO puede estar vacio, NI puede ser falsy\n', nonNestedArrayOfObjects);
+      console.error(
+        '❌ el array de objetos NO puede estar vacio, NI puede ser falsy\n',
+        nonNestedArrayOfObjects
+      );
       return;
     }
-    
+
     if (!fileName) {
       this.hotToast.errorNotification(errroMessage);
-      console.error('❌ el nombre del archivo fileName NO puede ser falsy\n', fileName);
+      console.error(
+        '❌ el nombre del archivo fileName NO puede ser falsy\n',
+        fileName
+      );
       return;
     }
 
     if (!String(fileName)?.includes('.xlsx')) {
       this.hotToast.errorNotification(errroMessage);
-      console.error('❌ fileName tiene q contener la extension .xlsx\n', fileName);
+      console.error(
+        '❌ fileName tiene q contener la extension .xlsx\n',
+        fileName
+      );
       return;
     }
 

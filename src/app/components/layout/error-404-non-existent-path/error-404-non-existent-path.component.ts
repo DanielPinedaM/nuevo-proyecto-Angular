@@ -7,13 +7,12 @@ import { Router } from '@angular/router';
   templateUrl: './error-404-non-existent-path.component.html',
 })
 export class Error404NonExistentPathComponent {
-  currentRoute: string = "";
+  currentRoute: string = '';
 
-  constructor(
-    private router: Router
-  ) {
+  constructor(private router: Router) {
     this.currentRoute = this.router.url;
   }
 
-  onClickLogout = (): Promise<boolean> => this.router.navigate(['/' + path.auth.login]);
+  onClickLogout = (): Promise<boolean> =>
+    this.router.navigate(['/' + path.auth.login]);
 }

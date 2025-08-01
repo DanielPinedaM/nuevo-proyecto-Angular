@@ -14,7 +14,10 @@ import { HttpService } from '@/app/service/generalService/http.service';
 import HotToastClass from '@/app/utils/class/notification/HotToastClass';
 import { enterFields } from '@/app/models/constants/error-message.constants';
 import { IBodyLogin } from '@/app/models/interfaces/auth.interfaces';
-import { initRoute, minLengthPassword } from '@/app/models/constants/auth.constants';
+import {
+  initRoute,
+  minLengthPassword,
+} from '@/app/models/constants/auth.constants';
 import CryptoServiceClass from '@/app/utils/class/CryptoServiceClass';
 
 @Component({
@@ -120,7 +123,7 @@ export class LoginComponent implements OnInit {
       { body: bodyLogin }
     );
 
-    this.router.navigate(['/' + path.home.home + '/' + path.home.bots])
+    this.router.navigate(['/' + path.home.home + '/' + path.home.bots]);
 
     /* if (success) {
       this.setSessionStorage(data);

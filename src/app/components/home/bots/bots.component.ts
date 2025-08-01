@@ -4,13 +4,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-bots',
   templateUrl: './bots.component.html',
-  imports: [...PrimeNgModules]
+  imports: [...PrimeNgModules],
 })
 export class BotsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

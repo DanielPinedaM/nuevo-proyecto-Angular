@@ -132,7 +132,9 @@ export class AssignPasswordComponent implements OnInit {
     );
 
     if (success) {
-      this.hotToast.successNotification('Se ha restablecido su contraseña, inicie sesion para continuar');
+      this.hotToast.successNotification(
+        'Se ha restablecido su contraseña, inicie sesion para continuar'
+      );
       this.formAssignPassword.reset();
       this.router.navigate(['/' + path.auth.login]);
     } else {

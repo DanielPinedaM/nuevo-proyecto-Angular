@@ -233,14 +233,24 @@ export default class GeneralClass {
   obtener elemento de un array de forma aleatoria */
   public static getRandomItem = <T>(array: T[]): T | null => {
     if (!Array.isArray(array)) {
-      console.error("❌ error - getRandomItem - se requiere q sea tipo \narray ", array, "\n¿es array? ", Array.isArray(array));
+      console.error(
+        '❌ error - getRandomItem - se requiere q sea tipo \narray ',
+        array,
+        '\n¿es array? ',
+        Array.isArray(array)
+      );
       return null;
     }
 
     const max: number = array.length;
 
     if (max === 0) {
-      console.error("❌ error - getRandomItem - el array ", array, "no puede estar vacío \nmax", max);
+      console.error(
+        '❌ error - getRandomItem - el array ',
+        array,
+        'no puede estar vacío \nmax',
+        max
+      );
       return null;
     }
 

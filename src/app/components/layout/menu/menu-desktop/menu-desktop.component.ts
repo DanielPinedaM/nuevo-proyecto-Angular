@@ -28,7 +28,7 @@ export class MenuDesktopComponent implements OnInit {
   constructor(
     private currentRouteService: CurrentRouteService,
     private router: Router,
-    private hotToast: HotToastClass,
+    private hotToast: HotToastClass
   ) {}
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class MenuDesktopComponent implements OnInit {
       'warning'
     ).then((result) => {
       if (result.isConfirmed) {
-        this.hotToast.infoNotification("Se ha cerrado sesión");
+        this.hotToast.infoNotification('Se ha cerrado sesión');
         this.router.navigate(['/' + path.auth.login]);
       }
     });

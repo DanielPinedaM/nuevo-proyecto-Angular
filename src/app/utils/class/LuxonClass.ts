@@ -79,16 +79,16 @@ export default class LuxonClass {
 
     if (!dateTime.isValid) return date;
 
-    const finalDate: string = dateTime
-      .setLocale('es')
-      .toFormat(format);
+    const finalDate: string = dateTime.setLocale('es').toFormat(format);
 
     return this.replaceAmPm(finalDate);
   };
 
   /**
   fecha y hora actual con a.m y p.m  */
-  public static currentDateAndTime = (format: string = 'd-LLL-yyyy hh:mm:ss a'): string => {
+  public static currentDateAndTime = (
+    format: string = 'd-LLL-yyyy hh:mm:ss a'
+  ): string => {
     const finalDate: string = DateTime.now()
       .setLocale('es')
       .toFormat(format)

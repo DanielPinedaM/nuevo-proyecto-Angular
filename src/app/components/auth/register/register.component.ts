@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private hotToast: HotToastClass,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-   onChangeValidatePassword(
+  onChangeValidatePassword(
     value: string = '',
     formControlName: 'password' | 'confirmPassword'
   ): void {
@@ -128,18 +128,20 @@ export class RegisterComponent implements OnInit {
       activate: false,
     };
 
-     const { success, message } = await this.httpService.request(
+    const { success, message } = await this.httpService.request(
       'POST',
       `${environment.api}user/createUser`,
       { body: bodyRegister, isASecurityEndpoint: false }
     );
 
     if (success) {
-      this.hotToast.successNotification(`Usuario ${nameUser} registrado, inicie sesión para continuar `);
+      this.hotToast.successNotification(
+        `Usuario ${nameUser} registrado, inicie sesión para continuar `
+      );
       this.formRegister.reset();
       this.router.navigate(['/' + path.auth.login]);
     } else {
       this.hotToast.errorNotification(message);
-     }
-   }
+    }
+  }
 }
