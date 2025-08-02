@@ -20,7 +20,7 @@ import {
   IResponse,
   ResponseType,
   TMethod,
-} from '@/service/generalService/types/requestDataTypes';
+} from '@/service/generalService/types/requestData.types';
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
