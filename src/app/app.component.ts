@@ -2,15 +2,15 @@ import { environment } from '@/environments/environment';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { LoaderService } from '@/app/service/RxJS-BehaviorSubject/layout/loader.service';
+import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
 import {
   constImmutableProperties,
   objSessionStorage,
-} from '@/app/models/constants/session-storage.constants';
-import SweetAlertClass from '@/app/utils/class/notification/SweetAlertClass.utils';
-import { sessionStorageSearch } from '@/app/utils/func/sessionStorage.utils';
-import { LoaderComponent } from '@/app/components/layout/loader/loader.component';
-import path from '@/app//models/constants/path.constants';
+} from '@/models/constants/session-storage.constants';
+import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
+import { sessionStorageSearch } from '@/utils/func/sessionStorage.utils';
+import { LoaderComponent } from '@/app/layout/loader/loader.component';
+import path from '@/models/constants/path.constants';
 
 @Component({
   selector: 'app-root',
