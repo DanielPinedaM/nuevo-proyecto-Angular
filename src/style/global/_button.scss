@@ -10,6 +10,11 @@
   opacity: 0.5;
 }
 
+%base-btn-active {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+
 %base-btn-primary-secondary {
   width: fit-content;
   height: fit-content;
@@ -95,6 +100,10 @@ button {
         }
       }
     }
+
+    &:active {
+      @extend %base-btn-active;
+    }
   }
 
   &.btn-icon-with-border {
@@ -142,6 +151,10 @@ button {
           color: white;
         }
       }
+    }
+
+    &:active {
+      @extend %base-btn-active;
     }
   }
 
@@ -195,6 +208,10 @@ button {
           color: white;
         }
       }
+    }
+
+    &:active {
+      @extend %base-btn-active;
     }
   }
 
@@ -250,6 +267,10 @@ button {
         }
       }
     }
+
+    &:active {
+      @extend %base-btn-active;
+    }
   }
 
   &.btn-with-icon-text-no-border {
@@ -303,6 +324,10 @@ button {
         }
       }
     }
+
+    &:active {
+      @extend %base-btn-active;
+    }
   }
 
   // boton primario para "aceptar" - "si"
@@ -332,6 +357,10 @@ button {
         background-color: variable.$blue-azure;
         font-weight: variable.$font-weight-button;
       }
+    }
+
+    &:active {
+      @extend %base-btn-active;
     }
   }
 
@@ -367,6 +396,10 @@ button {
         font-weight: variable.$font-weight-button;
       }
     }
+
+    &:active {
+      @extend %base-btn-active;
+    }
   }
 
   &.btn-secondary-no-border {
@@ -395,6 +428,10 @@ button {
         background-color: variable.$blue-azure;
         font-weight: variable.$font-weight-button;
       }
+    }
+
+    &:active {
+      @extend %base-btn-active;
     }
   }
 }
