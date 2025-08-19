@@ -19,6 +19,7 @@ export default class LuxonClass {
   formato de fecha y/o hora con formato personalizado */
   public static formatDate = (
     date: Date | string | Nullable<Date> | DateTime,
+
     format: string = 'd-LLL-yyyy'
   ): string | any => {
     let dateTime: DateTime;
@@ -35,11 +36,11 @@ export default class LuxonClass {
 
     if (!dateTime.isValid) return date;
 
-    return dateTime.setLocale('es').toFormat(format);
+    return this.replaceAmPm(dateTime.setLocale('es').toFormat(format));
   };
 
   /**
-  fecha y hora actual con a.m y p.m  */
+  fecha y hora actual con formato de hora personalizado */
   public static currentDateAndTime = (
     format: string = 'd-LLL-yyyy hh:mm:ss a'
   ): string => {
