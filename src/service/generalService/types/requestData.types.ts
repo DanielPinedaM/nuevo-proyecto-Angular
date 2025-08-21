@@ -8,21 +8,27 @@ export type TMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 parametros de funcion httpRequest para llamar a la API */
 export type IResponseType = 'json' | 'text' | 'blob';
 
+/**
+type de query params */
+type TQueryParams =
+  | HttpParams
+  | {
+      [param: string]:
+        | string
+        | number
+        | boolean
+        | readonly (string | number | boolean)[];
+    };
+
+/**
+type de headers */
+type THeaders = Record<string, string | number>;
+
 export interface IRequestOptions<T = any> {
   isASecurityEndpoint?: boolean;
   body?: T;
-  queryParams?:
-    | HttpParams
-    | {
-        [param: string]:
-          | string
-          | number
-          | boolean
-          | readonly (string | number | boolean)[];
-      };
-  headers?: {
-    [name: string]: string | number | (string | number)[];
-  };
+  queryParams?: TQueryParams;
+  headers?: THeaders;
   responseType?: IResponseType;
   showLoader?: boolean;
 }
