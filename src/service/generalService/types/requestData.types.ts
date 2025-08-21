@@ -8,9 +8,59 @@ export type TMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 parametros de funcion httpRequest para llamar a la API */
 export type IResponseType = 'json' | 'text' | 'blob';
 
+// primitivos
+type TPrimitive =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | symbol
+  | bigint;
+
+// objetos genericos
+type TKeyRecord = string | number | symbol;
+type TRecursive = TPrimitive | TRecursiveObject | TAnyArray;
+type TRecursiveObject =
+  | { [key: string]: TRecursive }
+  | { [key: number]: TRecursive }
+  | { [key: symbol]: TRecursive };
+type TObject = object | Record<TKeyRecord, unknown>;
+
+// arrays
+type TAnyArray = Array<TPrimitive | TObject | TAnyArray>;
+
+// archivos
+export type TFiles =
+  | Blob
+  | File
+  | ArrayBuffer
+  | ArrayBufferView
+  | DataView
+  | Uint8Array
+  | Uint16Array
+  | Uint32Array
+  | Int8Array
+  | Int16Array
+  | Int32Array
+  | Float32Array
+  | Float64Array;
+
+// formularios
+export type TFormTypes = FormData | URLSearchParams;
+
+// tipo body
+type TBody =
+  | TPrimitive
+  | TObject
+  | TRecursiveObject
+  | TAnyArray
+  | TFiles
+  | TFormTypes;
+
 export interface IRequestOptions {
   isASecurityEndpoint?: boolean;
-  body?: any;
+  body?: TBody;
   queryParams?:
     | HttpParams
     | {
