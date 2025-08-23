@@ -39,29 +39,25 @@ Ejemplo: "-1,2.1", "-2", "3" */
   SI es posible convierte a NUMERO,
   cuando NO es posible devuleve null */
   public static convertToNumber = (value: number | any): number | null => {
-  const stringValue: string = String(value).trim();
+    const stringValue: string = String(value).trim();
 
-  if (
-      stringValue === ""
+    if (
+      stringValue === '' ||
+      value === null ||
+      stringValue === 'null' ||
+      value === undefined ||
+      stringValue === 'undefined' ||
+      typeof value === 'boolean' ||
+      typeof value === 'function' ||
+      typeof value === 'object' ||
+      typeof value === 'symbol' ||
+      Array.isArray(value)
+    ) {
+      return null;
+    }
 
-      || value === null
-      || stringValue === "null"
-
-      || value === undefined
-      || stringValue === "undefined"
-
-      || typeof value === "boolean"
-      || typeof value === "function"
-      || typeof value === "object"
-      || typeof value === "symbol"
-
-      || Array.isArray(value)
-  ) {
-    return null;
-  }
-
-  const number: number = Number(value);
-  return isNaN(number) ? null : number;
+    const number: number = Number(value);
+    return isNaN(number) ? null : number;
   };
 
   /**
@@ -216,7 +212,14 @@ Ejemplo: "-1,2.1", "-2", "3" */
   /**
   ¿la variable es un archivo? */
   public static isFile(variable: Blob | FormData | any): boolean {
-    return variable instanceof FormData || variable instanceof Blob;
+    if (!variable) return false;
+
+    return (
+      variable instanceof FormData ||
+      variable instanceof Blob ||
+      variable instanceof File ||
+      variable instanceof ArrayBuffer
+    );
   }
 
   /**

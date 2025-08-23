@@ -137,7 +137,7 @@ export default class DownloadFileClass {
       return;
     }
 
-    if (!String(fileName)?.includes('.xlsx')) {
+    if (!String(fileName).includes('.xlsx')) {
       this.hotToast.errorNotification(errroMessage);
       console.error(
         '❌ fileName tiene q contener la extension .xlsx\n',
