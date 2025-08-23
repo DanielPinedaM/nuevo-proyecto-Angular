@@ -1,8 +1,8 @@
 // variables de PRODUCCIÓN
 
-import IEnvironment from "./environment.interface";
+import IEnvironment from '@/environments/environment.interface';
 
-const api: string = "https://aqui escribir dominio de PRODUCCION";
+const api: string = 'https://aqui escribir dominio de PRODUCCION';
 
 export const environment: IEnvironment = {
   publicEnvironment: 'production',
@@ -10,6 +10,6 @@ export const environment: IEnvironment = {
   api,
 
   auth: {
-    login: "https://dominio.com:4000/api/vi/login",
-  }
+    login: 'https://dominio.com:4000/api/vi/login',
+  },
 };

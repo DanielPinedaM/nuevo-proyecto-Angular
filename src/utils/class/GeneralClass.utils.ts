@@ -5,7 +5,6 @@ import {
 import { constRegex } from '@/models/constants/regex.constants';
 import { IObjValidatePassword } from '@/models/interfaces/auth.interfaces';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
-import { specialWords } from '@/models/constants/special-words.constants';
 import HotToastClass from './notification/HotToastClass.utils';
 
 export default class GeneralClass {
@@ -178,27 +177,6 @@ export default class GeneralClass {
   public static listFormat = (array: any[]): string => {
     const arrayString: string[] = array.map((item) => String(item));
     return new Intl.ListFormat('es').format(arrayString);
-  };
-
-  /**
-  devuleve string con mayusculas iniciales */
-  public static titleCase = (string: string | any): string | any => {
-    if (typeof string !== 'string') return string;
-    if (string.trim() === '') return string;
-
-    return string
-      .replaceAll('-', ' ')
-      .replace(/\w\S*/g, (word: string): string => {
-        const wordNormalize: string = DataTypeClass.normalizeStr(word);
-
-        // SI la palabra existe en la key del objeto "specialWords" entonces reempalzarlo por el value
-        if (specialWords[wordNormalize]) return specialWords[wordNormalize];
-
-        if (word.length <= 3) return word.toLowerCase();
-
-        return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
-      })
-      .trim();
   };
 
   /**
