@@ -1,4 +1,4 @@
-@use "./variable";
+@use "./variable.scss" as variable;
 
 // Reset CSS
 
@@ -26,8 +26,13 @@
 html,
 body {
   background-color: variable.$white-smoke;
+  background-color: light-dark(variable.$white-smoke, variable.$white-smoke);
 
-  @media (prefers-color-scheme: dark), (prefers-color-scheme: light) {
+  @media (prefers-color-scheme: dark) {
+    background-color: variable.$white-smoke;
+  }
+
+  @media (prefers-color-scheme: light) {
     background-color: variable.$white-smoke;
   }
 }
