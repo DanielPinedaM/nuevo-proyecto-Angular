@@ -2,6 +2,7 @@
  * metodos para descargar archivo *
  * ******************************** */
 
+import { TitleCasePipe } from '@angular/common';
 import { saveAs } from 'file-saver';
 import { Injectable } from '@angular/core';
 import * as ExcelJS from 'exceljs';
@@ -153,7 +154,8 @@ export default class DownloadFileClass {
     const keys: string[] = Object.keys(nonNestedArrayOfObjects[0]);
 
     // Mayusculas iniciales a los nombres de las columnas del Excel
-    const header: string[] = keys.map((key) => GeneralClass.titleCase(key));
+    const titleCasePipe = new TitleCasePipe();
+    const header: string[] = keys.map((key: string) => titleCasePipe.transform(key ?? ''));
 
     // Agregar encabezados con estilos
     worksheet.addRow(header);
