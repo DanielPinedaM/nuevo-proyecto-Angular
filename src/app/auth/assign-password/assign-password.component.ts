@@ -97,7 +97,7 @@ export class AssignPasswordComponent implements OnInit {
     );
   }
 
-  async onSubmitAssignPassword() {
+  async onSubmitAssignPassword(): Promise<void> {
     this.formAssignPassword.markAllAsTouched();
 
     if (this.formAssignPassword.invalid || this.objValidatePassword?.error) {

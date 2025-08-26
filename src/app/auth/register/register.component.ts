@@ -101,7 +101,7 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  async onSubmitRegister() {
+  async onSubmitRegister(): Promise<void> {
     this.formRegister.markAllAsTouched();
 
     if (this.formRegister.invalid || this.objValidatePassword?.error) {

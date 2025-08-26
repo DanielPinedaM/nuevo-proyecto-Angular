@@ -30,7 +30,7 @@ export class RecoverPasswordComponent implements OnInit {
     ]),
   });
 
-  async onSubmitRecoverPassword() {
+  async onSubmitRecoverPassword(): Promise<void> {
     this.formRecoverPassword.markAllAsTouched();
 
     if (this.formRecoverPassword.invalid) {
