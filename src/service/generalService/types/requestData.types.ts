@@ -25,12 +25,14 @@ type de headers */
 type THeaders = Record<string, string | number>;
 
 export interface IRequestOptions<T = any> {
-  isASecurityEndpoint?: boolean;
   body?: T;
   queryParams?: TQueryParams;
   headers?: THeaders;
   responseType?: IResponseType;
   showLoader?: boolean;
+
+  isASecurityEndpoint?: boolean;
+  withCredentials?: boolean;
 }
 
 interface IData {

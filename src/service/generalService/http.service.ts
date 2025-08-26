@@ -87,14 +87,15 @@ export class HttpService {
     }
 
     const {
-      // enviar token en TODOS los endpoint, EXCEPTO al iniciar sesion
-      isASecurityEndpoint = url !== environment.auth.login,
-
       body,
       queryParams,
       headers = {},
       responseType = 'json',
       showLoader = true,
+
+      // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
+      isASecurityEndpoint = this.defaultSecurityEndpoint(url),
+      withCredentials = this.defaultSecurityEndpoint(url),
     } = options;
 
     if (body && method === 'GET') {
@@ -113,6 +114,8 @@ export class HttpService {
     this.httpHeader = new HttpHeaders(headers);
 
     // Agregar token si el endpoint lo necesita
+    /*
+    des-comentar para enviar token por Bearer headers HTTP Authorization
     if (isASecurityEndpoint) {
       const token: string | null = sessionStorageListValue(
         objSessionStorage.token!
@@ -136,7 +139,7 @@ export class HttpService {
           data: [],
         }) as T;
       }
-    }
+    } */
 
     let response = new Observable<T>();
 
@@ -145,6 +148,7 @@ export class HttpService {
       // HttpClient.responseType requiere 'json', pero puedes engañar al sistema usando cualquier string como 'json'.
       responseType: responseType as 'json',
       params: queryParams,
+      withCredentials,
     };
 
     try {
@@ -174,7 +178,7 @@ export class HttpService {
       const result: IResponse = (await lastValueFrom<T>(response)) as IResponse;
 
       /*
-      descomentar para imprimir logs de peticiones HTTP
+      des-comentar para imprimir logs de peticiones HTTP
       this.successLogs({
         method,
         url,
@@ -392,5 +396,25 @@ export class HttpService {
     if (response) console.error('response ', response);
 
     console.info('\n');
+  }
+
+  /**
+  validar env en los q por defecto NO se incluye el token */
+  private defaultSecurityEndpoint(url: string): boolean {
+    // aqui agregar nuevos env a los q NO se les envia el token al hacer peticion http
+    const unprotectedURLs: string[] = [environment.auth.login] as string[];
+
+    for (const item of unprotectedURLs) {
+      if (!DataTypeClass.isString(item)) {
+        console.error(
+          `❌ ERROR CRÍTICO\n verifica q el env ${item} este agregado a las variables de entorno \n unprotectedURLs`,
+          unprotectedURLs
+        );
+        return false;
+      }
+    }
+
+    // validar env en los q NO se incluye en token
+    return !unprotectedURLs.some((item: string) => url === item);
   }
 }
