@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   sessionStorageListValue,
@@ -13,13 +13,11 @@ import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-rout
   imports: [CommonModule],
 })
 export class BreadcrumbsComponent implements OnInit {
+  currentRouteService = inject(CurrentRouteService);
+  router = inject(Router);
+
   currentRoute: string = '';
   breadcrumbs: string[] = [];
-
-  constructor(
-    private currentRouteService: CurrentRouteService,
-    private router: Router
-  ) {}
 
   ngOnInit() {
     this.onChangeCurrentRoute();

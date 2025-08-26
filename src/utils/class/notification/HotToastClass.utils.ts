@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HotToastService, ToastPosition } from '@ngxpert/hot-toast';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 
@@ -8,7 +8,7 @@ funciones para mostrar toast */
   providedIn: 'root',
 })
 export default class HotToastClass {
-  constructor(private toast: HotToastService) {}
+  toast = inject(HotToastService);
 
   private duration: number = 4000;
 

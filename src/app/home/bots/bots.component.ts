@@ -7,7 +7,5 @@ import { Component, OnInit } from '@angular/core';
   imports: [...PrimeNgModules],
 })
 export class BotsComponent implements OnInit {
-  constructor() {}
-
   ngOnInit() {}
 }

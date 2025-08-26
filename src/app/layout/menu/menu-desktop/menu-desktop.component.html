@@ -2,7 +2,7 @@
   class="h-screen flex flex-col rounded-tr-3xl p-3 w-fit bg-orange-700 text-white"
 >
   <div class="px-3.5 mb-10">
-    @if (showText) {
+    @if (showText()) {
     <img class="w-44" src="https://robohash.org/1" alt="Logo de Bios" />
     } @else {
     <img class="w-10" src="https://robohash.org/2" alt="Logo de Bios" />
@@ -16,7 +16,7 @@
       [pTooltip]="!showText ? 'Maximizar Menú' : ''"
       matTooltipPosition="right"
     >
-      @if (showText) {
+      @if (showText()) {
       <img
         class="w-8"
         src="/assets/icon/menu/close-menu.svg"
@@ -31,9 +31,9 @@
 
   <menu class="flex flex-col justify-between h-full">
     <div class="flex flex-col gap-y-2">
-      @for (item of menuOptions; track $index) {
+      @for (item of menuOptions(); track $index) {
       <li
-        [ngClass]="{ 'bg-orange-900': currentRoute === item.path }"
+        [ngClass]="{ 'bg-orange-900': currentRoute() === item.path }"
         class="rounded-md"
       >
         <a
@@ -43,7 +43,7 @@
           class="hover:bg-orange-800 p-1 rounded cursor-pointer flex items-center gap-x-2"
         >
           <i class="pi pi-users"></i>
-          @if (showText) {
+          @if (showText()) {
           <span>{{ item.text }}</span>
           }
         </a>
@@ -56,10 +56,10 @@
         (click)="onClickLogOut()"
         [pTooltip]="!showText ? 'Cerrar sesión' : ''"
         tooltipPosition="right"
-        class="block w-full hover:bg-orange-800 p-1 rounded cursor-pointer flex items-center gap-x-2"
+        class="w-full hover:bg-orange-800 p-1 rounded cursor-pointer flex items-center gap-x-2"
       >
         <i class="pi pi-sign-out"></i>
-        @if (showText) {
+        @if (showText()) {
         <span>Cerrar sesión</span>
         }
       </button>

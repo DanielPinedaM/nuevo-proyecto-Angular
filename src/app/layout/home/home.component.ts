@@ -9,7 +9,5 @@ import { MainMenuComponent } from '@/app/layout/menu/main-menu/main-menu.compone
   imports: [MainMenuComponent, BreadcrumbsComponent, RouterOutlet],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
-
   ngOnInit() {}
 }

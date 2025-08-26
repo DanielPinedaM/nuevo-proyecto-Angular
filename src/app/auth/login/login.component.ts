@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {
   sessionStorageDeleteAll,
@@ -26,6 +26,10 @@ import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class LoginComponent implements OnInit {
+  httpService = inject(HttpService);
+  hotToast = inject(HotToastClass);
+  router = inject(Router);
+
   path: IPath = path;
 
   showPassword: boolean = true;
@@ -41,12 +45,6 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
     rememberMe: new FormControl(false),
   });
-
-  constructor(
-    private router: Router,
-    private httpService: HttpService,
-    private hotToast: HotToastClass
-  ) {}
 
   ngOnInit() {
     sessionStorageDeleteAll();
@@ -104,7 +102,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async onSubmitLogin() {
+  async onSubmitLogin(): Promise<void> {
     if (this.formLogin.invalid) {
       this.hotToast.infoNotification(enterFields);
       return;

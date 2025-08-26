@@ -35,19 +35,13 @@ export interface IRequestOptions<T = any> {
   withCredentials?: boolean;
 }
 
-interface IData {
-  timestamp: string;
-  path: string;
-  error: string | null;
-}
-
 /**
 asi es como responde la API */
-export interface IResponse {
+export interface IResponse<T = any> {
   success: boolean;
   status: number;
   message: string;
-  data: IData | any;
+  data: T;
 }
 
 export type ResponseType = IResponse | Blob | FormData | any;

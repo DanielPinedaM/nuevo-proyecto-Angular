@@ -3,7 +3,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom, Observable, timeout } from 'rxjs';
 import path from '@/models/constants/path.constants';
@@ -29,29 +29,27 @@ import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
   providedIn: 'root',
 })
 export class HttpService {
+  httpClient = inject(HttpClient);
+  router = inject(Router);
+  loaderService = inject(LoaderService);
+  hotToast = inject(HotToastClass);
+
   private httpHeader!: HttpHeaders;
   private _timeout: number = 1000 * 60;
 
-  constructor(
-    private httpClient: HttpClient,
-    private router: Router,
-    private loaderService: LoaderService,
-    private hotToast: HotToastClass
-  ) {}
-
-  public async request<T extends ResponseType = ResponseType>(
+  public async request<T>(
     method: TMethod,
     url: string = '',
     options: IRequestOptions = {}
-  ): Promise<ResponseType> {
+  ): Promise<IResponse<T>> {
     // validar env en los q NO se incluye en token
     if (!environment.auth.login) {
       return Promise.resolve({
         success: false,
         status: 401,
         message: `la VARIABLE DE ENTORNO PARA EL LOGIN ${environment.auth.login} tiene que ser tipo string y NO puede estar vacia ''`,
-        data: [],
-      }) as T;
+        data: [] as unknown as T,
+      });
     }
 
     // validar URL q llama al endpoint
@@ -67,8 +65,8 @@ export class HttpService {
         success: false,
         status: 400,
         message: `La URL '${url}' es invalida`,
-        data: [],
-      }) as T;
+        data: [] as unknown as T,
+      });
     }
 
     // validar q tenga conexion a internet
@@ -82,8 +80,8 @@ export class HttpService {
         success: false,
         status: 503,
         message,
-        data: [],
-      }) as T;
+        data: [] as unknown as T,
+      });
     }
 
     const {
@@ -103,8 +101,8 @@ export class HttpService {
         success: false,
         status: 400,
         message: `❌ el metodo GET NO puede tener body ${JSON.stringify(body)}`,
-        data: [],
-      }) as T;
+        data: [] as unknown as T,
+      });
     }
 
     if (showLoader) {
@@ -114,8 +112,7 @@ export class HttpService {
     this.httpHeader = new HttpHeaders(headers);
 
     // Agregar token si el endpoint lo necesita
-    /*
-    des-comentar para enviar token por Bearer headers HTTP Authorization
+    /* des-comentar para enviar token por Bearer headers HTTP Authorization
     if (isASecurityEndpoint) {
       const token: string | null = sessionStorageListValue(
         objSessionStorage.token!
@@ -136,8 +133,8 @@ export class HttpService {
           success: false,
           status: 401,
           message: 'Inice sesion para continuar',
-          data: [],
-        }) as T;
+           data: [] as unknown as T,
+        });
       }
     } */
 
@@ -211,7 +208,7 @@ export class HttpService {
         });
 
         // responder con status error de la API
-        return Promise.resolve(errorResponse) as T;
+        return Promise.resolve(errorResponse);
       } else {
         console.error('❌ error ', error);
       }
@@ -220,8 +217,8 @@ export class HttpService {
         success: false,
         status: 500,
         message: 'no se pudo capturar error de la API',
-        data: null,
-      }) as T;
+        data: [] as unknown as T,
+      });
     } finally {
       if (showLoader) {
         this.loaderService.setLoader(false);

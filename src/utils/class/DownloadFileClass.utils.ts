@@ -4,22 +4,19 @@
 
 import { TitleCasePipe } from '@angular/common';
 import { saveAs } from 'file-saver';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import * as ExcelJS from 'exceljs';
 import { IResponse } from '@/service/generalService/types/requestData.types';
 import HotToastClass from './notification/HotToastClass.utils';
 import LuxonClass from '@/utils/class/LuxonClass.utils';
-import GeneralClass from '@/utils/class/GeneralClass.utils';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export default class DownloadFileClass {
-  constructor(
-    private hotToast: HotToastClass,
-    private loaderService: LoaderService
-  ) {}
+  loaderService = inject(LoaderService);
+  hotToast = inject(HotToastClass);
 
   /**
   Funcion para descargar archivo */
@@ -155,7 +152,9 @@ export default class DownloadFileClass {
 
     // Mayusculas iniciales a los nombres de las columnas del Excel
     const titleCasePipe = new TitleCasePipe();
-    const header: string[] = keys.map((key: string) => titleCasePipe.transform(key ?? ''));
+    const header: string[] = keys.map((key: string) =>
+      titleCasePipe.transform(key ?? '')
+    );
 
     // Agregar encabezados con estilos
     worksheet.addRow(header);

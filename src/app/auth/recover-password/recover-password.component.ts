@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/generalService/http.service';
@@ -15,12 +15,10 @@ import { enterFields } from '@/models/constants/error-message.constants';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class RecoverPasswordComponent implements OnInit {
-  path: IPath = path;
+  httpService = inject(HttpService);
+  hotToast = inject(HotToastClass);
 
-  constructor(
-    private httpService: HttpService,
-    private hotToast: HotToastClass
-  ) {}
+  path: IPath = path;
 
   ngOnInit() {}
 

@@ -6,9 +6,10 @@ import { constRegex } from '@/models/constants/regex.constants';
 import { IObjValidatePassword } from '@/models/interfaces/auth.interfaces';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import HotToastClass from './notification/HotToastClass.utils';
+import { inject } from '@angular/core';
 
 export default class GeneralClass {
-  constructor(private hotToast: HotToastClass) {}
+  hotToast = inject(HotToastClass);
 
   public static strongPassword = (password: string): boolean => {
     return constRegex.text.strongPassword.test(password);

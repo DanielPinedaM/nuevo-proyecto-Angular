@@ -4,8 +4,9 @@ import path from '@/models/constants/path.constants';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import IMenuOptions from '@/models/interfaces/menu.interfaces';
 
 @Component({
   selector: 'app-menu-desktop',
@@ -13,23 +14,14 @@ import { Router, RouterModule } from '@angular/router';
   imports: [...PrimeNgModules, CommonModule, RouterModule],
 })
 export class MenuDesktopComponent implements OnInit {
-  currentRoute: string = '';
+  currentRouteService = inject(CurrentRouteService);
+  router = inject(Router);
+  hotToast = inject(HotToastClass);
 
-  showText: boolean = true;
+  currentRoute = signal<string>('');
+  showText = signal<boolean>(false);
 
-  menuOptions = [
-    {
-      tooltip: 'Bots',
-      text: 'Bots',
-      path: `/${path.home.home}/${path.home.bots}`,
-    },
-  ];
-
-  constructor(
-    private currentRouteService: CurrentRouteService,
-    private router: Router,
-    private hotToast: HotToastClass
-  ) {}
+  menuOptions = input.required<IMenuOptions[]>();
 
   ngOnInit() {
     this.onChangeCurrentRoute();
@@ -37,12 +29,12 @@ export class MenuDesktopComponent implements OnInit {
 
   private onChangeCurrentRoute(): void {
     this.currentRouteService.currentRoute$.subscribe((currentRoute: string) => {
-      this.currentRoute = currentRoute;
+      this.currentRoute.set(currentRoute);
     });
   }
 
   onClickMinimizeOrMaximizeMenu(): void {
-    this.showText = !this.showText;
+    this.showText.update((prev) => !prev);
   }
 
   onClickLogOut(): void {

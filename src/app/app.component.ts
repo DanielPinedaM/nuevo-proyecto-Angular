@@ -1,5 +1,5 @@
 import { environment } from '@/environments/environment';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
@@ -18,13 +18,11 @@ import path from '@/models/constants/path.constants';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  loader: boolean = false;
+  bnIdle = inject(BnNgIdleService);
+  router = inject(Router);
+  loaderService = inject(LoaderService);
 
-  constructor(
-    private bnIdle: BnNgIdleService,
-    private router: Router,
-    private loaderService: LoaderService
-  ) {}
+  loader: boolean = false;
 
   ngOnInit(): void {
     this.getLoader();

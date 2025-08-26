@@ -1,5 +1,5 @@
 import path from '@/models/constants/path.constants';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,9 +7,11 @@ import { Router } from '@angular/router';
   templateUrl: './error-404-non-existent-path.component.html',
 })
 export class Error404NonExistentPathComponent {
+  router = inject(Router);
+
   currentRoute: string = '';
 
-  constructor(private router: Router) {
+  ngOnInit() {
     this.currentRoute = this.router.url;
   }
 

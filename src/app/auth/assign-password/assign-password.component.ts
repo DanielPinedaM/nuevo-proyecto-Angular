@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/generalService/http.service';
@@ -28,6 +28,11 @@ import GeneralClass from '@/utils/class/GeneralClass.utils';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class AssignPasswordComponent implements OnInit {
+  httpService = inject(HttpService);
+  hotToast = inject(HotToastClass);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+
   path: IPath = path;
 
   private idParams: string | null = null;
@@ -38,13 +43,6 @@ export class AssignPasswordComponent implements OnInit {
     password: '',
     confirmPassword: '',
   };
-
-  constructor(
-    private httpService: HttpService,
-    private hotToast: HotToastClass,
-    private readonly route: ActivatedRoute,
-    private router: Router
-  ) {}
 
   ngOnInit() {
     this.idParams = this.route.snapshot.paramMap.get('id');

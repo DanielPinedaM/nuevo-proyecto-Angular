@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/generalService/http.service';
@@ -25,6 +25,10 @@ import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class RegisterComponent implements OnInit {
+  httpService = inject(HttpService);
+  hotToast = inject(HotToastClass);
+  router = inject(Router);
+
   path: IPath = path;
 
   // necesario para validar <input> contraseña y confirmar contraseña
@@ -33,12 +37,6 @@ export class RegisterComponent implements OnInit {
     password: '',
     confirmPassword: '',
   };
-
-  constructor(
-    private httpService: HttpService,
-    private hotToast: HotToastClass,
-    private router: Router
-  ) {}
 
   ngOnInit() {}
 
