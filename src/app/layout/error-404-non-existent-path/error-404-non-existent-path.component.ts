@@ -1,5 +1,5 @@
 import path from '@/models/constants/path.constants';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 export class Error404NonExistentPathComponent {
   router = inject(Router);
 
-  currentRoute: string = '';
+  currentRoute = signal<string>('');
 
   ngOnInit() {
-    this.currentRoute = this.router.url;
+    this.currentRoute.set(this.router.url);
   }
 
   onClickLogout = (): Promise<boolean> =>

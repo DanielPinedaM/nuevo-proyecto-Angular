@@ -29,10 +29,10 @@ import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
   providedIn: 'root',
 })
 export class HttpService {
-  httpClient = inject(HttpClient);
-  router = inject(Router);
-  loaderService = inject(LoaderService);
-  hotToast = inject(HotToastClass);
+  private httpClient = inject(HttpClient);
+  private router = inject(Router);
+  private loaderService = inject(LoaderService);
+  private hotToast = inject(HotToastClass);
 
   private httpHeader!: HttpHeaders;
   private _timeout: number = 1000 * 60;

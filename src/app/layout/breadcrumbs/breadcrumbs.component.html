@@ -3,8 +3,8 @@
     @for (item of breadcrumbs; let i = $index; track trackByIndex(i)) {
     <li
       [ngClass]="{
-        'bg-red-900': currentRoute === item,
-        'bg-red-700': currentRoute !== item
+        'bg-red-900': currentRoute() === item,
+        'bg-red-700': currentRoute() !== item
       }"
       class="rounded-full px-4 py-2 flex items-center justify-center"
     >

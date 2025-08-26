@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/generalService/http.service';
@@ -18,7 +18,7 @@ export class RecoverPasswordComponent implements OnInit {
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
 
-  path: IPath = path;
+  path = signal<IPath>(path);
 
   ngOnInit() {}
 

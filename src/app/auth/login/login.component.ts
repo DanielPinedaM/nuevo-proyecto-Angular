@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {
   sessionStorageDeleteAll,
@@ -30,11 +30,9 @@ export class LoginComponent implements OnInit {
   hotToast = inject(HotToastClass);
   router = inject(Router);
 
-  path: IPath = path;
+  path = signal<IPath>(path);
 
-  showPassword: boolean = true;
-
-  minLengthPassword: number = minLengthPassword;
+  minLengthPassword = signal<number>(minLengthPassword);
 
   formLogin = new FormGroup({
     email: new FormControl('', [

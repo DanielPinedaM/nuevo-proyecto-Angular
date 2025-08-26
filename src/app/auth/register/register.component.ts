@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/generalService/http.service';
@@ -29,14 +29,14 @@ export class RegisterComponent implements OnInit {
   hotToast = inject(HotToastClass);
   router = inject(Router);
 
-  path: IPath = path;
+  path = signal<IPath>(path);
 
   // necesario para validar <input> contraseña y confirmar contraseña
-  objValidatePassword: IObjValidatePassword | undefined;
-  inputValuePassword: IInputValuePassword = {
+  objValidatePassword = signal<IObjValidatePassword | undefined>(undefined);
+  inputValuePassword = signal<IInputValuePassword>({
     password: '',
     confirmPassword: '',
-  };
+  });
 
   ngOnInit() {}
 
@@ -85,26 +85,25 @@ export class RegisterComponent implements OnInit {
     }
 
     // guardar en un estado los input value de contraseña y confirmar contraseña
-    if (formControlName === 'password') {
-      this.inputValuePassword.password = value;
-    }
-    if (formControlName === 'confirmPassword') {
-      this.inputValuePassword.confirmPassword = value;
-    }
+    this.inputValuePassword.update((prev: IInputValuePassword) => ({
+      ...prev,
+      [formControlName]: value,
+    }));
 
     /* validar que...
     1) Sea igual lo escrito en los <input> contraseña y confirmar contraseña
     2) la contraseña sea segura */
-    this.objValidatePassword = GeneralClass.validatePasswords(
-      this.inputValuePassword.password,
-      this.inputValuePassword.confirmPassword
+    const { password, confirmPassword } = this.inputValuePassword();
+
+    this.objValidatePassword.set(
+      GeneralClass.validatePasswords(password, confirmPassword)
     );
   }
 
   async onSubmitRegister(): Promise<void> {
     this.formRegister.markAllAsTouched();
 
-    if (this.formRegister.invalid || this.objValidatePassword?.error) {
+    if (this.formRegister.invalid || this.objValidatePassword()?.error) {
       this.hotToast.infoNotification(enterFields);
       return;
     }

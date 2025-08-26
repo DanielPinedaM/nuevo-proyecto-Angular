@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/generalService/http.service';
@@ -33,19 +33,19 @@ export class AssignPasswordComponent implements OnInit {
   router = inject(Router);
   route = inject(ActivatedRoute);
 
-  path: IPath = path;
+  path = signal<IPath>(path);
 
-  private idParams: string | null = null;
+  idParams = signal<string | null>(null);
 
   // necesario para validar <input> contraseña y confirmar contraseña
-  objValidatePassword: IObjValidatePassword | undefined;
-  inputValuePassword: IInputValuePassword = {
+  objValidatePassword = signal<IObjValidatePassword | undefined>(undefined);
+  inputValuePassword = signal<IInputValuePassword>({
     password: '',
     confirmPassword: '',
-  };
+  });
 
   ngOnInit() {
-    this.idParams = this.route.snapshot.paramMap.get('id');
+    this.idParams.set(this.route.snapshot.paramMap.get('id'));
   }
 
   formAssignPassword = new FormGroup({
@@ -81,26 +81,25 @@ export class AssignPasswordComponent implements OnInit {
     }
 
     // guardar en un estado los input value de contraseña y confirmar contraseña
-    if (formControlName === 'password') {
-      this.inputValuePassword.password = value;
-    }
-    if (formControlName === 'confirmPassword') {
-      this.inputValuePassword.confirmPassword = value;
-    }
+    this.inputValuePassword.update((prev: IInputValuePassword) => ({
+      ...prev,
+      [formControlName]: value,
+    }));
 
     /* validar que...
       1) Sea igual lo escrito en los <input> contraseña y confirmar contraseña
       2) la contraseña sea segura */
-    this.objValidatePassword = GeneralClass.validatePasswords(
-      this.inputValuePassword.password,
-      this.inputValuePassword.confirmPassword
+    const { password, confirmPassword } = this.inputValuePassword();
+
+    this.objValidatePassword.set(
+      GeneralClass.validatePasswords(password, confirmPassword)
     );
   }
 
   async onSubmitAssignPassword(): Promise<void> {
     this.formAssignPassword.markAllAsTouched();
 
-    if (this.formAssignPassword.invalid || this.objValidatePassword?.error) {
+    if (this.formAssignPassword.invalid || this.objValidatePassword()?.error) {
       this.hotToast.infoNotification(enterFields);
       return;
     }

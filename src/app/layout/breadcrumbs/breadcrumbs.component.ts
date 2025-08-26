@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   sessionStorageListValue,
@@ -16,7 +16,7 @@ export class BreadcrumbsComponent implements OnInit {
   currentRouteService = inject(CurrentRouteService);
   router = inject(Router);
 
-  currentRoute: string = '';
+  currentRoute = signal<string>('');
   breadcrumbs: string[] = [];
 
   ngOnInit() {
@@ -25,14 +25,14 @@ export class BreadcrumbsComponent implements OnInit {
 
   private onChangeCurrentRoute(): void {
     this.currentRouteService.currentRoute$.subscribe((currentRoute: string) => {
-      this.currentRoute = currentRoute ?? '';
+      this.currentRoute.set(currentRoute ?? '');
 
       if (
-        this.currentRoute &&
+        this.currentRoute() &&
         Array.isArray(this.breadcrumbs) &&
-        !this.breadcrumbs.includes(this.currentRoute)
+        !this.breadcrumbs.includes(this.currentRoute())
       ) {
-        this.breadcrumbs.push(this.currentRoute);
+        this.breadcrumbs.push(this.currentRoute());
         sessionStorageSaveAndUpdate('breadcrumb', this.breadcrumbs);
       }
 
