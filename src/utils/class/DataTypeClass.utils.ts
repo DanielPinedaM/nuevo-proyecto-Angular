@@ -174,10 +174,11 @@ Ejemplo: "-1,2.1", "-2", "3" */
       return newString;
   };
 
-  public static isBoolean = (variable: boolean | string | any): boolean => {
+  public static isValidBoolean = (variable: boolean | string | any): boolean => {
     const normalized: string = String(variable)?.trim()?.toLowerCase();
 
     if (
+      typeof normalized === "boolean" ||
       // true
       normalized === 'true' ||
       normalized === '1' ||
