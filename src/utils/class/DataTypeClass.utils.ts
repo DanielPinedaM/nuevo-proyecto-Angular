@@ -89,65 +89,89 @@ Ejemplo: "-1,2.1", "-2", "3" */
   };
 
   /**
-   * Normalizar string
-   * Ejemplo:
-   * ' COMunicaciÓN    ' devuelve  'comunicacion'
-   * [1, 2, 3]           devuelve   [1, 2, 3]
-   *
-   * @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual
-   * @param {Object} [options] — opciones de normalización
-   * @param {boolean} [options.clearSpecialCharacters] — true = BORRAR caracteres especiales,  false = CONSERVAR caracteres especiales
-   * @param {boolean} [options.enyeWithN] — true = REEMPLAZAR "ñ" y "Ñ" por "n", false = CONSERVAR letra "ñ"
-   * @param {boolean} [options.clearNumbers] — true = BORRAR numeros, false = CONSERVAR numeros
-   * @param {boolean} [options.upperCase] — true = convertir texto a MAYUSCULA, false = convertir texto a minuscula
-   * @returns {string|any} — la cadena normalizada o el valor original si no es string */
+  * Normalizar string
+  * Ejemplo:
+  * ' COMunicaciÓN    ' devuelve  'comunicacion'
+  * [1, 2, 3]           devuelve   [1, 2, 3]
+  *
+  * @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual
+
+  * @param {Object} [options]                          — opciones de normalización
+  * @param {boolean} [options.clearAccents ]           — true = borrar las tildes, false = NO borrar las tildes
+  * @param {boolean} [options.clearSpecialCharacters]  — true = BORRAR caracteres especiales,  false = CONSERVAR caracteres especiales
+  * @param {boolean} [options.enyeWithN]               — true = REEMPLAZAR "ñ" y "Ñ" por "n", false = CONSERVAR letra "ñ"
+  * @param {boolean} [options.clearNumbers]            — true = BORRAR numeros, false = CONSERVAR numeros
+  * @param {boolean} [options.upperCase]               — true = convertir texto a MAYUSCULA, false = convertir texto a minuscula
+  * @param {boolean} [options.trimType]                — controla como borrar los espacios en blanco: "trim" borrar espacio en blanco al PRINCIPIO Y FINAL, "trimStart" borrar espacio en blanco al PRINCIPIO, "trimEnd" borrar espacio en blanco al FINAL, null NO borrar espacios en blanco
+
+  * @returns {string|any}                              — la cadena normalizada o el valor original si no es string */
   public static normalizeStr = (
     string: string | any,
     options?: {
+      clearAccents?: boolean;
       clearSpecialCharacters?: boolean;
       enyeWithN?: boolean;
       clearNumbers?: boolean;
       upperCase?: boolean;
+      trimType?: 'trim' | 'trimStart' | 'trimEnd' | null;
     }
   ): string | any => {
-    if (!DataTypeClass.isString(string)) return string;
-    if (String(string).trim() === '') return '';
+  if (!DataTypeClass.isString(string)) return string;
+  if (String(string).trim() === '') return '';
 
-    const {
-      clearSpecialCharacters = false,
-      enyeWithN = false,
-      clearNumbers = false,
-      upperCase = false,
+      const {
+        clearAccents = true,
+        clearSpecialCharacters = false,
+        enyeWithN = false,
+        clearNumbers = false,
+        upperCase = false,
+        trimType = "trim",
     } = options ?? {};
 
-    let newString: string = string
-      .toLowerCase() // convertir a minuscula
-      .normalize('NFD') // hacer q funcionen las expresiones regulares
-      .replaceAll(/[\u0300-\u0302\u0304-\u036f]/g, '') // eliminar acentos (todos menos U+0303)
-      .normalize('NFC'); // conservar la "ñ" "Ñ"
-
-    if (enyeWithN) {
-      newString = newString.replaceAll(/ñ/g, 'n'); // reemplazar ñ minúscula por n
+     let newString: string = string.toLowerCase()                              // convertir a minuscula
+                                   .normalize("NFD")                           // hacer q funcionen las expresiones regulares
+    if (clearAccents) {
+        newString = newString.replaceAll(/[\u0300-\u0302\u0304-\u036f]/g, "")  // eliminar acentos (todos menos U+0303)
     }
 
-    if (clearSpecialCharacters) {
-      newString = newString.replaceAll(/[^a-zA-Z0-9 ñÑ]/g, ''); // borrar caracteres especiales
-    }
+     newString = newString.normalize("NFC")                                    // conservar la "ñ" "Ñ"
 
-    if (clearNumbers) {
-      newString = newString.replaceAll(/\d+/g, ''); // borrar todos los numeros 0123456789
-    }
+      if (enyeWithN) {
+        newString = newString.replaceAll(/ñ/g, 'n');                           // reemplazar ñ minúscula por n
+      }
 
-    // esto TIENE q estar al final de la funcion
-    if (upperCase) {
-      newString = newString.toLocaleUpperCase('es-ES');
-    }
+      if (clearSpecialCharacters) {
+        newString = newString.replaceAll(/[^a-zA-Z0-9 ñÑ]/g, '');              // borrar caracteres especiales
+      }
 
-    newString = newString
-      .trim() // borrar espacio en blanco al principio y final
-      .replaceAll(/\s+/g, ' '); // reemplazar múltiples espacios en blanco '   ' por un solo espacio en blanco ' ';
+      if (clearNumbers) {
+       newString = newString.replaceAll(/\d+/g, '');                           // borrar todos los numeros 0123456789
+      }
 
-    return newString;
+      /*
+      *********************************************
+      * esto TIENE q estar al final de la funcion *
+      ********************************************* */
+
+      if (upperCase) {
+        newString = newString.toLocaleUpperCase("es-ES");                      // convertir a MAYUSCULA
+      }
+
+      if (trimType === "trim") {
+        newString = newString.trim();                                          // borrar espacio en blanco al PRINCIPIO Y FINAL
+      }
+
+      if (trimType === "trimStart") {
+        newString = newString.trimStart();                                     // borrar espacio en blanco al PRINCIPIO
+      }
+
+      if (trimType === "trimEnd") {
+        newString = newString.trimEnd();                                       // borrar espacio en blanco al FINAL
+      }
+
+      newString = newString.replaceAll(/\s+/g, ' ')                            // reemplazar múltiples espacios en blanco '   ' por un solo espacio en blanco ' '
+
+      return newString;
   };
 
   public static isBoolean = (variable: boolean | string | any): boolean => {
