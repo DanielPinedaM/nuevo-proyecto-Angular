@@ -2,7 +2,11 @@
  * metodos relacionadas con los tipos de datos *
  * ********************************************* */
 
+import { TitleCasePipe } from '@angular/common';
+
 export default class DataTypeClass {
+  private static titleCasePipe = new TitleCasePipe();
+
   /**
 admite cualquier string */
   public static isString = (variable: string | any): boolean => {
@@ -88,97 +92,13 @@ Ejemplo: "-1,2.1", "-2", "3" */
     return string;
   };
 
-  /**
-  * Normalizar string
-  * Ejemplo:
-  * ' COMunicaciÓN    ' devuelve  'comunicacion'
-  * [1, 2, 3]           devuelve   [1, 2, 3]
-  *
-  * @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual
-
-  * @param {Object} [options]                          — opciones de normalización
-  * @param {boolean} [options.clearAccents ]           — true = borrar las tildes, false = NO borrar las tildes
-  * @param {boolean} [options.clearSpecialCharacters]  — true = BORRAR caracteres especiales,  false = CONSERVAR caracteres especiales
-  * @param {boolean} [options.enyeWithN]               — true = REEMPLAZAR "ñ" y "Ñ" por "n", false = CONSERVAR letra "ñ"
-  * @param {boolean} [options.clearNumbers]            — true = BORRAR numeros, false = CONSERVAR numeros
-  * @param {boolean} [options.upperCase]               — true = convertir texto a MAYUSCULA, false = convertir texto a minuscula
-  * @param {boolean} [options.trimType]                — controla como borrar los espacios en blanco: "trim" borrar espacio en blanco al PRINCIPIO Y FINAL, "trimStart" borrar espacio en blanco al PRINCIPIO, "trimEnd" borrar espacio en blanco al FINAL, null NO borrar espacios en blanco
-
-  * @returns {string|any}                              — la cadena normalizada o el valor original si no es string */
-  public static normalizeStr = (
-    string: string | any,
-    options?: {
-      clearAccents?: boolean;
-      clearSpecialCharacters?: boolean;
-      enyeWithN?: boolean;
-      clearNumbers?: boolean;
-      upperCase?: boolean;
-      trimType?: 'trim' | 'trimStart' | 'trimEnd' | null;
-    }
-  ): string | any => {
-  if (!DataTypeClass.isString(string)) return string;
-  if (String(string).trim() === '') return '';
-
-      const {
-        clearAccents = true,
-        clearSpecialCharacters = false,
-        enyeWithN = false,
-        clearNumbers = false,
-        upperCase = false,
-        trimType = "trim",
-    } = options ?? {};
-
-     let newString: string = string.toLowerCase()                              // convertir a minuscula
-                                   .normalize("NFD")                           // hacer q funcionen las expresiones regulares
-    if (clearAccents) {
-        newString = newString.replaceAll(/[\u0300-\u0302\u0304-\u036f]/g, "")  // eliminar acentos (todos menos U+0303)
-    }
-
-     newString = newString.normalize("NFC")                                    // conservar la "ñ" "Ñ"
-
-      if (enyeWithN) {
-        newString = newString.replaceAll(/ñ/g, 'n');                           // reemplazar ñ minúscula por n
-      }
-
-      if (clearSpecialCharacters) {
-        newString = newString.replaceAll(/[^a-zA-Z0-9 ñÑ]/g, '');              // borrar caracteres especiales
-      }
-
-      if (clearNumbers) {
-       newString = newString.replaceAll(/\d+/g, '');                           // borrar todos los numeros 0123456789
-      }
-
-      /*
-      *********************************************
-      * esto TIENE q estar al final de la funcion *
-      ********************************************* */
-
-      if (upperCase) {
-        newString = newString.toLocaleUpperCase("es-ES");                      // convertir a MAYUSCULA
-      }
-
-      if (trimType === "trim") {
-        newString = newString.trim();                                          // borrar espacio en blanco al PRINCIPIO Y FINAL
-      }
-
-      if (trimType === "trimStart") {
-        newString = newString.trimStart();                                     // borrar espacio en blanco al PRINCIPIO
-      }
-
-      if (trimType === "trimEnd") {
-        newString = newString.trimEnd();                                       // borrar espacio en blanco al FINAL
-      }
-
-      newString = newString.replaceAll(/\s+/g, ' ')                            // reemplazar múltiples espacios en blanco '   ' por un solo espacio en blanco ' '
-
-      return newString;
-  };
-
-  public static isValidBoolean = (variable: boolean | string | any): boolean => {
+  public static isValidBoolean = (
+    variable: boolean | string | any
+  ): boolean => {
     const normalized: string = String(variable)?.trim()?.toLowerCase();
 
     if (
-      typeof normalized === "boolean" ||
+      typeof normalized === 'boolean' ||
       // true
       normalized === 'true' ||
       normalized === '1' ||
@@ -269,5 +189,132 @@ Ejemplo: "-1,2.1", "-2", "3" */
     }
 
     return -1;
+  };
+
+  /**
+* Normalizar string
+* Ejemplo:
+* ' COMunicaciÓN    ' devuelve  'comunicacion'
+* [1, 2, 3]           devuelve   [1, 2, 3]
+*
+* @param {string|any} string — valor a normalizar. Si no es string o está vacío, se devuelve tal cual
+
+* @param {Object} [options]                           opciones de normalización
+
+* @param {boolean} [options.clearAccents]             true: borrar las tildes
+                                                      false: NO borrar las tildes
+
+* @param {boolean} [options.clearSpecialCharacters]   true: BORRAR caracteres especiales
+                                                      false: CONSERVAR caracteres especiales
+
+* @param {boolean} [options.enyeWithN]                true: REEMPLAZAR "ñ" y "Ñ" por "n"
+                                                      false: CONSERVAR letra "ñ"
+
+* @param {boolean} [options.clearNumbers]             true: BORRAR numeros
+                                                      false: CONSERVAR numeros
+
+* @param {'upperCase' | 'lowerCase' | 'titleCase' | null}  [options.caseTransform]  "upperCase": convertir texto a MAYUSCULA
+                                                                                    "lowerCase": convertir texto a minuscula
+                                                                                    "titleCase": iniciales en mayuscula
+                                                                                    null: NO modifica mayusculas ni minusculas
+
+* @param {'trim' | 'trimStart' | 'trimEnd' | null}  [options.trimType] controla como borrar los espacios en blanco
+                                                                      "trim": borrar espacio en blanco al PRINCIPIO Y FINAL
+                                                                      "trimStart": borrar espacio en blanco al PRINCIPIO
+                                                                      "trimEnd": borrar espacio en blanco al FINAL
+                                                                      null: NO borrar espacios en blanco
+
+* @param {boolean} [options.clearBlankSpaces] true: reemplazar tabs, multiples espacios en blanco '   ' y saltos de linea \n por espacio en blanco ' '
+                                              false: conservar tabs, multiples espacios en blanco '   ' y saltos de linea \n
+
+* @param {'-' | '_' | null} [options.typeOfDash] null: NO reemplazar espacios en blanco " " por guiones
+                                                "-": reemplaza espacios por guion MEDIO
+                                                "_" : reemplaza espacios por guion BAJO
+
+* @returns {string|any}                               string normalizado o el valor original si no es string */
+  public static normalizeStr = (
+    string: string | any,
+    options?: {
+      clearAccents?: boolean;
+      clearSpecialCharacters?: boolean;
+      enyeWithN?: boolean;
+      clearNumbers?: boolean;
+      caseTransform?: 'upperCase' | 'lowerCase' | 'titleCase' | null;
+      trimType?: 'trim' | 'trimStart' | 'trimEnd' | null;
+      clearBlankSpaces?: boolean;
+      typeOfDash?: '-' | '_' | null;
+    }
+  ): string | any => {
+    if (!DataTypeClass.isString(string)) return string;
+    if (String(string).trim() === '') return '';
+
+    const {
+      clearAccents = true,
+      clearSpecialCharacters = false,
+      enyeWithN = false,
+      clearNumbers = false,
+      caseTransform = 'lowerCase',
+      trimType = 'trim',
+      clearBlankSpaces = true,
+      typeOfDash = null,
+    } = options ?? {};
+
+    let newString: string = string.normalize('NFD'); // hacer q funcionen las expresiones regulares
+
+    if (clearAccents) {
+      newString = newString.replaceAll(/[\u0300-\u0302\u0304-\u036f]/g, ''); // eliminar acentos (todos menos U+0303)
+    }
+
+    newString = newString.normalize('NFC'); // conservar la "ñ" "Ñ"
+
+    if (enyeWithN) {
+      newString = newString
+        .replaceAll(/ñ/g, 'n') // reemplazar ñ minúscula por n minúscula
+        .replaceAll(/Ñ/g, 'N'); // reemplazar Ñ MAYUSCULA por N MAYUSCULA
+    }
+
+    if (clearSpecialCharacters) {
+      newString = newString.replaceAll(/[^a-zA-Z0-9 áéíóúüÁÉÍÓÚÜñÑ]/g, ''); // borrar caracteres especiales
+    }
+
+    if (clearNumbers) {
+      newString = newString.replaceAll(/\d+/g, ''); // borrar todos los numeros 0123456789
+    }
+
+    /*
+     *********************************************
+     * esto TIENE q estar al final de la funcion *
+     ********************************************* */
+
+    if (trimType === 'trim') {
+      newString = newString.trim(); // borrar espacio en blanco al PRINCIPIO Y FINAL
+    } else if (trimType === 'trimStart') {
+      newString = newString.trimStart(); // borrar espacio en blanco al PRINCIPIO
+    } else if (trimType === 'trimEnd') {
+      newString = newString.trimEnd(); // borrar espacio en blanco al FINAL
+    }
+
+    if (clearBlankSpaces) {
+      newString = newString
+        .replace(/(\r\n|\n|\r)/gm, ' ') // borrar saltos de linea
+        .replace(/\t/g, ' ') // borrar tabs
+        .replaceAll(/\s+/g, ' '); // reemplazar múltiples espacios en blanco '   ' por un solo espacio en blanco ' '
+    }
+
+    if (caseTransform === 'titleCase') {
+      newString = this.titleCasePipe.transform(newString); // mayusculas iniciales
+    } else if (caseTransform === 'lowerCase') {
+      newString = newString.toLocaleLowerCase('es-ES'); // convertir a minuscula
+    } else if (caseTransform === 'upperCase') {
+      newString = newString.toLocaleUpperCase('es-ES'); // convertir a MAYUSCULA
+    }
+
+    if (typeOfDash === '-') {
+      newString = newString.replaceAll(' ', '-'); // reemplaza espacios por guion MEDIO "-"
+    } else if (typeOfDash === '_') {
+      newString = newString.replaceAll(' ', '_'); // reemplaza espacios por guion BAJO "_"
+    }
+
+    return newString;
   };
 }
