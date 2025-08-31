@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from '@/service/generalService/http.service';
+import { HttpService } from '@/service/general-service/http.service';
 import { environment } from '@/environments/environment';
 import path from '@/models/constants/path.constants';
 import { IPath } from '@/models/interfaces/path.interfaces';

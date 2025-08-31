@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { MenuDesktopComponent } from '@/app/layout/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/app/layout/menu/menu-mobile/menu-mobile.component';
 import IMenuOptions from '@/models/interfaces/menu.interfaces';
-import { HttpService } from '@/service/generalService/http.service';
+import { HttpService } from '@/service/general-service/http.service';
 import { environment } from '@/environments/environment';
 import {
   sessionStorageListValue,

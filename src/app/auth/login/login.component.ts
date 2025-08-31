@@ -10,7 +10,7 @@ import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { environment } from '@/environments/environment';
 import { IPath } from '@/models/interfaces/path.interfaces';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
-import { HttpService } from '@/service/generalService/http.service';
+import { HttpService } from '@/service/general-service/http.service';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/models/constants/error-message.constants';
 import { IBodyLogin } from '@/models/interfaces/auth.interfaces';

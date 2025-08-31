@@ -6,7 +6,7 @@ import { TitleCasePipe } from '@angular/common';
 import { saveAs } from 'file-saver';
 import { inject, Injectable } from '@angular/core';
 import * as ExcelJS from 'exceljs';
-import { IResponse } from '@/service/generalService/types/requestData.types';
+import { IResponse } from '@/service/general-service/types/request-data.types';
 import HotToastClass from './notification/HotToastClass.utils';
 import LuxonClass from '@/utils/class/LuxonClass.utils';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';

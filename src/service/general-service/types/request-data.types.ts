@@ -30,6 +30,7 @@ export interface IRequestOptions<T = any> {
   headers?: THeaders;
   responseType?: IResponseType;
   showLoader?: boolean;
+  showLogger?: boolean;
 
   isASecurityEndpoint?: boolean;
   withCredentials?: boolean;
@@ -53,6 +54,7 @@ export interface IObjectLogs {
   url?: string;
   options?: IRequestOptions;
   response: IResponse;
+  showLogger: boolean;
 }
 
 /**
