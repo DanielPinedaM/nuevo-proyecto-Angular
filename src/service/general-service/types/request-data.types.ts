@@ -1,28 +1,25 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 /**
 nombres de los metodos HTTP */
 export type TMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 /**
-parametros de funcion httpRequest para llamar a la API */
-export type IResponseType = 'json' | 'text' | 'blob';
+tipo de respuesta HTTP */
+export type IResponseType = 'arraybuffer' | 'blob' | 'json' | 'text';
 
 /**
 type de query params */
 type TQueryParams =
   | HttpParams
-  | {
-      [param: string]:
-        | string
-        | number
-        | boolean
-        | readonly (string | number | boolean)[];
-    };
-
+  | Record<
+      string,
+      string | number | boolean | readonly (string | number | boolean)[]
+    >
+  | undefined;
 /**
 type de headers */
-type THeaders = Record<string, string | number>;
+type THeaders = HttpHeaders | Record<string, string | string[]> | undefined;
 
 export interface IRequestOptions<T = any> {
   body?: T;

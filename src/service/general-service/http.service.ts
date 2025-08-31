@@ -1,12 +1,8 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { map, catchError, finalize } from 'rxjs/operators';
 import { inject, Injectable } from '@angular/core';
-import { lastValueFrom, Observable, timeout } from 'rxjs';
+import { Observable, of, timeout } from 'rxjs';
 import {
-  IHttpErrorResponse,
   IRequestOptions,
   IResponse,
   TMethod,
@@ -25,18 +21,18 @@ export class HttpService {
   private requestDataUtils = inject(RequestDataUtils);
   private loaderService = inject(LoaderService);
 
-  private httpHeader!: HttpHeaders;
   private _timeout: number = 1000 * 60;
 
   /*
    ***************************
    * validar peticiones HTTP *
    *************************** */
-  private async httpService<T>(
-    method: TMethod,
+  private executeRequest<T>(
+    requestFn: () => Observable<T>,
     url: string = '',
+    method: TMethod,
     options: IRequestOptions = {}
-  ): Promise<IResponse<T>> {
+  ): Observable<IResponse<T>> {
     // validar URL q llama al endpoint
     if (
       !DataTypeClass.isString(url) ||
@@ -46,7 +42,7 @@ export class HttpService {
       String(url).includes('NaN') ||
       !String(url).startsWith('http')
     ) {
-      return Promise.resolve({
+      return of({
         success: false,
         status: 400,
         message: `La URL '${url}' es invalida`,
@@ -61,7 +57,7 @@ export class HttpService {
 
       this.hotToast.errorNotification(message);
 
-      return Promise.resolve({
+      return of({
         success: false,
         status: 503,
         message,
@@ -69,31 +65,23 @@ export class HttpService {
       });
     }
 
-    const {
-      body,
-      queryParams,
-      headers = {},
-      responseType = 'json',
-      showLoader = true,
-      showLogger = true,
+    const mergedOptions: IRequestOptions = {
+      ...this.requestDataUtils.DEFAULT_OPTIONS,
+      ...options,
+    };
 
-      // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
-      //isASecurityEndpoint = this.defaultSecurityEndpoint(url),
-      withCredentials = this.requestDataUtils.defaultSecurityEndpoint(url),
-    } = options;
-
-    if (body && method === 'GET') {
-      return Promise.resolve({
+    if (mergedOptions.body && method === 'GET') {
+      return of({
         success: false,
         status: 400,
-        message: `❌ el metodo GET NO puede tener body ${JSON.stringify(body)}`,
+        message: `❌ el metodo GET NO puede tener body ${JSON.stringify(
+          mergedOptions.body
+        )}`,
         data: [] as unknown as T,
       });
     }
 
-    if (showLoader) this.loaderService.setLoader(true);
-
-    this.httpHeader = new HttpHeaders(headers);
+    if (mergedOptions.showLoader) this.loaderService.setLoader(true);
 
     // Agregar token si el endpoint lo necesita
     /*
@@ -114,7 +102,7 @@ export class HttpService {
 
         this.unauthorized();
 
-        return Promise.resolve({
+        return of({
           success: false,
           status: 401,
           message: 'Inice sesion para continuar',
@@ -123,98 +111,59 @@ export class HttpService {
       }
     } */
 
-    let response: Observable<T> = new Observable<T>();
+    return requestFn().pipe(
+      timeout(this._timeout),
+      map((response: any) => {
+        this.requestDataUtils.successLogs({
+          method,
+          url,
+          options: mergedOptions,
+          showLogger: mergedOptions.showLogger as boolean,
+          response,
+        });
 
-    const httpOptions = {
-      headers: this.httpHeader,
-      // HttpClient.responseType requiere 'json', pero puedes engañar al sistema usando cualquier string como 'json'.
-      responseType: responseType as 'json',
-      params: queryParams,
-      withCredentials,
-    };
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        const errorResponse: IResponse<T> = { ...error?.error, data: null };
+        const status: number =
+          typeof errorResponse?.status === 'number'
+            ? errorResponse.status
+            : error.status;
 
-    try {
-      switch (method) {
-        case 'GET':
-          response = this.httpClient.get<T>(url, httpOptions);
-          break;
-        case 'POST':
-          response = this.httpClient.post<T>(url, body, httpOptions);
-          break;
-        case 'PUT':
-          response = this.httpClient.put<T>(url, body, httpOptions);
-          break;
-        case 'PATCH':
-          response = this.httpClient.patch<T>(url, body, httpOptions);
-          break;
-        case 'DELETE':
-          response = this.httpClient.delete<T>(url, {
-            ...httpOptions,
-            body,
-          });
-          break;
-      }
+        this.requestDataUtils.errorHandling(status, url);
 
-      response.pipe(timeout(this._timeout));
-
-      const result: IResponse = (await lastValueFrom<T>(response)) as IResponse;
-
-      this.requestDataUtils.successLogs({
-        method,
-        url,
-        options,
-        showLogger,
-        response: result,
-      });
-
-      return result;
-    } catch (error: IHttpErrorResponse | any) {
-      // la data es vacia porque la API respondio con un error
-      const errorResponse: IResponse = { ...error?.error, data: null };
-
-      const status: number = DataTypeClass.isNumber(errorResponse.status)
-        ? errorResponse.status
-        : error.status;
-
-      this.requestDataUtils.errorHandling(status, url);
-
-      if (error?.error && error instanceof HttpErrorResponse) {
         this.requestDataUtils.errorLogs({
           method,
           url,
-          options,
-          showLogger,
-          response: {
-            success: errorResponse?.success,
-            status: errorResponse?.status,
-            message: errorResponse?.message,
-            data: errorResponse?.data,
-          },
+          options: mergedOptions,
+          showLogger: mergedOptions.showLogger as boolean,
+          response: errorResponse,
         });
 
-        // responder con status error de la API
-        return Promise.resolve(errorResponse);
-      } else {
-        console.error('❌ error ', error);
-      }
-
-      return Promise.resolve({
-        success: false,
-        status: 500,
-        message: 'no se pudo capturar error de la API',
-        data: [] as unknown as T,
-      });
-    } finally {
-      if (showLoader) {
-        this.loaderService.setLoader(false);
-      }
-    }
+        return of({
+          success: false,
+          status: status ?? 500,
+          message:
+            errorResponse?.message ?? 'no se pudo capturar error de la API',
+          data: [] as unknown as T,
+        });
+      }),
+      finalize(() => {
+        if (mergedOptions.showLoader) this.loaderService.setLoader(false);
+      })
+    );
   }
 
   public GET<T = any>(
     url: string,
     options: IRequestOptions = {}
-  ): Observable<T> {
-    return this.httpService('GET', url, options);
+  ): Observable<IResponse<T>> {
+    return this.executeRequest<T>(
+      () => this.httpClient.get<T>(url, options) as Observable<T>,
+      url,
+      'GET',
+      options
+    );
   }
 }

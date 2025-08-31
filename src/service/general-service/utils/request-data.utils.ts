@@ -6,9 +6,11 @@ import path from '@/models/constants/path.constants';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import {
   IObjectLogs,
+  IRequestOptions,
   IResponse,
 } from '@/service/general-service/types/request-data.types';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
+import { HttpHeaders } from '@angular/common/http';
 
 export class RequestDataUtils {
   private hotToast = inject(HotToastClass);
@@ -206,5 +208,22 @@ export class RequestDataUtils {
 
     // validar env en los q NO se incluye en token
     return !unprotectedURLs.some((item: string) => url === item);
+  }
+
+  /**
+  opciones por defecto de configuracion para llamar a la API */
+  DEFAULT_OPTIONS(url: string): IRequestOptions {
+    return {
+      body: undefined,
+      queryParams: {},
+      headers: {},
+      responseType: 'json',
+      showLoader: true,
+      showLogger: true,
+
+      // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
+      //isASecurityEndpoint: this.defaultSecurityEndpoint(url),
+      withCredentials: this.defaultSecurityEndpoint(url),
+    };
   }
 }
