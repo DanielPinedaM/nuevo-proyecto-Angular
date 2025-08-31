@@ -122,8 +122,7 @@ export class AssignPasswordComponent implements OnInit {
       password: await CryptoServiceClass.encrypt(password!.trim()),
     };
 
-    const { success, message } = await this.httpService.request(
-      'PUT',
+    const { success, message } = await this.httpService.PUT(
       `${environment.api}user/resetPassword/${bodyAssignPassword.id}`,
       { body: bodyAssignPassword, isASecurityEndpoint: false }
     );

@@ -8,6 +8,7 @@ import {
   IObjectLogs,
   IRequestOptions,
   IResponse,
+  TMethod,
 } from '@/service/general-service/types/request-data.types';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import { HttpHeaders } from '@angular/common/http';
@@ -211,11 +212,11 @@ export class RequestDataUtils {
   }
 
   /**
-  opciones por defecto de configuracion para llamar a la API */
+  configuraciones por defecto para llamar la API */
   DEFAULT_OPTIONS(url: string): IRequestOptions {
     return {
       body: undefined,
-      queryParams: {},
+      params: {},
       headers: {},
       responseType: 'json',
       showLoader: true,
@@ -224,6 +225,27 @@ export class RequestDataUtils {
       // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
       //isASecurityEndpoint: this.defaultSecurityEndpoint(url),
       withCredentials: this.defaultSecurityEndpoint(url),
+    };
+  }
+
+  /**
+  opciones q recibe Angular httpClient */
+  buildHttpOptions(options: IRequestOptions, method: TMethod): any {
+    const { body, params, headers, responseType, withCredentials } = options;
+
+    return {
+      // NO agregar body al metodo HTTP GET
+      ...(method !== 'GET' && body ? { body } : {}),
+      ...(headers
+        ? {
+            headers: new HttpHeaders(
+              headers as Record<string, string | string[]>
+            ),
+          }
+        : {}),
+      params,
+      responseType,
+      withCredentials,
     };
   }
 }

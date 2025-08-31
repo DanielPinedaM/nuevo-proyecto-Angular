@@ -125,8 +125,7 @@ export class RegisterComponent implements OnInit {
       activate: false,
     };
 
-    const { success, message } = await this.httpService.request(
-      'POST',
+    const { success, message } = await this.httpService.POST(
       `${environment.api}user/createUser`,
       { body: bodyRegister, isASecurityEndpoint: false }
     );

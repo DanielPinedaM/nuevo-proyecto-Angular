@@ -31,8 +31,7 @@ export class MainMenuComponent implements OnInit {
       return;
     }
 
-    const { success, data } = await this.httpService.request<IMenuOptions[]>(
-      'POST',
+    const { success, data } = await this.httpService.POST<IMenuOptions[]>(
       `${environment.api}AQUI_FALTA_ESCRIBIR_URL_DEL_ENDPOINT_DEL_MENU`
     );
 

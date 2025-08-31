@@ -113,8 +113,7 @@ export class LoginComponent implements OnInit {
       password: await CryptoServiceClass.encrypt(password!.trim()),
     };
 
-    const { success, message, data } = await this.httpService.request(
-      'POST',
+    const { success, message, data } = await this.httpService.POST(
       environment.auth.login,
       { body: bodyLogin }
     );

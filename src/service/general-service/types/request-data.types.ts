@@ -10,7 +10,7 @@ export type IResponseType = 'arraybuffer' | 'blob' | 'json' | 'text';
 
 /**
 type de query params */
-type TQueryParams =
+type TParams =
   | HttpParams
   | Record<
       string,
@@ -23,7 +23,7 @@ type THeaders = HttpHeaders | Record<string, string | string[]> | undefined;
 
 export interface IRequestOptions<T = any> {
   body?: T;
-  queryParams?: TQueryParams;
+  params?: TParams;
   headers?: THeaders;
   responseType?: IResponseType;
   showLoader?: boolean;

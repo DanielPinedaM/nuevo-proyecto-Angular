@@ -38,8 +38,7 @@ export class RecoverPasswordComponent implements OnInit {
       return;
     }
 
-    const { success, message } = await this.httpService.request(
-      'POST',
+    const { success, message } = await this.httpService.POST(
       `${environment.api}sendemail/sendEmailResetPassword`,
       { body: this.formRecoverPassword.value, isASecurityEndpoint: false }
     );

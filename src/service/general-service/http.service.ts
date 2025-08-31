@@ -21,6 +21,8 @@ export class HttpService {
   private requestDataUtils = inject(RequestDataUtils);
   private loaderService = inject(LoaderService);
 
+  finalOptions: IRequestOptions = {};
+
   private _timeout: number = 1000 * 60;
 
   /*
@@ -34,13 +36,14 @@ export class HttpService {
     options: IRequestOptions = {}
   ): Observable<IResponse<T>> {
     // validar URL q llama al endpoint
+    const urlString: string = String(url);
     if (
       !DataTypeClass.isString(url) ||
-      String(url).trim() === '' ||
-      String(url).includes('undefined') ||
-      String(url).includes('null') ||
-      String(url).includes('NaN') ||
-      !String(url).startsWith('http')
+      urlString.trim() === '' ||
+      urlString.includes('undefined') ||
+      urlString.includes('null') ||
+      urlString.includes('NaN') ||
+      !urlString.startsWith('http')
     ) {
       return of({
         success: false,
@@ -65,23 +68,18 @@ export class HttpService {
       });
     }
 
-    const mergedOptions: IRequestOptions = {
-      ...this.requestDataUtils.DEFAULT_OPTIONS,
-      ...options,
-    };
+    const { body, showLoader, showLogger, isASecurityEndpoint } = options;
 
-    if (mergedOptions.body && method === 'GET') {
+    if (body && method === 'GET') {
       return of({
         success: false,
         status: 400,
-        message: `❌ el metodo GET NO puede tener body ${JSON.stringify(
-          mergedOptions.body
-        )}`,
+        message: `❌ el metodo GET NO puede tener body ${JSON.stringify(body)}`,
         data: [] as unknown as T,
       });
     }
 
-    if (mergedOptions.showLoader) this.loaderService.setLoader(true);
+    if (showLoader) this.loaderService.setLoader(true);
 
     // Agregar token si el endpoint lo necesita
     /*
@@ -117,8 +115,8 @@ export class HttpService {
         this.requestDataUtils.successLogs({
           method,
           url,
-          options: mergedOptions,
-          showLogger: mergedOptions.showLogger as boolean,
+          options,
+          showLogger: showLogger as boolean,
           response,
         });
 
@@ -136,8 +134,8 @@ export class HttpService {
         this.requestDataUtils.errorLogs({
           method,
           url,
-          options: mergedOptions,
-          showLogger: mergedOptions.showLogger as boolean,
+          options,
+          showLogger: showLogger as boolean,
           response: errorResponse,
         });
 
@@ -150,20 +148,110 @@ export class HttpService {
         });
       }),
       finalize(() => {
-        if (mergedOptions.showLoader) this.loaderService.setLoader(false);
+        if (showLoader) this.loaderService.setLoader(false);
       })
     );
   }
 
+  /*
+   ************************************************
+   * metodos reactivos para llamar endpoint (API) *
+   ************************************************ */
   public GET<T = any>(
     url: string,
     options: IRequestOptions = {}
   ): Observable<IResponse<T>> {
+    const config: IRequestOptions = {
+      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
+      ...options,
+    };
+
+    const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'GET');
+
     return this.executeRequest<T>(
-      () => this.httpClient.get<T>(url, options) as Observable<T>,
+      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
       url,
       'GET',
-      options
+      config
+    );
+  }
+
+  public POST<T = any>(
+    url: string,
+    options: IRequestOptions = {}
+  ): Observable<IResponse<T>> {
+    const config: IRequestOptions = {
+      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
+      ...options,
+    };
+
+    const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'POST');
+
+    return this.executeRequest<T>(
+      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
+      url,
+      'POST',
+      config
+    );
+  }
+
+  public PUT<T = any>(
+    url: string,
+    options: IRequestOptions = {}
+  ): Observable<IResponse<T>> {
+    const config: IRequestOptions = {
+      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
+      ...options,
+    };
+
+    const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'PUT');
+
+    return this.executeRequest<T>(
+      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
+      url,
+      'PUT',
+      config
+    );
+  }
+
+  public PATCH<T = any>(
+    url: string,
+    options: IRequestOptions = {}
+  ): Observable<IResponse<T>> {
+    const config: IRequestOptions = {
+      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
+      ...options,
+    };
+
+    const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'PATCH');
+
+    return this.executeRequest<T>(
+      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
+      url,
+      'PATCH',
+      config
+    );
+  }
+
+  public DELETE<T = any>(
+    url: string,
+    options: IRequestOptions = {}
+  ): Observable<IResponse<T>> {
+    const config: IRequestOptions = {
+      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
+      ...options,
+    };
+
+    const httpOptions = this.requestDataUtils.buildHttpOptions(
+      config,
+      'DELETE'
+    );
+
+    return this.executeRequest<T>(
+      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
+      url,
+      'DELETE',
+      config
     );
   }
 }
