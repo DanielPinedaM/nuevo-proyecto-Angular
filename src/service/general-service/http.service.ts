@@ -29,12 +29,12 @@ export class HttpService {
    ***************************
    * validar peticiones HTTP *
    *************************** */
-  private executeRequest<T>(
+  private executeRequest<T = any>(
     requestFn: () => Observable<T>,
     url: string = '',
     method: TMethod,
     options: IRequestOptions = {}
-  ): Observable<IResponse<T>> {
+  ): Observable<T | IResponse> {
     // validar URL q llama al endpoint
     const urlString: string = String(url);
     if (
@@ -160,7 +160,7 @@ export class HttpService {
   public GET<T = any>(
     url: string,
     options: IRequestOptions = {}
-  ): Observable<IResponse<T>> {
+  ): Observable<T | IResponse> {
     const config: IRequestOptions = {
       ...this.requestDataUtils.DEFAULT_OPTIONS(url),
       ...options,
@@ -179,7 +179,7 @@ export class HttpService {
   public POST<T = any>(
     url: string,
     options: IRequestOptions = {}
-  ): Observable<IResponse<T>> {
+  ): Observable<T | IResponse> {
     const config: IRequestOptions = {
       ...this.requestDataUtils.DEFAULT_OPTIONS(url),
       ...options,
@@ -198,7 +198,7 @@ export class HttpService {
   public PUT<T = any>(
     url: string,
     options: IRequestOptions = {}
-  ): Observable<IResponse<T>> {
+  ): Observable<T | IResponse> {
     const config: IRequestOptions = {
       ...this.requestDataUtils.DEFAULT_OPTIONS(url),
       ...options,
@@ -217,7 +217,7 @@ export class HttpService {
   public PATCH<T = any>(
     url: string,
     options: IRequestOptions = {}
-  ): Observable<IResponse<T>> {
+  ): Observable<T | IResponse> {
     const config: IRequestOptions = {
       ...this.requestDataUtils.DEFAULT_OPTIONS(url),
       ...options,
@@ -236,7 +236,7 @@ export class HttpService {
   public DELETE<T = any>(
     url: string,
     options: IRequestOptions = {}
-  ): Observable<IResponse<T>> {
+  ): Observable<T | IResponse> {
     const config: IRequestOptions = {
       ...this.requestDataUtils.DEFAULT_OPTIONS(url),
       ...options,

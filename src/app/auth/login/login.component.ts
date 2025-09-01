@@ -19,6 +19,7 @@ import {
   minLengthPassword,
 } from '@/models/constants/auth.constants';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
+import { AuthService } from '@/service/general-service/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class LoginComponent implements OnInit {
+  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -113,18 +115,17 @@ export class LoginComponent implements OnInit {
       password: await CryptoServiceClass.encrypt(password!.trim()),
     };
 
-    const { success, message, data } = await this.httpService.POST(
-      environment.auth.login,
-      { body: bodyLogin }
-    );
+    this.authService.login({ body: bodyLogin }).subscribe({
+      next: ({ success, message, data }) => {
+        if (success) {
+          this.setSessionStorage(data);
+          this.router.navigate([initRoute]);
+        } else {
+          this.hotToast.errorNotification(message);
+        }
+      },
+    });
 
     this.router.navigate(['/' + path.home.home + '/' + path.home.bots]);
-
-    /* if (success) {
-      this.setSessionStorage(data);
-      this.router.navigate([initRoute]);
-    } else {
-      this.hotToast.errorNotification(message);
-    } */
   }
 }

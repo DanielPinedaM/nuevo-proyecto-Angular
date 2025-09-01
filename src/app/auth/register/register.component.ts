@@ -18,6 +18,7 @@ import {
 import { minLengthPassword } from '@/models/constants/auth.constants';
 import GeneralClass from '@/utils/class/GeneralClass.utils';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
+import { AuthService } from '@/service/general-service/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +26,7 @@ import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class RegisterComponent implements OnInit {
+  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -125,19 +127,18 @@ export class RegisterComponent implements OnInit {
       activate: false,
     };
 
-    const { success, message } = await this.httpService.POST(
-      `${environment.api}user/createUser`,
-      { body: bodyRegister, isASecurityEndpoint: false }
-    );
-
-    if (success) {
-      this.hotToast.successNotification(
-        `Usuario ${nameUser} registrado, inicie sesión para continuar `
-      );
-      this.formRegister.reset();
-      this.router.navigate(['/' + path.auth.login]);
-    } else {
-      this.hotToast.errorNotification(message);
-    }
+    this.authService.register({ body: bodyRegister }).subscribe({
+      next: ({ success, message }) => {
+        if (success) {
+          this.hotToast.successNotification(
+            `Usuario ${nameUser} registrado, inicie sesión para continuar `
+          );
+          this.formRegister.reset();
+          this.router.navigate(['/' + path.auth.login]);
+        } else {
+          this.hotToast.errorNotification(message);
+        }
+      },
+    });
   }
 }

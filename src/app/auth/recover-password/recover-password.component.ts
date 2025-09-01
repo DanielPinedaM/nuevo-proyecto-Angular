@@ -8,6 +8,11 @@ import { IPath } from '@/models/interfaces/path.interfaces';
 import { RouterModule } from '@angular/router';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/models/constants/error-message.constants';
+import { AuthService } from '@/service/general-service/auth/auth.service';
+
+export interface IBodyRecoverPassword {
+  email: string;
+}
 
 @Component({
   selector: 'app-recover-password',
@@ -15,6 +20,7 @@ import { enterFields } from '@/models/constants/error-message.constants';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class RecoverPasswordComponent implements OnInit {
+  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
 
@@ -38,18 +44,23 @@ export class RecoverPasswordComponent implements OnInit {
       return;
     }
 
-    const { success, message } = await this.httpService.POST(
-      `${environment.api}sendemail/sendEmailResetPassword`,
-      { body: this.formRecoverPassword.value, isASecurityEndpoint: false }
-    );
+    const { email } = this.formRecoverPassword.value;
 
-    if (success) {
-      this.hotToast.successNotification(
-        'Revise el correo que se le envio para continuar cambiando su contraseña'
-      );
-      this.formRecoverPassword.reset();
-    } else {
-      this.hotToast.errorNotification(message);
-    }
+    const bodyRecoverPassword: IBodyRecoverPassword = {
+      email: email!.trim(),
+    };
+
+    this.authService.recoverPassword({ body: bodyRecoverPassword }).subscribe({
+      next: ({ success, message }) => {
+        if (success) {
+          this.hotToast.successNotification(
+            'Revise el correo que se le envio para continuar cambiando su contraseña'
+          );
+          this.formRecoverPassword.reset();
+        } else {
+          this.hotToast.errorNotification(message);
+        }
+      },
+    });
   }
 }

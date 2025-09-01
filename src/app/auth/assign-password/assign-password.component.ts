@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/general-service/http.service';
-import { environment } from '@/environments/environment';
+
 import path from '@/models/constants/path.constants';
 import { IPath } from '@/models/interfaces/path.interfaces';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -21,6 +21,7 @@ import { constRegex } from '@/models/constants/regex.constants';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
 import GeneralClass from '@/utils/class/GeneralClass.utils';
+import { AuthService } from '@/service/general-service/auth/auth.service';
 
 @Component({
   selector: 'app-assign-password',
@@ -28,6 +29,7 @@ import GeneralClass from '@/utils/class/GeneralClass.utils';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class AssignPasswordComponent implements OnInit {
+  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -122,19 +124,18 @@ export class AssignPasswordComponent implements OnInit {
       password: await CryptoServiceClass.encrypt(password!.trim()),
     };
 
-    const { success, message } = await this.httpService.PUT(
-      `${environment.api}user/resetPassword/${bodyAssignPassword.id}`,
-      { body: bodyAssignPassword, isASecurityEndpoint: false }
-    );
-
-    if (success) {
-      this.hotToast.successNotification(
-        'Se ha restablecido su contraseña, inicie sesion para continuar'
-      );
-      this.formAssignPassword.reset();
-      this.router.navigate(['/' + path.auth.login]);
-    } else {
-      this.hotToast.errorNotification(message);
-    }
+    this.authService.assignPassword({ body: bodyAssignPassword }).subscribe({
+      next: ({ success, message }) => {
+        if (success) {
+          this.hotToast.successNotification(
+            'Se ha restablecido su contraseña, inicie sesion para continuar'
+          );
+          this.formAssignPassword.reset();
+          this.router.navigate(['/' + path.auth.login]);
+        } else {
+          this.hotToast.errorNotification(message);
+        }
+      },
+    });
   }
 }
