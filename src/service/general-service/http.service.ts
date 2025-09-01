@@ -21,8 +21,6 @@ export class HttpService {
   private requestDataUtils = inject(RequestDataUtils);
   private loaderService = inject(LoaderService);
 
-  finalOptions: IRequestOptions = {};
-
   private _timeout: number = 1000 * 60;
 
   /*
