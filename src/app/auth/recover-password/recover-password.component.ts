@@ -8,7 +8,8 @@ import { IPath } from '@/models/interfaces/path.interfaces';
 import { RouterModule } from '@angular/router';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/models/constants/error-message.constants';
-import { AuthService } from '@/service/general-service/auth/auth.service';
+import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
+import { IRequestOptions } from '@/service/general-service/types/request-data.types';
 
 export interface IBodyRecoverPassword {
   email: string;
@@ -20,7 +21,6 @@ export interface IBodyRecoverPassword {
   imports: [...PrimeNgModules, RouterModule],
 })
 export class RecoverPasswordComponent implements OnInit {
-  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
 
@@ -46,21 +46,25 @@ export class RecoverPasswordComponent implements OnInit {
 
     const { email } = this.formRecoverPassword.value;
 
-    const bodyRecoverPassword: IBodyRecoverPassword = {
-      email: email!.trim(),
+    const optionsApi: IRequestOptions<IBodyRecoverPassword> = {
+      body: {
+        email: await CryptoServiceClass.encrypt(email!.trim()),
+      },
     };
 
-    this.authService.recoverPassword({ body: bodyRecoverPassword }).subscribe({
-      next: ({ success, message }) => {
-        if (success) {
-          this.hotToast.successNotification(
-            'Revise el correo que se le envio para continuar cambiando su contraseña'
-          );
-          this.formRecoverPassword.reset();
-        } else {
-          this.hotToast.errorNotification(message);
-        }
-      },
-    });
+    this.httpService
+      .POST(`${environment.api}sendemail/sendEmailResetPassword`, optionsApi)
+      .subscribe({
+        next: ({ success, message }) => {
+          if (success) {
+            this.hotToast.successNotification(
+              'Revise el correo que se le envio para continuar cambiando su contraseña'
+            );
+            this.formRecoverPassword.reset();
+          } else {
+            this.hotToast.errorNotification(message);
+          }
+        },
+      });
   }
 }

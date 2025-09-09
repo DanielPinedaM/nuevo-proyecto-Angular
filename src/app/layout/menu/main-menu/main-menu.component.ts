@@ -8,7 +8,7 @@ import {
   sessionStorageSearch,
 } from '@/utils/func/sessionStorage.utils';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
-import { AuthService } from '@/service/general-service/auth/auth.service';
+import { environment } from '@/environments/environment';
 
 @Component({
   selector: 'app-main-menu',
@@ -16,7 +16,6 @@ import { AuthService } from '@/service/general-service/auth/auth.service';
   imports: [MenuDesktopComponent, MenuMobileComponent],
 })
 export class MainMenuComponent implements OnInit {
-  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
 
@@ -32,7 +31,7 @@ export class MainMenuComponent implements OnInit {
       return;
     }
 
-    this.authService.listMenu().subscribe({
+    this.httpService.GET(`${environment.api}`).subscribe({
       next: ({ success, data }) => {
         if (success) {
           this.menuOptions.set(data);

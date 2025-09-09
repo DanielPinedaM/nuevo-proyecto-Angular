@@ -19,7 +19,7 @@ import {
   minLengthPassword,
 } from '@/models/constants/auth.constants';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
-import { AuthService } from '@/service/general-service/auth/auth.service';
+import { IRequestOptions } from '@/service/general-service/types/request-data.types';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +27,6 @@ import { AuthService } from '@/service/general-service/auth/auth.service';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class LoginComponent implements OnInit {
-  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -102,6 +101,18 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  async encryptCredentials(
+    decryptedEmail: string,
+    decryptedPassword: string
+  ): Promise<{ encryptedEmail: string; encryptedPassword: string }> {
+    const [encryptedEmail, encryptedPassword] = await Promise.all([
+      await CryptoServiceClass.encrypt(decryptedEmail),
+      await CryptoServiceClass.encrypt(decryptedPassword),
+    ]);
+
+    return { encryptedEmail, encryptedPassword };
+  }
+
   async onSubmitLogin(): Promise<void> {
     if (this.formLogin.invalid) {
       this.hotToast.infoNotification(enterFields);
@@ -110,12 +121,19 @@ export class LoginComponent implements OnInit {
 
     const { email, password } = this.formLogin.value;
 
-    const bodyLogin: IBodyLogin = {
-      email: email!.trim(),
-      password: await CryptoServiceClass.encrypt(password!.trim()),
+    const { encryptedEmail, encryptedPassword } = await this.encryptCredentials(
+      email!.trim(),
+      password!.trim()
+    );
+
+    const optionsApi: IRequestOptions<IBodyLogin> = {
+      body: {
+        email: encryptedEmail,
+        password: encryptedPassword,
+      },
     };
 
-    this.authService.login({ body: bodyLogin }).subscribe({
+    this.httpService.POST(`${environment.api}`, optionsApi).subscribe({
       next: ({ success, message, data }) => {
         if (success) {
           this.setSessionStorage(data);

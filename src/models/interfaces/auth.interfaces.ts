@@ -10,7 +10,6 @@ export interface IBodyRegister {
   nameUser: string;
   email: string;
   password: string;
-  activate: boolean;
 }
 
 /**

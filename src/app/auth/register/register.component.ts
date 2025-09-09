@@ -18,7 +18,7 @@ import {
 import { minLengthPassword } from '@/models/constants/auth.constants';
 import GeneralClass from '@/utils/class/GeneralClass.utils';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
-import { AuthService } from '@/service/general-service/auth/auth.service';
+import { IRequestOptions } from '@/service/general-service/types/request-data.types';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +26,6 @@ import { AuthService } from '@/service/general-service/auth/auth.service';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class RegisterComponent implements OnInit {
-  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -102,6 +101,25 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  async encryptRegister(
+    decryptedNameUser: string,
+    decryptedEmail: string,
+    decryptedPassword: string
+  ): Promise<{
+    encryptedNameUser: string;
+    encryptedEmail: string;
+    encryptedPassword: string;
+  }> {
+    const [encryptedNameUser, encryptedEmail, encryptedPassword] =
+      await Promise.all([
+        await CryptoServiceClass.encrypt(decryptedNameUser),
+        await CryptoServiceClass.encrypt(decryptedEmail),
+        await CryptoServiceClass.encrypt(decryptedPassword),
+      ]);
+
+    return { encryptedNameUser, encryptedEmail, encryptedPassword };
+  }
+
   async onSubmitRegister(): Promise<void> {
     this.formRegister.markAllAsTouched();
 
@@ -120,14 +138,22 @@ export class RegisterComponent implements OnInit {
 
     const { nameUser, email, password } = this.formRegister.value;
 
-    const bodyRegister: IBodyRegister = {
-      nameUser: nameUser!.trim().toLowerCase(),
-      email: email!.trim(),
-      password: await CryptoServiceClass.encrypt(password!.trim()),
-      activate: false,
+    const { encryptedNameUser, encryptedEmail, encryptedPassword } =
+      await this.encryptRegister(
+        nameUser!.trim(),
+        email!.trim(),
+        password!.trim()
+      );
+
+    const optionsApi: IRequestOptions<IBodyRegister> = {
+      body: {
+        nameUser: encryptedNameUser,
+        email: encryptedEmail,
+        password: encryptedPassword,
+      },
     };
 
-    this.authService.register({ body: bodyRegister }).subscribe({
+    this.httpService.POST(`${environment.api}`, optionsApi).subscribe({
       next: ({ success, message }) => {
         if (success) {
           this.hotToast.successNotification(

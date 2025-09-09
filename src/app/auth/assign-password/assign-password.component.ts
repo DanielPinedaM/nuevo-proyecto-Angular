@@ -21,7 +21,8 @@ import { constRegex } from '@/models/constants/regex.constants';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
 import GeneralClass from '@/utils/class/GeneralClass.utils';
-import { AuthService } from '@/service/general-service/auth/auth.service';
+import { IRequestOptions } from '@/service/general-service/types/request-data.types';
+import { environment } from '@/environments/environment';
 
 @Component({
   selector: 'app-assign-password',
@@ -29,7 +30,6 @@ import { AuthService } from '@/service/general-service/auth/auth.service';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class AssignPasswordComponent implements OnInit {
-  authService = inject(AuthService);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -119,12 +119,14 @@ export class AssignPasswordComponent implements OnInit {
 
     const { password } = this.formAssignPassword.value;
 
-    const bodyAssignPassword: IBodyAssignPassword = {
-      id: DataTypeClass.convertToNumber(this.idParams)!,
-      password: await CryptoServiceClass.encrypt(password!.trim()),
+    const optionsApi: IRequestOptions<IBodyAssignPassword> = {
+      body: {
+        id: DataTypeClass.convertToNumber(this.idParams)!,
+        password: await CryptoServiceClass.encrypt(password!.trim()),
+      },
     };
 
-    this.authService.assignPassword({ body: bodyAssignPassword }).subscribe({
+    this.httpService.POST(`${environment.api}`, optionsApi).subscribe({
       next: ({ success, message }) => {
         if (success) {
           this.hotToast.successNotification(
