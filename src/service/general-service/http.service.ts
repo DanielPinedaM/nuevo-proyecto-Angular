@@ -11,6 +11,7 @@ import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { RequestDataUtils } from '@/service/general-service/utils/request-data.utils';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
+import { environment } from '@/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -35,14 +36,7 @@ export class HttpService {
   ): Observable<T | IResponse> {
     // validar URL q llama al endpoint
     const urlString: string = String(url);
-    if (
-      !DataTypeClass.isString(url) ||
-      urlString.trim() === '' ||
-      urlString.includes('undefined') ||
-      urlString.includes('null') ||
-      urlString.includes('NaN') ||
-      !urlString.startsWith('http')
-    ) {
+    if (!urlString.startsWith('http') || urlString === environment.api) {
       return of({
         success: false,
         status: 400,
