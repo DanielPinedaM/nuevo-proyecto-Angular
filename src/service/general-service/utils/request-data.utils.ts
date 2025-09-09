@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
@@ -13,6 +13,9 @@ import {
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import { HttpHeaders } from '@angular/common/http';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class RequestDataUtils {
   private hotToast = inject(HotToastClass);
   private router = inject(Router);
