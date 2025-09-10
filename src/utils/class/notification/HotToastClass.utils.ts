@@ -8,6 +8,7 @@ funciones para mostrar toast */
   providedIn: 'root',
 })
 export default class HotToastClass {
+  dataTypeClass = inject(DataTypeClass);
   toast = inject(HotToastService);
 
   private duration: number = 4000;
@@ -33,7 +34,7 @@ export default class HotToastClass {
   }
 
   successNotification(message: string): void {
-    if (!DataTypeClass.isString(message)) {
+    if (!this.dataTypeClass.isString(message)) {
       console.error(
         '❌ error - successNotification - ngxpert/hot-toast necesita el mensaje tipo string'
       );
@@ -60,7 +61,7 @@ export default class HotToastClass {
   }
 
   errorNotification(message: string): void {
-    if (!DataTypeClass.isString(message)) {
+    if (!this.dataTypeClass.isString(message)) {
       console.error(
         '❌ error - errorNotification - ngxpert/hot-toast necesita el mensaje tipo string'
       );
@@ -87,7 +88,7 @@ export default class HotToastClass {
   }
 
   infoNotification(message: string): void {
-    if (!DataTypeClass.isString(message)) {
+    if (!this.dataTypeClass.isString(message)) {
       console.error(
         '❌ error - infoNotification - ngxpert/hot-toast necesita el mensaje tipo string'
       );
@@ -114,7 +115,7 @@ export default class HotToastClass {
   }
 
   warningNotification(message: string): void {
-    if (!DataTypeClass.isString(message)) {
+    if (!this.dataTypeClass.isString(message)) {
       console.error(
         '❌ error - warningNotification - ngxpert/hot-toast necesita el mensaje tipo string'
       );

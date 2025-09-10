@@ -1,9 +1,13 @@
+import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 
 type TIconType = 'success' | 'info' | 'warning' | 'error';
 
+@Injectable({
+  providedIn: 'root',
+})
 export default class SweetAlertClass {
-  public static MessageAlert(
+  messageAlert(
     title: string,
     message: string,
     iconType: TIconType,
@@ -54,7 +58,7 @@ export default class SweetAlertClass {
     }
   }
 
-  public static MessageQuestion(
+  messageQuestion(
     title: string,
     message: string,
     iconType: TIconType,

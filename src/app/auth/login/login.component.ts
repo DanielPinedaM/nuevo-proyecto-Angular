@@ -10,7 +10,7 @@ import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { environment } from '@/environments/environment';
 import { IPath } from '@/models/interfaces/path.interfaces';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
-import { HttpService } from '@/service/general-service/http.service';
+import { HttpService } from '@/service/general-service/http-observable.service';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/models/constants/error-message.constants';
 import { IBodyLogin } from '@/models/interfaces/auth.interfaces';
@@ -27,6 +27,8 @@ import { IRequestOptions } from '@/service/general-service/types/request-data.ty
   imports: [...PrimeNgModules, RouterModule],
 })
 export class LoginComponent implements OnInit {
+  cryptoServiceClass = inject(CryptoServiceClass);
+  dataTypeClass = inject(DataTypeClass);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -58,7 +60,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    if (!DataTypeClass.isLiteralObject(data)) {
+    if (!this.dataTypeClass.isLiteralObject(data)) {
       console.error(
         '❌ error, NO se puede setear Session Storage porque la api NO ha respondido con un objeto literal\n',
         data
@@ -66,7 +68,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    if (DataTypeClass.literalObjectLength(data) <= 0) {
+    if (this.dataTypeClass.literalObjectLength(data) <= 0) {
       console.error(
         '❌ error, NO se puede setear Session Storage porque la api ha respondido con un objeto literal vacio\n',
         data
@@ -106,8 +108,8 @@ export class LoginComponent implements OnInit {
     decryptedPassword: string
   ): Promise<{ encryptedEmail: string; encryptedPassword: string }> {
     const [encryptedEmail, encryptedPassword] = await Promise.all([
-      await CryptoServiceClass.encrypt(decryptedEmail),
-      await CryptoServiceClass.encrypt(decryptedPassword),
+      await this.cryptoServiceClass.encrypt(decryptedEmail),
+      await this.cryptoServiceClass.encrypt(decryptedPassword),
     ]);
 
     return { encryptedEmail, encryptedPassword };

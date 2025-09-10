@@ -6,12 +6,16 @@ import { constRegex } from '@/models/constants/regex.constants';
 import { IObjValidatePassword } from '@/models/interfaces/auth.interfaces';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import HotToastClass from './notification/HotToastClass.utils';
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root',
+})
 export default class GeneralClass {
+  dataTypeClass = inject(DataTypeClass);
   hotToast = inject(HotToastClass);
 
-  public static strongPassword = (password: string): boolean => {
+  strongPassword = (password: string): boolean => {
     return constRegex.text.strongPassword.test(password);
   };
 
@@ -19,7 +23,7 @@ export default class GeneralClass {
   valida que...
   1) coincidan 2 inputs de contraseñas
   2) la contraseña sea segura */
-  public static validatePasswords = (
+  validatePasswords = (
     password: string,
     confirmPassword: string
   ): IObjValidatePassword => {
@@ -38,12 +42,12 @@ export default class GeneralClass {
     const notAText: string = 'no es un texto';
 
     // validar q contraseña y confirmar contraseña sean tipo string
-    if (!DataTypeClass.isString(password)) {
+    if (!this.dataTypeClass.isString(password)) {
       objValidatePassword.message = 'Contraseña' + ' ' + notAText;
       //objValidatePassword.minLength = 99999;
       return objValidatePassword;
     }
-    if (!DataTypeClass.isString(confirmPassword)) {
+    if (!this.dataTypeClass.isString(confirmPassword)) {
       objValidatePassword.message = 'Confirmar contraseña' + ' ' + notAText;
       //objValidatePassword.minLength = 99999;
       return objValidatePassword;
@@ -68,7 +72,7 @@ export default class GeneralClass {
     }
 
     // contraseña - validar q sea segura
-    if (!GeneralClass.strongPassword(password)) {
+    if (!this.strongPassword(password)) {
       objValidatePassword.message =
         'Contraseña no es segura,' + ' ' + securePasswordErrorMessage;
       return objValidatePassword;
@@ -94,7 +98,7 @@ export default class GeneralClass {
     }
 
     // confirmar contraseña - validar q sea segura
-    if (!GeneralClass.strongPassword(confirmPassword)) {
+    if (!this.strongPassword(confirmPassword)) {
       objValidatePassword.message =
         'Confirmar contraseña no es segura,' + ' ' + securePasswordErrorMessage;
       return objValidatePassword;
@@ -109,10 +113,7 @@ export default class GeneralClass {
   /**
   prime NG - calcular paginador y numero de filas q se muestran en <table>
   el algoritmo funciona mejor si rows es multiplo de 3, pero puede ser cualquier numero */
-  public static rowsPerPageOptions = (
-    length: number = 0,
-    rows: number = 0
-  ): number[] => {
+  rowsPerPageOptions = (length: number = 0, rows: number = 0): number[] => {
     if (typeof length !== 'number') {
       console.error(
         'para calcular el numero de filas del paginador de prime NG la el parametro de la longitud length del array debe ser tipo number',
@@ -161,10 +162,7 @@ export default class GeneralClass {
   /**
   recortar un string a un tamaño de caracteres máximo,
   agregando "..." si excede la longitud especificada */
-  public static truncateString = (
-    string: string | any,
-    maxLength: number
-  ): string | any => {
+  truncateString = (string: string | any, maxLength: number): string | any => {
     if (typeof string === 'string' && string.length > maxLength) {
       return string.slice(0, maxLength) + '...';
     }
@@ -175,7 +173,7 @@ export default class GeneralClass {
   /**
   Separar array por comas
   Ejemplo: [1, 2, 3] devuelve 1, 2 y 3 */
-  public static listFormat = (array: any[]): string => {
+  listFormat = (array: any[]): string => {
     const arrayString: string[] = array.map((item) => String(item));
     return new Intl.ListFormat('es').format(arrayString);
   };
@@ -210,7 +208,7 @@ export default class GeneralClass {
 
   /**
   obtener elemento de un array de forma aleatoria */
-  public static getRandomItem = <T>(array: T[]): T | null => {
+  getRandomItem = <T>(array: T[]): T | null => {
     if (!Array.isArray(array)) {
       console.error(
         '❌ error - getRandomItem - se requiere q sea tipo \narray ',

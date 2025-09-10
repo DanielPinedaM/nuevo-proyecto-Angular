@@ -3,13 +3,17 @@
  * ********************************************* */
 
 import { TitleCasePipe } from '@angular/common';
+import { inject, Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root',
+})
 export default class DataTypeClass {
-  private static titleCasePipe = new TitleCasePipe();
+  titleCasePipe = inject(TitleCasePipe);
 
   /**
 admite cualquier string */
-  public static isString = (variable: string | any): boolean => {
+  isString = (variable: string | any): boolean => {
     return typeof variable === 'string' || variable instanceof String;
   };
 
@@ -17,7 +21,7 @@ admite cualquier string */
 string q contiene numero,
 admite numero decimal, comas, numero entero, positivo y negativo.
 Ejemplo: "-1,2.1", "-2", "3" */
-  public static isStringNumber = (variable: string | any): boolean => {
+  isStringNumber = (variable: string | any): boolean => {
     return (
       typeof variable === 'string' &&
       /^(-?\d{0,}(\,|\.)?){0,}$/.test(variable.trim())
@@ -26,7 +30,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
 
   /**
    true cuando el texto contiene cualquier tipo de letra */
-  public static isLetter = (variable: string | any): boolean => {
+  isLetter = (variable: string | any): boolean => {
     return (
       typeof variable === 'string' &&
       /^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s]+$/.test(variable.trim())
@@ -35,14 +39,14 @@ Ejemplo: "-1,2.1", "-2", "3" */
 
   /**
    solamente tipo NUMERO, NO admite NaN */
-  public static isNumber = (variable: number | any): boolean => {
+  isNumber = (variable: number | any): boolean => {
     return typeof variable === 'number' && Number.isNaN(variable) === false;
   };
 
   /**
   SI es posible convierte a NUMERO,
   cuando NO es posible devuleve null */
-  public static convertToNumber = (value: number | any): number | null => {
+  convertToNumber = (value: number | any): number | null => {
     const stringValue: string = String(value).trim();
 
     if (
@@ -70,31 +74,27 @@ Ejemplo: "-1,2.1", "-2", "3" */
   2) pasar string a minuscula
 
   cuando NO es posible devuleve null */
-  public static convertToStringAndLowerCase = (
-    string: string | any
-  ): string | null | any => {
+  convertToStringAndLowerCase = (string: string | any): string | null | any => {
     if (String(string).trim() === '' || !string) {
       return null;
     }
 
-    if (DataTypeClass.isString(string)) {
+    if (this.isString(string)) {
       return String(string).trim().toLowerCase();
     }
 
     return null;
   };
 
-  public static trimLowerCase = (string: string | any): string | any => {
-    if (DataTypeClass.isString(string)) {
+  trimLowerCase = (string: string | any): string | any => {
+    if (this.isString(string)) {
       return string.trim().toLowerCase();
     }
 
     return string;
   };
 
-  public static isValidBoolean = (
-    variable: boolean | string | any
-  ): boolean => {
+  isValidBoolean = (variable: boolean | string | any): boolean => {
     const normalized: string = String(variable)?.trim()?.toLowerCase();
 
     if (
@@ -102,12 +102,12 @@ Ejemplo: "-1,2.1", "-2", "3" */
       // true
       normalized === 'true' ||
       normalized === '1' ||
-      DataTypeClass.normalizeStr(variable) === 'si' ||
-      DataTypeClass.normalizeStr(variable) === 'yes' ||
+      this.normalizeStr(variable) === 'si' ||
+      this.normalizeStr(variable) === 'yes' ||
       // false
       normalized === 'false' ||
       normalized === '0' ||
-      DataTypeClass.normalizeStr(variable) === 'no'
+      this.normalizeStr(variable) === 'no'
     ) {
       return true;
     }
@@ -119,21 +119,19 @@ Ejemplo: "-1,2.1", "-2", "3" */
   SI es posible
   convertir a booleano
   cuando NO es posible devuleve null */
-  public static convertToBoolean = (
-    variable: boolean | string | any
-  ): boolean | null => {
+  convertToBoolean = (variable: boolean | string | any): boolean | null => {
     const normalized: string = String(variable)?.trim()?.toLowerCase();
 
     if (
       normalized === 'true' ||
       normalized === '1' ||
-      DataTypeClass.normalizeStr(variable) === 'si'
+      this.normalizeStr(variable) === 'si'
     ) {
       return true;
     } else if (
       normalized === 'false' ||
       normalized === '0' ||
-      DataTypeClass.normalizeStr(variable) === 'no'
+      this.normalizeStr(variable) === 'no'
     ) {
       return false;
     } else {
@@ -143,8 +141,8 @@ Ejemplo: "-1,2.1", "-2", "3" */
 
   /**
   saber si puedo o no convertir de string a array u objeto con JSON.parse() */
-  public static isValidJSONparse = (string: string): boolean => {
-    if (!DataTypeClass.isString(string)) return false;
+  isValidJSONparse = (string: string): boolean => {
+    if (!this.isString(string)) return false;
 
     try {
       JSON.parse(string);
@@ -156,7 +154,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
 
   /**
   ¿la variable es un archivo? */
-  public static isFile(variable: Blob | FormData | any): boolean {
+  isFile(variable: Blob | FormData | any): boolean {
     if (!variable) return false;
 
     return (
@@ -169,7 +167,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
 
   /**
   ¿la variable es un objeto literal? */
-  public static isLiteralObject = (literalObject: any): boolean => {
+  isLiteralObject = (literalObject: any): boolean => {
     return (
       typeof literalObject === 'object' &&
       literalObject !== null &&
@@ -180,8 +178,8 @@ Ejemplo: "-1,2.1", "-2", "3" */
 
   /**
   numero de keys (longitud) de un objeto literal {} */
-  public static literalObjectLength = (literalObject: any): number => {
-    if (DataTypeClass.isLiteralObject(literalObject)) {
+  literalObjectLength = (literalObject: any): number => {
+    if (this.isLiteralObject(literalObject)) {
       const length: number =
         Object.keys(literalObject).length +
         Object.getOwnPropertySymbols(literalObject).length;
@@ -232,7 +230,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
                                                 "_" : reemplaza espacios por guion BAJO
 
 * @returns {string|any}                               string normalizado o el valor original si no es string */
-  public static normalizeStr = (
+  normalizeStr = (
     string: string | any,
     options?: {
       clearAccents?: boolean;
@@ -245,7 +243,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
       typeOfDash?: '-' | '_' | null;
     }
   ): string | any => {
-    if (!DataTypeClass.isString(string)) return string;
+    if (!this.isString(string)) return string;
     if (String(string).trim() === '') return '';
 
     const {

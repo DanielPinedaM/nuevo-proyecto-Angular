@@ -14,9 +14,10 @@ import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RequestDataUtils {
+  dataTypeClass = inject(DataTypeClass);
   private hotToast = inject(HotToastClass);
   private router = inject(Router);
   private loaderService = inject(LoaderService);
@@ -116,7 +117,7 @@ export class RequestDataUtils {
 
     console.info(`✅ [${method}] ${url}`);
 
-    if (DataTypeClass.isFile(options?.body)) {
+    if (this.dataTypeClass.isFile(options?.body)) {
       console.info('✅ archivo(s) subido(s)');
     }
 
@@ -143,9 +144,9 @@ export class RequestDataUtils {
               data = `array de ${data.length} elementos ➡️ (${data.length}) []`;
             }
           }
-        } else if (DataTypeClass.isLiteralObject(data)) {
+        } else if (this.dataTypeClass.isLiteralObject(data)) {
           // data es un objeto literal {}
-          const length: number | null = DataTypeClass.literalObjectLength(data);
+          const length: number | null = this.dataTypeClass.literalObjectLength(data);
 
           if (length === 0) {
             data = 'objeto literal vacío ➡️ (0) {}';
@@ -201,7 +202,7 @@ export class RequestDataUtils {
     const unprotectedURLs: string[] = [environment.auth.login] as string[];
 
     for (const item of unprotectedURLs) {
-      if (!DataTypeClass.isString(item)) {
+      if (!this.dataTypeClass.isString(item)) {
         console.error(
           `❌ ERROR CRÍTICO\n verifica q el env ${item} este agregado a las variables de entorno \n unprotectedURLs`,
           unprotectedURLs

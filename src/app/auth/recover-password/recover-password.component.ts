@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from '@/service/general-service/http.service';
+import { HttpService } from '@/service/general-service/http-observable.service';
 import { environment } from '@/environments/environment';
 import path from '@/models/constants/path.constants';
 import { IPath } from '@/models/interfaces/path.interfaces';
@@ -21,6 +21,7 @@ export interface IBodyRecoverPassword {
   imports: [...PrimeNgModules, RouterModule],
 })
 export class RecoverPasswordComponent implements OnInit {
+  cryptoServiceClass = inject(CryptoServiceClass);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
 
@@ -48,7 +49,7 @@ export class RecoverPasswordComponent implements OnInit {
 
     const optionsApi: IRequestOptions<IBodyRecoverPassword> = {
       body: {
-        email: await CryptoServiceClass.encrypt(email!.trim()),
+        email: await this.cryptoServiceClass.encrypt(email!.trim()),
       },
     };
 

@@ -13,6 +13,7 @@ import IMenuOptions from '@/models/interfaces/menu.interfaces';
   imports: [CommonModule, RouterModule],
 })
 export class MenuMobileComponent implements OnInit {
+  sweetAlertClass = inject(SweetAlertClass);
   currentRouteService = inject(CurrentRouteService);
   router = inject(Router);
   hotToast = inject(HotToastClass);
@@ -46,17 +47,19 @@ export class MenuMobileComponent implements OnInit {
   }
 
   onClickLogOut(): void {
-    SweetAlertClass.MessageQuestion(
-      'Confirmación',
-      '¿Está seguro que desea cerrar sesión?',
-      'warning'
-    ).then((result) => {
-      this.isMenuOpen.set(false);
+    this.sweetAlertClass
+      .messageQuestion(
+        'Confirmación',
+        '¿Está seguro que desea cerrar sesión?',
+        'warning'
+      )
+      .then((result) => {
+        this.isMenuOpen.set(false);
 
-      if (result.isConfirmed) {
-        this.hotToast.infoNotification('Se ha cerrado sesión');
-        this.router.navigate(['/' + path.auth.login]);
-      }
-    });
+        if (result.isConfirmed) {
+          this.hotToast.infoNotification('Se ha cerrado sesión');
+          this.router.navigate(['/' + path.auth.login]);
+        }
+      });
   }
 }

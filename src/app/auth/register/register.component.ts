@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from '@/service/general-service/http.service';
+import { HttpService } from '@/service/general-service/http-observable.service';
 import { environment } from '@/environments/environment';
 import { constRegex } from '@/models/constants/regex.constants';
 import path from '@/models/constants/path.constants';
@@ -26,6 +26,9 @@ import { IRequestOptions } from '@/service/general-service/types/request-data.ty
   imports: [...PrimeNgModules, RouterModule],
 })
 export class RegisterComponent implements OnInit {
+  cryptoServiceClass = inject(CryptoServiceClass);
+  sweetAlertClass = inject(SweetAlertClass);
+  generalClass = inject(GeneralClass);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -97,7 +100,7 @@ export class RegisterComponent implements OnInit {
     const { password, confirmPassword } = this.inputValuePassword();
 
     this.objValidatePassword.set(
-      GeneralClass.validatePasswords(password, confirmPassword)
+      this.generalClass.validatePasswords(password, confirmPassword)
     );
   }
 
@@ -112,9 +115,9 @@ export class RegisterComponent implements OnInit {
   }> {
     const [encryptedNameUser, encryptedEmail, encryptedPassword] =
       await Promise.all([
-        await CryptoServiceClass.encrypt(decryptedNameUser),
-        await CryptoServiceClass.encrypt(decryptedEmail),
-        await CryptoServiceClass.encrypt(decryptedPassword),
+        await this.cryptoServiceClass.encrypt(decryptedNameUser),
+        await this.cryptoServiceClass.encrypt(decryptedEmail),
+        await this.cryptoServiceClass.encrypt(decryptedPassword),
       ]);
 
     return { encryptedNameUser, encryptedEmail, encryptedPassword };
@@ -128,7 +131,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const result = await SweetAlertClass.MessageQuestion(
+    const result = await this.sweetAlertClass.messageQuestion(
       'Confirmación',
       '¿Sus datos son correctos?',
       'warning'

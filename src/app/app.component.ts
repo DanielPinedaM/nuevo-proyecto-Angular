@@ -18,6 +18,7 @@ import path from '@/models/constants/path.constants';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  sweetAlertClass = inject(SweetAlertClass);
   bnIdle = inject(BnNgIdleService);
   router = inject(Router);
   loaderService = inject(LoaderService);
@@ -56,7 +57,7 @@ export class AppComponent {
       if (isTimedOut) {
         if (sessionStorageSearch(objSessionStorage.token!)) {
           this.router.navigate(['/' + path.auth.login]);
-          SweetAlertClass.MessageAlert(
+          this.sweetAlertClass.messageAlert(
             'Sesión Inactiva',
             'Su sesión ya no se encuentra activa, ingrese nuevamente',
             'info'
@@ -74,7 +75,7 @@ export class AppComponent {
 
       if (indexOf > -1) {
         this.router.navigate(['/' + path.auth.login]);
-        SweetAlertClass.MessageAlert(
+        this.sweetAlertClass.messageAlert(
           'Sesión Inactiva',
           'Su sesión ya no se encuentra activa, ingrese nuevamente',
           'info'

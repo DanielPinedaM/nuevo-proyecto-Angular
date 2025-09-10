@@ -7,7 +7,6 @@ import {
   IResponse,
   TMethod,
 } from '@/service/general-service/types/request-data.types';
-import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { RequestDataUtils } from '@/service/general-service/utils/request-data.utils';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';

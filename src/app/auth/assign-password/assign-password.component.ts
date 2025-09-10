@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from '@/service/general-service/http.service';
+import { HttpService } from '@/service/general-service/http-observable.service';
 
 import path from '@/models/constants/path.constants';
 import { IPath } from '@/models/interfaces/path.interfaces';
@@ -18,11 +18,11 @@ import {
 } from '@/models/interfaces/auth.interfaces';
 import { minLengthPassword } from '@/models/constants/auth.constants';
 import { constRegex } from '@/models/constants/regex.constants';
-import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
 import GeneralClass from '@/utils/class/GeneralClass.utils';
 import { IRequestOptions } from '@/service/general-service/types/request-data.types';
 import { environment } from '@/environments/environment';
+import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 
 @Component({
   selector: 'app-assign-password',
@@ -30,6 +30,9 @@ import { environment } from '@/environments/environment';
   imports: [...PrimeNgModules, RouterModule],
 })
 export class AssignPasswordComponent implements OnInit {
+  cryptoServiceClass = inject(CryptoServiceClass);
+  generalClass = inject(GeneralClass);
+  dataTypeClass = inject(DataTypeClass);
   httpService = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
@@ -94,7 +97,7 @@ export class AssignPasswordComponent implements OnInit {
     const { password, confirmPassword } = this.inputValuePassword();
 
     this.objValidatePassword.set(
-      GeneralClass.validatePasswords(password, confirmPassword)
+      this.generalClass.validatePasswords(password, confirmPassword)
     );
   }
 
@@ -121,8 +124,8 @@ export class AssignPasswordComponent implements OnInit {
 
     const optionsApi: IRequestOptions<IBodyAssignPassword> = {
       body: {
-        id: DataTypeClass.convertToNumber(this.idParams)!,
-        password: await CryptoServiceClass.encrypt(password!.trim()),
+        id: this.dataTypeClass.convertToNumber(this.idParams)!,
+        password: await this.cryptoServiceClass.encrypt(password!.trim()),
       },
     };
 

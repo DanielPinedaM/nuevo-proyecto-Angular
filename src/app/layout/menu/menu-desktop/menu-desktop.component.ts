@@ -14,6 +14,7 @@ import IMenuOptions from '@/models/interfaces/menu.interfaces';
   imports: [...PrimeNgModules, CommonModule, RouterModule],
 })
 export class MenuDesktopComponent implements OnInit {
+  sweetAlertClass = inject(SweetAlertClass);
   currentRouteService = inject(CurrentRouteService);
   router = inject(Router);
   hotToast = inject(HotToastClass);
@@ -38,7 +39,7 @@ export class MenuDesktopComponent implements OnInit {
   }
 
   onClickLogOut(): void {
-    SweetAlertClass.MessageQuestion(
+    this.sweetAlertClass.messageQuestion(
       'Confirmación',
       '¿Está seguro que desea cerrar sesión?',
       'warning'

@@ -1,12 +1,16 @@
+import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Nullable } from 'primeng/ts-helpers';
 
+@Injectable({
+  providedIn: 'root',
+})
 export default class LuxonClass {
   /**
   Eliminar espacio en blanco reemplazando:
   - "p. m" por "p.m"
   - "a. m" por "a.m" */
-  public static replaceAmPm = (date: Date | string | any): string | any => {
+  replaceAmPm = (date: Date | string | any): string | any => {
     if (!date) return date;
 
     return date
@@ -17,7 +21,7 @@ export default class LuxonClass {
 
   /**
   formato de fecha y/o hora con formato personalizado */
-  public static formatDate = (
+  formatDate = (
     date: Date | string | Nullable<Date> | DateTime,
 
     format: string = 'd-LLL-yyyy'
@@ -41,9 +45,7 @@ export default class LuxonClass {
 
   /**
   fecha y hora actual con formato de hora personalizado */
-  public static currentDateAndTime = (
-    format: string = 'd-LLL-yyyy hh:mm:ss a'
-  ): string => {
+  currentDateAndTime = (format: string = 'd-LLL-yyyy hh:mm:ss a'): string => {
     const finalDate: string = DateTime.now()
       .setLocale('es')
       .toFormat(format)

@@ -15,6 +15,7 @@ import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.serv
   providedIn: 'root',
 })
 export default class DownloadFileClass {
+  luxonClass = inject(LuxonClass);
   loaderService = inject(LoaderService);
   hotToast = inject(HotToastClass);
 
@@ -63,7 +64,8 @@ export default class DownloadFileClass {
     const lastDotIndex: number = fileName.lastIndexOf('.');
     const baseFileName: string =
       lastDotIndex > -1 ? fileName.slice(0, lastDotIndex) : fileName;
-    const date: string = LuxonClass.currentDateAndTime()
+    const date: string = this.luxonClass
+      .currentDateAndTime()
       .replaceAll(':', '_')
       .replaceAll(' ', '-');
 
