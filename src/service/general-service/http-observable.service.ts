@@ -179,7 +179,7 @@ export class HttpService {
     const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'POST');
 
     return this.executeRequest<T>(
-      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
+      () => this.httpClient.post<T>(url, httpOptions) as Observable<T>,
       url,
       'POST',
       config
@@ -198,7 +198,7 @@ export class HttpService {
     const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'PUT');
 
     return this.executeRequest<T>(
-      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
+      () => this.httpClient.put<T>(url, httpOptions) as Observable<T>,
       url,
       'PUT',
       config
@@ -217,7 +217,7 @@ export class HttpService {
     const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'PATCH');
 
     return this.executeRequest<T>(
-      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
+      () => this.httpClient.patch<T>(url, httpOptions) as Observable<T>,
       url,
       'PATCH',
       config
@@ -239,7 +239,7 @@ export class HttpService {
     );
 
     return this.executeRequest<T>(
-      () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
+      () => this.httpClient.delete<T>(url, httpOptions) as Observable<T>,
       url,
       'DELETE',
       config
