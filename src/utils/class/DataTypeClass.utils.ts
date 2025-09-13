@@ -9,7 +9,7 @@ import { inject, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export default class DataTypeClass {
-  titleCasePipe = inject(TitleCasePipe);
+ titleCasePipe = inject(TitleCasePipe);
 
   /**
 admite cualquier string */

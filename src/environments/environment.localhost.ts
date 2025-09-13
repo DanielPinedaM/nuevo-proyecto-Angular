@@ -1,11 +1,9 @@
 // variables de DESARROLLO (LOCAL HOST)
 
-import IEnvironment from '@/environments/environment.interface';
-
 const api: string = 'http://localhost:3000';
 
-export const environment: IEnvironment = {
-  publicEnvironment: 'development',
+export const environment = {
+  publicEnvironment: 'localhost',
   production: false,
   api,
 

@@ -63,10 +63,13 @@
           },
           "configurations": {
             "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "sourceMap": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.ts"
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "budgets": [
@@ -83,17 +86,6 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
-                }
-              ]
-            },
             "test": {
               "optimization": false,
               "extractLicenses": false,
@@ -104,6 +96,17 @@
                   "with": "src/environments/environment.test.ts"
                 }
               ]
+            },
+            "localhost": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.localhost.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -111,17 +114,17 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+            "localhost": {
+              "buildTarget": "front:build:localhost"
+            },
             "production": {
               "buildTarget": "front:build:production"
-            },
-            "development": {
-              "buildTarget": "front:build:development"
             },
             "test": {
               "buildTarget": "front:build:test"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "test"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"

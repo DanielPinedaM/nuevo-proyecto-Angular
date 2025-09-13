@@ -14,7 +14,7 @@ nvm use 22.17.1
 npm i
 ```
 
-#### [Ejecutar proyecto](https://youtu.be/xBMEvd7PyEY?si=4KH0nBKGi1dz0rW1)
+#### Ejecutar proyecto
 
 ```javascript
 nvm use 22.17.1
@@ -22,9 +22,9 @@ nvm use 22.17.1
 
 comando | apunta a... | ruta archivo
 ------------ | ------------- | -------------
-node --run start:dev | localhost | src/environments/environment.development.ts
+node --run start:localhost | localhost | src/environments/environment.localhost.ts
+node --run start:prod | producción | src/environments/environment.prod.ts
 node --run start:test | pruebas | src/environments/environment.test.ts
-node --run start:prod | producción | src/environments/environment.ts
 
 #### Generar build (dist) para desplegar
 
@@ -35,7 +35,7 @@ nvm use 22.17.1
 comando | apunta a... | ruta archivo
 ------------ | ------------- | -------------
 node --run build:test | pruebas | src/environments/environment.test.ts
-node --run build:prod | producción | src/environments/environment.ts
+node --run build:prod | producción | src/environments/environment.prod.ts
 
 #### Estructura del Proyecto
 
