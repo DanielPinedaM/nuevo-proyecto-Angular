@@ -146,7 +146,8 @@ export class RequestDataUtils {
           }
         } else if (this.dataTypeClass.isLiteralObject(data)) {
           // data es un objeto literal {}
-          const length: number | null = this.dataTypeClass.literalObjectLength(data);
+          const length: number | null =
+            this.dataTypeClass.literalObjectLength(data);
 
           if (length === 0) {
             data = 'objeto literal vacío ➡️ (0) {}';
@@ -198,8 +199,13 @@ export class RequestDataUtils {
   /**
   validar env en los q por defecto NO se incluye el token */
   defaultSecurityEndpoint(url: string): boolean {
-    // aqui agregar nuevos env a los q NO se les envia el token al hacer peticion http
-    const unprotectedURLs: string[] = [environment.auth.login] as string[];
+    // environments con las URL de los endpoints a los q NO se les envia el token al hacer peticion HTTP
+    const unprotectedURLs: string[] = [
+      environment.auth.login,
+      environment.auth.register,
+      environment.auth.recoverPassword,
+      environment.auth.assignPassword,
+    ] as string[];
 
     for (const item of unprotectedURLs) {
       if (!this.dataTypeClass.isString(item)) {

@@ -8,7 +8,11 @@ export const environment = {
   api,
 
   auth: {
-    login: 'https://dominio.com:4000/api/vi/login',
+    login: `${api}login`,
+    register: `${api}register`,
+    recoverPassword: `${api}recoverPassword`,
+    assignPassword: `${api}assignPassword`,
+
     user: 'AQUI FALTA ESCRIBIR USUARIO PARA INICIAR SESION',
     password: 'AQUI FALTA ESCRIBIR CONTRASEÑA PARA INICIAR SESION',
   },
