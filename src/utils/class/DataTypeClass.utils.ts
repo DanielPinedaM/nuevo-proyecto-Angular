@@ -3,13 +3,20 @@
  * ********************************************* */
 
 import GeneralClass from '@/utils/class/GeneralClass.utils';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export default class DataTypeClass {
-  generalClass = inject(GeneralClass);
+  private injector = inject(Injector);
+  private _generalClass: GeneralClass | null = null;
+  get generalClass(): GeneralClass {
+    if (!this._generalClass) {
+      this._generalClass = this.injector.get(GeneralClass);
+    }
+    return this._generalClass;
+  }
 
   /**
    admite cualquier string */

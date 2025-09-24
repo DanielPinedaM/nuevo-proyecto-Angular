@@ -4,7 +4,7 @@
 
 import GeneralClass from '@/utils/class/GeneralClass.utils';
 import { saveAs } from 'file-saver';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import * as ExcelJS from 'exceljs';
 import { IResponse } from '@/service/general-service/types/request-data.types';
 import HotToastClass from './notification/HotToastClass.utils';
@@ -15,10 +15,17 @@ import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.serv
   providedIn: 'root',
 })
 export default class DownloadFileClass {
-  generalClass = inject(GeneralClass);
   luxonClass = inject(LuxonClass);
   loaderService = inject(LoaderService);
   hotToast = inject(HotToastClass);
+  private injector = inject(Injector);
+  private _generalClass: GeneralClass | null = null;
+  get generalClass(): GeneralClass {
+    if (!this._generalClass) {
+      this._generalClass = this.injector.get(GeneralClass);
+    }
+    return this._generalClass;
+  }
 
   /**
   Funcion para descargar archivo */
