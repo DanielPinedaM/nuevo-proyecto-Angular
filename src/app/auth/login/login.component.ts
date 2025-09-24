@@ -33,17 +33,25 @@ export class LoginComponent implements OnInit {
   hotToast = inject(HotToastClass);
   router = inject(Router);
 
+  dataLoginBurned: boolean = ['localhost'].includes(environment.NODE_ENV);
+
   path = signal<IPath>(path);
 
   minLengthPassword = signal<number>(minLengthPassword);
 
   formLogin = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.email,
-    ]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl(
+      this.dataLoginBurned ? environment.auth.user : '',
+      this.dataLoginBurned
+        ? []
+        : [Validators.required, Validators.minLength(3), Validators.email]
+    ),
+    password: new FormControl(
+      this.dataLoginBurned ? environment.auth.password : '',
+      this.dataLoginBurned
+        ? []
+        : [Validators.required, Validators.minLength(this.minLengthPassword())]
+    ),
     rememberMe: new FormControl(false),
   });
 
@@ -116,7 +124,7 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmitLogin(): Promise<void> {
-    if (this.formLogin.invalid) {
+    if (this.formLogin.invalid && !this.dataLoginBurned) {
       this.hotToast.infoNotification(enterFields);
       return;
     }

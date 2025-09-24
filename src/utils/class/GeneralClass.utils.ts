@@ -7,6 +7,8 @@ import { IObjValidatePassword } from '@/models/interfaces/auth.interfaces';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import HotToastClass from './notification/HotToastClass.utils';
 import { inject, Injectable } from '@angular/core';
+import { Options, titleCase as titleCaseNpm } from 'title-case';
+import { titleCaseOptions } from '@/models/constants/title-case.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -168,6 +170,17 @@ export default class GeneralClass {
     }
 
     return string;
+  };
+
+  /**
+  hacer q los string tengan mayuscula inicial */
+  titleCase = (string: string, options?: Partial<Options>): string | any => {
+    if (!this.dataTypeClass.isString(string)) return string;
+    if (String(string).trim() === '') return '';
+
+    const finalOptions: Options = { ...titleCaseOptions, ...options };
+
+    return titleCaseNpm(string, finalOptions);
   };
 
   /**

@@ -324,7 +324,7 @@ export class HttpService {
       };
 
       console.info(
-        `respuesta de la API apuntando a ➡️ ${environment.publicEnvironment} ⬅️`,
+        `respuesta de la API apuntando a ➡️ ${environment.NODE_ENV} ⬅️`,
         objectSuccesResponse
       );
     }
@@ -343,9 +343,9 @@ export class HttpService {
     console.error('❌ error ');
     if (method) console.error('metodo HTTP', method);
     if (url) console.error('url ', url);
-    if (environment.publicEnvironment)
+    if (environment.NODE_ENV)
       console.error(
-        `las variables de entorno estan apuntando al ambiente de ➡️ ${environment.publicEnvironment} ⬅️`
+        `las variables de entorno estan apuntando al ambiente de ➡️ ${environment.NODE_ENV} ⬅️`
       );
     if (options) console.error('options ', options);
     if (response) console.error('response ', response);

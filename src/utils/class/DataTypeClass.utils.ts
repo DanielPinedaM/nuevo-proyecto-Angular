@@ -2,25 +2,25 @@
  * metodos relacionadas con los tipos de datos *
  * ********************************************* */
 
-import { TitleCasePipe } from '@angular/common';
+import GeneralClass from '@/utils/class/GeneralClass.utils';
 import { inject, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export default class DataTypeClass {
- titleCasePipe = inject(TitleCasePipe);
+  generalClass = inject(GeneralClass);
 
   /**
-admite cualquier string */
+   admite cualquier string */
   isString = (variable: string | any): boolean => {
     return typeof variable === 'string' || variable instanceof String;
   };
 
   /**
-string q contiene numero,
-admite numero decimal, comas, numero entero, positivo y negativo.
-Ejemplo: "-1,2.1", "-2", "3" */
+  string q contiene numero,
+  admite numero decimal, comas, numero entero, positivo y negativo.
+  Ejemplo: "-1,2.1", "-2", "3" */
   isStringNumber = (variable: string | any): boolean => {
     return (
       typeof variable === 'string' &&
@@ -300,7 +300,7 @@ Ejemplo: "-1,2.1", "-2", "3" */
     }
 
     if (caseTransform === 'titleCase') {
-      newString = this.titleCasePipe.transform(newString); // mayusculas iniciales
+      newString = this.generalClass.titleCase(newString); // mayusculas iniciales
     } else if (caseTransform === 'lowerCase') {
       newString = newString.toLocaleLowerCase('es-ES'); // convertir a minuscula
     } else if (caseTransform === 'upperCase') {

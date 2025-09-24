@@ -5,11 +5,9 @@
     "ng": "ng",
     "watch": "ng build --watch --configuration development ",
     "test": "ng test",
-
-    "start:localhost": "npx ng serve --configuration=localhost --port=4200",
+    "start:local": "npx ng serve --configuration=localhost --port=4200",
     "start:prod": "npx ng serve --configuration=production --port=4200",
     "start:test": "npx ng serve --configuration=test --port=4200",
-
     "build:test": "node --max_old_space_size=100000 node_modules/@angular/cli/bin/ng build --aot --configuration=test",
     "build:prod": "node --max_old_space_size=100000 node_modules/@angular/cli/bin/ng build --aot --configuration=production"
   },
@@ -40,6 +38,7 @@
     "rxjs": "~7.8.2",
     "sweetalert2": "^11.22.2",
     "tailwindcss": "^4.1.11",
+    "title-case": "^4.3.2",
     "tslib": "^2.8.1",
     "zone.js": "~0.15.1"
   },

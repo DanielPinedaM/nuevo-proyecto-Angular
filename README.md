@@ -22,7 +22,7 @@ nvm use 22.17.1
 
 comando | apunta a... | ruta archivo
 ------------ | ------------- | -------------
-node --run start:localhost | localhost | src/environments/environment.localhost.ts
+node --run start:local | localhost | src/environments/environment.localhost.ts
 node --run start:prod | producción | src/environments/environment.prod.ts
 node --run start:test | pruebas | src/environments/environment.test.ts
 
