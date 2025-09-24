@@ -8,31 +8,30 @@
     <div class="w-8 h-8 relative">
       <!-- Línea superior -->
       <span
-        class="block absolute h-0.5 w-full bg-orange-700 transition-all duration-300 ease-in-out"
+        class="block absolute h-0.5 w-full bg-orange-700 transition-all duration-300 ease-in-out transform"
         [ngClass]="{
-          'rotate-45 top-1/2 transform -translate-y-1/2': isMenuOpen,
-          'top-2': !isMenuOpen
+          'rotate-45 top-1/2 -translate-y-1/2': isMenuOpen(),
+          'top-2': !isMenuOpen()
         }"
-      >
-      </span>
+      ></span>
+
       <!-- Línea central -->
       <span
-        class="block absolute h-0.5 w-full bg-orange-700 transition-all duration-300 ease-in-out"
+        class="block absolute h-0.5 w-full bg-orange-700 transition-all duration-300 ease-in-out transform"
         [ngClass]="{
-          'opacity-0': isMenuOpen,
-          'top-1/2 transform -translate-y-1/2': !isMenuOpen
+          'opacity-0': isMenuOpen(),
+          'top-1/2 -translate-y-1/2': !isMenuOpen()
         }"
-      >
-      </span>
+      ></span>
+
       <!-- Línea inferior -->
       <span
-        class="block absolute h-0.5 w-full bg-orange-700 transition-all duration-300 ease-in-out"
+        class="block absolute h-0.5 w-full bg-orange-700 transition-all duration-300 ease-in-out transform"
         [ngClass]="{
-          '-rotate-45 top-1/2 transform -translate-y-1/2': isMenuOpen,
-          'bottom-2': !isMenuOpen
+          '-rotate-45 top-1/2 -translate-y-1/2': isMenuOpen(),
+          'bottom-2': !isMenuOpen()
         }"
-      >
-      </span>
+      ></span>
     </div>
   </button>
 
