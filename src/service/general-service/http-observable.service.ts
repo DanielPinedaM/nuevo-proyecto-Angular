@@ -27,7 +27,7 @@ export class HttpService {
    ***************************
    * validar peticiones HTTP *
    *************************** */
-  private executeRequest<T = any>(
+  #executeRequest<T = any>(
     requestFn: () => Observable<T>,
     url: string = '',
     method: TMethod,
@@ -159,7 +159,7 @@ export class HttpService {
 
     const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'GET');
 
-    return this.executeRequest<T>(
+    return this.#executeRequest<T>(
       () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
       url,
       'GET',
@@ -178,7 +178,7 @@ export class HttpService {
 
     const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'POST');
 
-    return this.executeRequest<T>(
+    return this.#executeRequest<T>(
       () => this.httpClient.post<T>(url, httpOptions) as Observable<T>,
       url,
       'POST',
@@ -197,7 +197,7 @@ export class HttpService {
 
     const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'PUT');
 
-    return this.executeRequest<T>(
+    return this.#executeRequest<T>(
       () => this.httpClient.put<T>(url, httpOptions) as Observable<T>,
       url,
       'PUT',
@@ -216,7 +216,7 @@ export class HttpService {
 
     const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'PATCH');
 
-    return this.executeRequest<T>(
+    return this.#executeRequest<T>(
       () => this.httpClient.patch<T>(url, httpOptions) as Observable<T>,
       url,
       'PATCH',
@@ -238,7 +238,7 @@ export class HttpService {
       'DELETE'
     );
 
-    return this.executeRequest<T>(
+    return this.#executeRequest<T>(
       () => this.httpClient.delete<T>(url, httpOptions) as Observable<T>,
       url,
       'DELETE',

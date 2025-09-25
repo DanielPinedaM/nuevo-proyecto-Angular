@@ -26,12 +26,12 @@ export class AppComponent {
   loader: boolean = false;
 
   ngOnInit(): void {
-    this.getLoader();
-    this.logOutDueToInactivity();
-    this.closeSessionWhenModifyingSessionStorage();
+    this.#getLoader();
+    this.#logOutDueToInactivity();
+    this.#closeSessionWhenModifyingSessionStorage();
   }
 
-  private getLoader(): void {
+  #getLoader(): void {
     this.loaderService.getLoader().subscribe((loader: boolean) => {
       if (loader) {
         const milliseconds: number = 120000;
@@ -50,7 +50,7 @@ export class AppComponent {
     });
   }
 
-  private logOutDueToInactivity(): void {
+  #logOutDueToInactivity(): void {
     if (!environment.production) return;
 
     this.bnIdle.startWatching(300).subscribe((isTimedOut: boolean) => {
@@ -67,7 +67,7 @@ export class AppComponent {
     });
   }
 
-  private closeSessionWhenModifyingSessionStorage(): void {
+  #closeSessionWhenModifyingSessionStorage(): void {
     const immutableProperties: string[] = constImmutableProperties;
     window.addEventListener('storage', (event: StorageEvent) => {
       const modifiedProperty: string = event.key!;

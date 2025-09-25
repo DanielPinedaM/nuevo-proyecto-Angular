@@ -25,10 +25,10 @@ export class MenuMobileComponent implements OnInit {
   menuOptions = input.required<IMenuOptions[]>();
 
   ngOnInit() {
-    this.onChangeCurrentRoute();
+    this.#onChangeCurrentRoute();
   }
 
-  private onChangeCurrentRoute(): void {
+  #onChangeCurrentRoute(): void {
     this.currentRouteService.currentRoute$.subscribe((currentRoute: string) => {
       this.currentRoute.set(currentRoute);
     });

@@ -24,7 +24,7 @@ export default class HotToastClass {
     gap: '5px',
   };
 
-  private normalizeMessage(message: string): string {
+  #normalizeMessage(message: string): string {
     return message
       .trim()
       .replaceAll(/\s+/g, ' ') // reemplazar múltiples espacios en blanco por un solo espacio en blanco
@@ -48,7 +48,7 @@ export default class HotToastClass {
       return;
     }
 
-    this.toast.show(`Éxito: ${this.normalizeMessage(message)}`, {
+    this.toast.show(`Éxito: ${this.#normalizeMessage(message)}`, {
       icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined !text-white">check_circle</span><div/>',
       duration: this.duration,
       position: this.position,
@@ -75,7 +75,7 @@ export default class HotToastClass {
       return;
     }
 
-    this.toast.show(`Error: ${this.normalizeMessage(message)}`, {
+    this.toast.show(`Error: ${this.#normalizeMessage(message)}`, {
       icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined !text-white">cancel</span><div/>',
       duration: this.duration,
       position: this.position,
@@ -102,7 +102,7 @@ export default class HotToastClass {
       return;
     }
 
-    this.toast.show(`Aviso: ${this.normalizeMessage(message)}`, {
+    this.toast.show(`Aviso: ${this.#normalizeMessage(message)}`, {
       icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined !text-white">info</span><div/>',
       duration: this.duration,
       position: this.position,
@@ -129,7 +129,7 @@ export default class HotToastClass {
       return;
     }
 
-    this.toast.show(`Advertencia: ${this.normalizeMessage(message)}`, {
+    this.toast.show(`Advertencia: ${this.#normalizeMessage(message)}`, {
       icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined !text-white">warning</span><div/>',
       duration: this.duration,
       position: this.position,
