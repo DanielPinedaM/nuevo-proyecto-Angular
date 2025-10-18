@@ -230,7 +230,9 @@ export class RequestDataUtils {
       headers: {},
       responseType: 'json',
       showLoader: true,
-      showLogger: true,
+      showLogger: Boolean(
+        environment.NODE_ENV === 'localhost' || environment.NODE_ENV === 'test'
+      ),
 
       // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
       //isASecurityEndpoint: this.defaultSecurityEndpoint(url),
