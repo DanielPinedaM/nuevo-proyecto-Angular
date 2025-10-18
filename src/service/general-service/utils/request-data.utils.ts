@@ -223,11 +223,10 @@ export class RequestDataUtils {
 
   /**
   configuraciones por defecto para llamar la API */
-  DEFAULT_OPTIONS(url: string): IRequestOptions {
+  #DEFAULT_OPTIONS(url: string): IRequestOptions {
     return {
-      body: undefined,
       params: {},
-      headers: {},
+      headers: { 'Content-Type': 'application/json' },
       responseType: 'json',
       showLoader: true,
       showLogger: Boolean(
@@ -242,19 +241,23 @@ export class RequestDataUtils {
 
   /**
   opciones q recibe Angular httpClient */
-  buildHttpOptions(options: IRequestOptions, method: TMethod): any {
-    const { body, params, headers, responseType, withCredentials } = options;
+  buildHttpOptions(url: string, options: IRequestOptions = {}): any {
+    // Combinar opciones por defecto con las personalizadas
+    const defaultOptions = this.#DEFAULT_OPTIONS(url);
+
+    const mergedOptions: IRequestOptions = {
+      ...defaultOptions,
+      ...options,
+      headers: { ...defaultOptions?.headers, ...options?.headers },
+    };
+
+    const { params, headers, responseType, withCredentials } = mergedOptions;
 
     return {
-      // NO agregar body al metodo HTTP GET
-      ...(method !== 'GET' && body ? { body } : {}),
-      ...(headers
-        ? {
-            headers: new HttpHeaders(
-              headers as Record<string, string | string[]>
-            ),
-          }
-        : {}),
+      // devolver solo el contenido de la respuesta de la API, SIN headers NI status NI body
+      observe: 'body' as const,
+
+      headers: new HttpHeaders(headers as Record<string, string | string[]>),
       params,
       responseType,
       withCredentials,

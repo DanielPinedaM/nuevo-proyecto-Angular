@@ -11,7 +11,6 @@ import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { RequestDataUtils } from '@/service/general-service/utils/request-data.utils';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
 import { environment } from '@/environments/environment';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +19,6 @@ export class HttpService {
   private hotToast = inject(HotToastClass);
   private requestDataUtils = inject(RequestDataUtils);
   private loaderService = inject(LoaderService);
-
   private _timeout: number = 1000 * 60;
 
   /*
@@ -59,16 +57,7 @@ export class HttpService {
       });
     }
 
-    const { body, showLoader, showLogger, isASecurityEndpoint } = options;
-
-    if (body && method === 'GET') {
-      return of({
-        success: false,
-        status: 400,
-        message: `❌ el metodo GET NO puede tener body ${JSON.stringify(body)}`,
-        data: [] as unknown as T,
-      });
-    }
+    const { showLoader, showLogger, isASecurityEndpoint } = options;
 
     if (showLoader) this.loaderService.setLoader(true);
 
@@ -152,18 +141,13 @@ export class HttpService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const config: IRequestOptions = {
-      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
-      ...options,
-    };
-
-    const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'GET');
+    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
     return this.#executeRequest<T>(
       () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
       url,
       'GET',
-      config
+      options
     );
   }
 
@@ -171,18 +155,18 @@ export class HttpService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const config: IRequestOptions = {
-      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
-      ...options,
-    };
-
-    const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'POST');
+    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
     return this.#executeRequest<T>(
-      () => this.httpClient.post<T>(url, httpOptions) as Observable<T>,
+      () =>
+        this.httpClient.post<T>(
+          url,
+          options?.body ?? {},
+          httpOptions
+        ) as Observable<T>,
       url,
       'POST',
-      config
+      options
     );
   }
 
@@ -190,18 +174,18 @@ export class HttpService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const config: IRequestOptions = {
-      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
-      ...options,
-    };
-
-    const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'PUT');
+    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
     return this.#executeRequest<T>(
-      () => this.httpClient.put<T>(url, httpOptions) as Observable<T>,
+      () =>
+        this.httpClient.put<T>(
+          url,
+          options?.body ?? {},
+          httpOptions
+        ) as Observable<T>,
       url,
       'PUT',
-      config
+      options
     );
   }
 
@@ -209,18 +193,18 @@ export class HttpService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const config: IRequestOptions = {
-      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
-      ...options,
-    };
-
-    const httpOptions = this.requestDataUtils.buildHttpOptions(config, 'PATCH');
+    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
     return this.#executeRequest<T>(
-      () => this.httpClient.patch<T>(url, httpOptions) as Observable<T>,
+      () =>
+        this.httpClient.patch<T>(
+          url,
+          options?.body ?? {},
+          httpOptions
+        ) as Observable<T>,
       url,
       'PATCH',
-      config
+      options
     );
   }
 
@@ -228,21 +212,19 @@ export class HttpService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const config: IRequestOptions = {
-      ...this.requestDataUtils.DEFAULT_OPTIONS(url),
-      ...options,
-    };
+    const method: TMethod = 'DELETE';
 
-    const httpOptions = this.requestDataUtils.buildHttpOptions(
-      config,
-      'DELETE'
-    );
+    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
     return this.#executeRequest<T>(
-      () => this.httpClient.delete<T>(url, httpOptions) as Observable<T>,
+      () =>
+        this.httpClient.request<T>(method, url, {
+          body: options?.body ?? {},
+          ...httpOptions,
+        }) as Observable<T>,
       url,
-      'DELETE',
-      config
+      method,
+      options
     );
   }
 }
