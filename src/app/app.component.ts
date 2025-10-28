@@ -8,9 +8,9 @@ import {
   objSessionStorage,
 } from '@/models/constants/session-storage.const';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
-import { sessionStorageSearch } from '@/utils/func/sessionStorage.utils';
 import { LoaderComponent } from '@/app/layout/loader/loader.component';
 import path from '@/models/constants/path.const';
+import Storage from '@/utils/class/SessionStorageClass.utils';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +18,7 @@ import path from '@/models/constants/path.const';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  storage = inject(Storage);
   sweetAlertClass = inject(SweetAlertClass);
   bnIdle = inject(BnNgIdleService);
   router = inject(Router);
@@ -55,7 +56,7 @@ export class AppComponent {
 
     this.bnIdle.startWatching(300).subscribe((isTimedOut: boolean) => {
       if (isTimedOut) {
-        if (sessionStorageSearch(objSessionStorage.token!)) {
+        if (this.storage.search(objSessionStorage.token!)) {
           this.router.navigate(['/' + path.auth.login]);
           this.sweetAlertClass.messageAlert(
             'Sesión Inactiva',

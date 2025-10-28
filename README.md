@@ -61,7 +61,7 @@ node --run build:prod | producción | src/environments/environment.prod.ts
 
 * **src/app/service/RxJS-BehaviorSubject/layout/loader.service.ts**: loader general. Cuando se ejecuta **http.service.ts** el loader se muestra y oculta
 
-* **src/app/utils/func/sessionStorage.ts** funciones con sessionStorage en base 64
+* **src/utils/class/SessionStorageClass.utils.ts** funciones para codificar y de-codificar el sessionStorage en base 64
 
 * **src/app/models/constants**: constantes generales para usar en toda la web
 

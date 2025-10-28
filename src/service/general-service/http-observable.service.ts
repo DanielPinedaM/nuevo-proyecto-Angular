@@ -1,3 +1,4 @@
+import Storage from '@/utils/class/SessionStorageClass.utils';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError, finalize } from 'rxjs/operators';
 import { inject, Injectable } from '@angular/core';
@@ -11,10 +12,12 @@ import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { RequestDataUtils } from '@/service/general-service/utils/request-data.utils';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
 import { environment } from '@/environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
+  private storage = inject(Storage);
   private httpClient = inject(HttpClient);
   private hotToast = inject(HotToastClass);
   private requestDataUtils = inject(RequestDataUtils);
@@ -65,11 +68,11 @@ export class HttpService {
     /*
     des-comentar para enviar token por headers authorization Bearer. ⚠️ Esto se puede hackear con ataque XSS 🚨
     if (isASecurityEndpoint) {
-      const token: string | null = sessionStorageListValue(
+      const token: string | null = this.storage.listValue(
         objSessionStorage.token!
       );
 
-      if (sessionStorageSearch(objSessionStorage.token!)) {
+      if (this.storage.search(objSessionStorage.token!)) {
         // agregar token a los headers
         this.httpHeader = this.httpHeader.append(
           'authorization',

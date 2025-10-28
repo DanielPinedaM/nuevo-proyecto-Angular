@@ -3,10 +3,7 @@ import { MenuDesktopComponent } from '@/app/layout/menu/menu-desktop/menu-deskto
 import { MenuMobileComponent } from '@/app/layout/menu/menu-mobile/menu-mobile.component';
 import IMenuOptions from '@/models/interfaces/menu.interfaces';
 import { HttpService } from '@/service/general-service/http-observable.service';
-import {
-  sessionStorageListValue,
-  sessionStorageSearch,
-} from '@/utils/func/sessionStorage.utils';
+import Storage from '@/utils/class/SessionStorageClass.utils';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
 
@@ -16,6 +13,7 @@ import { environment } from '@/environments/environment';
   imports: [MenuDesktopComponent, MenuMobileComponent],
 })
 export class MainMenuComponent implements OnInit {
+  storage = inject(Storage);
   http = inject(HttpService);
   hotToast = inject(HotToastClass);
 
@@ -26,8 +24,8 @@ export class MainMenuComponent implements OnInit {
   }
 
   async listMenu(): Promise<void> {
-    if (sessionStorageSearch('menu')) {
-      this.menuOptions.set(sessionStorageListValue('menu'));
+    if (this.storage.search('menu')) {
+      this.menuOptions.set(this.storage.listValue('menu'));
       return;
     }
 

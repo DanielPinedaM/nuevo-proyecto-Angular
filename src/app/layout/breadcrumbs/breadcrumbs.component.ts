@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  sessionStorageListValue,
-  sessionStorageSaveAndUpdate,
-} from '@/utils/func/sessionStorage.utils';
+import Storage from '@/utils/class/SessionStorageClass.utils';
 import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-route.service';
 
 @Component({
@@ -13,6 +10,7 @@ import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-rout
   imports: [CommonModule],
 })
 export class BreadcrumbsComponent implements OnInit {
+  storage = inject(Storage);
   currentRouteService = inject(CurrentRouteService);
   router = inject(Router);
 
@@ -33,16 +31,16 @@ export class BreadcrumbsComponent implements OnInit {
         !this.breadcrumbs.includes(this.currentRoute())
       ) {
         this.breadcrumbs.push(this.currentRoute());
-        sessionStorageSaveAndUpdate('breadcrumb', this.breadcrumbs);
+        this.storage.saveAndUpdate('breadcrumb', this.breadcrumbs);
       }
 
-      this.breadcrumbs = sessionStorageListValue('breadcrumb') ?? [];
+      this.breadcrumbs = this.storage.listValue('breadcrumb') ?? [];
     });
   }
 
   onClickCloseBreadcrumb(i: number): void {
     this.breadcrumbs.splice(i, 1);
-    sessionStorageSaveAndUpdate('breadcrumb', this.breadcrumbs);
+    this.storage.saveAndUpdate('breadcrumb', this.breadcrumbs);
     const lastBreadcrumb: string | undefined = this.breadcrumbs.at(-1);
 
     if (lastBreadcrumb) {

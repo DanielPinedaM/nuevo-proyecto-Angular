@@ -8,11 +8,6 @@ import { Router } from '@angular/router';
 import { lastValueFrom, Observable, timeout } from 'rxjs';
 import path from '@/models/constants/path.const';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
-import { objSessionStorage } from '@/models/constants/session-storage.const';
-import {
-  sessionStorageListValue,
-  sessionStorageSearch,
-} from '@/utils/func/sessionStorage.utils';
 import {
   IHttpErrorResponse,
   IObjectLogs,

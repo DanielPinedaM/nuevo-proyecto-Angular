@@ -1,9 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import {
-  sessionStorageDeleteAll,
-  sessionStorageSaveAndUpdate,
-} from '@/utils/func/sessionStorage.utils';
+import Storage from '@/utils/class/SessionStorageClass.utils';
 import path from '@/models/constants/path.const';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
@@ -24,6 +21,7 @@ import { IRequestOptions } from '@/service/general-service/types/request-data.ty
   imports: [...PrimeNgModules, RouterModule],
 })
 export class LoginComponent implements OnInit {
+  storage = inject(Storage);
   cryptoServiceClass = inject(CryptoServiceClass);
   dataTypeClass = inject(DataTypeClass);
   http = inject(HttpService);
@@ -53,7 +51,7 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit() {
-    sessionStorageDeleteAll();
+    this.storage.deleteAll();
   }
 
   setSessionStorage(data: { [key: string]: any }): void {
@@ -95,7 +93,7 @@ export class LoginComponent implements OnInit {
         return;
       }
 
-      sessionStorageSaveAndUpdate(key, value);
+      this.storage.saveAndUpdate(key, value);
     });
   }
 
