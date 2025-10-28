@@ -1,8 +1,8 @@
-import { objSessionStorage } from '@/models/constants/session-storage.constants';
+import { objSessionStorage } from '@/models/constants/session-storage.const';
 import { sessionStorageSearch } from '@/utils/func/sessionStorage.utils';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import path from '@/models/constants/path.constants';
+import path from '@/models/constants/path.const';
 import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-route.service';
 
 /**

@@ -6,11 +6,11 @@ import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.serv
 import {
   constImmutableProperties,
   objSessionStorage,
-} from '@/models/constants/session-storage.constants';
+} from '@/models/constants/session-storage.const';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
 import { sessionStorageSearch } from '@/utils/func/sessionStorage.utils';
 import { LoaderComponent } from '@/app/layout/loader/loader.component';
-import path from '@/models/constants/path.constants';
+import path from '@/models/constants/path.const';
 
 @Component({
   selector: 'app-root',

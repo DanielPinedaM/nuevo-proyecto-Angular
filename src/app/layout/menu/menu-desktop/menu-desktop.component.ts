@@ -1,6 +1,6 @@
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-route.service';
-import path from '@/models/constants/path.constants';
+import path from '@/models/constants/path.const';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
 import { CommonModule } from '@angular/common';

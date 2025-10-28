@@ -6,9 +6,9 @@ import {
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom, Observable, timeout } from 'rxjs';
-import path from '@/models/constants/path.constants';
+import path from '@/models/constants/path.const';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
-import { objSessionStorage } from '@/models/constants/session-storage.constants';
+import { objSessionStorage } from '@/models/constants/session-storage.const';
 import {
   sessionStorageListValue,
   sessionStorageSearch,

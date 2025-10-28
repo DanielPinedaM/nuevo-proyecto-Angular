@@ -3,7 +3,7 @@
  █ funciones para CRUD y buscar en el sessionStorage con Base64 █
  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ */
 
-import { objSessionStorage } from '@/models/constants/session-storage.constants';
+import { objSessionStorage } from '@/models/constants/session-storage.const';
 
 export interface ISessionStorageObject {
   [key: string]: string;

@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
-import path from '@/models/constants/path.constants';
+import path from '@/models/constants/path.const';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import {
   IObjectLogs,

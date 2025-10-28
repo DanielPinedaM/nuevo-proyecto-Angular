@@ -3,19 +3,19 @@ import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/general-service/http-observable.service';
 import { environment } from '@/environments/environment';
-import { constRegex } from '@/models/constants/regex.constants';
-import path from '@/models/constants/path.constants';
+import { constRegex } from '@/models/constants/regex.const';
+import path from '@/models/constants/path.const';
 import { IPath } from '@/models/interfaces/path.interfaces';
 import { Router, RouterModule } from '@angular/router';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
-import { enterFields } from '@/models/constants/error-message.constants';
+import { enterFields } from '@/models/constants/error-message.const';
 import {
   IBodyRegister,
   IInputValuePassword,
   IObjValidatePassword,
 } from '@/models/interfaces/auth.interfaces';
-import { minLengthPassword } from '@/models/constants/auth.constants';
+import { minLengthPassword } from '@/models/constants/auth.const';
 import GeneralClass from '@/utils/class/GeneralClass.utils';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
 import { IRequestOptions } from '@/service/general-service/types/request-data.types';

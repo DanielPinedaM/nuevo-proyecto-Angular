@@ -1,14 +1,14 @@
 import {
   minLengthPassword,
   securePasswordErrorMessage,
-} from '@/models/constants/auth.constants';
-import { constRegex } from '@/models/constants/regex.constants';
+} from '@/models/constants/auth.const';
+import { constRegex } from '@/models/constants/regex.const';
 import { IObjValidatePassword } from '@/models/interfaces/auth.interfaces';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import HotToastClass from './notification/HotToastClass.utils';
 import { inject, Injectable } from '@angular/core';
 import { Options, titleCase as titleCaseNpm } from 'title-case';
-import { titleCaseOptions } from '@/models/constants/title-case.constants';
+import { titleCaseOptions } from '@/models/constants/title-case.const';
 
 @Injectable({
   providedIn: 'root',

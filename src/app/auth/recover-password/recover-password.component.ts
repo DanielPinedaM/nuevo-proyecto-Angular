@@ -3,11 +3,11 @@ import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/general-service/http-observable.service';
 import { environment } from '@/environments/environment';
-import path from '@/models/constants/path.constants';
+import path from '@/models/constants/path.const';
 import { IPath } from '@/models/interfaces/path.interfaces';
 import { RouterModule } from '@angular/router';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
-import { enterFields } from '@/models/constants/error-message.constants';
+import { enterFields } from '@/models/constants/error-message.const';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
 import { IRequestOptions } from '@/service/general-service/types/request-data.types';
 

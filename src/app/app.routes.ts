@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@/guards/auth.guard';
-import path from '@/models/constants/path.constants';
+import path from '@/models/constants/path.const';
 
 //#region componentes de Angular
 // home

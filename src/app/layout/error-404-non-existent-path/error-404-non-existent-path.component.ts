@@ -1,4 +1,4 @@
-import path from '@/models/constants/path.constants';
+import path from '@/models/constants/path.const';
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 

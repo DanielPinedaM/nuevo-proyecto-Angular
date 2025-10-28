@@ -1,7 +1,7 @@
 import {
   IVAuth,
   secretKeyAuthentication,
-} from '@/models/constants/auth.constants';
+} from '@/models/constants/auth.const';
 import { Injectable } from '@angular/core';
 import { enc, mode, pad, AES } from 'crypto-js';
 
