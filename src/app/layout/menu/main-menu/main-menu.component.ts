@@ -16,7 +16,7 @@ import { environment } from '@/environments/environment';
   imports: [MenuDesktopComponent, MenuMobileComponent],
 })
 export class MainMenuComponent implements OnInit {
-  httpService = inject(HttpService);
+  http = inject(HttpService);
   hotToast = inject(HotToastClass);
 
   menuOptions = signal<IMenuOptions[]>([]);
@@ -31,7 +31,7 @@ export class MainMenuComponent implements OnInit {
       return;
     }
 
-    this.httpService.GET(`${environment.api}`).subscribe({
+    this.http.GET(`${environment.api}`).subscribe({
       next: ({ success, data }) => {
         if (success) {
           this.menuOptions.set(data);

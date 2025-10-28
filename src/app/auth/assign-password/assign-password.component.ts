@@ -33,7 +33,7 @@ export class AssignPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
   generalClass = inject(GeneralClass);
   dataTypeClass = inject(DataTypeClass);
-  httpService = inject(HttpService);
+  http = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
   route = inject(ActivatedRoute);
@@ -129,7 +129,7 @@ export class AssignPasswordComponent implements OnInit {
       },
     };
 
-    this.httpService.POST(`${environment.api}`, optionsApi).subscribe({
+    this.http.POST(`${environment.api}`, optionsApi).subscribe({
       next: ({ success, message }) => {
         if (success) {
           this.hotToast.successNotification(

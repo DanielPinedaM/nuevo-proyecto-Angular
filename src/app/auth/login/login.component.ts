@@ -29,7 +29,7 @@ import { IRequestOptions } from '@/service/general-service/types/request-data.ty
 export class LoginComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
   dataTypeClass = inject(DataTypeClass);
-  httpService = inject(HttpService);
+  http = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
 
@@ -143,7 +143,7 @@ export class LoginComponent implements OnInit {
       },
     };
 
-    this.httpService.POST(`${environment.api}`, optionsApi).subscribe({
+    this.http.POST(`${environment.api}`, optionsApi).subscribe({
       next: ({ success, message, data }) => {
         if (success) {
           this.setSessionStorage(data);

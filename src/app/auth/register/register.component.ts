@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
   sweetAlertClass = inject(SweetAlertClass);
   generalClass = inject(GeneralClass);
-  httpService = inject(HttpService);
+  http = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
 
@@ -156,7 +156,7 @@ export class RegisterComponent implements OnInit {
       },
     };
 
-    this.httpService.POST(`${environment.api}`, optionsApi).subscribe({
+    this.http.POST(`${environment.api}`, optionsApi).subscribe({
       next: ({ success, message }) => {
         if (success) {
           this.hotToast.successNotification(

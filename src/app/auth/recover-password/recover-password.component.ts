@@ -22,7 +22,7 @@ export interface IBodyRecoverPassword {
 })
 export class RecoverPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
-  httpService = inject(HttpService);
+  http = inject(HttpService);
   hotToast = inject(HotToastClass);
 
   path = signal<IPath>(path);
@@ -53,7 +53,7 @@ export class RecoverPasswordComponent implements OnInit {
       },
     };
 
-    this.httpService
+    this.http
       .POST(`${environment.api}sendemail/sendEmailResetPassword`, optionsApi)
       .subscribe({
         next: ({ success, message }) => {
