@@ -49,7 +49,7 @@ export class RecoverPasswordComponent implements OnInit {
 
     const optionsApi: IRequestOptions<IBodyRecoverPassword> = {
       body: {
-        email: await this.cryptoServiceClass.encrypt(email!.trim()),
+        email: (await this.cryptoServiceClass.encrypt(email!.trim())) as string,
       },
     };
 

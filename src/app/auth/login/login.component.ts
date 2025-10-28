@@ -14,10 +14,7 @@ import { HttpService } from '@/service/general-service/http-observable.service';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/models/constants/error-message.const';
 import { IBodyLogin } from '@/models/interfaces/auth.interfaces';
-import {
-  initRoute,
-  minLengthPassword,
-} from '@/models/constants/auth.const';
+import { initRoute, minLengthPassword } from '@/models/constants/auth.const';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
 import { IRequestOptions } from '@/service/general-service/types/request-data.types';
 
@@ -116,8 +113,8 @@ export class LoginComponent implements OnInit {
     decryptedPassword: string
   ): Promise<{ encryptedEmail: string; encryptedPassword: string }> {
     const [encryptedEmail, encryptedPassword] = await Promise.all([
-      await this.cryptoServiceClass.encrypt(decryptedEmail),
-      await this.cryptoServiceClass.encrypt(decryptedPassword),
+      this.cryptoServiceClass.encrypt(decryptedEmail) as Promise<string>,
+      this.cryptoServiceClass.encrypt(decryptedPassword) as Promise<string>,
     ]);
 
     return { encryptedEmail, encryptedPassword };

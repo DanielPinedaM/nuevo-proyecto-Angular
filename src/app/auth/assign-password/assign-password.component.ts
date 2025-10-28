@@ -125,7 +125,7 @@ export class AssignPasswordComponent implements OnInit {
     const optionsApi: IRequestOptions<IBodyAssignPassword> = {
       body: {
         id: this.dataTypeClass.convertToNumber(this.idParams)!,
-        password: await this.cryptoServiceClass.encrypt(password!.trim()),
+        password: (await this.cryptoServiceClass.encrypt(password!.trim())) as string,
       },
     };
 

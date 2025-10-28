@@ -115,9 +115,9 @@ export class RegisterComponent implements OnInit {
   }> {
     const [encryptedNameUser, encryptedEmail, encryptedPassword] =
       await Promise.all([
-        await this.cryptoServiceClass.encrypt(decryptedNameUser),
-        await this.cryptoServiceClass.encrypt(decryptedEmail),
-        await this.cryptoServiceClass.encrypt(decryptedPassword),
+        this.cryptoServiceClass.encrypt(decryptedNameUser) as Promise<string>,
+        this.cryptoServiceClass.encrypt(decryptedEmail) as Promise<string>,
+        this.cryptoServiceClass.encrypt(decryptedPassword) as Promise<string>,
       ]);
 
     return { encryptedNameUser, encryptedEmail, encryptedPassword };
@@ -150,9 +150,9 @@ export class RegisterComponent implements OnInit {
 
     const optionsApi: IRequestOptions<IBodyRegister> = {
       body: {
-        nameUser: encryptedNameUser,
-        email: encryptedEmail,
-        password: encryptedPassword,
+        nameUser: encryptedNameUser as string,
+        email: encryptedEmail as string,
+        password: encryptedPassword as string,
       },
     };
 
