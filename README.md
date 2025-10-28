@@ -3,11 +3,11 @@
 #### Instalar paquetes
 
 ```javascript
-nvm install 22.17.1
+nvm install 24.10.0
 ```
 
 ```javascript
-nvm use 22.17.1
+nvm use 24.10.0
 ```
 
 ```javascript
@@ -17,7 +17,7 @@ npm i
 #### Ejecutar proyecto
 
 ```javascript
-nvm use 22.17.1
+nvm use 24.10.0
 ```
 
 comando | apunta a... | ruta archivo
@@ -29,7 +29,7 @@ node --run start:test | pruebas | src/environments/environment.test.ts
 #### Generar build (dist) para desplegar
 
 ```javascript
-nvm use 22.17.1
+nvm use 24.10.0
 ```
 
 comando | apunta a... | ruta archivo

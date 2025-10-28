@@ -3,12 +3,12 @@
 * Tailwind *
 ************ */
 
-/* Importar Tailwind 4 y Prime NG 19
+/* Importar Tailwind 4 y Prime NG 20
 https://medium.com/@daniel.codrea/setting-up-a-primeng-v19-and-tailwindcss-v4-project-f1b550c8e2d0 */
 @layer tailwind, primeng;
 
 @layer tailwind {
-  @import "tailwindcss";
+  @import "tailwindcss" important;
 }
 
 /* Variables de Tailwind 4
