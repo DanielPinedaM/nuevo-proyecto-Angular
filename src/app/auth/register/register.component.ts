@@ -18,7 +18,11 @@ import {
 import { minLengthPassword } from '@/models/constants/auth.const';
 import GeneralClass from '@/utils/class/GeneralClass.utils';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
-import { IRequestOptions } from '@/service/general-service/types/request-data.types';
+import {
+  IRequestOptions,
+  IResponse,
+} from '@/service/general-service/types/request-data.types';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -156,18 +160,18 @@ export class RegisterComponent implements OnInit {
       },
     };
 
-    this.http.POST(`${environment.api}`, optionsApi).subscribe({
-      next: ({ success, message }) => {
-        if (success) {
-          this.hotToast.successNotification(
-            `Usuario ${nameUser} registrado, inicie sesión para continuar `
-          );
-          this.formRegister.reset();
-          this.router.navigate(['/' + path.auth.login]);
-        } else {
-          this.hotToast.errorNotification(message);
-        }
-      },
-    });
+    const { success, data, message }: IResponse = await firstValueFrom(
+      this.http.POST(`${environment.api}`, optionsApi)
+    );
+
+    if (success) {
+      this.hotToast.successNotification(
+        `Usuario ${nameUser} registrado, inicie sesión para continuar `
+      );
+      this.formRegister.reset();
+      this.router.navigate(['/' + path.auth.login]);
+    } else {
+      this.hotToast.errorNotification(message);
+    }
   }
 }

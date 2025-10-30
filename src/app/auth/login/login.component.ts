@@ -13,7 +13,11 @@ import { enterFields } from '@/models/constants/error-message.const';
 import { IBodyLogin } from '@/models/interfaces/auth.interfaces';
 import { initRoute, minLengthPassword } from '@/models/constants/auth.const';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
-import { IRequestOptions } from '@/service/general-service/types/request-data.types';
+import {
+  IRequestOptions,
+  IResponse,
+} from '@/service/general-service/types/request-data.types';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -138,16 +142,16 @@ export class LoginComponent implements OnInit {
       },
     };
 
-    this.http.POST(`${environment.api}`, optionsApi).subscribe({
-      next: ({ success, message, data }) => {
-        if (success) {
-          this.setSessionStorage(data);
-          this.router.navigate([initRoute]);
-        } else {
-          this.hotToast.errorNotification(message);
-        }
-      },
-    });
+    const { success, data, message }: IResponse = await firstValueFrom(
+      this.http.POST(`${environment.api}`, optionsApi)
+    );
+
+    if (success) {
+      this.setSessionStorage(data);
+      this.router.navigate([initRoute]);
+    } else {
+      this.hotToast.errorNotification(message);
+    }
 
     this.router.navigate(['/' + path.home.home + '/' + path.home.bots]);
   }

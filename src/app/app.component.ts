@@ -55,16 +55,18 @@ export class AppComponent {
     if (!environment.production) return;
 
     this.bnIdle.startWatching(300).subscribe((isTimedOut: boolean) => {
-      if (isTimedOut) {
-        if (this.storage.search(objSessionStorage.token!)) {
-          this.router.navigate(['/' + path.auth.login]);
-          this.sweetAlertClass.messageAlert(
-            'Sesión Inactiva',
-            'Su sesión ya no se encuentra activa, ingrese nuevamente',
-            'info'
-          );
-        }
-      }
+      if (!isTimedOut) return;
+
+      /*
+      des-comentar cuando se envie token por headers  por headers authorization Bearer
+      if (!this.storage.search(objSessionStorage.token!)) return; */
+
+      this.router.navigate(['/' + path.auth.login]);
+      this.sweetAlertClass.messageAlert(
+        'Sesión Inactiva',
+        'Su sesión ya no se encuentra activa, ingrese nuevamente',
+        'info'
+      );
     });
   }
 

@@ -9,7 +9,11 @@ import { RouterModule } from '@angular/router';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/models/constants/error-message.const';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
-import { IRequestOptions } from '@/service/general-service/types/request-data.types';
+import {
+  IRequestOptions,
+  IResponse,
+} from '@/service/general-service/types/request-data.types';
+import { firstValueFrom } from 'rxjs';
 
 export interface IBodyRecoverPassword {
   email: string;
@@ -53,19 +57,17 @@ export class RecoverPasswordComponent implements OnInit {
       },
     };
 
-    this.http
-      .POST(`${environment.api}sendemail/sendEmailResetPassword`, optionsApi)
-      .subscribe({
-        next: ({ success, message }) => {
-          if (success) {
-            this.hotToast.successNotification(
-              'Revise el correo que se le envio para continuar cambiando su contraseña'
-            );
-            this.formRecoverPassword.reset();
-          } else {
-            this.hotToast.errorNotification(message);
-          }
-        },
-      });
+    const { success, message }: IResponse = await firstValueFrom(
+      this.http.POST(`${environment.api}`, optionsApi)
+    );
+
+    if (success) {
+      this.hotToast.successNotification(
+        'Revise el correo que se le envio para continuar cambiando su contraseña'
+      );
+      this.formRecoverPassword.reset();
+    } else {
+      this.hotToast.errorNotification(message);
+    }
   }
 }

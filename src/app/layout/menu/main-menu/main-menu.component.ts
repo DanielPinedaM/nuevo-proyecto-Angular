@@ -6,6 +6,8 @@ import { HttpService } from '@/service/general-service/http-observable.service';
 import Storage from '@/utils/class/SessionStorageClass.utils';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
+import { IResponse } from '@/service/general-service/types/request-data.types';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-main-menu',
@@ -29,15 +31,15 @@ export class MainMenuComponent implements OnInit {
       return;
     }
 
-    this.http.GET(`${environment.api}`).subscribe({
-      next: ({ success, data }) => {
-        if (success) {
-          this.menuOptions.set(data);
-        } else {
-          this.menuOptions.set([]);
-          this.hotToast.errorNotification('Al mostrar menu');
-        }
-      },
-    });
+    const { success, data }: IResponse = await firstValueFrom(
+      this.http.POST(`${environment.api}`)
+    );
+
+    if (success) {
+      this.menuOptions.set(data);
+    } else {
+      this.menuOptions.set([]);
+      this.hotToast.errorNotification('Al mostrar menu');
+    }
   }
 }

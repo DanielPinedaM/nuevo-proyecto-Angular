@@ -20,9 +20,13 @@ import { minLengthPassword } from '@/models/constants/auth.const';
 import { constRegex } from '@/models/constants/regex.const';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
 import GeneralClass from '@/utils/class/GeneralClass.utils';
-import { IRequestOptions } from '@/service/general-service/types/request-data.types';
+import {
+  IRequestOptions,
+  IResponse,
+} from '@/service/general-service/types/request-data.types';
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-assign-password',
@@ -125,22 +129,24 @@ export class AssignPasswordComponent implements OnInit {
     const optionsApi: IRequestOptions<IBodyAssignPassword> = {
       body: {
         id: this.dataTypeClass.convertToNumber(this.idParams)!,
-        password: (await this.cryptoServiceClass.encrypt(password!.trim())) as string,
+        password: (await this.cryptoServiceClass.encrypt(
+          password!.trim()
+        )) as string,
       },
     };
 
-    this.http.POST(`${environment.api}`, optionsApi).subscribe({
-      next: ({ success, message }) => {
-        if (success) {
-          this.hotToast.successNotification(
-            'Se ha restablecido su contraseña, inicie sesion para continuar'
-          );
-          this.formAssignPassword.reset();
-          this.router.navigate(['/' + path.auth.login]);
-        } else {
-          this.hotToast.errorNotification(message);
-        }
-      },
-    });
+    const { success, message }: IResponse = await firstValueFrom(
+      this.http.POST(`${environment.api}`, optionsApi)
+    );
+
+    if (success) {
+      this.hotToast.successNotification(
+        'Se ha restablecido su contraseña, inicie sesion para continuar'
+      );
+      this.formAssignPassword.reset();
+      this.router.navigate(['/' + path.auth.login]);
+    } else {
+      this.hotToast.errorNotification(message);
+    }
   }
 }
