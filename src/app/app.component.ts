@@ -1,16 +1,14 @@
 import { environment } from '@/environments/environment';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
-import {
-  constImmutableProperties,
-  objSessionStorage,
-} from '@/models/constants/session-storage.const';
+import { constImmutableProperties } from '@/models/constants/session-storage.const';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
 import { LoaderComponent } from '@/app/layout/loader/loader.component';
 import path from '@/models/constants/path.const';
 import Storage from '@/utils/class/SessionStorageClass.utils';
+import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-route.service';
 
 @Component({
   selector: 'app-root',
@@ -23,11 +21,14 @@ export class AppComponent {
   bnIdle = inject(BnNgIdleService);
   router = inject(Router);
   loaderService = inject(LoaderService);
+  currentRouteService = inject(CurrentRouteService);
 
+  currentRoute = signal<string>('');
   loader: boolean = false;
 
   ngOnInit(): void {
     this.#getLoader();
+
     this.#logOutDueToInactivity();
     this.#closeSessionWhenModifyingSessionStorage();
   }
@@ -56,10 +57,7 @@ export class AppComponent {
 
     this.bnIdle.startWatching(300).subscribe((isTimedOut: boolean) => {
       if (!isTimedOut) return;
-
-      /*
-      des-comentar cuando se envie token por headers  por headers authorization Bearer
-      if (!this.storage.search(objSessionStorage.token!)) return; */
+      if (!this.router.url.includes('/inicio/')) return;
 
       this.router.navigate(['/' + path.auth.login]);
       this.sweetAlertClass.messageAlert(

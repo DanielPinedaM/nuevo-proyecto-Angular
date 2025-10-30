@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
 export class CurrentRouteService {
   private router = inject(Router);
 
-  private currentRouteSubject = new BehaviorSubject<string>('');
+  private currentRouteSubject = new BehaviorSubject<string>(this.router.url);
   public currentRoute$ = this.currentRouteSubject.asObservable();
 
   constructor() {
