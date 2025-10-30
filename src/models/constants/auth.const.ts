@@ -4,8 +4,6 @@
  * Iniciar sesion, registro y recuparar contraseña *
  *************************************************** */
 
-import path from '@/models/constants/path.const';
-
 /**
 cambiar numero de esta variable minLengthContrasena
 para modifcar la validacion del numero de caracteres de la contraseña */
@@ -18,7 +16,3 @@ export const securePasswordErrorMessage: string =
 Encriptar y desencriptar texto */
 export const secretKeyAuthentication: string = 'GestionAlcaldeCO';
 export const IVAuth: string = 'encryptionIntVec';
-
-/**
-ruta de inicio para administrador y usuario */
-export const initRoute: string = `/${path.home.home}/${path.home.bots}`;

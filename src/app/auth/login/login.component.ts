@@ -1,17 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import Storage from '@/utils/class/SessionStorageClass.utils';
-import path from '@/models/constants/path.const';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { environment } from '@/environments/environment';
-import { IPath } from '@/models/interfaces/path.interfaces';
 import DataTypeClass from '@/utils/class/DataTypeClass.utils';
 import { HttpService } from '@/service/general-service/http-observable.service';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/models/constants/error-message.const';
 import { IBodyLogin } from '@/models/interfaces/auth.interfaces';
-import { initRoute, minLengthPassword } from '@/models/constants/auth.const';
+import { minLengthPassword } from '@/models/constants/auth.const';
 import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
 import {
   IRequestOptions,
@@ -33,8 +31,6 @@ export class LoginComponent implements OnInit {
   router = inject(Router);
 
   dataLoginBurned: boolean = ['localhost'].includes(environment.NODE_ENV);
-
-  path = signal<IPath>(path);
 
   minLengthPassword = signal<number>(minLengthPassword);
 
@@ -146,13 +142,12 @@ export class LoginComponent implements OnInit {
       this.http.POST(`${environment.api}`, optionsApi)
     );
 
-    if (success) {
-      this.setSessionStorage(data);
-      this.router.navigate([initRoute]);
-    } else {
-      this.hotToast.errorNotification(message);
-    }
-
-    this.router.navigate(['/' + path.home.home + '/' + path.home.bots]);
+    /* EL SIGUIENTE CODIGO DEBERIA ESTAR DESCOMENTADO CUANDO FUNCIONE LA CONEXION A LA API  */
+    //if (success) {
+    this.setSessionStorage(data);
+    this.router.navigate(['/inicio/bots']);
+    //} else {
+    //  this.hotToast.errorNotification(message);
+    //}
   }
 }

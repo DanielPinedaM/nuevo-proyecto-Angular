@@ -4,8 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/general-service/http-observable.service';
 import { environment } from '@/environments/environment';
 import { constRegex } from '@/models/constants/regex.const';
-import path from '@/models/constants/path.const';
-import { IPath } from '@/models/interfaces/path.interfaces';
 import { Router, RouterModule } from '@angular/router';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
@@ -36,8 +34,6 @@ export class RegisterComponent implements OnInit {
   http = inject(HttpService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
-
-  path = signal<IPath>(path);
 
   // necesario para validar <input> contraseña y confirmar contraseña
   objValidatePassword = signal<IObjValidatePassword | undefined>(undefined);
@@ -169,7 +165,7 @@ export class RegisterComponent implements OnInit {
         `Usuario ${nameUser} registrado, inicie sesión para continuar `
       );
       this.formRegister.reset();
-      this.router.navigate(['/' + path.auth.login]);
+      this.router.navigate(['/autenticacion/iniciar-sesion']);
     } else {
       this.hotToast.errorNotification(message);
     }

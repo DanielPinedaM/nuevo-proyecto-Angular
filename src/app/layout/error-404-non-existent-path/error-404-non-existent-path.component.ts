@@ -1,4 +1,3 @@
-import path from '@/models/constants/path.const';
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -16,5 +15,5 @@ export class Error404NonExistentPathComponent {
   }
 
   onClickLogout = (): Promise<boolean> =>
-    this.router.navigate(['/' + path.auth.login]);
+    this.router.navigate(['/autenticacion/iniciar-sesion']);
 }

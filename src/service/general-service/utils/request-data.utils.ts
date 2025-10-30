@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
-import path from '@/models/constants/path.const';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import {
   IObjectLogs,
@@ -23,12 +22,12 @@ export class RequestDataUtils {
   private loaderService = inject(LoaderService);
 
   unauthorized(): void {
-    this.router.navigate(['/' + path.auth.login]);
+    this.router.navigate(['/autenticacion/iniciar-sesion']);
     this.loaderService.setLoader(false);
   }
 
   redirectToLogin(): void {
-    const login: string = '/' + path.auth.login;
+    const login: string = '/autenticacion/iniciar-sesion';
 
     if (!this.pathnameIsLogin()) {
       window.location.href = login;
@@ -44,7 +43,7 @@ export class RequestDataUtils {
   }
 
   pathnameIsLogin(): boolean {
-    const login: string = '/' + path.auth.login;
+    const login: string = '/autenticacion/iniciar-sesion';
 
     const pathname: string = window.location.pathname;
 

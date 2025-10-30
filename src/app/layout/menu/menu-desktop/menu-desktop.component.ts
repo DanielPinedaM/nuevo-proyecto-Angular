@@ -1,6 +1,5 @@
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-route.service';
-import path from '@/models/constants/path.const';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
 import { CommonModule } from '@angular/common';
@@ -39,15 +38,17 @@ export class MenuDesktopComponent implements OnInit {
   }
 
   onClickLogOut(): void {
-    this.sweetAlertClass.messageQuestion(
-      'Confirmación',
-      '¿Está seguro que desea cerrar sesión?',
-      'warning'
-    ).then((result) => {
-      if (result.isConfirmed) {
-        this.hotToast.infoNotification('Se ha cerrado sesión');
-        this.router.navigate(['/' + path.auth.login]);
-      }
-    });
+    this.sweetAlertClass
+      .messageQuestion(
+        'Confirmación',
+        '¿Está seguro que desea cerrar sesión?',
+        'warning'
+      )
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.hotToast.infoNotification('Se ha cerrado sesión');
+          this.router.navigate(['/autenticacion/iniciar-sesion']);
+        }
+      });
   }
 }

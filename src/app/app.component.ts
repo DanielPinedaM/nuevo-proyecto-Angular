@@ -6,7 +6,6 @@ import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.serv
 import { constImmutableProperties } from '@/models/constants/session-storage.const';
 import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
 import { LoaderComponent } from '@/app/layout/loader/loader.component';
-import path from '@/models/constants/path.const';
 import Storage from '@/utils/class/SessionStorageClass.utils';
 import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-route.service';
 
@@ -59,7 +58,7 @@ export class AppComponent {
       if (!isTimedOut) return;
       if (!this.router.url.includes('/inicio/')) return;
 
-      this.router.navigate(['/' + path.auth.login]);
+      this.router.navigate(['/autenticacion/iniciar-sesion']);
       this.sweetAlertClass.messageAlert(
         'Sesión Inactiva',
         'Su sesión ya no se encuentra activa, ingrese nuevamente',
@@ -75,7 +74,7 @@ export class AppComponent {
       const indexOf: number = immutableProperties.indexOf(modifiedProperty);
 
       if (indexOf > -1) {
-        this.router.navigate(['/' + path.auth.login]);
+        this.router.navigate(['/autenticacion/iniciar-sesion']);
         this.sweetAlertClass.messageAlert(
           'Sesión Inactiva',
           'Su sesión ya no se encuentra activa, ingrese nuevamente',

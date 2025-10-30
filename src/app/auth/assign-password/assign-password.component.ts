@@ -2,9 +2,6 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@/service/general-service/http-observable.service';
-
-import path from '@/models/constants/path.const';
-import { IPath } from '@/models/interfaces/path.interfaces';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
 import {
@@ -41,8 +38,6 @@ export class AssignPasswordComponent implements OnInit {
   hotToast = inject(HotToastClass);
   router = inject(Router);
   route = inject(ActivatedRoute);
-
-  path = signal<IPath>(path);
 
   idParams = signal<string | null>(null);
 
@@ -144,7 +139,7 @@ export class AssignPasswordComponent implements OnInit {
         'Se ha restablecido su contraseña, inicie sesion para continuar'
       );
       this.formAssignPassword.reset();
-      this.router.navigate(['/' + path.auth.login]);
+      this.router.navigate(['/autenticacion/iniciar-sesion']);
     } else {
       this.hotToast.errorNotification(message);
     }

@@ -28,17 +28,16 @@
           placeholder="nombre@correo.gov.co"
         />
         @if (formLogin.get('email')?.touched && !dataLoginBurned) {
-          @if(formLogin.get('email')?.hasError("required")) {
-            <p-message severity="error" text="Correo es obligatorio"></p-message>
-            } @else if (formLogin.get('email')?.hasError('minlength')) {
-              <p-message
-                severity="error"
-                text="Correo es de mínimo 3 caracteres"
-              ></p-message>
-            } @else if (formLogin.get('email')?.hasError('email')) {
-              <p-message severity="error" text="Correo invalido"></p-message>
-            }
-        }
+        @if(formLogin.get('email')?.hasError("required")) {
+        <p-message severity="error" text="Correo es obligatorio"></p-message>
+        } @else if (formLogin.get('email')?.hasError('minlength')) {
+        <p-message
+          severity="error"
+          text="Correo es de mínimo 3 caracteres"
+        ></p-message>
+        } @else if (formLogin.get('email')?.hasError('email')) {
+        <p-message severity="error" text="Correo invalido"></p-message>
+        } }
       </div>
 
       <div class="mb-3">
@@ -54,14 +53,13 @@
           (paste)="doNotAllowCopyPasteCut($event)"
           (copy)="doNotAllowCopyPasteCut($event)"
         />
-        @if (formLogin.get('password')?.touched && !dataLoginBurned) {
-          @if (formLogin.get('password')?.hasError("required")) {
-              <p-message
-                severity="error"
-                text="Contraseña es obligatoria"
-              ></p-message>
-          }
-        }
+        @if (formLogin.get('password')?.touched && !dataLoginBurned) { @if
+        (formLogin.get('password')?.hasError("required")) {
+        <p-message
+          severity="error"
+          text="Contraseña es obligatoria"
+        ></p-message>
+        } }
       </div>
 
       <div class="flex items-center justify-between mb-5 gap-x-1">
@@ -71,7 +69,7 @@
         </div>
 
         <a
-          [routerLink]="['/', path().auth.recoverPassword]"
+          routerLink="/autenticacion/recuperar-clave"
           class="text-[12px] xsm:text-sm text-right text-blue-lightning"
         >
           ¿Olvidaste tu contraseña?
@@ -85,7 +83,7 @@
       <div class="flex gap-x-2">
         <p class="text-[12px] xsm:text-sm">¿No tienes una cuenta?</p>
         <a
-          [routerLink]="['/' + path().auth.register]"
+          routerLink="/autenticacion/registrarme"
           rel="noopener noreferrer"
           class="text-[12px] xsm:text-sm text-blue-lightning cursor-pointer"
           >Registrate!</a

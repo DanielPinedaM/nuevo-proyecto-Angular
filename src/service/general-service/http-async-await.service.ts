@@ -6,7 +6,6 @@ import {
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom, Observable, timeout } from 'rxjs';
-import path from '@/models/constants/path.const';
 import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
 import {
   IHttpErrorResponse,
@@ -179,12 +178,12 @@ export class HttpService {
   }
 
   private unauthorized(): void {
-    this.router.navigate(['/' + path.auth.login]);
+    this.router.navigate(['/autenticacion/iniciar-sesion']);
     this.loaderService.setLoader(false);
   }
 
   private redirectToLogin(): void {
-    const login: string = '/' + path.auth.login;
+    const login: string = '/autenticacion/iniciar-sesion';
 
     if (!this.pathnameIsLogin()) {
       window.location.href = login;
@@ -200,7 +199,7 @@ export class HttpService {
   }
 
   private pathnameIsLogin(): boolean {
-    const login: string = '/' + path.auth.login;
+    const login: string = '/autenticacion/iniciar-sesion';
 
     const pathname: string = window.location.pathname;
 
