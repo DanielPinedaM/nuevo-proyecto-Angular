@@ -12,7 +12,7 @@ import { MainAuthComponent } from '@/app/auth/main-auth/main-auth.component';
 // #region layout - componentes de maquetacion
 import { Error404NonExistentPathComponent } from '@/app/layout/error-404-non-existent-path/error-404-non-existent-path.component';
 import { HomeComponent } from '@/app/layout/home/home.component';
-//  #endregion layout - componentes de maquetacion
+// #endregion layout - componentes de maquetacion
 
 import { BotsComponent } from '@/app/home/bots/bots.component';
 
