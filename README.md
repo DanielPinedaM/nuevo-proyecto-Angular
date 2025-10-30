@@ -1,6 +1,6 @@
 # Angular 20 + Prime NG 20 + Tailwind 4
 
-#### Instalar paquetes
+## 📦 Instalar paquetes
 
 ```javascript
 nvm install 24.10.0
@@ -14,7 +14,7 @@ nvm use 24.10.0
 npm i
 ```
 
-#### Ejecutar proyecto
+## ▶️ Ejecutar proyecto
 
 ```javascript
 nvm use 24.10.0
@@ -26,7 +26,7 @@ node --run start:local | localhost | src/environments/environment.localhost.ts
 node --run start:prod | producción | src/environments/environment.prod.ts
 node --run start:test | pruebas | src/environments/environment.test.ts
 
-#### Generar build (dist) para desplegar
+## 🚀 Generar build (dist) para desplegar
 
 ```javascript
 nvm use 24.10.0
@@ -37,7 +37,7 @@ comando | apunta a... | ruta archivo
 node --run build:test | pruebas | src/environments/environment.test.ts
 node --run build:prod | producción | src/environments/environment.prod.ts
 
-#### Estructura del Proyecto
+## 📁 Estructura del Proyecto
 
 * **src/app/guards/auth.guard.ts**: Protección de rutas
 
@@ -75,14 +75,14 @@ node --run build:prod | producción | src/environments/environment.prod.ts
 
 * **src/assets/img**: Imagenes de la pagina web
 
-#### Maquetación
+## 💅 Maquetación
 * Todos los componentes de Angular **no** pueden tener archivos de Sass con ```styleUrls```, se tiene que maquetar en Tailwind.
 
 * Mezclar Sass con Tailwind es mala práctica porque Sass sobrescribe los estilos de Tailwind porque Sass tiene más especificidad que Tailwind.
 
 * Los únicos archivos de Sass tienen que ser globales y estar en ```src/style/global```.
 
-#### Modulos
+## 🧩 Modulos
 * Usar standalone para importar librerias y componentes
 
 * Asi es como se importa Prime NG en cualquier componente
