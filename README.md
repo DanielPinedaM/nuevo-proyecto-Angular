@@ -1,4 +1,4 @@
-# Angular 20 + Prime NG 20 + Tailwind 4
+# 🅰️ Angular 20 + Prime NG 20 + Tailwind 4
 
 ## 📦 Instalar paquetes
 
