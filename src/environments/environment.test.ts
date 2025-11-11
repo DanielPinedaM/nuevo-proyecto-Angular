@@ -1,8 +1,10 @@
 // variables de PRUEBAS
 
+import { IEnvironment } from '@/environments/environment.interface';
+
 const api: string = 'https://aqui escribir dominio de PRUEBAS';
 
-export const environment = {
+export const environment: IEnvironment = {
   NODE_ENV: 'test',
   production: false,
   api,

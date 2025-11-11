@@ -1,8 +1,10 @@
 // variables de PRODUCCIÓN
 
+import { IEnvironment } from '@/environments/environment.interface';
+
 const api: string = 'https://aqui escribir dominio de PRODUCCION';
 
-export const environment = {
+export const environment: IEnvironment = {
   NODE_ENV: 'prod',
   production: true,
   api,
