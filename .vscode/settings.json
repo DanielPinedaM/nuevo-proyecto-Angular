@@ -1,0 +1,34 @@
+{
+  // 🎨 Tema VS Code adaptado a la paleta moderna de Angular
+  "workbench.colorCustomizations": {
+    // Barra lateral izquierda (explorador, extensiones, etc.)
+    "activityBar.background": "#DD0031",
+    "activityBar.foreground": "#FFFFFF",
+    "activityBar.inactiveForeground": "#FFFFFFCC",
+    "activityBar.activeBackground": "#C3002F",
+    "activityBar.activeBorder": "#FFFFFF",
+    "activityBarBadge.background": "#FFFFFF",
+    "activityBarBadge.foreground": "#DD0031",
+
+    // Barra superior (título)
+    "titleBar.activeBackground": "#DD0031",
+    "titleBar.activeForeground": "#FFFFFF",
+    "titleBar.inactiveBackground": "#C3002F",
+    "titleBar.inactiveForeground": "#FFFFFFCC",
+
+    // Barra inferior (status bar)
+    "statusBar.background": "#DD0031",
+    "statusBar.foreground": "#FFFFFF",
+    "statusBarItem.hoverBackground": "#C3002F",
+    "statusBarItem.remoteBackground": "#DD0031",
+    "statusBarItem.remoteForeground": "#FFFFFF",
+
+    // Minimapa, bordes y elementos activos
+    "focusBorder": "#FFFFFF80",
+    "commandCenter.border": "#FFFFFF55",
+    "sash.hoverBorder": "#FFFFFF88"
+  },
+
+  // peacock extension
+  "peacock.color": "#DD0031"
+}
