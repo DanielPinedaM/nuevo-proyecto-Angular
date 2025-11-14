@@ -20,11 +20,11 @@ npm i
 nvm use 24.10.0
 ```
 
-comando | apunta a... | ruta archivo
------------- | ------------- | -------------
-node --run start:local | local host | src/environments/environment.localhost.ts
-node --run start:prod | producción | src/environments/environment.prod.ts
-node --run start:test | pruebas | src/environments/environment.test.ts
+comando                | apunta a...   | ruta archivo
+---------------------- | ------------- | -------------
+node --run start:local | local host    | src/environments/environment.localhost.ts
+node --run start:prod  | producción    | src/environments/environment.prod.ts
+node --run start:test  | pruebas       | src/environments/environment.test.ts
 
 ## 🚀 Generar build (dist) para desplegar
 
@@ -32,10 +32,10 @@ node --run start:test | pruebas | src/environments/environment.test.ts
 nvm use 24.10.0
 ```
 
-comando | apunta a... | ruta archivo
------------- | ------------- | -------------
-node --run build:test | pruebas | src/environments/environment.test.ts
-node --run build:prod | producción | src/environments/environment.prod.ts
+comando               | apunta a... | ruta archivo
+--------------------- | ------------| -------------
+node --run build:test | pruebas     | src/environments/environment.test.ts
+node --run build:prod | producción  | src/environments/environment.prod.ts
 
 ## 📁 Estructura del Proyecto
 
