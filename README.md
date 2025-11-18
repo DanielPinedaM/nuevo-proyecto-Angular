@@ -1,24 +1,14 @@
 # 🅰️ Angular 20 + Prime NG 20 + Tailwind 4
 
+usar NodeJS 24.10.0
+
 ## 📦 Instalar paquetes
-
-```javascript
-nvm install 24.10.0
-```
-
-```javascript
-nvm use 24.10.0
-```
 
 ```javascript
 npm i
 ```
 
 ## ▶️ Ejecutar proyecto
-
-```javascript
-nvm use 24.10.0
-```
 
 comando                | apunta a...   | ruta archivo
 ---------------------- | ------------- | -------------
@@ -27,10 +17,6 @@ node --run start:prod  | producción    | src/environments/environment.prod.ts
 node --run start:test  | pruebas       | src/environments/environment.test.ts
 
 ## 🚀 Generar build (dist) para desplegar
-
-```javascript
-nvm use 24.10.0
-```
 
 comando               | apunta a... | ruta archivo
 --------------------- | ------------| -------------
