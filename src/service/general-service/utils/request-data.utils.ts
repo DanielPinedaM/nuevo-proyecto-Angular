@@ -227,10 +227,17 @@ export class RequestDataUtils {
       params: {},
       headers: { 'Content-Type': 'application/json' },
       responseType: 'json',
+
+      // ¿mostrar icono de cargando?
       showLoader: true,
+
+      // ¿mostrar logs en consola?
       showLogger: Boolean(
-        environment.NODE_ENV === 'localhost' || environment.NODE_ENV === 'test'
+        environment.NODE_ENV !== 'production'
       ),
+
+      // ¿ejecutar funcion para manejo global de errores HTPP?
+      executeErrorHandling: true,
 
       // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
       //isASecurityEndpoint: this.defaultSecurityEndpoint(url),

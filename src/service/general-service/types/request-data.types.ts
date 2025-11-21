@@ -28,6 +28,7 @@ export interface IRequestOptions<T = any> {
   responseType?: IResponseType;
   showLoader?: boolean;
   showLogger?: boolean;
+  executeErrorHandling?: boolean;
 
   isASecurityEndpoint?: boolean;
   withCredentials?: boolean;

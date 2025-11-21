@@ -5,7 +5,7 @@ import { IEnvironment } from '@/environments/environment.interface';
 const api: string = 'https://aqui escribir dominio de PRODUCCION';
 
 export const environment: IEnvironment = {
-  NODE_ENV: 'prod',
+  NODE_ENV: 'production',
   production: true,
   api,
 

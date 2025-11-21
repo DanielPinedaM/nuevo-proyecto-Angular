@@ -60,7 +60,12 @@ export class HttpService {
       });
     }
 
-    const { showLoader, showLogger, isASecurityEndpoint } = options;
+    const {
+      showLoader,
+      showLogger,
+      isASecurityEndpoint,
+      executeErrorHandling,
+    } = options;
 
     if (showLoader) this.loaderService.setLoader(true);
 
@@ -110,9 +115,10 @@ export class HttpService {
         const status: number =
           typeof errorResponse?.status === 'number'
             ? errorResponse.status
-            : error.status;
+            : error?.status;
 
-        this.requestDataUtils.errorHandling(status, url);
+        if (executeErrorHandling)
+          this.requestDataUtils.errorHandling(status, url);
 
         this.requestDataUtils.errorLogs({
           method,

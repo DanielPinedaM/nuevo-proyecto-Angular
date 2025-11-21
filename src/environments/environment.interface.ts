@@ -1,5 +1,5 @@
 export interface IEnvironment {
-  NODE_ENV: 'localhost' | 'prod' | 'test';
+  NODE_ENV: 'localhost' | 'production' | 'test';
   production: boolean;
   api: string;
 
