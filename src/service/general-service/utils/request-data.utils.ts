@@ -236,7 +236,7 @@ export class RequestDataUtils {
         environment.NODE_ENV !== 'production'
       ),
 
-      // ¿ejecutar funcion para manejo global de errores HTPP?
+      // ¿ejecutar funcion para manejo global de errores HTTP?
       executeErrorHandling: true,
 
       // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
