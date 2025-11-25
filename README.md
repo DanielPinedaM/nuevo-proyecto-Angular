@@ -1,6 +1,6 @@
 # 🅰️ Angular 20 + Prime NG 20 + Tailwind 4
 
-usar NodeJS 24.10.0
+usar NodeJS 24.11.1
 
 ## 📦 Instalar paquetes
 
