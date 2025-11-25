@@ -1,29 +1,26 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from '@/service/general-service/http-observable.service';
+import { HttpService } from '@/shared/service/general-service/http-observable.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
+import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import { environment } from '@/environments/environment';
+import { firstValueFrom } from 'rxjs';
 import {
   contactSupport,
   enterFields,
-} from '@/models/constants/error-message.const';
+} from '@/shared/models/constants/error-message.const';
 import {
   IBodyAssignPassword,
   IInputValuePassword,
   IObjValidatePassword,
-} from '@/models/interfaces/auth.interfaces';
-import { minLengthPassword } from '@/models/constants/auth.const';
-import { constRegex } from '@/models/constants/regex.const';
-import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
-import GeneralClass from '@/utils/class/GeneralClass.utils';
-import {
-  IRequestOptions,
-  IResponse,
-} from '@/service/general-service/types/request-data.types';
-import { environment } from '@/environments/environment';
-import DataTypeClass from '@/utils/class/DataTypeClass.utils';
-import { firstValueFrom } from 'rxjs';
+} from '@/app/auth/models/interfaces/auth.interfaces';
+import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
+import { constRegex } from '@/shared/models/constants/regex.const';
+import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
+import { IRequestOptions, IResponse } from '@/shared/service/general-service/types/request-data.types';
+import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
+import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 
 @Component({
   selector: 'app-assign-password',

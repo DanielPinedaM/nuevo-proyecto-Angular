@@ -2,12 +2,12 @@ import { environment } from '@/environments/environment';
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
-import { constImmutableProperties } from '@/models/constants/session-storage.const';
-import SweetAlertClass from '@/utils/class/notification/SweetAlertClass.utils';
+import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
+import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
 import { LoaderComponent } from '@/app/layout/loader/loader.component';
-import Storage from '@/utils/class/SessionStorageClass.utils';
-import { CurrentRouteService } from '@/service/RxJS-BehaviorSubject/current-route.service';
+import Storage from '@/shared/utils/class/SessionStorageClass.utils';
+import { CurrentRouteService } from '@/shared/service/RxJS-BehaviorSubject/current-route.service';
+import { constImmutableProperties } from '@/shared/models/constants/session-storage.const';
 
 @Component({
   selector: 'app-root',

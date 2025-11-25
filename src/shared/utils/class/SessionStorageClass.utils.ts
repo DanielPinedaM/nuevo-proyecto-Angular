@@ -1,5 +1,5 @@
+import { objSessionStorage } from '@/shared/models/constants/session-storage.const';
 import { Injectable } from '@angular/core';
-import { objSessionStorage } from '@/models/constants/session-storage.const';
 
 /*
  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -113,9 +113,7 @@ export default class Storage {
       const key: string | null = sessionStorage.key(i);
 
       if (key) {
-        const value: TSessionStorageListValue = this.listValue(
-          atob(key)
-        );
+        const value: TSessionStorageListValue = this.listValue(atob(key));
         storageObject[atob(key)] = value;
       }
     }
@@ -198,10 +196,7 @@ export default class Storage {
   /**
 sessionStorage - guardar una nueva propiedad: valor
 "cuando NO existe lo creo" */
-  save = (
-    property: string,
-    value: TSessionStorageValue
-  ): boolean => {
+  save = (property: string, value: TSessionStorageValue): boolean => {
     if (!this.#isValidString(property)) {
       this.#errorMessage('sessionStorageSave', property, value);
       return false;
@@ -224,10 +219,7 @@ sessionStorage - guardar una nueva propiedad: valor
   /**
   sessionStorage - actualizar (sobrescribir) el valor de una propiedad SI existe
   "cuando SI existe lo actualizo" */
-  update = (
-    property: string,
-    value: TSessionStorageValue
-  ): boolean => {
+  update = (property: string, value: TSessionStorageValue): boolean => {
     if (!this.#isValidString(property)) {
       this.#errorMessage('sessionStorageUpdate', property, value);
       return false;
@@ -256,10 +248,7 @@ sessionStorage - guardar una nueva propiedad: valor
 
   sessionStorageSaveAndUpdate() combina lo q hace sessionStorageSave() y sessionStorageUpdate()
   sessionStorageSaveAndUpdate() = sessionStorageSave() + sessionStorageUpdate() */
-  saveAndUpdate = (
-    property: string,
-    value: TSessionStorageValue
-  ): boolean => {
+  saveAndUpdate = (property: string, value: TSessionStorageValue): boolean => {
     if (!this.#isValidString(property)) {
       this.#errorMessage('sessionStorageSaveAndUpdate', property, value);
       return false;

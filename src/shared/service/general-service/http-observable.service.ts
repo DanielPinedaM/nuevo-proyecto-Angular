@@ -1,4 +1,3 @@
-import Storage from '@/utils/class/SessionStorageClass.utils';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError, finalize } from 'rxjs/operators';
 import { inject, Injectable } from '@angular/core';
@@ -7,11 +6,12 @@ import {
   IRequestOptions,
   IResponse,
   TMethod,
-} from '@/service/general-service/types/request-data.types';
-import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
-import { RequestDataUtils } from '@/service/general-service/utils/request-data.utils';
-import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
+} from '@/shared/service/general-service/types/request-data.types';
+import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
 import { environment } from '@/environments/environment';
+import { RequestDataUtils } from '@/shared/service/general-service/utils/request-data.utils';
+import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 
 @Injectable({
   providedIn: 'root',

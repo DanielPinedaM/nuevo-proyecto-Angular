@@ -2,8 +2,8 @@
  * metodos relacionadas con los tipos de datos *
  * ********************************************* */
 
-import GeneralClass from '@/utils/class/GeneralClass.utils';
 import { inject, Injectable, Injector } from '@angular/core';
+import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 
 @Injectable({
   providedIn: 'root',

@@ -2,14 +2,14 @@
  * metodos para descargar archivo *
  * ******************************** */
 
-import GeneralClass from '@/utils/class/GeneralClass.utils';
+import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import { saveAs } from 'file-saver';
 import { inject, Injectable, Injector } from '@angular/core';
 import * as ExcelJS from 'exceljs';
-import { IResponse } from '@/service/general-service/types/request-data.types';
+import { IResponse } from '@/shared/service/general-service/types/request-data.types';
 import HotToastClass from './notification/HotToastClass.utils';
-import LuxonClass from '@/utils/class/LuxonClass.utils';
-import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
+import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
 
 @Injectable({
   providedIn: 'root',

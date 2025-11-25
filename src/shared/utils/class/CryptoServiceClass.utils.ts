@@ -1,7 +1,10 @@
-import { IVAuth, secretKeyAuthentication } from '@/models/constants/auth.const';
 import { inject, Injectable } from '@angular/core';
 import { enc, mode, pad, AES } from 'crypto-js';
-import DataTypeClass from '@/utils/class/DataTypeClass.utils';
+import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
+import {
+  IVAuth,
+  secretKeyAuthentication,
+} from '@/app/auth/models/constants/auth.const';
 
 @Injectable({
   providedIn: 'root',
@@ -49,18 +52,18 @@ export default class CryptoServiceClass {
     return decrypted.toString(enc.Utf8);
   }
 
-  async encryptJSON(data: any): Promise<string | null> {
+  async encryptJSON(data: Record<string, any>): Promise<string | null> {
     const text: string = JSON.stringify(data);
     return await this.encrypt(text);
   }
 
-  async decryptJSON(encryptedText: string): Promise<any | null> {
-    const decryptedText: string | null = await this.decrypt(encryptedText);
+  async decryptJSON(encryptedJSON: string): Promise<any | null> {
+    const decryptedJSON: string | null = await this.decrypt(encryptedJSON);
 
-    if (this.dataTypeClass.isValidJSONparse(decryptedText as string))
-      return JSON.parse(decryptedText as string);
+    if (this.dataTypeClass.isValidJSONparse(decryptedJSON as string))
+      return JSON.parse(decryptedJSON as string);
 
-    console.error('❌ [decryptJSON] No es JSON válido ', decryptedText);
+    console.error('❌ [decryptJSON] error no es JSON valido ', decryptedJSON);
     return null;
   }
 }

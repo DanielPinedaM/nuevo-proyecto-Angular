@@ -1,32 +1,188 @@
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '@/environments/environment';
-import { LoaderService } from '@/service/RxJS-BehaviorSubject/layout/loader.service';
-import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
+import { lastValueFrom, Observable, timeout } from 'rxjs';
 import {
+  IHttpErrorResponse,
   IObjectLogs,
   IRequestOptions,
   IResponse,
+  ResponseType,
   TMethod,
-} from '@/service/general-service/types/request-data.types';
-import DataTypeClass from '@/utils/class/DataTypeClass.utils';
-import { HttpHeaders } from '@angular/common/http';
+} from '@/shared/service/general-service/types/request-data.types';
+import { environment } from '@/environments/environment';
+import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
+import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RequestDataUtils {
+export class HttpService {
   dataTypeClass = inject(DataTypeClass);
-  private hotToast = inject(HotToastClass);
-  private router = inject(Router);
-  private loaderService = inject(LoaderService);
+  httpClient = inject(HttpClient);
+  router = inject(Router);
+  loaderService = inject(LoaderService);
+  hotToast = inject(HotToastClass);
 
-  unauthorized(): void {
+  private httpHeader!: HttpHeaders;
+  private _timeout: number = 1000 * 60;
+
+  public async request<T>(
+    method: TMethod,
+    url: string = '',
+    options: IRequestOptions = {}
+  ): Promise<IResponse<T>> {
+    // validar URL q llama al endpoint
+    const urlString: string = String(url);
+    if (!urlString.startsWith('http')) {
+      return Promise.resolve({
+        success: false,
+        status: 400,
+        message: `La URL '${url}' es invalida`,
+        data: [] as unknown as T,
+      });
+    }
+
+    // validar q tenga conexion a internet
+    if (!window?.navigator?.onLine) {
+      const message: string =
+        'Conéctese a internet para que la página web pueda funcionar';
+
+      this.hotToast.errorNotification(message);
+
+      return Promise.resolve({
+        success: false,
+        status: 503,
+        message,
+        data: [] as unknown as T,
+      });
+    }
+
+    const {
+      body,
+      queryParams,
+      headers = {},
+      responseType = 'json',
+      showLoader = true,
+
+      // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
+      withCredentials = this.defaultSecurityEndpoint(url),
+    } = options;
+
+    if (body && method === 'GET') {
+      return Promise.resolve({
+        success: false,
+        status: 400,
+        message: `❌ el metodo GET NO puede tener body ${JSON.stringify(body)}`,
+        data: [] as unknown as T,
+      });
+    }
+
+    if (showLoader) {
+      this.loaderService.setLoader(true);
+    }
+
+    this.httpHeader = new HttpHeaders(headers);
+
+    let response = new Observable<T>();
+
+    const httpOptions = {
+      headers: this.httpHeader,
+      // HttpClient.responseType requiere 'json', pero puedes engañar al sistema usando cualquier string como 'json'.
+      responseType: responseType as 'json',
+      params: queryParams,
+      withCredentials,
+    };
+
+    try {
+      switch (method) {
+        case 'GET':
+          response = this.httpClient.get<T>(url, httpOptions);
+          break;
+        case 'POST':
+          response = this.httpClient.post<T>(url, body, httpOptions);
+          break;
+        case 'PUT':
+          response = this.httpClient.put<T>(url, body, httpOptions);
+          break;
+        case 'PATCH':
+          response = this.httpClient.patch<T>(url, body, httpOptions);
+          break;
+        case 'DELETE':
+          response = this.httpClient.delete<T>(url, {
+            ...httpOptions,
+            body,
+          });
+          break;
+      }
+
+      response.pipe(timeout(this._timeout));
+
+      const result: IResponse = (await lastValueFrom<T>(response)) as IResponse;
+
+      /*
+      des-comentar para imprimir logs de peticiones HTTP
+      this.successLogs({
+        method,
+        url,
+        options,
+        response: result,
+      }); */
+
+      return result;
+    } catch (error: IHttpErrorResponse | any) {
+      // la data es vacia porque la API respondio con un error
+      const errorResponse: IResponse = { ...error?.error, data: null };
+
+      const status: number = this.dataTypeClass.isNumber(errorResponse.status)
+        ? errorResponse.status
+        : error.status;
+
+      this.errorHandling(status, url);
+
+      if (error?.error && error instanceof HttpErrorResponse) {
+        this.errorLogs({
+          method,
+          url,
+          options,
+          response: {
+            success: errorResponse?.success,
+            status: errorResponse?.status,
+            message: errorResponse?.message,
+            data: errorResponse?.data,
+          },
+        });
+
+        // responder con status error de la API
+        return Promise.resolve(errorResponse);
+      } else {
+        console.error('❌ error ', error);
+      }
+
+      return Promise.resolve({
+        success: false,
+        status: 500,
+        message: 'no se pudo capturar error de la API',
+        data: [] as unknown as T,
+      });
+    } finally {
+      if (showLoader) {
+        this.loaderService.setLoader(false);
+      }
+    }
+  }
+
+  private unauthorized(): void {
     this.router.navigate(['/autenticacion/iniciar-sesion']);
     this.loaderService.setLoader(false);
   }
 
-  redirectToLogin(): void {
+  private redirectToLogin(): void {
     const login: string = '/autenticacion/iniciar-sesion';
 
     if (!this.pathnameIsLogin()) {
@@ -34,7 +190,7 @@ export class RequestDataUtils {
     }
   }
 
-  returnToBrowserHistory(): void {
+  private returnToBrowserHistory(): void {
     if (window.history.length > 1) {
       window.history.go(-1);
     } else {
@@ -42,7 +198,7 @@ export class RequestDataUtils {
     }
   }
 
-  pathnameIsLogin(): boolean {
+  private pathnameIsLogin(): boolean {
     const login: string = '/autenticacion/iniciar-sesion';
 
     const pathname: string = window.location.pathname;
@@ -52,7 +208,7 @@ export class RequestDataUtils {
 
   /**
   manejo de errores */
-  errorHandling(status: number | undefined, url: string): void {
+  private errorHandling(status: number | undefined, url: string): void {
     if (!status) return;
 
     if (status === 401) {
@@ -106,13 +262,11 @@ export class RequestDataUtils {
 
   /**
   ✅ imprime logs de cuando la peticion es exitosa */
-  successLogs(objectLogs: IObjectLogs): void {
+  private successLogs(objectLogs: IObjectLogs): void {
     // NO imprimir logs en produccion
     if (environment.production) return;
 
-    const { method, url, options, response, showLogger } = objectLogs;
-
-    if (!showLogger) return;
+    const { method, url, options, response } = objectLogs;
 
     console.info(`✅ [${method}] ${url}`);
 
@@ -174,13 +328,11 @@ export class RequestDataUtils {
 
   /**
   ❌ imprime logs de cuando la peticion da error */
-  errorLogs(objectLogs: IObjectLogs): void {
+  private errorLogs(objectLogs: IObjectLogs): void {
     // NO imprimir logs en produccion
     if (environment.production) return;
 
-    const { method, url, options, response, showLogger } = objectLogs;
-
-    if (!showLogger) return;
+    const { method, url, options, response } = objectLogs;
 
     console.error('❌ error ');
     if (method) console.error('metodo HTTP', method);
@@ -197,14 +349,9 @@ export class RequestDataUtils {
 
   /**
   validar env en los q por defecto NO se incluye el token */
-  defaultSecurityEndpoint(url: string): boolean {
-    // environments con las URL de los endpoints a los q NO se les envia el token al hacer peticion HTTP
-    const unprotectedURLs: string[] = [
-      environment.auth.login,
-      environment.auth.register,
-      environment.auth.recoverPassword,
-      environment.auth.assignPassword,
-    ] as string[];
+  private defaultSecurityEndpoint(url: string): boolean {
+    // aqui agregar nuevos env a los q NO se les envia el token al hacer peticion http
+    const unprotectedURLs: string[] = [environment.auth.login] as string[];
 
     for (const item of unprotectedURLs) {
       if (!this.dataTypeClass.isString(item)) {
@@ -218,55 +365,5 @@ export class RequestDataUtils {
 
     // validar env en los q NO se incluye en token
     return !unprotectedURLs.some((item: string) => url === item);
-  }
-
-  /**
-  configuraciones por defecto para llamar la API */
-  #DEFAULT_OPTIONS(url: string): IRequestOptions {
-    return {
-      params: {},
-      headers: { 'Content-Type': 'application/json' },
-      responseType: 'json',
-
-      // ¿mostrar icono de cargando?
-      showLoader: true,
-
-      // ¿mostrar logs en consola?
-      showLogger: Boolean(
-        environment.NODE_ENV !== 'production'
-      ),
-
-      // ¿ejecutar funcion para manejo global de errores HTTP?
-      executeErrorHandling: true,
-
-      // enviar token en TODOS los endpoint, EXCEPTO los q estan en const unprotectedURLs: string[]
-      //isASecurityEndpoint: this.defaultSecurityEndpoint(url),
-      withCredentials: this.defaultSecurityEndpoint(url),
-    };
-  }
-
-  /**
-  opciones q recibe Angular httpClient */
-  buildHttpOptions(url: string, options: IRequestOptions = {}): any {
-    // Combinar opciones por defecto con las personalizadas
-    const defaultOptions = this.#DEFAULT_OPTIONS(url);
-
-    const mergedOptions: IRequestOptions = {
-      ...defaultOptions,
-      ...options,
-      headers: { ...defaultOptions?.headers, ...options?.headers },
-    };
-
-    const { params, headers, responseType, withCredentials } = mergedOptions;
-
-    return {
-      // devolver solo el contenido de la respuesta de la API, SIN headers NI status NI body
-      observe: 'body' as const,
-
-      headers: new HttpHeaders(headers as Record<string, string | string[]>),
-      params,
-      responseType,
-      withCredentials,
-    };
   }
 }

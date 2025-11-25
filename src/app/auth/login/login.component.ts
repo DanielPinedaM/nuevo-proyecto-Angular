@@ -1,21 +1,18 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import Storage from '@/utils/class/SessionStorageClass.utils';
+import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { environment } from '@/environments/environment';
-import DataTypeClass from '@/utils/class/DataTypeClass.utils';
-import { HttpService } from '@/service/general-service/http-observable.service';
-import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
-import { enterFields } from '@/models/constants/error-message.const';
-import { IBodyLogin } from '@/models/interfaces/auth.interfaces';
-import { minLengthPassword } from '@/models/constants/auth.const';
-import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
-import {
-  IRequestOptions,
-  IResponse,
-} from '@/service/general-service/types/request-data.types';
+import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
+import { HttpService } from '@/shared/service/general-service/http-observable.service';
+import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import { enterFields } from '@/shared/models/constants/error-message.const';
+import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
+import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
+import { IRequestOptions, IResponse } from '@/shared/service/general-service/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
+import { IBodyLogin } from '@/app/auth/models/interfaces/auth.interfaces';
 
 @Component({
   selector: 'app-login',

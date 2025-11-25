@@ -1,16 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from '@/service/general-service/http-observable.service';
+import { HttpService } from '@/shared/service/general-service/http-observable.service';
 import { environment } from '@/environments/environment';
 import { RouterModule } from '@angular/router';
-import HotToastClass from '@/utils/class/notification/HotToastClass.utils';
-import { enterFields } from '@/models/constants/error-message.const';
-import CryptoServiceClass from '@/utils/class/CryptoServiceClass.utils';
-import {
-  IRequestOptions,
-  IResponse,
-} from '@/service/general-service/types/request-data.types';
+import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import { enterFields } from '@/shared/models/constants/error-message.const';
+import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
+import { IRequestOptions, IResponse } from '@/shared/service/general-service/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
 
 export interface IBodyRecoverPassword {
