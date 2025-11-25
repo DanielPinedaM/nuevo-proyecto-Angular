@@ -67,9 +67,8 @@ export default class DataTypeClass {
       typeof value === 'object' ||
       typeof value === 'symbol' ||
       Array.isArray(value)
-    ) {
+    )
       return null;
-    }
 
     const number: number = Number(value);
     return isNaN(number) ? null : number;
