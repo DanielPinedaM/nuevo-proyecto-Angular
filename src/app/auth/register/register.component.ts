@@ -1,10 +1,18 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { PrimeNgModules } from '@/imports/import-prime-ng';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpService } from '@/shared/service/general-service/http-observable.service';
 import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
-import { IRequestOptions, IResponse } from '@/shared/service/general-service/types/request-data.types';
+import {
+  IRequestOptions,
+  IResponse,
+} from '@/shared/service/general-service/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
 import { constRegex } from '@/shared/models/constants/regex.const';
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
@@ -18,11 +26,21 @@ import {
 import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
 import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
+import { MessageModule } from 'primeng/message';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  imports: [...PrimeNgModules, RouterModule],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MessageModule,
+    PasswordModule,
+    InputTextModule,
+  ],
 })
 export class RegisterComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);

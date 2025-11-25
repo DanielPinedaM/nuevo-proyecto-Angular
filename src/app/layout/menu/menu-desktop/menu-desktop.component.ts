@@ -1,4 +1,3 @@
-import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { CurrentRouteService } from '@/shared/service/RxJS-BehaviorSubject/current-route.service';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
@@ -6,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import IMenuOptions from '@/app/layout/menu/models/interfaces/menu.interfaces';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-menu-desktop',
   templateUrl: './menu-desktop.component.html',
-  imports: [...PrimeNgModules, CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TooltipModule],
 })
 export class MenuDesktopComponent implements OnInit {
   sweetAlertClass = inject(SweetAlertClass);

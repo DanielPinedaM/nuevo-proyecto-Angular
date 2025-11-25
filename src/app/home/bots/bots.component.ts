@@ -1,10 +1,9 @@
-import { PrimeNgModules } from '@/imports/import-prime-ng';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-bots',
   templateUrl: './bots.component.html',
-  imports: [...PrimeNgModules],
+  imports: [],
 })
 export class BotsComponent implements OnInit {
   ngOnInit() {}

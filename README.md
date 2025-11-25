@@ -69,18 +69,4 @@ node --run build:prod | producción  | src/environments/environment.prod.ts
 * Los únicos archivos de Sass tienen que ser globales y estar en ```src/style/global```.
 
 ## 🧩 Modulos
-* Usar standalone para importar librerias y componentes
-
-* Asi es como se importa Prime NG en cualquier componente
-
-```javascript
-import { PrimeNgModules } from '@/app/imports/import-prime-ng';
-import { Component, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
-  imports: [...PrimeNgModules]
-})
-export class BotsComponent { }
-```
+* Usar standalone para importar librerias y componentes, en este proyecto *NO* existe app.module.ts

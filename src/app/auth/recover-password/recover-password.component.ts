@@ -1,14 +1,24 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { PrimeNgModules } from '@/imports/import-prime-ng';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpService } from '@/shared/service/general-service/http-observable.service';
 import { environment } from '@/environments/environment';
 import { RouterModule } from '@angular/router';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/shared/models/constants/error-message.const';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
-import { IRequestOptions, IResponse } from '@/shared/service/general-service/types/request-data.types';
+import {
+  IRequestOptions,
+  IResponse,
+} from '@/shared/service/general-service/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
+import { MessageModule } from 'primeng/message';
+import { InputTextModule } from 'primeng/inputtext';
 
 export interface IBodyRecoverPassword {
   email: string;
@@ -17,7 +27,13 @@ export interface IBodyRecoverPassword {
 @Component({
   selector: 'app-recover-password',
   templateUrl: './recover-password.component.html',
-  imports: [...PrimeNgModules, RouterModule],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MessageModule,
+    InputTextModule,
+  ],
 })
 export class RecoverPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
