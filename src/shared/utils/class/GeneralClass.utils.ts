@@ -4,7 +4,10 @@ import HotToastClass from './notification/HotToastClass.utils';
 import { inject, Injectable } from '@angular/core';
 import { Options, titleCase as titleCaseNpm } from 'title-case';
 import { titleCaseOptions } from '@/shared/models/constants/title-case.const';
-import { minLengthPassword, securePasswordErrorMessage } from '@/app/auth/models/constants/auth.const';
+import {
+  minLengthPassword,
+  securePasswordErrorMessage,
+} from '@/app/auth/models/constants/auth.const';
 import { IObjValidatePassword } from '@/app/auth/models/interfaces/auth.interfaces';
 
 @Injectable({
@@ -189,31 +192,38 @@ export default class GeneralClass {
   };
 
   /**
-   copiar texto en portapapeles */
-  public copyText = async (text: string): Promise<void> => {
+  copiar texto en portapapeles */
+  public copyText = (text: string): void => {
     const errorMessage: string = 'No se pudo copiar el texto';
 
-    if (!text) {
-      console.error('❌ error, el texto a copiar NO puede ser falsy \n', text);
-      return;
-    }
-
-    if (!navigator?.clipboard?.writeText) {
+    if (!this.dataTypeClass.isString(text)) {
       this.hotToast.errorNotification(errorMessage);
       console.error(
-        errorMessage,
-        ' porque el navegador no es compatible con navigator?.clipboard?.writeText'
+        '❌ error, text NO es tipo string\ntypeof text ',
+        typeof text
       );
       return;
     }
 
-    try {
-      await navigator.clipboard.writeText(text);
-      this.hotToast.successNotification('Texto copiado');
-    } catch (e) {
+    if (text.trim() === '') {
       this.hotToast.errorNotification(errorMessage);
-      console.error(errorMessage, '\n', e);
+      console.error("❌ error, text es un string vacio ''\ntext ", text);
+      return;
     }
+
+    const selBox: HTMLTextAreaElement = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = text;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+
+    this.hotToast.successNotification('Texto copiado');
   };
 
   /**
