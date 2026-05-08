@@ -805,7 +805,7 @@ export type IResponseType = 'arraybuffer' | 'blob' | 'json' | 'text';
 
 👉 Permite que todas las peticiones HTTP tengan un comportamiento consistente, reutilizable y centralizado sin repetir lógica en cada componente o servicio.
 
-### 📦✅ Ejemplo usando `body`
+### 📦✅ Ejemplo de consumo de API con `POST` y `body`
 Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
 
 ```ts
