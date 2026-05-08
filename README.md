@@ -805,6 +805,45 @@ export type IResponseType = 'arraybuffer' | 'blob' | 'json' | 'text';
 
 👉 Permite que todas las peticiones HTTP tengan un comportamiento consistente, reutilizable y centralizado sin repetir lógica en cada componente o servicio.
 
+### 📦✅ Ejemplo usando `body`
+Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
+
+```ts
+import { Component, inject } from '@angular/core';
+import { HttpService } from '@/shared/service/general-service/http-observable.service';
+import { firstValueFrom } from 'rxjs';
+import { environment } from '@/environments/environment';
+import { IResponse } from '@/shared/service/general-service/types/request-data.types';
+
+interface IBodyBots {
+  name: string;
+  active: boolean;
+}
+
+@Component({
+  selector: 'app-bots',
+  templateUrl: './bots.component.html',
+})
+export class BotsComponent {
+
+  private http = inject(HttpService);
+
+  async createBot() {
+    const optionsApi: IRequestOptions<IBodyBots> = {
+      body: {
+        name: 'Bot IA',
+        active: true
+      }
+    };
+
+    const { success, status, message, data }: IResponse = await firstValueFrom(
+      this.http.POST(`${environment.api}/bots`, optionsApi)
+    );
+
+    // ...
+  }
+}
+```
 
 ## ❌ Angular legacy VS ✅ Angular moderno
 
