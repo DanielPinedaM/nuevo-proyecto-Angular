@@ -1,6 +1,6 @@
 # 🅰️ Angular 20 + Prime NG 20 + Tailwind 4 + Sass
 
-usar Node JS 24.11.1
+usar Node JS 24.15.0
 
 ## 📦 Instalar paquetes
 
@@ -951,7 +951,7 @@ export class BotsComponent {
 
 [Tutorial](https://youtu.be/_XnEoK47Il0?si=bnZ1NuRuxLIaSYUv)
 
-***❌ Ejemplo incorrecto - Angular legacy `@Input()`, `@Output()` y `*ngFor`***
+#### ***❌ Ejemplo incorrecto - Angular legacy `@Input()`, `@Output()` y `*ngFor`***
 
 ```TS
 /* product.interface.ts */
@@ -959,14 +959,17 @@ export class BotsComponent {
 export interface IProduct {
   id: number;
   name: string
+  quantity: number;
 }
 ```
 
 ```TS
 /* product.component.ts
 
-importar Input con I mayuscula  */
-import { Component, Input } from '@angular/core';
+importar 
+- Input con I mayuscula
+- Output con O mayuscula */
+import { Component, Input, Output } from '@angular/core';
 import { IProduct } from './product.interface';
 
 @Component({
@@ -975,6 +978,7 @@ import { IProduct } from './product.interface';
 })
 export class ProductComponent {
   @Input() product!: IProduct;
+  @Output() onIncrementQuantity = new EventEmitter<number>();
 }
 ```
 
@@ -999,9 +1003,9 @@ import { IProduct } from './product.interface';
 export class ParentComponent {
 
   products: IProduct[] = [
-    { id: 1, name: "producto 1" },
-    { id: 2, name: "producto 2" },
-    { id: 3, name: "producto 3" }
+    { id: 1, name: "producto 1", quantity: 100 },
+    { id: 2, name: "producto 2", quantity: 200 },
+    { id: 3, name: "producto 3", quantity: 300 }
   ];
 
 }
@@ -1016,21 +1020,25 @@ export class ParentComponent {
 </app-product>
 ```
 
-***✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`***
+#### ✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`***
 
 ```TS
 /* product.interface.ts */
 
 export interface IProduct {
   id: number;
-  name: string
+  name: string;
+  quantity: number;
 }
 ```
 
 ```TS
 /* product.component.ts
-importar input con i minuscula */
-import { Component, input } from '@angular/core';
+
+importar:
+- input con i minuscula
+- output con o minuscula */
+import { Component, input, output } from '@angular/core';
 import { IProduct } from './product.interface';
 
 @Component({
@@ -1039,6 +1047,7 @@ import { IProduct } from './product.interface';
 })
 export class ProductComponent {
   product = input.required<IProduct>();
+  onIncrementQuantity = output<number>();
 }
 ```
 
@@ -1065,9 +1074,9 @@ import { IProduct } from './product.interface';
 export class ParentComponent {
 
   products = signal<IProduct[]>([
-    { id: 1, name: 'producto 1' },
-    { id: 2, name: 'producto 2' },
-    { id: 3, name: 'producto 3' }
+    { id: 1, name: 'producto 1', quantity: 100 },
+    { id: 2, name: 'producto 2', quantity: 200 },
+    { id: 3, name: 'producto 3', quantity: 300 }
   ])
 }
 ```
