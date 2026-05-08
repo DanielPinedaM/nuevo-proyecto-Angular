@@ -947,4 +947,135 @@ export class BotsComponent {
 
 ## ❌ Angular legacy VS ✅ Angular moderno
 
-- Usar standalone para importar librerias y componentes, en este proyecto _NO_ existe app.module.ts
+### Input y Output
+
+[Tutorial](https://youtu.be/_XnEoK47Il0?si=bnZ1NuRuxLIaSYUv)
+
+***❌ Ejemplo incorrecto - Angular legacy `@Input()`, `@Output()` y `*ngFor`***
+
+```TS
+/* product.interface.ts */
+
+export interface IProduct {
+  id: number;
+  name: string
+}
+```
+
+```TS
+/* product.component.ts
+
+importar Input con I mayuscula  */
+import { Component, Input } from '@angular/core';
+import { IProduct } from './product.interface';
+
+@Component({
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+})
+export class ProductComponent {
+  @Input() product!: IProduct;
+}
+```
+
+```HTML
+<!-- product.component.html -->
+
+<p>
+  {{ product.name }}
+</p>
+```
+
+```TS
+/* parent.component.ts  */
+
+import { Component } from '@angular/core';
+import { IProduct } from './product.interface';
+
+@Component({
+  selector: 'app-parent',
+  templateUrl: './parent.component.html',
+})
+export class ParentComponent {
+
+  products: IProduct[] = [
+    { id: 1, name: "producto 1" },
+    { id: 2, name: "producto 2" },
+    { id: 3, name: "producto 3" }
+  ];
+
+}
+```
+
+```HTML
+<!-- parent.component.html -->
+
+<app-product
+  *ngFor="let item of products"
+  [product]="item">
+</app-product>
+```
+
+***✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`***
+
+```TS
+/* product.interface.ts */
+
+export interface IProduct {
+  id: number;
+  name: string
+}
+```
+
+```TS
+/* product.component.ts
+importar input con i minuscula */
+import { Component, input } from '@angular/core';
+import { IProduct } from './product.interface';
+
+@Component({
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+})
+export class ProductComponent {
+  product = input.required<IProduct>();
+}
+```
+
+```HTML
+<!-- product.component.html -->
+
+<p>
+  {{ product().name }}
+</p>
+```
+
+```TS
+/* parent.component.ts */
+
+import { Component, signal } from '@angular/core';
+import { ProductComponent } from './product.component';
+import { IProduct } from './product.interface';
+
+@Component({
+  selector: 'app-parent',
+  imports: [ProductComponent],
+  templateUrl: './parent.component.html',
+})
+export class ParentComponent {
+
+  products = signal<IProduct[]>([
+    { id: 1, name: 'producto 1' },
+    { id: 2, name: 'producto 2' },
+    { id: 3, name: 'producto 3' }
+  ])
+}
+```
+
+```HTML
+<!-- parent.component.html -->
+
+@for (item of products(); track item.id) {
+  <app-product [product]="item" />
+}
+```
