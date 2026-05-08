@@ -148,6 +148,8 @@ const today = moment().format('YYYY-MM-DD');
 ***✅ Correcto***
 
 ```ts
+/* luxon */
+
 import { DateTime } from 'luxon';
 
 const now = DateTime.now();
@@ -626,6 +628,8 @@ Se debe usar únicamente el HttpService centralizado.
 
 * El servicio `http-observable.service.ts` ya maneja errores internamente
 
+* La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
+
 #### **✅ Ejemplo correcto con `http-observable.service.ts` y  `firstValueFrom`**
 
 ```ts
@@ -640,7 +644,8 @@ export class BotsComponent {
 
   async getBots() {
     const { success, status, message, data }: IResponse = await firstValueFrom(
-      this.http.POST(`${environment.api}`, optionsApi)
+      // aqui se concatena el environment.api con el endpoint específico de la petición
+      this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`)
     );
 
     console.log("¿la peticion HTTP es exitosa o erronea? ", success);
