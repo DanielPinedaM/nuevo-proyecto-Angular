@@ -126,9 +126,7 @@ Esto se debe a que:
 
 * Luxon ofrece una API más clara, moderna y robusta para fechas, tiempos y zonas horarias.
 
-En `src\shared\utils\class\LuxonClass.utils.ts` hay funciones para el manejo (formateo) de fechas usando Luxon.
-
-***❌ Incorrecto***
+***❌ Incorrecto - usar `new Date()`***
 
 ```ts
 /* new Date() */
@@ -136,6 +134,8 @@ En `src\shared\utils\class\LuxonClass.utils.ts` hay funciones para el manejo (fo
 const now = new Date();
 const formatted = now.toLocaleDateString();
 ```
+
+***❌ Incorrecto - usar moment.js***
 
 ```ts
 /* moment.js */
@@ -145,7 +145,7 @@ import moment from 'moment';
 const today = moment().format('YYYY-MM-DD');
 ```
 
-***✅ Correcto***
+***✅ Correcto - usar Luxon***
 
 ```ts
 /* luxon */
@@ -154,6 +154,111 @@ import { DateTime } from 'luxon';
 
 const now = DateTime.now();
 const formatted = now.toFormat('yyyy-MM-dd');
+```
+
+En `src\shared\utils\class\LuxonClass.utils.ts` hay funciones para el manejo (formateo) de fecha y hora usando Luxon.
+
+***❌ Incorrecto - NO usar `formatDate`, usar Luxon directo***
+
+Problemas de este enfoque:
+
+* Repetición de código en múltiples componentes
+
+* cada dev formatea fechas de forma distinta, sin estandarización.
+
+```ts
+import { DateTime } from 'luxon';
+
+export class BotsComponent {
+  getDateExample() {
+    const now = DateTime.now();
+
+    const formatted = now
+         .setLocale('es')
+         .toFormat('d-LLL-yyyy hh:mm:ss a');
+
+    console.log(formatted);
+  }
+}
+```
+
+***✅ Correcto - usar `formatDate`***
+
+```ts
+import { Component, inject } from '@angular/core';
+import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+
+@Component({
+  selector: 'app-bots',
+  templateUrl: './bots.component.html',
+})
+export class BotsComponent {
+
+  private dateUtils = inject(LuxonClass);
+
+  getDateExample() {
+    const formatted = this.dateUtils.formatDate(
+      DateTime.now(),
+      'd-LLL-yyyy hh:mm:ss a'
+    );
+
+    console.log(formatted);
+  }
+}
+```
+
+En `src\shared\utils\class\LuxonClass.utils.ts` hay función para obtener fecha y hora actual con formato de fecha y hora personalizada 
+
+***❌ Incorrecto - usar Luxon directamente para obtener fecha y hora actual***
+
+Problemas de este enfoque:
+
+* Repetición de código en múltiples componentes
+
+* cada dev formatea fechas de forma distinta, sin estandarización.
+
+```ts
+import { DateTime } from 'luxon';
+
+export class BotsComponent {
+
+  getCurrentDateTime() {
+    const now = DateTime.now()
+      .setLocale('es')
+      .toFormat('d-LLL-yyyy hh:mm:ss a')
+      .replace(/\.$/, '');
+
+    const fixed = now
+      .replace(/p\.\s?m/gi, 'p.m')
+      .replace(/a\.\s?m/gi, 'a.m');
+
+    console.log(fixed);
+  }
+}
+```
+
+***✅ Ejemplo correcto - usar `LuxonClass.utils.ts***
+
+```ts
+import { Component, inject } from '@angular/core';
+import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+
+@Component({
+  selector: 'app-bots',
+  templateUrl: './bots.component.html',
+})
+export class BotsComponent {
+
+  private dateUtils = inject(LuxonClass);
+
+  getCurrentDateTime() {
+    const current = this.dateUtils.currentDateAndTime(
+      'd-LLL-yyyy hh:mm:ss a'
+    );
+
+    console.log(current);
+  }
+}
 ```
 
 ## 💅 Maquetación

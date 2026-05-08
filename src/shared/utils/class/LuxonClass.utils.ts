@@ -23,7 +23,6 @@ export default class LuxonClass {
   formato de fecha y/o hora con formato personalizado */
   formatDate = (
     date: Date | string | Nullable<Date> | DateTime,
-
     format: string = 'd-LLL-yyyy'
   ): string | any => {
     let dateTime: DateTime;
@@ -44,7 +43,7 @@ export default class LuxonClass {
   };
 
   /**
-  fecha y hora actual con formato de hora personalizado */
+  fecha y hora actual con formato de fecha y hora personalizada */
   currentDateAndTime = (format: string = 'd-LLL-yyyy hh:mm:ss a'): string => {
     const finalDate: string = DateTime.now()
       .setLocale('es')
