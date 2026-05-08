@@ -129,8 +129,6 @@ Esto se debe a que:
 ***❌ Incorrecto - usar `new Date()`***
 
 ```ts
-/* new Date() */
-
 const now = new Date();
 const formatted = now.toLocaleDateString();
 ```
@@ -138,8 +136,6 @@ const formatted = now.toLocaleDateString();
 ***❌ Incorrecto - usar moment.js***
 
 ```ts
-/* moment.js */
-
 import moment from 'moment';
 
 const today = moment().format('YYYY-MM-DD');
@@ -148,8 +144,6 @@ const today = moment().format('YYYY-MM-DD');
 ***✅ Correcto - usar Luxon***
 
 ```ts
-/* luxon */
-
 import { DateTime } from 'luxon';
 
 const now = DateTime.now();
@@ -186,6 +180,7 @@ export class BotsComponent {
 
 ```ts
 import { Component, inject } from '@angular/core';
+import { DateTime } from 'luxon';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
