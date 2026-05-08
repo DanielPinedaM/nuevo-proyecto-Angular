@@ -164,7 +164,7 @@ Problemas de este enfoque:
 import { DateTime } from 'luxon';
 
 export class BotsComponent {
-  getDateExample() {
+  getDate() {
     const now = DateTime.now();
 
     const formatted = now
@@ -191,7 +191,7 @@ export class BotsComponent {
 
   private dateUtils = inject(LuxonClass);
 
-  getDateExample() {
+  getDate() {
     const formatted = this.dateUtils.formatDate(
       DateTime.now(),
       'd-LLL-yyyy hh:mm:ss a'
@@ -232,7 +232,7 @@ export class BotsComponent {
 }
 ```
 
-***✅ Ejemplo correcto - usar `LuxonClass.utils.ts***
+***✅ Ejemplo correcto - usar `LuxonClass.utils.ts`***
 
 ```ts
 import { Component, inject } from '@angular/core';
