@@ -723,7 +723,7 @@ export class BotsComponent {
 
 * Riesgo de olvidar ocultar el icono de cargando
 
-* Cuando hay varias peticiones HTTP en un mismo componente se vuelve muy complejo saber cuando mostrar y ocultar el icono de cargando
+* Cuando hay varias peticiones HTTP en un mismo componente se vuelve muy complejo saber en donde escribir `loader = true/false` para mostrar y ocultar el icono de cargando.
 
 #### **✅ Ejemplo correcto con `http-observable.service.ts`**
 
