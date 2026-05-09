@@ -954,7 +954,7 @@ export class BotsComponent {
 #### ***❌ Ejemplo incorrecto - Angular legacy `@Input()`, `@Output()` y `*ngFor`***
 
 ```TS
-/* product.interface.ts */
+/* product-children.interface.ts */
 
 export interface IProduct {
   id: number;
@@ -964,30 +964,43 @@ export interface IProduct {
 ```
 
 ```TS
-/* product.component.ts
+/* product-children.component.ts
 
 importar 
 - Input con I mayuscula
 - Output con O mayuscula */
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProduct } from './product.interface';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
+  selector: 'app-product-children',
+  templateUrl: './product-children.component.html',
 })
-export class ProductComponent {
+export class ProductChildrenComponent {
   @Input() product!: IProduct;
   @Output() onIncrementQuantity = new EventEmitter<number>();
+
+  incrementQuantity(): void {
+    this.onIncrementQuantity.emit(this.product.id);
+  }
 }
 ```
 
 ```HTML
-<!-- product.component.html -->
+<!-- product-children.component.html -->
+
+<p>
+  {{ product.id }}
+</p>
 
 <p>
   {{ product.name }}
 </p>
+
+<button (click)="incrementQuantity()">
+  <span>cantidad </span>
+  <span>{{ product.quantity }}</span>
+</button>
 ```
 
 ```TS
@@ -1001,23 +1014,35 @@ import { IProduct } from './product.interface';
   templateUrl: './parent.component.html',
 })
 export class ParentComponent {
-
   products: IProduct[] = [
-    { id: 1, name: "producto 1", quantity: 100 },
-    { id: 2, name: "producto 2", quantity: 200 },
-    { id: 3, name: "producto 3", quantity: 300 }
+    { id: 1, name: 'producto 1', quantity: 100 },
+    { id: 2, name: 'producto 2', quantity: 200 },
+    { id: 3, name: 'producto 3', quantity: 300 },
   ];
 
+  incrementQuantity(productId: number): void {
+    this.products = this.products.map((product: IProduct) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            quantity: product.quantity + 1,
+          };
+        }
+
+      return product;
+    });
+  }
 }
 ```
 
 ```HTML
 <!-- parent.component.html -->
 
-<app-product
+<app-product-children
   *ngFor="let item of products"
-  [product]="item">
-</app-product>
+  [product]="item"
+  (onIncrementQuantity)="incrementQuantity($event)">
+</app-product-children>
 ```
 
 #### ✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`***
@@ -1033,7 +1058,7 @@ export interface IProduct {
 ```
 
 ```TS
-/* product.component.ts
+/* product-children.component.ts
 
 importar:
 - input con i minuscula
@@ -1042,42 +1067,69 @@ import { Component, input, output } from '@angular/core';
 import { IProduct } from './product.interface';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
+  selector: 'app-product-children',
+  templateUrl: './product-children.component.html',
 })
-export class ProductComponent {
+export class ProductChildrenComponent {
   product = input.required<IProduct>();
   onIncrementQuantity = output<number>();
+
+  incrementQuantity(): void {
+    this.onIncrementQuantity.emit(this.product().id);
+  }
 }
 ```
 
 ```HTML
-<!-- product.component.html -->
+<!-- product-children.component.html -->
+
+<p>
+  {{ product().id }}
+</p>
 
 <p>
   {{ product().name }}
 </p>
+
+<button (click)="incrementQuantity()">
+  <span>cantidad </span>
+  <span>{{ product().quantity }}</span>
+</button>
 ```
 
 ```TS
 /* parent.component.ts */
 
 import { Component, signal } from '@angular/core';
-import { ProductComponent } from './product.component';
+import { ProductChildrenComponent } from './product-children.component';
 import { IProduct } from './product.interface';
 
 @Component({
   selector: 'app-parent',
-  imports: [ProductComponent],
+  imports: [ProductChildrenComponent],
   templateUrl: './parent.component.html',
 })
 export class ParentComponent {
-
   products = signal<IProduct[]>([
     { id: 1, name: 'producto 1', quantity: 100 },
     { id: 2, name: 'producto 2', quantity: 200 },
     { id: 3, name: 'producto 3', quantity: 300 }
   ])
+
+  incrementQuantity(productId: number): void {
+    this.products.update((currentProducts: IProduct[]) =>
+      currentProducts.map((product: IProduct) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            quantity: product.quantity + 1,
+          };
+        }
+
+        return product;
+      }),
+    );
+  }
 }
 ```
 
@@ -1085,6 +1137,9 @@ export class ParentComponent {
 <!-- parent.component.html -->
 
 @for (item of products(); track item.id) {
-  <app-product [product]="item" />
+  <app-product-children
+    [product]="item"
+    (onIncrementQuantity)="incrementQuantity($event)">
+  </app-product-children>
 }
 ```
