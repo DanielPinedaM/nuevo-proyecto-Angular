@@ -1111,7 +1111,7 @@ ng generate @angular/core:control-flow
 | `*ngSwitchCase`                | `@case`                 |
 | `*ngSwitchDefault`             | `@default`              |
 
-#### **[`@for`](`https://angular.dev/api/core/@for`)**
+#### **[`@for`](https://angular.dev/api/core/@for)**
 
 ***❌ Incorrecto - Angular legacy `*ngFor`***
 
