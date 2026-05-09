@@ -27,7 +27,6 @@ Para mejorar rendimiento de ejecución de comandos y especificar el entorno de e
 
 ## 📁 Estructura del Proyecto
 
-
 ```txt
 src/
 ├── app/
@@ -950,7 +949,591 @@ export class BotsComponent {
 
 ## ❌ Angular legacy VS ✅ Angular moderno
 
-### Input y Output
+## 📝 Formularios
+
+[Tutorial de formularios reactivos con signals](https://youtu.be/7V9I9_qwx74?si=m5Bn3_ygcEEuSpXx)
+
+Angular 21 moderno introdujo los nuevos [**Signal Forms**](https://angular.dev/essentials/signal-forms), que permiten manejar formularios usando `signal()` y reactividad automática.
+
+Sin embargo, actualmente los Signal Forms siguen siendo **experimentales** y la propia documentación oficial de Angular recomienda tener precaución antes de usarlos en producción.
+
+Por esta razón, en este proyecto:
+
+- ✅ sí se usan `signals` para manejo de estado.
+
+- ❌ NO se usan todavía Signal Forms experimentales.
+
+- ✅ Se siguen usando formularios reactivos tradicionales con `FormGroup`, `FormControl` y `ReactiveFormsModule`
+
+Cuando Signal Forms sea estable y maduro, se podrá migrar gradualmente.
+
+### 🧹 Sufijos en nombres de archivos
+
+[Angular moderno eliminó la necesidad de usar sufijos como:](https://www.reddit.com/r/angular/comments/1lk8r9k/bring_back_suffixes_in_angular_20_cli_need_20/?tl=es-419)
+
+- `.component`
+- `.service`
+- `.directive`
+- `.pipe`
+
+porque con el tipo del archivo ya se entiende que hace el archivo por el decorador de Angular (`@Component`, `@Injectable`, etc).
+
+***❌ Angular moderno sin sufijos***
+
+| Nombre Archivo   | Tipo de Archivo | decorador / tipo Angular  |
+|------------------|-----------------|---------------------------|
+| `login.ts`       | componente      | `@Component`              |
+| `auth.ts`        | servicio        | `@Injectable`             |
+| `auth-guard.ts`  | guard           | `CanActivateFn`           |
+| `list-table.ts`  | componente      | `@Component`              |
+| `format-date.ts` | pipe            | `@Pipe`                   |
+| `highlight.ts`   | directiva       | `@Directive`              |
+| `crypto.ts`      | utils           | `class` clase utilitaria  |
+
+***✅ Convención usada en este proyecto***
+
+Aunque Angular moderno ya no obliga a usar sufijos, en este proyecto sí se siguen utilizando para mantener mayor claridad y organización.
+
+Esto facilita:
+* Identificar rápidamente el tipo de archivo.
+
+* Mejorar la lectura de imports.
+
+* Evitar confusión en proyectos grandes.
+
+* Mantener consistencia entre carpetas y archivos.
+
+| Nombre Archivo             | Tipo de Archivo | decorador / tipo Angular  |
+|----------------------------|-----------------|---------------------------|
+| `login.component.ts`       | componente      | `@Component`              |
+| `auth.service.ts`          | servicio        | `@Injectable`             |
+| `auth.guard.ts`            | guard           | `CanActivateFn`           |
+| `list-table.component.ts`  | componente      | `@Component`              |
+| `format-date.pipe.ts`      | pipe            | `@Pipe`                   |
+| `highlight.directive.ts`   | directiva       | `@Directive`              |
+| `crypto.utils.ts`          | utils           | `class` clase utilitaria  |
+
+### 🧩 Standalone Components
+
+En Angular moderno `AppModule` (`app.module.ts`) ya no es necesario.
+
+Angular reemplazó la arquitectura basada en módulos (`NgModule`) por componentes standalone.
+
+Además:
+
+- Ya ***NO*** es necesario escribir `standalone: true` en los componentes.
+
+- `standalone` ahora es `true` por defecto.
+
+- Cada componente importa directamente sus propias dependencias en array `imports: []`
+
+***❌ Ejemplo Incorrecto - Angular legacy con `AppModule`***
+
+```TS
+/* app.module.ts */
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+import { BotsComponent } from './bots.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    BotsComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+***✅ Ejemplo Correcto - Angular moderno con Standalone Components***
+
+```TS
+/* children.component.ts */
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-children',
+  templateUrl: './children.component.html',
+})
+export class ChildrenComponent {}
+```
+
+```HTML
+<!-- children.component.html -->
+
+<p>
+  componente hijo
+</p>
+```
+
+```TS
+/* parent.component.ts */
+
+import { Component } from '@angular/core';
+import { ChildrenComponent } from './children/children.component';
+
+@Component({
+  selector: 'app-parent',
+  imports: [ChildrenComponent],
+  templateUrl: './parent.component.html',
+})
+export class ParentComponent {}
+```
+
+```HTML
+<!-- parent.component.html -->
+
+<app-children />
+```
+
+### 🔀 Directivas de Control de Flujo (Control Flow Directives)
+
+[Documentación oficial para migrar directivas](https://angular.dev/reference/migrations/control-flow)
+
+Este comando ayuda a migrar las directivas:
+
+```script
+ng generate @angular/core:control-flow
+```
+
+| ❌ **NO** usar Angular legacy | ✅ Usar Angular moderno |
+|--------------------------------|-------------------------|
+| `*ngFor`                       | `@for`                  |
+| `*ngIf`                        | `@if`                   |
+| `*ngSwitch`                    | `@switch`               |
+| `*ngSwitchCase`                | `@case`                 |
+| `*ngSwitchDefault`             | `@default`              |
+
+#### **[`@for`](`https://angular.dev/api/core/@for`)**
+
+***❌ Incorrecto - Angular legacy `*ngFor`***
+
+```TS
+/* products.component.ts */
+
+import { Component } from '@angular/core';
+
+interface IProduct {
+  id: number;
+  name: string;
+}
+
+@Component({
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+})
+export class ProductsComponent {
+  products: IProduct[] = [
+    { id: 1, name: 'producto 1' },
+    { id: 2, name: 'producto 2' },
+    { id: 3, name: 'producto 3' },
+  ];
+}
+```
+
+```HTML
+<!-- products.component.html -->
+
+<div *ngFor="let item of products">
+  {{ item.name }}
+</div>
+```
+
+***✅ Correcto - Angular moderno `@for`***
+
+```TS
+/* products.component.ts */
+
+import { Component, signal, WritableSignal } from '@angular/core';
+
+interface IProduct {
+  id: number;
+  name: string;
+}
+
+@Component({
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+})
+export class ProductsComponent {
+  products = signal<IProduct[]>([
+    { id: 1, name: 'producto 1' },
+    { id: 2, name: 'producto 2' },
+    { id: 3, name: 'producto 3' },
+  ]);
+}
+```
+
+```HTML
+<!-- products.component.html -->
+
+@for (item of products(); track item.id) {
+  <div>
+    {{ item.name }}
+  </div>
+}
+```
+
+#### **[`@if` `@else if`](https://angular.dev/guide/templates/control-flow)**
+
+***❌ Incorrecto - Angular legacy `*ngIf`***
+
+```TS
+/* status.component.ts */
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-status',
+  templateUrl: './status.component.html',
+})
+export class StatusComponent {
+  loading: boolean = false;
+  success: boolean = false;
+  error: boolean = true;
+}
+```
+
+```HTML
+<!-- status.component.html -->
+
+<div *ngIf="loading">
+  cargando...
+</div>
+
+<div *ngIf="!loading && success">
+  petición exitosa
+</div>
+
+<div *ngIf="!loading && !success && error">
+  error
+</div>
+```
+
+***✅ Correcto - Angular moderno `@if` y `@else if`***
+
+```TS
+/* status.component.ts */
+
+import { Component, signal, WritableSignal } from '@angular/core';
+
+@Component({
+  selector: 'app-status',
+  templateUrl: './status.component.html',
+})
+export class StatusComponent {
+  loading = signal<boolean>(false);
+  success = signal<boolean>(false);
+  error = signal<boolean>(true);
+}
+```
+
+```HTML
+<!-- status.component.html -->
+
+@if (loading()) {
+  <div>
+    cargando...
+  </div>
+} @else if (success()) {
+  <div>
+    petición exitosa
+  </div>
+} @else {
+  <div>
+    error
+  </div>
+}
+
+```
+
+#### **[`@switch`, `@case`, `@default`](https://angular.dev/api/core/@switch)**
+
+***❌ Incorrecto - Angular legacy `*ngSwitch`***
+
+```TS
+/* role.component.ts */
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-role',
+  templateUrl: './role.component.html',
+})
+export class RoleComponent {
+  role: string = 'admin';
+}
+```
+
+```HTML
+<!-- role.component.html -->
+
+<div [ngSwitch]="role">
+  <p *ngSwitchCase="'admin'">
+    administrador
+  </p>
+
+  <p *ngSwitchCase="'user'">
+    usuario
+  </p>
+
+  <p *ngSwitchDefault>
+    sin permisos
+  </p>
+</div>
+```
+
+***✅ Correcto - Angular moderno `@switch`, `@case`, `@default`***
+
+```TS
+/* role.component.ts */
+
+import { Component, signal, WritableSignal } from '@angular/core';
+
+@Component({
+  selector: 'app-role',
+  templateUrl: './role.component.html',
+})
+export class RoleComponent {
+  role = signal<string>('admin');
+}
+```
+
+```HTML
+<!-- role.component.html -->
+
+ @switch (role()) {
+  @case ('admin') {
+    <p>
+      administrador
+    </p>
+
+  }
+  @case ('user') {
+    <p>
+      usuario
+    </p>
+  }
+  @default {
+    <p>
+      sin permisos
+    </p>
+  }
+}
+```
+
+### 💉 Inyección de dependencias
+
+[Documentación oficial para migrar de `constructor()` a `inject()`](https://angular.dev/reference/migrations/inject-function)
+
+Este comando ayuda a migrar de `constructor()` a `inject()`:
+
+```script
+ng generate @angular/core:inject
+```
+
+En Angular moderno ya no se recomienda usar `constructor()` para inyección de dependencias.
+
+👉 Siempre usar `inject()`.
+
+Esto permite:
+* menos boilerplate.
+
+* evitar constructores gigantes.
+
+* mejor legibilidad
+
+* mejor tipado
+
+* mejor compatibilidad con `Signals`.
+
+#### ***❌ Ejemplo incorrecto - Angular legacy `constructor()`***
+
+```TS
+import { Component } from '@angular/core';
+import { HttpService } from '@/shared/service/general-service/http-observable.service';
+import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+
+@Component({
+  selector: 'app-bots',
+  templateUrl: './bots.component.html',
+})
+export class BotsComponent {
+  constructor(
+    private http: HttpService,
+    private dateUtils: LuxonClass,
+  ) {}
+
+  // ...
+}
+```
+
+#### ***✅ Ejemplo correcto - Angular moderno `inject()`***
+
+```TS
+import { Component, inject } from '@angular/core';
+import { HttpService } from '@/shared/service/general-service/http-observable.service';
+import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+
+@Component({
+  selector: 'app-bots',
+  templateUrl: './bots.component.html',
+})
+export class BotsComponent {
+  private http = inject(HttpService);
+  private dateUtils = inject(LuxonClass);
+
+  // ...
+}
+```
+
+### 📡 Estado
+
+[Tutorial de `signal`](https://youtu.be/jqGjE6iqkvg?si=9PJ8N08wo-M1_GIh)
+
+Este proyecto **tiene** que usar signals para estados, **NO** estados tradicionales de Angular legacy.
+
+Los signals son reactivos, cuando un signal cambia:
+
+* Angular actualiza automáticamente todo lo que depende de ese estado.
+
+* No es necesario sincronizar estados manualmente.
+
+* No hace falta usar BehaviorSubject para compartir reactividad.
+
+* Se escribe menos código.
+
+* La reactividad es más simple y mantenible.
+
+* Evita múltiples `subscribe()` innecesarios.
+
+#### ***❌ Ejemplo incorrecto - Angular legacy estado tradicional NO reactivo automáticamente***
+
+```TS
+/* counter.component.ts */
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  templateUrl: './counter.component.html',
+})
+export class CounterComponent {
+  // estado principal
+  count: number = 0;
+
+  // estado derivado manual
+  doubleCount: number = 0;
+
+  increment(): void {
+    // actualizar estado principal
+    this.count = this.count + 1;
+
+    // actualizar manualmente estado derivado
+    this.doubleCount = this.count * 2;
+
+    console.log(this.count); // 1
+    console.log(this.doubleCount); // 2
+  }
+
+  setTen(): void {
+    // setear (cambiar) count a 10
+    this.count = 10;
+
+    // actualizar manualmente doubleCount
+    this.doubleCount = this.count * 2;
+
+    console.log(this.count); // 10
+    console.log(this.doubleCount); // 20
+  }
+}
+```
+
+```HTML
+<!-- counter.component.html -->
+
+<p>
+  count: {{ count }}
+</p>
+
+<p>
+  doubleCount: {{ doubleCount }}
+</p>
+
+<button (click)="increment()">
+  incrementar
+</button>
+
+<button (click)="setTen()">
+  setear en 10
+</button>
+```
+
+#### ***✅ Ejemplo correcto - Angular moderno estados con `signal`***
+
+```TS
+/* counter.component.ts */
+
+import { Component, computed, Signal, signal, WritableSignal } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  templateUrl: './counter.component.html',
+})
+export class CounterComponent {
+  // estado reactivo principal
+  count: WritableSignal<number> = signal(0);
+
+  // estado reactivo derivado
+  doubleCount: Signal<number> = computed(() => this.count() * 2);
+
+  increment(): void {
+    // actualizar signal
+    this.count.update((currentCount: number) => currentCount + 1);
+
+    console.log(this.count()); // 1
+    console.log(this.doubleCount()); // 2
+  }
+
+  setTen(): void {
+    // cambiar (setear) count a 10
+    this.count.set(10);
+
+    console.log(this.count()); // 10
+
+    // automaticamente cambia a 20
+    console.log(this.doubleCount()); // 20
+  }
+}
+```
+
+```HTML
+<!-- counter.component.html -->
+
+<p>
+  count: {{ count() }}
+</p>
+
+<p>
+  doubleCount: {{ doubleCount() }}
+</p>
+
+<button (click)="increment()">
+  incrementar
+</button>
+
+<button (click)="setTen()">
+  setear en 10
+</button>
+```
+
+### 🔄 Input y Output
 
 [Tutorial](https://youtu.be/_XnEoK47Il0?si=bnZ1NuRuxLIaSYUv)
 
