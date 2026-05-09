@@ -72,7 +72,7 @@ src/
 │   │
 │   ├── service/
 │   │ ├── general-service/
-│   │ │ └── http-async-await.service.ts → Clase para peticiones HTTP usando async/await
+│   │ │ └── http-async-await.service.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
 │   │ │ └── http-observable.service.ts → Clase para peticiones HTTP usando Observables
 │   │ │
 │   │ └── RxJS-BehaviorSubject/ → Archivos con RxJS BehaviorSubject ()
@@ -83,7 +83,7 @@ src/
 │   │
 │   ├── utils/
 │   │ ├── class/
-│   │ │ ├── notification/ → carpeta con funciones para mostrar mensajes emeergentes
+│   │ │ ├── notification/ → carpeta con funciones para mostrar mensajes emergentes
 │   │ │ │ └── HotToastClass.utils.ts → Notificaciones tipo toast
 │   │ │ │ └── SweetAlertClass.utils.ts → Modal con SweetAlert2
 │   │ │ │
@@ -343,7 +343,7 @@ export class BotsComponent {}
 ```HTML
 <!-- bots.component.html -->
 
-<button className="bg-red-600">
+<button class="bg-red-600">
   Guardar
 </button>
 ```
@@ -404,7 +404,7 @@ colores de Sass */
 $primary-color: #FF0000;
 ```
 
-[Documentaciógrn de variables de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4#css-theme-variables)
+[Documentación de variables de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4#css-theme-variables)
 
 ```CSS
 /*
@@ -446,14 +446,17 @@ import { BotsComponent } from '@/app/home/bots/bots.component';
 
 export const routes: Routes = [
   {
-    path: "inicio",
+    path: 'inicio',
     component: HomeComponent,
+
     canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+
     children: [
       {
-        path: "bots",
+        // inicio/bots
+        path: 'bots',
         component: BotsComponent,
-        canActivate: [AuthGuard],
       },
     ],
   },
@@ -954,7 +957,7 @@ export class BotsComponent {
 #### ***❌ Ejemplo incorrecto - Angular legacy `@Input()`, `@Output()` y `*ngFor`***
 
 ```TS
-/* product-children.interface.ts */
+/* product.interface.ts */
 
 export interface IProduct {
   id: number;
