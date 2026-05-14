@@ -8,15 +8,21 @@
 @use "./../../node_modules/material-symbols/index.css";
 
 /*
-**********
-* Global *
-********** */
+**************
+* Reset CSS *
+************** */
 
-@use "./global/reset-CSS" as reset;
-@use "./global/table" as table;
-@use "./global/library/sweet-alert-2" as sweetAlert;
-@use "./global/scroll-bar" as scrollBar;
-@use "./global/button" as button;
+@use "./global/reset";
+
+/*
+********************
+* Estilos globales *
+******************** */
+
+@use "./global/table";
+@use "./global/library/sweet-alert-2";
+@use "./global/scroll-bar";
+@use "./global/button";
 
 /*
 ************
@@ -26,8 +32,8 @@
 // iconos de Prime NG
 @use "../../node_modules/primeicons/primeicons.css";
 
-// sobrescribir escribir estilos generales de Prime NG
-@use "./global/library/prime-ng" as primeNg;
+// sobrescribir escribir estilos por defecto de Prime NG
+@use "./global/library/prime-ng";
 
 /*
 *********************
