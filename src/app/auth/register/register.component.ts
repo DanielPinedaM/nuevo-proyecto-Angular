@@ -6,13 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpService } from '@/shared/service/general-service/http-observable.service';
+import { HttpService } from '@/shared/API/general-API/http-observable.api';
 import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import {
   IRequestOptions,
   IResponse,
-} from '@/shared/service/general-service/types/request-data.types';
+} from '@/shared/API/general-API/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
 import { constRegex } from '@/shared/models/constants/regex.const';
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';

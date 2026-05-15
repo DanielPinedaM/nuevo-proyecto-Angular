@@ -13,7 +13,7 @@ import {
   IResponse,
   ResponseType,
   TMethod,
-} from '@/shared/service/general-service/types/request-data.types';
+} from '@/shared/API/general-API/types/request-data.types';
 import { environment } from '@/environments/environment';
 import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';

@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
-import { HttpService } from '@/shared/service/general-service/http-observable.service';
+import { HttpService } from '@/shared/API/general-API/http-observable.api';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/shared/models/constants/error-message.const';
 import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
@@ -18,7 +18,7 @@ import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import {
   IRequestOptions,
   IResponse,
-} from '@/shared/service/general-service/types/request-data.types';
+} from '@/shared/API/general-API/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
 import { IBodyLogin } from '@/app/auth/models/interfaces/auth.interfaces';
 import { MessageModule } from 'primeng/message';

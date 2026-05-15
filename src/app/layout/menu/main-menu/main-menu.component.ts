@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MenuDesktopComponent } from '@/app/layout/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/app/layout/menu/menu-mobile/menu-mobile.component';
-import { HttpService } from '@/shared/service/general-service/http-observable.service';
+import { HttpService } from '@/shared/API/general-API/http-observable.api';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/service/general-service/types/request-data.types';
+import { IResponse } from '@/shared/API/general-API/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
 import IMenuOptions from '@/app/layout/menu/models/interfaces/menu.interfaces';
 

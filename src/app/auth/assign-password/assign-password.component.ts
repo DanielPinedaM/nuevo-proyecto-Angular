@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpService } from '@/shared/service/general-service/http-observable.service';
+import { HttpService } from '@/shared/API/general-API/http-observable.api';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
@@ -26,7 +26,7 @@ import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import {
   IRequestOptions,
   IResponse,
-} from '@/shared/service/general-service/types/request-data.types';
+} from '@/shared/API/general-API/types/request-data.types';
 import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import { PasswordModule } from 'primeng/password';

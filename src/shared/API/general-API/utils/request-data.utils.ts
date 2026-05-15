@@ -5,7 +5,7 @@ import {
   IObjectLogs,
   IRequestOptions,
   IResponse,
-} from '@/shared/service/general-service/types/request-data.types';
+} from '@/shared/API/general-API/types/request-data.types';
 import { HttpHeaders } from '@angular/common/http';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
