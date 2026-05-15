@@ -16,7 +16,7 @@ import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 @Injectable({
   providedIn: 'root',
 })
-export class HttpService {
+export class ApiGatewayService {
   private storage = inject(Storage);
   private httpClient = inject(HttpClient);
   private hotToast = inject(HotToastClass);

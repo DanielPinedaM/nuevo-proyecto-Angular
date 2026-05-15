@@ -22,7 +22,7 @@ import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 @Injectable({
   providedIn: 'root',
 })
-export class HttpService {
+export class HttpClientAsyncAwaitService {
   dataTypeClass = inject(DataTypeClass);
   httpClient = inject(HttpClient);
   router = inject(Router);
@@ -65,7 +65,7 @@ export class HttpService {
 
     const {
       body,
-      queryParams,
+      params,
       headers = {},
       responseType = 'json',
       showLoader = true,
@@ -95,7 +95,7 @@ export class HttpService {
       headers: this.httpHeader,
       // HttpClient.responseType requiere 'json', pero puedes engañar al sistema usando cualquier string como 'json'.
       responseType: responseType as 'json',
-      params: queryParams,
+      params,
       withCredentials,
     };
 

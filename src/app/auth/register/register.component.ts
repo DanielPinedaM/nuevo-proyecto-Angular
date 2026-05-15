@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import {
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
   sweetAlertClass = inject(SweetAlertClass);
   generalClass = inject(GeneralClass);
-  http = inject(HttpService);
+  http = inject(ApiGatewayService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
 

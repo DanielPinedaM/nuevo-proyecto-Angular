@@ -71,8 +71,8 @@ src/
 │   │
 │   ├── API/ → clases encargadas de realizar peticiones HTTP a APIs propias y externos
 │   │ ├── general-API/ →
-│   │ │ └── http-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
-│   │ │ └── http-observable.api.ts → Clase para peticiones HTTP usando Observables
+│   │ │ └── http-gateway-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
+│   │ │ └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
 │   │ │
 │   ├── service/ → clases reutilizables usadas para separar lógica reutilizable que no debería estar dentro de los componentes
 │   │ └── RxJS-BehaviorSubject/ → Archivos con RxJS BehaviorSubject ()
@@ -570,7 +570,7 @@ No se debe meter todo en una carpeta global `src/components` porque:
 
 ## 🌐 Consumo de API
 
-En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `src\shared\API\general-API\http-observable.api.ts`, que maneja:
+En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `src\shared\API\general-API\http-gateway-observable.api.ts`, que maneja:
 - icono de loader global
 
 - manejo de errores `catchError`
@@ -725,7 +725,7 @@ export class BotsComponent {
 
 ### ✅ Forma correcta
 
-Se debe usar únicamente el HttpService centralizado.
+Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-API\http-gateway-observable.api.ts`) centralizado.
 
 * NO usar `try/catch` aquí
 
@@ -737,13 +737,13 @@ Se debe usar únicamente el HttpService centralizado.
 
 ```ts
 import { inject } from '@angular/core';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import { IResponse } from '@/shared/API/general-API/types/request-data.types';
 import { environment } from '@/environments/environment';
 
 export class BotsComponent {
 
-  http = inject(HttpService);
+  http = inject(ApiGatewayService);
 
   async getBots() {
     const { success, status, message, data }: IResponse = await firstValueFrom(
@@ -832,13 +832,13 @@ export class BotsComponent {
 
 ```ts
 import { inject } from '@angular/core';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import { IResponse } from '@/shared/API/general-API/types/request-data.types';
 import { environment } from '@/environments/environment';
 
 export class BotsComponent {
 
-  http = inject(HttpService);
+  http = inject(ApiGatewayService);
 
   async getBots() {
     const { success, status, message, data }: IResponse = await firstValueFrom(
@@ -913,7 +913,7 @@ Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
 
 ```ts
 import { Component, inject } from '@angular/core';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '@/environments/environment';
 import { IResponse } from '@/shared/API/general-API/types/request-data.types';
@@ -929,7 +929,7 @@ interface IBodyBots {
 })
 export class BotsComponent {
 
-  private http = inject(HttpService);
+  private http = inject(ApiGatewayService);
 
   async createBot() {
     const optionsApi: IRequestOptions<IBodyBots> = {
@@ -1359,7 +1359,7 @@ Esto permite:
 
 ```TS
 import { Component } from '@angular/core';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
@@ -1368,7 +1368,7 @@ import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 })
 export class BotsComponent {
   constructor(
-    private http: HttpService,
+    private http: ApiGatewayService,
     private dateUtils: LuxonClass,
   ) {}
 
@@ -1380,7 +1380,7 @@ export class BotsComponent {
 
 ```TS
 import { Component, inject } from '@angular/core';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
@@ -1388,7 +1388,7 @@ import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
   templateUrl: './bots.component.html',
 })
 export class BotsComponent {
-  private http = inject(HttpService);
+  private http = inject(ApiGatewayService);
   private dateUtils = inject(LuxonClass);
 
   // ...

@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
@@ -47,7 +47,7 @@ export class AssignPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
   generalClass = inject(GeneralClass);
   dataTypeClass = inject(DataTypeClass);
-  http = inject(HttpService);
+  http = inject(ApiGatewayService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
   route = inject(ActivatedRoute);

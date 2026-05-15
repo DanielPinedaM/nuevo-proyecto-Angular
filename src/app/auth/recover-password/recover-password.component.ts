@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import { environment } from '@/environments/environment';
 import { RouterModule } from '@angular/router';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
@@ -37,7 +37,7 @@ export interface IBodyRecoverPassword {
 })
 export class RecoverPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
-  http = inject(HttpService);
+  http = inject(ApiGatewayService);
   hotToast = inject(HotToastClass);
 
   ngOnInit() {}

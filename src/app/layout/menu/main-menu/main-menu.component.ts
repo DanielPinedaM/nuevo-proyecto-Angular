@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MenuDesktopComponent } from '@/app/layout/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/app/layout/menu/menu-mobile/menu-mobile.component';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
@@ -16,7 +16,7 @@ import IMenuOptions from '@/app/layout/menu/models/interfaces/menu.interfaces';
 })
 export class MainMenuComponent implements OnInit {
   storage = inject(Storage);
-  http = inject(HttpService);
+  http = inject(ApiGatewayService);
   hotToast = inject(HotToastClass);
 
   menuOptions = signal<IMenuOptions[]>([]);

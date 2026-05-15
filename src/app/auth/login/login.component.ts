@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
-import { HttpService } from '@/shared/API/general-API/http-observable.api';
+import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/shared/models/constants/error-message.const';
 import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   storage = inject(Storage);
   cryptoServiceClass = inject(CryptoServiceClass);
   dataTypeClass = inject(DataTypeClass);
-  http = inject(HttpService);
+  http = inject(ApiGatewayService);
   hotToast = inject(HotToastClass);
   router = inject(Router);
 
