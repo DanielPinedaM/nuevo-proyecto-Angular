@@ -299,14 +299,14 @@ export class BotsComponent {}
 
 ***✅ Correcto:***
 
-Sass para estilos globales en `src/style/global/...`
+Sass para estilos globales en `src/styles/global/...`
 
 Tailwind para estilos especificos de cada componente en `src/app/...` y `src/shared/components/...`
 
 **✅ Ejemplo Correcto de Sass global:**
 
 ```scss
-/* src/style/global/__scroll-bar.scss */
+/* src/styles/global/__scroll-bar.scss */
 
 // ocultar barra de scroll, pero hacer q siga funcionando la barra de scroll
 .hidden-scrollbar::-webkit-scrollbar {
@@ -356,7 +356,7 @@ export class BotsComponent {}
 
 En este proyecto se está utilizando **Tailwind CSS V4**, por lo tanto el archivo `tailwind.config.js` ya no se utiliza y se considera **obsoleto** en esta arquitectura.
 
-La configuración de Tailwind ahora se realiza en el archivo `src/style/global/library/tailwind.css`
+La configuración de Tailwind ahora se realiza en el archivo `src/styles/global/library/tailwind.css`
 
 Esto permite centralizar la definición de tokens de diseño (colores, media queries, etc.) sin necesidad de configuración en archivo JavaScript.
 
@@ -379,7 +379,7 @@ module.exports = {
 ***✅ Correcto (Tailwind 4)***
 
 ```CSS
-/* src/style/global/library/tailwind.css */
+/* src/styles/global/library/tailwind.css */
 
 @theme {
   --color-primary-color: #FF0000;
@@ -389,7 +389,7 @@ module.exports = {
 
 ### 🎨 Variables de Colores Tailwind y Sass
 
-Las variables con nombres de los colores de **Sass** en `src/style/global/_variable.scss` y **Tailwind** en `src/style/global/library/tailwind.css` tienen que ser exactamente los mismos
+Las variables con nombres de los colores de **Sass** en `src/styles/global/_variable.scss` y **Tailwind** en `src/styles/global/library/tailwind.css` tienen que ser exactamente los mismos
 
 Esto garantiza que los colores sean los mismos entre los estilos globales definidos en Sass y los estilos de cada componente definidos con Tailwind.
 
@@ -399,7 +399,7 @@ En Sass y Tailwind ambos colores tienen exactamente el mismo nombre `primary-col
 
 ```scss
 /*
-src/style/global/_variable.scss
+src/styles/global/_variable.scss
 
 colores de Sass */
 
@@ -410,7 +410,7 @@ $primary-color: #FF0000;
 
 ```CSS
 /*
-src/style/global/library/tailwind.css
+src/styles/global/library/tailwind.css
 
 colores de Tailwind */
 
