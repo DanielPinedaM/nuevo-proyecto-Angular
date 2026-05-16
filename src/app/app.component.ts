@@ -6,8 +6,14 @@ import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/load
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
 import { LoaderComponent } from '@/shared/ui/loader/loader.component';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
-import { CurrentRouteService } from '@/shared/service/RxJS-BehaviorSubject/current-route.service';
 import { constImmutableProperties } from '@/shared/models/constants/session-storage.const';
+
+const AUTH_ROUTES: string[] = [
+  'iniciar-sesion',
+  'recuperar-clave',
+  'asignar-nueva-clave',
+  'registrarme',
+];
 
 @Component({
   selector: 'app-root',
@@ -20,10 +26,8 @@ export class AppComponent {
   bnIdle = inject(BnNgIdleService);
   router = inject(Router);
   loaderService = inject(LoaderService);
-  currentRouteService = inject(CurrentRouteService);
 
-  currentRoute = signal<string>('');
-  loader: boolean = false;
+  loader = signal<boolean>(false);
 
   ngOnInit(): void {
     this.#getLoader();
@@ -38,16 +42,17 @@ export class AppComponent {
         const milliseconds: number = 120000;
 
         setTimeout(() => {
-          this.loader = false;
+          this.loader.set(false);
+
           console.warn(
             `⚠️ se oculto el icono de cargando despues de ${
               milliseconds / 120000
-            } minutos porque una peticion HTTP tardo en responder`
+            } minutos porque una peticion HTTP tardo en responder`,
           );
         }, milliseconds);
       }
 
-      this.loader = loader;
+      this.loader.set(loader);
     });
   }
 
@@ -56,13 +61,17 @@ export class AppComponent {
 
     this.bnIdle.startWatching(300).subscribe((isTimedOut: boolean) => {
       if (!isTimedOut) return;
-      if (!this.router.url.includes('/inicio/')) return;
+
+      const isAuthRoute: boolean = AUTH_ROUTES.some((route: string) =>
+        this.router.url.includes(route),
+      );
+      if (isAuthRoute) return;
 
       this.router.navigate(['/iniciar-sesion']);
       this.sweetAlertClass.messageAlert(
         'Sesión Inactiva',
         'Su sesión ya no se encuentra activa, ingrese nuevamente',
-        'info'
+        'info',
       );
     });
   }
@@ -78,7 +87,7 @@ export class AppComponent {
         this.sweetAlertClass.messageAlert(
           'Sesión Inactiva',
           'Su sesión ya no se encuentra activa, ingrese nuevamente',
-          'info'
+          'info',
         );
       }
     });

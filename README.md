@@ -51,13 +51,13 @@ src/
 │   │
 │   ├── home/ → Contiene todas las rutas y componentes después de iniciar sesión
 │   │   └── main-wrapper/ → contenedor principal de paginas despues de loguearse
-│   │   └── bots/ → Define la ruta inicio/bots, es una feature
+│   │   └── bots/ → Define la ruta /bots, es una feature
 │   │       ├── bots.component.html
 │   │       └── bots.component.ts
 │
 ├── shared/ → utilidades compartidas (globales) que se pueden usar en cualquier parte de la web
 │   ├── guards/
-│   │   └── auth.guard.ts → protección de rutas de todos los componentes que estan despues de loguearse en la URL /inicio/...
+│   │   └── auth.guard.ts → protección de rutas de todos los componentes que estan despues de loguearse
 │   │
 │   ├── components/ → componentes que se pueden reutilizzar en varias features
 │   │
