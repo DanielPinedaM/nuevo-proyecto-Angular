@@ -6,13 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import {
   IRequestOptions,
   IResponse,
-} from '@/shared/API/general-API/types/request-data.types';
+} from '@/shared/api/general-api/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
 import { constRegex } from '@/shared/models/constants/regex.const';
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
@@ -180,7 +180,7 @@ export class RegisterComponent implements OnInit {
         `Usuario ${nameUser} registrado, inicie sesión para continuar `
       );
       this.formRegister.reset();
-      this.router.navigate(['/autenticacion/iniciar-sesion']);
+      this.router.navigate(['/iniciar-sesion']);
     } else {
       this.hotToast.errorNotification(message);
     }

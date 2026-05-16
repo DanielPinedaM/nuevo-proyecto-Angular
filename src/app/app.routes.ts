@@ -1,18 +1,21 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@/shared/guards/auth.guard';
 
-// #region auth - autenticacion
+// #region - error 404 ruta inexistente
+import { NotFound404Component } from '@/app/not-found-404/not-found-404.component';
+// #endregion
+
+// #region - contenedor principal de paginas despues de loguearse
+import { MainWrapperComponent } from '@/app/home/main-wrapper/main-wrapper.component';
+// #endregion
+
+// #region autenticacion
+import { MainAuthComponent } from '@/app/auth/main-auth/main-auth.component';
 import { LoginComponent } from '@/app/auth/login/login.component';
 import { RecoverPasswordComponent } from '@/app/auth/recover-password/recover-password.component';
 import { RegisterComponent } from '@/app/auth/register/register.component';
 import { AssignPasswordComponent } from '@/app/auth/assign-password/assign-password.component';
-import { MainAuthComponent } from '@/app/auth/main-auth/main-auth.component';
-// #endregion auth - autenticacion
-
-// #region layout - componentes de maquetacion
-import { Error404NonExistentPathComponent } from '@/app/layout/error-404-non-existent-path/error-404-non-existent-path.component';
-import { HomeComponent } from '@/app/layout/home/home.component';
-// #endregion layout - componentes de maquetacion
+// #endregion
 
 import { BotsComponent } from '@/app/home/bots/bots.component';
 
@@ -20,12 +23,12 @@ export const routes: Routes = [
   // cuando NO se copia una ruta, se re-dirige al login
   {
     path: '',
-    redirectTo: '/autenticacion/iniciar-sesion',
+    redirectTo: '/iniciar-sesion',
     pathMatch: 'full',
   },
 
   {
-    path: 'autenticacion',
+    path: '',
     component: MainAuthComponent,
     children: [
       {
@@ -47,23 +50,16 @@ export const routes: Routes = [
     ],
   },
 
-  // /inicio re-dirige a /inicio/bots
   {
-    path: 'inicio',
-    redirectTo: '/inicio/bots',
-    pathMatch: 'full',
-  },
-
-  {
-    path: 'inicio',
-    component: HomeComponent,
+    path: '',
+    component: MainWrapperComponent,
 
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
 
     children: [
       {
-        // inicio/bots
+        // /bots
         path: 'bots',
         component: BotsComponent,
       },
@@ -72,6 +68,6 @@ export const routes: Routes = [
 
   {
     path: '**',
-    component: Error404NonExistentPathComponent,
+    component: NotFound404Component,
   },
 ];

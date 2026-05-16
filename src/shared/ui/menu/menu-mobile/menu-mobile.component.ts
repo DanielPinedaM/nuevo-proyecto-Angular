@@ -4,7 +4,7 @@ import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.u
 import { CommonModule } from '@angular/common';
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import IMenuOptions from '@/app/layout/menu/models/interfaces/menu.interfaces';
+import IMenuOptions from '@/shared/ui/menu/models/interfaces/menu.interfaces';
 
 @Component({
   selector: 'app-menu-mobile',
@@ -57,7 +57,7 @@ export class MenuMobileComponent implements OnInit {
 
         if (result.isConfirmed) {
           this.hotToast.infoNotification('Se ha cerrado sesión');
-          this.router.navigate(['/autenticacion/iniciar-sesion']);
+          this.router.navigate(['/iniciar-sesion']);
         }
       });
   }

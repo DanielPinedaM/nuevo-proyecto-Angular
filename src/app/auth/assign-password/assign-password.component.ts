@@ -6,7 +6,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
+import {
+  IRequestOptions,
+  IResponse,
+} from '@/shared/api/general-api/types/request-data.types'; 
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
@@ -23,10 +27,6 @@ import {
 import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
 import { constRegex } from '@/shared/models/constants/regex.const';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
-import {
-  IRequestOptions,
-  IResponse,
-} from '@/shared/API/general-API/types/request-data.types';
 import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import { PasswordModule } from 'primeng/password';
@@ -152,7 +152,7 @@ export class AssignPasswordComponent implements OnInit {
         'Se ha restablecido su contraseña, inicie sesion para continuar'
       );
       this.formAssignPassword.reset();
-      this.router.navigate(['/autenticacion/iniciar-sesion']);
+      this.router.navigate(['/iniciar-sesion']);
     } else {
       this.hotToast.errorNotification(message);
     }

@@ -13,7 +13,7 @@ import {
   IResponse,
   ResponseType,
   TMethod,
-} from '@/shared/API/general-API/types/request-data.types';
+} from '@/shared/api/general-api/types/request-data.types';
 import { environment } from '@/environments/environment';
 import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
@@ -178,12 +178,12 @@ export class HttpClientAsyncAwaitService {
   }
 
   private unauthorized(): void {
-    this.router.navigate(['/autenticacion/iniciar-sesion']);
+    this.router.navigate(['/iniciar-sesion']);
     this.loaderService.setLoader(false);
   }
 
   private redirectToLogin(): void {
-    const login: string = '/autenticacion/iniciar-sesion';
+    const login: string = '/iniciar-sesion';
 
     if (!this.pathnameIsLogin()) {
       window.location.href = login;
@@ -199,7 +199,7 @@ export class HttpClientAsyncAwaitService {
   }
 
   private pathnameIsLogin(): boolean {
-    const login: string = '/autenticacion/iniciar-sesion';
+    const login: string = '/iniciar-sesion';
 
     const pathname: string = window.location.pathname;
 

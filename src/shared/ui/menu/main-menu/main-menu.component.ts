@@ -1,13 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { MenuDesktopComponent } from '@/app/layout/menu/menu-desktop/menu-desktop.component';
-import { MenuMobileComponent } from '@/app/layout/menu/menu-mobile/menu-mobile.component';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/API/general-API/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
-import IMenuOptions from '@/app/layout/menu/models/interfaces/menu.interfaces';
+import { IResponse } from '@/shared/api/general-api/types/request-data.types';
+import IMenuOptions from '@/shared/ui/menu/models/interfaces/menu.interfaces';
+import { MenuMobileComponent } from '@/shared/ui/menu/menu-mobile/menu-mobile.component';
+import { MenuDesktopComponent } from '@/shared/ui/menu/menu-desktop/menu-desktop.component';
 
 @Component({
   selector: 'app-main-menu',

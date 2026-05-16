@@ -9,7 +9,7 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   // 🔥 dato quemado
   const userIsAuth: boolean = true;
 
-  if (!userIsAuth) router.navigate(['/autenticacion/iniciar-sesion']);
+  if (!userIsAuth) router.navigate(['/iniciar-sesion']);
 
   return userIsAuth;
 };

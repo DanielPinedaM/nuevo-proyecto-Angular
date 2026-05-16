@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
-import { LoaderComponent } from '@/app/layout/loader/loader.component';
+import { LoaderComponent } from '@/shared/ui/loader/loader.component';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import { CurrentRouteService } from '@/shared/service/RxJS-BehaviorSubject/current-route.service';
 import { constImmutableProperties } from '@/shared/models/constants/session-storage.const';
@@ -58,7 +58,7 @@ export class AppComponent {
       if (!isTimedOut) return;
       if (!this.router.url.includes('/inicio/')) return;
 
-      this.router.navigate(['/autenticacion/iniciar-sesion']);
+      this.router.navigate(['/iniciar-sesion']);
       this.sweetAlertClass.messageAlert(
         'Sesión Inactiva',
         'Su sesión ya no se encuentra activa, ingrese nuevamente',
@@ -74,7 +74,7 @@ export class AppComponent {
       const indexOf: number = immutableProperties.indexOf(modifiedProperty);
 
       if (indexOf > -1) {
-        this.router.navigate(['/autenticacion/iniciar-sesion']);
+        this.router.navigate(['/iniciar-sesion']);
         this.sweetAlertClass.messageAlert(
           'Sesión Inactiva',
           'Su sesión ya no se encuentra activa, ingrese nuevamente',

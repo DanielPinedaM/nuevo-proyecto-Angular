@@ -29,27 +29,6 @@ Para mejorar rendimiento de ejecución de comandos y especificar el entorno de e
 
 ```txt
 src/
-├── app/
-│   ├── app.routes.ts → Definición de rutas (URL)
-│   │
-│   ├── auth/ → Rutas de autenticación
-│   │   ├── assign-password/ → Recuperar y cambiar la contraseña
-│   │   ├── login/ → Iniciar sesión
-│   │   ├── recover-password/ → Enviar correo para recuperar contraseña
-│   │   └── register/ → Formulario de registro de nuevo usuario
-│   │
-│   ├── home/ → Contiene todas las rutas y componentes después de iniciar sesión
-│   │   └── bots/ → Define la ruta inicio/bots, es una feature
-│   │       ├── bots.component.html
-│   │       └── bots.component.ts
-│   │
-│   └── layout/ → Componentes de maquetación generales
-│       ├── breadcrumbs/ → Componente con migas de pan
-│       ├── error-404-non-existent-path/ → Componente para URLs inexistentes
-│       ├── home/ → Contenedor principal de la aplicación después del login
-│       ├── loader/ → Componente de carga (loading spinner)
-│       └── menu/ → Componente de menú
-│
 ├── assets/
 │   ├── icon/ → Iconos del proyecto
 │   └── img/ → Imágenes del proyecto
@@ -60,20 +39,43 @@ src/
 │   ├── environment.prod.ts → Variables de entorno de producción
 │   └── environment.test.ts → Variables de entorno de pruebas
 │
+├── app/
+│   ├── app.routes.ts → Definición de rutas (URL)
+│   ├── not-found-404/ → Componente q se muestra al acceder a URLs inexxistentes
+│   │
+│   ├── auth/ → Rutas de autenticación
+│   │   ├── assign-password/ → Recuperar y cambiar la contraseña
+│   │   ├── login/ → Iniciar sesión
+│   │   ├── recover-password/ → Enviar correo para recuperar contraseña
+│   │   └── register/ → Formulario de registro de nuevo usuario
+│   │
+│   ├── home/ → Contiene todas las rutas y componentes después de iniciar sesión
+│   │   └── main-wrapper/ → contenedor principal de paginas despues de loguearse
+│   │   └── bots/ → Define la ruta inicio/bots, es una feature
+│   │       ├── bots.component.html
+│   │       └── bots.component.ts
+│
 ├── shared/ → utilidades compartidas (globales) que se pueden usar en cualquier parte de la web
 │   ├── guards/
 │   │   └── auth.guard.ts → protección de rutas de todos los componentes que estan despues de loguearse en la URL /inicio/...
 │   │
+│   ├── components/ → componentes que se pueden reutilizzar en varias features
+│   │
+│   ├── ui / → componentes visuales reutilizables
+│   │     ├── breadcrumbs/ → Componente con migas de pan
+│   │     ├── loader/ → icono de cargando
+│   │     └── menu/ → Componente de menú
+│   │ 
 │   ├── models/ → contiene tipos de datos y constantes globales
 │   │   ├── constants/
 │   │   ├── interface/
 │   │   ├── enums/
 │   │
-│   ├── API/ → clases encargadas de realizar peticiones HTTP a APIs propias y externos
-│   │ ├── general-API/ →
+│   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externos
+│   │ ├── general-api/ →
 │   │ │ └── http-gateway-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
 │   │ │ └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
-│   │ │
+│   │ 
 │   ├── service/ → clases reutilizables usadas para separar lógica reutilizable que no debería estar dentro de los componentes
 │   │ └── RxJS-BehaviorSubject/ → Archivos con RxJS BehaviorSubject ()
 │   │     └── layout/
@@ -84,8 +86,8 @@ src/
 │   ├── utils/
 │   │ ├── class/
 │   │ │ ├── notification/ → carpeta con funciones para mostrar mensajes emergentes
-│   │ │ │ └── HotToastClass.utils.ts → Notificaciones tipo toast
-│   │ │ │ └── SweetAlertClass.utils.ts → Modal con SweetAlert2
+│   │ │ │   ── HotToastClass.utils.ts → Notificaciones tipo toast
+│   │ │ │   ── SweetAlertClass.utils.ts → Modal con SweetAlert2
 │   │ │ │
 │   │ │ ├── CryptoServiceClass.utils.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
 │   │ │ ├── DataTypeClass.utils.ts → funciones para tipos de datos de JS, ejemplo normalizar string
@@ -104,7 +106,7 @@ src/
 │   │        └── _tailwind.css → archivo de configuración de Tailwind 4
 │   │ 
 │   ├── _button.scss → estilos globales de botones
-│   ├── _reset-CSS.scss → elimina los estilos por defecto del navegador para asegurar una apariencia uniforme en todos los navegadores
+│   ├── _reset.scss → elimina los estilos por defecto del navegador para asegurar una apariencia uniforme en todos los navegadores
 │   ├── _scroll-bar.scss → estilos globales de barra de scroll
 │   ├── _table.scss → estilos globales para tablas
 │   └── _variables.scss → variables globales de Sass
@@ -423,17 +425,16 @@ El nombre de las carpetas dentro de `src/app` tiene que coincidir exactamente co
 
 Esto permite ubicar los componentes que corresponden a cada URL
 
-Además, todas las páginas protegidas de la aplicación deben ser `children` de `HomeComponent`.
+Además, todas las páginas protegidas de la aplicación deben ser `children` de `MainWrapperComponent`.
 
 ***✅ Correcto:***
 
 ```txt
 src/app/
 ├── home/
-│   ├── home.component.ts
-│   │
-│   └── bots/
-│       └── bots.component.ts
+│     └── bots/
+│         └── bots.component.html
+│         └── bots.component.ts
 ```
 
 ```ts
@@ -441,20 +442,23 @@ src/app/
 import { Routes } from "@angular/router";
 import { AuthGuard } from "@/shared/guards/auth.guard";
 
-import { HomeComponent } from "@/app/home/home.component";
+// #region - contenedor principal de paginas despues de loguearse
+import { MainWrapperComponent } from '@/app/home/main-wrapper/main-wrapper.component';
+// #endregion
+
 import { BotsComponent } from '@/app/home/bots/bots.component';
 
 export const routes: Routes = [
   {
-    path: 'inicio',
-    component: HomeComponent,
+    path: '',
+    component: MainWrapperComponent,
 
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
 
     children: [
       {
-        // inicio/bots
+        // /bots
         path: 'bots',
         component: BotsComponent,
       },
@@ -465,9 +469,9 @@ export const routes: Routes = [
 
 En este ejemplo:
 
-- La URL `/inicio/bots` coincide con la estructura `src/app/home/bots`
+- La URL `/bots` coincide con la estructura `src/app/home/bots`
 
-- `BotsComponent` es hijo de `HomeComponent`
+- `BotsComponent` es hijo de `MainWrapperComponent`
 
 - `AuthGuard` protege automáticamente todas las rutas hijas gracias a `canActivateChild`
 
@@ -570,7 +574,7 @@ No se debe meter todo en una carpeta global `src/components` porque:
 
 ## 🌐 Consumo de API
 
-En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `src\shared\API\general-API\http-gateway-observable.api.ts`, que maneja:
+En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `src\shared\API\general-api\http-gateway-observable.api.ts`, que maneja:
 - icono de loader global
 
 - manejo de errores `catchError`
@@ -725,7 +729,7 @@ export class BotsComponent {
 
 ### ✅ Forma correcta
 
-Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-API\http-gateway-observable.api.ts`) centralizado.
+Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-api\http-gateway-observable.api.ts`) centralizado.
 
 * NO usar `try/catch` aquí
 
@@ -737,8 +741,8 @@ Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-API\http-
 
 ```ts
 import { inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
-import { IResponse } from '@/shared/API/general-API/types/request-data.types';
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
+import { IResponse } from '@/shared/api/general-api/types/request-data.types';
 import { environment } from '@/environments/environment';
 
 export class BotsComponent {
@@ -832,8 +836,8 @@ export class BotsComponent {
 
 ```ts
 import { inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
-import { IResponse } from '@/shared/API/general-API/types/request-data.types';
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
+import { IResponse } from '@/shared/api/general-api/types/request-data.types';
 import { environment } from '@/environments/environment';
 
 export class BotsComponent {
@@ -865,7 +869,7 @@ Esto permite estandarizar el comportamiento de las llamadas HTTP sin repetir ló
 ### 📦 ¿Qué permite configurar?
 
 ```ts
-/* src\shared\API\general-API\types\request-data.types.ts */
+/* src\shared\API\general-api\types\request-data.types.ts */
 
 export interface IRequestOptions<T = any> {
   body?: T;
@@ -913,10 +917,10 @@ Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
 
 ```ts
 import { Component, inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/API/general-API/types/request-data.types';
+import { IResponse } from '@/shared/api/general-api/types/request-data.types';
 
 interface IBodyBots {
   name: string;
@@ -1359,7 +1363,7 @@ Esto permite:
 
 ```TS
 import { Component } from '@angular/core';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
@@ -1380,7 +1384,7 @@ export class BotsComponent {
 
 ```TS
 import { Component, inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({

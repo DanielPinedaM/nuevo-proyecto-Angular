@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
-import { ApiGatewayService } from '@/shared/API/general-API/http-gateway-observable.api';
+import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { enterFields } from '@/shared/models/constants/error-message.const';
 import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
@@ -18,7 +18,7 @@ import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import {
   IRequestOptions,
   IResponse,
-} from '@/shared/API/general-API/types/request-data.types';
+} from '@/shared/api/general-api/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
 import { IBodyLogin } from '@/app/auth/models/interfaces/auth.interfaces';
 import { MessageModule } from 'primeng/message';
@@ -162,7 +162,7 @@ export class LoginComponent implements OnInit {
     /* EL SIGUIENTE CODIGO DEBERIA ESTAR DESCOMENTADO CUANDO FUNCIONE LA CONEXION A LA API  */
     //if (success) {
     this.setSessionStorage(data);
-    this.router.navigate(['/inicio/bots']);
+    this.router.navigate(['/bots']);
     //} else {
     //  this.hotToast.errorNotification(message);
     //}
