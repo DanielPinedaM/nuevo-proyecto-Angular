@@ -234,7 +234,7 @@ export class BotsComponent {
 }
 ```
 
-***✅ Ejemplo correcto - usar `LuxonClass.utils.ts`***
+****✅ Ejemplo correcto - usar `LuxonClass.utils.ts`****
 
 ```ts
 import { Component, inject } from '@angular/core';
@@ -262,13 +262,13 @@ export class BotsComponent {
 
 ## ¿Cómo usar Tailwind y Sass juntos?
 
-***❌ Incorrecto:***
+****❌ Incorrecto:****
 
 Todos los componentes de Angular **NO** pueden tener archivos de Sass ni CSS con `styleUrls`,
 
 Mezclar Sass y Tailwind en un mismo componente es mala práctica porque los estilos de Sass y Tailwind se sobrescriben debido a la especificidad, herencia y cascada de CSS.
 
-**❌ Ejemplo incorrecto:**
+****❌ Ejemplo incorrecto:****
 
 ```ts
 /* bots.component.ts */
@@ -303,7 +303,7 @@ Sass para estilos globales en `src/styles/global/...`
 
 Tailwind para estilos especificos de cada componente en `src/app/...` y `src/shared/components/...`
 
-**✅ Ejemplo Correcto de Sass global:**
+****✅ Ejemplo Correcto de Sass global:****
 
 ```scss
 /* src/styles/global/__scroll-bar.scss */
@@ -330,7 +330,7 @@ Tailwind para estilos especificos de cada componente en `src/app/...` y `src/sha
 </div>
 ```
 
-**✅ Ejemplo Correcto de Tailwind:**
+****✅ Ejemplo Correcto de Tailwind:****
 
 ```ts
 /* bots.component.ts */
@@ -617,7 +617,7 @@ No se debe consumir la API directamente con `HttpClient` + `try/catch` en compon
 
 * No centraliza validaciones ni logging.
 
-#### ❌ Ejemplo incorrecto - `lastValueFrom`
+****❌ Ejemplo incorrecto - `lastValueFrom`****
 
 ```ts
 import { HttpClient } from '@angular/common/http';
@@ -640,7 +640,7 @@ export class BotsComponent {
 }
 ```
 
-### **❌ Ejemplo incorrecto - `firstValueFrom`**
+****❌ Ejemplo incorrecto - `firstValueFrom`****
 
 ```ts
 import { HttpClient } from '@angular/common/http';
@@ -663,7 +663,7 @@ export class BotsComponent {
 }
 ```
 
-### **❌ Ejemplo incorrecto - Angular legacy - `toPromise()`**
+****❌ Ejemplo incorrecto - Angular legacy - `toPromise()`****
 
 Antes de `firstValueFrom`, en Angular antiguo se usaba `toPromise()`, pero este enfoque está **deprecado** y ya no se recomienda.
 
@@ -686,7 +686,7 @@ export class BotsComponent {
 }
 ```
 
-### **❌ Ejemplo incorrecto - observable**
+****❌ Ejemplo incorrecto - observable****
 
 ```ts
 import { HttpClient } from '@angular/common/http';
@@ -707,7 +707,7 @@ export class BotsComponent {
 }
 ```
 
-### **❌ Ejemplo incorrecto - `fetch`**
+****❌ Ejemplo incorrecto - `fetch`****
 
 Angular no usa `fetch` porque es una API básica del navegador y no se integra con la arquitectura del framework.
 
@@ -737,7 +737,7 @@ Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-api\http-
 
 * La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
 
-#### **✅ Ejemplo correcto con `http-observable.service.ts` y  `firstValueFrom`**
+****✅ Ejemplo correcto con `http-observable.service.ts` y  `firstValueFrom`****
 
 ```ts
 import { inject } from '@angular/core';
@@ -775,7 +775,7 @@ El icono de carga se oculta y muestra automáticamente desde `http-observable.se
 
 👉 **NO se debe crear estados manuales como `loader = true/false` en los componentes**, ya que el loader es global y centralizado.
 
-***❌ Ejemplo incorrecto***
+****❌ Ejemplo incorrecto****
 
 Crear estados locales de loading en cada componente:
 
@@ -832,7 +832,7 @@ export class BotsComponent {
 
 * Cuando hay varias peticiones HTTP en un mismo componente se vuelve muy complejo saber en donde escribir `loader = true/false` para mostrar y ocultar el icono de cargando.
 
-### **✅ Ejemplo correcto con `http-observable.service.ts`**
+****✅ Ejemplo correcto con `http-observable.service.ts`****
 
 ```ts
 import { inject } from '@angular/core';
@@ -1030,7 +1030,7 @@ Además:
 
 - Cada componente importa directamente sus propias dependencias en array `imports: []`
 
-***❌ Ejemplo Incorrecto - Angular legacy - `AppModule`***
+****❌ Ejemplo Incorrecto - Angular legacy - `AppModule`****
 
 ```TS
 /* app.module.ts */
@@ -1054,7 +1054,7 @@ import { BotsComponent } from './bots.component';
 export class AppModule {}
 ```
 
-***✅ Ejemplo Correcto - Angular moderno con Standalone Components***
+****✅ Ejemplo Correcto - Angular moderno con Standalone Components****
 
 ```TS
 /* children.component.ts */
@@ -1357,7 +1357,7 @@ Esto permite:
 
 * mejor compatibilidad con `Signals`.
 
-### ***❌ Ejemplo incorrecto - Angular legacy - `constructor()`***
+****❌ Ejemplo incorrecto - Angular legacy - `constructor()`****
 
 ```TS
 import { Component } from '@angular/core';
@@ -1378,7 +1378,7 @@ export class BotsComponent {
 }
 ```
 
-### ***✅ Ejemplo correcto - Angular moderno `inject()`***
+****✅ Ejemplo correcto - Angular moderno `inject()`****
 
 ```TS
 import { Component, inject } from '@angular/core';
@@ -1417,7 +1417,7 @@ Los signals son reactivos, cuando un signal cambia:
 
 * Evita múltiples `subscribe()` innecesarios.
 
-### ***❌ Ejemplo incorrecto - Angular legacy - estado tradicional NO reactivo automáticamente***
+****❌ Ejemplo incorrecto - Angular legacy - estado tradicional NO reactivo automáticamente****
 
 ```TS
 /* counter.component.ts */
@@ -1478,7 +1478,7 @@ export class CounterComponent {
 </button>
 ```
 
-### ***✅ Ejemplo correcto - Angular moderno estados con `signal`***
+****✅ Ejemplo correcto - Angular moderno estados con `signal`****
 
 ```TS
 /* counter.component.ts */
@@ -1540,7 +1540,7 @@ export class CounterComponent {
 
 [Tutorial](https://youtu.be/_XnEoK47Il0?si=bnZ1NuRuxLIaSYUv)
 
-### ***❌ Ejemplo incorrecto - Angular legacy - `@Input()`, `@Output()` y `*ngFor`***
+****❌ Ejemplo incorrecto - Angular legacy - `@Input()`, `@Output()` y `*ngFor`****
 
 ```TS
 /* product.interface.ts */
@@ -1634,7 +1634,7 @@ export class ParentComponent {
 </app-product-children>
 ```
 
-### ✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`***
+****✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`****
 
 ```TS
 /* product.interface.ts */
