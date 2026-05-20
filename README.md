@@ -2,13 +2,13 @@
 
 usar Node JS 24.15.0
 
-## 📦 Instalar paquetes
+# 📦 Instalar paquetes
 
 ```javascript
 npm i
 ```
 
-## ▶️ Ejecutar proyecto
+# ▶️ Ejecutar proyecto
 
 Para mejorar rendimiento de ejecución de comandos y especificar el entorno de ejecución del proyecto se debe usar `node --run` en lugar de `npm run` o `npm start`.
 
@@ -18,14 +18,14 @@ Para mejorar rendimiento de ejecución de comandos y especificar el entorno de e
 | node --run start:prod  | producción  | `src/environments/environment.prod.ts`      |
 | node --run start:test  | pruebas     | `src/environments/environment.test.ts`      |
 
-## 🚀 Generar build (dist) para desplegar
+# 🚀 Generar build (dist) para desplegar
 
 | comando               | apunta a... | ruta archivo                           |
 | --------------------- | ----------- | -------------------------------------- |
 | node --run build:test | pruebas     | `src/environments/environment.test.ts` |
 | node --run build:prod | producción  | `src/environments/environment.prod.ts` |
 
-## 📁 Estructura del Proyecto
+# 📁 Estructura del Proyecto
 
 ```txt
 src/
@@ -112,7 +112,7 @@ src/
 │   └── _variables.scss → variables globales de Sass
 ```
 
-## 📅 Fechas
+# 📅 Fechas
 
 Usar la librería **Luxon** para el manejo de fechas. **NO** usar `new Date()` **NI** librerías como Moment.js.
 
@@ -258,9 +258,9 @@ export class BotsComponent {
 }
 ```
 
-## 💅 Maquetación
+# 💅 Maquetación
 
-### ¿Cómo usar Tailwind y Sass juntos?
+## ¿Cómo usar Tailwind y Sass juntos?
 
 ***❌ Incorrecto:***
 
@@ -350,7 +350,7 @@ export class BotsComponent {}
 </button>
 ```
 
-### 🧱 Configuración de Tailwind 4
+## 🧱 Configuración de Tailwind 4
 
 [Igual que como se muestra en la documentacion](https://tailwindcss.com/blog/tailwindcss-v4#css-first-configuration)
 
@@ -360,7 +360,7 @@ La configuración de Tailwind ahora se realiza en el archivo `src/styles/global/
 
 Esto permite centralizar la definición de tokens de diseño (colores, media queries, etc.) sin necesidad de configuración en archivo JavaScript.
 
-***❌ Incorrecto (Tailwind v3 con configuración antigua)***
+***❌ Incorrecto - Configurar Tailwind 3 con `.js`***
 
 ```js
 /* tailwind.config.js */
@@ -376,7 +376,7 @@ module.exports = {
 };
 ```
 
-***✅ Correcto (Tailwind 4)***
+***✅ Correcto - Configurar Tailwind 4 con `.css`***
 
 ```CSS
 /* src/styles/global/library/tailwind.css */
@@ -387,7 +387,7 @@ module.exports = {
 ```
 
 
-### 🎨 Variables de Colores Tailwind y Sass
+## 🎨 Variables de Colores Tailwind y Sass
 
 Las variables con nombres de los colores de **Sass** en `src/styles/global/_variable.scss` y **Tailwind** en `src/styles/global/library/tailwind.css` tienen que ser exactamente los mismos
 
@@ -419,7 +419,7 @@ colores de Tailwind */
 }
 ```
 
-## 🔀 Enrutado
+# 🔀 Enrutado
 
 El nombre de las carpetas dentro de `src/app` tiene que coincidir exactamente con las rutas definidas en `src/app/app.routes.ts`
 
@@ -475,7 +475,7 @@ En este ejemplo:
 
 - `AuthGuard` protege automáticamente todas las rutas hijas gracias a `canActivateChild`
 
-## 🧩 Organización de componentes
+# 🧩 Organización de componentes
 
 Los componentes que pertenecen a una URL o página específica deben estar dentro de su módulo o ruta correspondiente en `src/app`.
 
@@ -562,7 +562,7 @@ No se debe meter todo en una carpeta global `src/components` porque:
 
 * Es inmantenible e inescalable
 
-### Diferencia entre `src/app/bots/components` y `src/shared/components`
+## Diferencia entre `src/app/bots/components` y `src/shared/components`
 
 * `src/app/bots/components` contiene componentes exclusivos de la funcionalidad (feature) `bots`
 
@@ -572,7 +572,7 @@ No se debe meter todo en una carpeta global `src/components` porque:
 
 * Los componentes compartidos deben ser genéricos y desacoplados de una funcionalidad específica
 
-## 🌐 Consumo de API
+# 🌐 Consumo de API
 
 En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `src\shared\API\general-api\http-gateway-observable.api.ts`, que maneja:
 - icono de loader global
@@ -597,7 +597,7 @@ En este proyecto todas las peticiones HTTP deben hacerse usando el servicio cent
 }
 ```
 
-### ❌ Forma incorrecta
+## ❌ Forma incorrecta
 
 No se debe consumir la API directamente con `HttpClient` + `try/catch` en componentes o servicios externos.
 
@@ -617,7 +617,7 @@ No se debe consumir la API directamente con `HttpClient` + `try/catch` en compon
 
 * No centraliza validaciones ni logging.
 
-#### ❌ Ejemplo incorrecto con `lastValueFrom`
+#### ❌ Ejemplo incorrecto - `lastValueFrom`
 
 ```ts
 import { HttpClient } from '@angular/common/http';
@@ -640,7 +640,7 @@ export class BotsComponent {
 }
 ```
 
-#### **❌ Ejemplo incorrecto con `firstValueFrom`**
+### **❌ Ejemplo incorrecto - `firstValueFrom`**
 
 ```ts
 import { HttpClient } from '@angular/common/http';
@@ -663,7 +663,7 @@ export class BotsComponent {
 }
 ```
 
-#### **❌ Ejemplo incorrecto (Angular legacy con `toPromise()`)**
+### **❌ Ejemplo incorrecto - Angular legacy - `toPromise()`**
 
 Antes de `firstValueFrom`, en Angular antiguo se usaba `toPromise()`, pero este enfoque está **deprecado** y ya no se recomienda.
 
@@ -686,7 +686,7 @@ export class BotsComponent {
 }
 ```
 
-#### **❌ Ejemplo incorrecto con observable**
+### **❌ Ejemplo incorrecto - observable**
 
 ```ts
 import { HttpClient } from '@angular/common/http';
@@ -707,7 +707,7 @@ export class BotsComponent {
 }
 ```
 
-#### **❌ Ejemplo incorrecto con `fetch`**
+### **❌ Ejemplo incorrecto - `fetch`**
 
 Angular no usa `fetch` porque es una API básica del navegador y no se integra con la arquitectura del framework.
 
@@ -727,7 +727,7 @@ export class BotsComponent {
 }
 ```
 
-### ✅ Forma correcta
+## ✅ Forma correcta
 
 Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-api\http-gateway-observable.api.ts`) centralizado.
 
@@ -769,7 +769,7 @@ export class BotsComponent {
 }
 ```
 
-## ⏳ Icono de Loader Global
+# ⏳ Icono de Loader Global
 
 El icono de carga se oculta y muestra automáticamente desde `http-observable.service` y `loader.service.ts` cuando se realizan peticiones HTTP.
 
@@ -832,7 +832,7 @@ export class BotsComponent {
 
 * Cuando hay varias peticiones HTTP en un mismo componente se vuelve muy complejo saber en donde escribir `loader = true/false` para mostrar y ocultar el icono de cargando.
 
-#### **✅ Ejemplo correcto con `http-observable.service.ts`**
+### **✅ Ejemplo correcto con `http-observable.service.ts`**
 
 ```ts
 import { inject } from '@angular/core';
@@ -858,15 +858,13 @@ export class BotsComponent {
 }
 ```
 
-## ⚙️ Configuración de peticiones HTTP (`IRequestOptions`)
+# ⚙️ Configuración de peticiones HTTP (`IRequestOptions`)
 
 En este proyecto todas las peticiones realizadas con `http-observable.service.ts` pueden configurarse mediante la interfaz `IRequestOptions`.
 
 Esto permite estandarizar el comportamiento de las llamadas HTTP sin repetir lógica en los componentes.
 
----
-
-### 📦 ¿Qué permite configurar?
+## 📦 ¿Qué permite configurar?
 
 ```ts
 /* src\shared\API\general-api\types\request-data.types.ts */
@@ -952,7 +950,7 @@ export class BotsComponent {
 }
 ```
 
-## ❌ Angular legacy VS ✅ Angular moderno
+# ❌ Angular legacy VS ✅ Angular moderno
 
 ## 📝 Formularios
 
@@ -1018,7 +1016,7 @@ Esto facilita:
 | `highlight.directive.ts`   | directiva       | `@Directive`              |
 | `crypto.utils.ts`          | utils           | `class` clase utilitaria  |
 
-### 🧩 Standalone Components
+## 🧩 Standalone Components
 
 En Angular moderno `AppModule` (`app.module.ts`) ya no es necesario.
 
@@ -1032,7 +1030,7 @@ Además:
 
 - Cada componente importa directamente sus propias dependencias en array `imports: []`
 
-***❌ Ejemplo Incorrecto - Angular legacy con `AppModule`***
+***❌ Ejemplo Incorrecto - Angular legacy - `AppModule`***
 
 ```TS
 /* app.module.ts */
@@ -1098,7 +1096,7 @@ export class ParentComponent {}
 <app-children />
 ```
 
-### 🔀 Directivas de Control de Flujo (Control Flow Directives)
+## 🔀 Directivas de Control de Flujo (Control Flow Directives)
 
 [Documentación oficial para migrar directivas](https://angular.dev/reference/migrations/control-flow)
 
@@ -1116,9 +1114,9 @@ ng generate @angular/core:control-flow
 | `*ngSwitchCase`                | `@case`                 |
 | `*ngSwitchDefault`             | `@default`              |
 
-#### **[`@for`](https://angular.dev/api/core/@for)**
+### **[`@for`](https://angular.dev/api/core/@for)**
 
-***❌ Incorrecto - Angular legacy `*ngFor`***
+***❌ Incorrecto - Angular legacy - `*ngFor`***
 
 ```TS
 /* products.component.ts */
@@ -1186,9 +1184,9 @@ export class ProductsComponent {
 }
 ```
 
-#### **[`@if` `@else if`](https://angular.dev/guide/templates/control-flow)**
+### **[`@if` `@else if`](https://angular.dev/guide/templates/control-flow)**
 
-***❌ Incorrecto - Angular legacy `*ngIf`***
+***❌ Incorrecto - Angular legacy - `*ngIf`***
 
 ```TS
 /* status.component.ts */
@@ -1259,9 +1257,9 @@ export class StatusComponent {
 
 ```
 
-#### **[`@switch`, `@case`, `@default`](https://angular.dev/api/core/@switch)**
+### **[`@switch`, `@case`, `@default`](https://angular.dev/api/core/@switch)**
 
-***❌ Incorrecto - Angular legacy `*ngSwitch`***
+***❌ Incorrecto - Angular legacy - `*ngSwitch`***
 
 ```TS
 /* role.component.ts */
@@ -1334,7 +1332,7 @@ export class RoleComponent {
 }
 ```
 
-### 💉 Inyección de dependencias
+## 💉 Inyección de dependencias
 
 [Documentación oficial para migrar de `constructor()` a `inject()`](https://angular.dev/reference/migrations/inject-function)
 
@@ -1359,7 +1357,7 @@ Esto permite:
 
 * mejor compatibilidad con `Signals`.
 
-#### ***❌ Ejemplo incorrecto - Angular legacy `constructor()`***
+### ***❌ Ejemplo incorrecto - Angular legacy - `constructor()`***
 
 ```TS
 import { Component } from '@angular/core';
@@ -1380,7 +1378,7 @@ export class BotsComponent {
 }
 ```
 
-#### ***✅ Ejemplo correcto - Angular moderno `inject()`***
+### ***✅ Ejemplo correcto - Angular moderno `inject()`***
 
 ```TS
 import { Component, inject } from '@angular/core';
@@ -1399,7 +1397,7 @@ export class BotsComponent {
 }
 ```
 
-### 📡 Estado
+## 📡 Estado
 
 [Tutorial de `signal`](https://youtu.be/jqGjE6iqkvg?si=9PJ8N08wo-M1_GIh)
 
@@ -1419,7 +1417,7 @@ Los signals son reactivos, cuando un signal cambia:
 
 * Evita múltiples `subscribe()` innecesarios.
 
-#### ***❌ Ejemplo incorrecto - Angular legacy estado tradicional NO reactivo automáticamente***
+### ***❌ Ejemplo incorrecto - Angular legacy - estado tradicional NO reactivo automáticamente***
 
 ```TS
 /* counter.component.ts */
@@ -1480,7 +1478,7 @@ export class CounterComponent {
 </button>
 ```
 
-#### ***✅ Ejemplo correcto - Angular moderno estados con `signal`***
+### ***✅ Ejemplo correcto - Angular moderno estados con `signal`***
 
 ```TS
 /* counter.component.ts */
@@ -1538,11 +1536,11 @@ export class CounterComponent {
 </button>
 ```
 
-### 🔄 Input y Output
+## 🔄 Input y Output
 
 [Tutorial](https://youtu.be/_XnEoK47Il0?si=bnZ1NuRuxLIaSYUv)
 
-#### ***❌ Ejemplo incorrecto - Angular legacy `@Input()`, `@Output()` y `*ngFor`***
+### ***❌ Ejemplo incorrecto - Angular legacy - `@Input()`, `@Output()` y `*ngFor`***
 
 ```TS
 /* product.interface.ts */
@@ -1636,7 +1634,7 @@ export class ParentComponent {
 </app-product-children>
 ```
 
-#### ✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`***
+### ✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`***
 
 ```TS
 /* product.interface.ts */
