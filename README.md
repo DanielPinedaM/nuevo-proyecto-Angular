@@ -290,7 +290,8 @@ export class BotsComponent {}
 ```HTML
 <!-- bots.component.html -->
 
-<button id="btn-guardar" class="bg-red-600">
+<button id="btn-guardar"
+        class="bg-red-600">
   Guardar
 </button>
 ```
@@ -312,7 +313,7 @@ Tailwind para estilos especificos de cada componente en `src/app/...` y `src/sha
 ****✅ Ejemplo Correcto de Sass global:****
 
 ```scss
-/* src/styles/global/__scroll-bar.scss */
+// src/styles/global/__scroll-bar.scss
 
 // ocultar barra de scroll, pero hacer q siga funcionando la barra de scroll
 .hidden-scrollbar::-webkit-scrollbar {
@@ -399,16 +400,14 @@ Las variables con nombres de los colores de **Sass** en `src/styles/global/_vari
 
 Esto garantiza que los colores sean los mismos entre los estilos globales definidos en Sass y los estilos de cada componente definidos con Tailwind.
 
-Ejemplo:
+****✅ Ejemplo:****
 
 En Sass y Tailwind ambos colores tienen exactamente el mismo nombre `primary-color` y son el mismo color rojo `#FF0000`
 
 ```scss
-/*
-src/styles/global/_variable.scss
+// src/styles/global/_variable.scss
 
-colores de Sass */
-
+// colores de Sass
 $primary-color: #FF0000;
 ```
 
@@ -422,6 +421,36 @@ colores de Tailwind */
 
 @theme {
   --color-primary-color: #FF0000;
+}
+```
+
+## ⌨️ Configurar Auto-completado y Linter de Tailwind 4
+
+En VS Code o en cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.), seguir estos pasos;
+
+**1.** Instalar extensión [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+
+**2.** Instalar extensión [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
+
+**3.** Abrir el archivo `settings.json`
+
+   - Atajo rápido: `Ctrl + Shift + P`
+   - Luego escribir: `Preferences: Open User Settings (JSON)`
+
+**4.** En `settings.json` agregar esto:
+
+```json
+/* Tailwind 4 */
+{
+  "tailwindCSS.experimental.configFile": "src/styles/global/library/tailwind.css", /* ruta del archivo .css de configuracion de Tailwind 4 */
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.includeLanguages": {
+      "javascript": "javascript",
+      "javascriptreact": "javascriptreact",
+      "plaintext": "html",
+      "typescript": "typescript",
+      "typescriptreact": "typescriptreact"
+  },
 }
 ```
 
