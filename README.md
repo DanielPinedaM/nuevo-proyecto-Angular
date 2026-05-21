@@ -453,7 +453,97 @@ export class BotsComponent {}
 </button>
 ```
 
+## 🖼️ Ruta de Iconos e Imagenes
+
+Debes crear las siguientes carpetas:
+
+```txt
+src/
+└── assets/
+    ├── icon/
+    └── img/
+```
+
+***✅ Correcto:***
+
+Al usar la etiqueta `<img>`, siempre utilizar rutas **absolutas** desde `/assets`.
+
+```html
+<!-- my-component.component.html -->
+
+<!-- usar slash al principio de /assets -->
+<img src="/assets/img/logo.png" alt="Logo" />
+```
+
+***❌ Incorrecto:***
+
+**NO** usar rutas **relativas** para acceder a imágenes e iconos
+
+```html
+<!-- my-component.component.html -->
+
+<!-- es incorrecto porque se escribe ../ -->
+<img src="../../../assets/img/logo.png" alt="Logo" />
+```
+
+```html
+<!-- my-component.component.html -->
+
+<!-- es incorrecto porque NO se escribio el slash al principio de assets -->
+<img src="assets/img/logo.png" alt="Logo" />
+```
+
+### Imagenes
+
+Las **imágenes** del proyecto se deben guardar dentro de la carpeta:
+
+```txt
+src/assets/img/
+```
+
+Ejemplo:
+
+```html
+<!-- my-component.component.html -->
+
+<img src="/assets/icon/my-image.png" alt="image" />
+```
+
+### Iconos
+
+**NO** instales otra libreria para iconos porque en este proyecto es estandar usar [Angular Material Icons](https://fonts.google.com/icons)
+
+Dar prioridad a usar los iconos de [Angular Material Icons](https://fonts.google.com/icons). Ejemplo:
+
+```html
+<!-- my-component.component.html -->
+
+<span class="material-symbols-outlined">
+  home
+</span>
+```
+
+No agregar imágenes/SVGs manualmente si el icono ya existe en [Angular Material Icons](https://fonts.google.com/icons)
+
+Cuando el icono no este en [Angular Material Icons](https://fonts.google.com/icons), entonces agregarlo dentro de la carpeta `src/assets/icon/...`. 
+
+Los **iconos** del proyecto se deben guardar dentro de la carpeta 
+
+```txt
+src/assets/icon/
+```
+
+Ejemplo:
+
+```html
+<!-- my-component.component.html -->
+
+<img src="/assets/icon/logo.png" alt="Logo" />
+```
+
 ## 🔘 Estilos Globales para Botones
+
+Para que los iconos de los botones funcionen se tiene que usar iconos de [Angular Material Icons](https://fonts.google.com/icons)
 
 ***❌ Incorrecto:***
 
