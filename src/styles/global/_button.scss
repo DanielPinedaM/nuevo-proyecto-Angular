@@ -77,9 +77,6 @@ button {
   appearance: none;
   -webkit-appearance: none;
 
-  /* **************************************************
-  Estilos que son comunes en todos los tipos de botones 
-  ***************************************************** */
   &.btn-icon-no-border,
   &.btn-icon-with-border,
   &.btn-with-icon-text-background,
@@ -202,6 +199,7 @@ button {
   }
 
   /*
+  BOTON CON ICONO Y TEXTO SIN BORDE
   ✅ icono
   ✅ texto
   ❌ borde
@@ -249,6 +247,7 @@ button {
   }
 
   /*
+  BOTON CON ICONO Y BORDE
   ✅ icono
   ❌ texto
   ✅ borde
@@ -300,6 +299,7 @@ button {
   }
 
   /*
+  BOTON CON ICONO, TEXTO Y FONDO
   ✅ icono
   ✅ texto
   ❌ borde
@@ -356,6 +356,7 @@ button {
   }
 
   /*
+  BOTON CON ICONO, TEXTO Y BORDE
   ✅ icono
   ✅ texto
   ✅ borde
@@ -416,6 +417,7 @@ button {
   }
 
   /*
+  BOTON CON ICONO Y TEXTO
    ✅ icono
    ✅ texto
    ❌ borde

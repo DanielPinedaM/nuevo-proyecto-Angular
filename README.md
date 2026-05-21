@@ -453,6 +453,216 @@ export class BotsComponent {}
 </button>
 ```
 
+## 🔘 Estilos Globales para Botones
+
+***❌ Incorrecto:***
+
+Usar Tailwind para estilos de los botones
+
+```HTML
+<!-- my-component.component.html -->
+
+<button
+    class="rounded-2xl bg-blue-500 hover:bg-blue-600 px-4 py-2 text-white disabled:cursor-not-allowed enabled:cursor-pointer"
+  >
+  Aceptar
+</button>
+```
+
+***✅ Correcto:***
+
+Siempre se tiene que usar las clases de CSS con los estilos globales para los botones definidos en `src/styles/global/__button.scss`
+
+`__button.scss` tiene estilos para todos los tipos de botones
+
+A continuacion, para cada uno de los botones se muestra como usarlos y se explica sus estilos:
+
+### Boton primario para acciones de confirmacion (guardar, aceptar, si)
+
+  - ❌ icono
+  - ✅ texto
+  - ❌ borde
+  - ✅ fondo
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn-primary">
+  Aceptar
+</button>
+```
+
+**NO** hover
+
+![btn-primary](./docs/readme-md/img/button/btn-primary.png)
+
+### Boton secundario con borde para acciones de cancelacion (eliminar, cancelar, no)
+
+  - ❌ icono
+  - ✅ texto
+  - ✅ borde
+  - 🖱️ fondo solo se muestra en hover
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn-secondary-with-border">
+  Cancelar
+</button>
+```
+
+**NO** hover
+
+![btn-secondary-with-border-no-hover](./docs/readme-md/img/button/btn-secondary-with-border-no-hover.png)
+
+hover
+
+![btn-secondary-with-border-hover](./docs/readme-md/img/button/btn-secondary-with-border-hover.png)
+
+### Boton secundario sin borde para acciones de cancelacion (eliminar, cancelar, no)
+
+  - ❌ icono
+  - ✅ texto
+  - ❌ borde
+  - 🖱️ fondo solo se muestra en hover
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn-secondary-no-border">
+  Cancelar
+</button>
+```
+
+**NO** hover
+
+![btn-secondary-no-border-no-hover](./docs/readme-md/img/button/btn-secondary-no-border-no-hover.png)
+
+hover
+
+![btn-secondary-no-border-hover](./docs/readme-md/img/button/btn-secondary-no-border-hover.png)
+
+### Boton con icono y texto sin borde
+
+  - ✅ icono
+  - ✅ texto
+  - ❌ borde
+  - 🖱️ fondo solo se muestra en hover
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn-icon-no-border">
+  <span class="material-symbols-outlined">
+    home
+  </span>
+  <span>Boton</span>
+</button>
+```
+
+**NO** hover
+
+![btn-icon-no-border-no-hover](./docs/readme-md/img/button/btn-icon-no-border-no-hover.png)
+
+hover
+
+![btn-icon-no-border-hover](./docs/readme-md/img/button/btn-icon-no-border-hover.png)
+
+### Boton con icono y borde
+
+  - ✅ icono
+  - ❌ texto
+  - ✅ borde
+  - 🖱️ fondo solo se muestra en hover
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn-icon-with-border">
+    <span class="material-symbols-outlined"> home </span>
+</button>
+```
+
+**NO** hover
+
+![btn-icon-with-border-no-hover](./docs/readme-md/img/button/btn-icon-with-border-no-hover.png)
+
+hover
+
+![btn-icon-with-border-hover](./docs/readme-md/img/button/btn-icon-with-border-hover.png)
+
+### Boton con icono, texto y fondo
+
+  - ✅ icono
+  - ✅ texto
+  - ❌ borde
+  - ✅ fondo
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn-with-icon-text-background">
+  <span class="material-symbols-outlined"> home </span>
+  <span>Boton</span>
+</button>
+```
+
+**NO** hover
+
+![btn-with-icon-text-background-no-hover](./docs/readme-md/img/button/btn-with-icon-text-background-no-hover.png)
+
+hover
+
+![btn-with-icon-text-background-hover](./docs/readme-md/img/button/btn-with-icon-text-background-hover.png)
+
+### Boton con icono, texto y borde
+
+  - ✅ icono
+  - ✅ texto
+  - ✅ borde
+  - 🖱️ fondo solo se muestra en hover
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn-with-icon-text-border">
+  <span class="material-symbols-outlined"> home </span>
+  <span>Boton</span>
+</button>
+```
+
+**NO** hover
+
+![btn-with-icon-text-border-no-hover](./docs/readme-md/img/button/btn-with-icon-text-border-no-hover.png)
+
+hover
+
+![btn-with-icon-text-border-hover](./docs/readme-md/img/button/btn-with-icon-text-border-hover.png)
+
+### Boton con icono y texto
+
+  - ✅ icono
+  - ✅ texto
+  - ❌ borde
+  - 🖱️ fondo solo se muestra en hover
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn-with-icon-text-no-border">
+  <span class="material-symbols-outlined"> home </span>
+  <span>Boton</span>
+</button> 
+```
+
+**NO** hover
+
+![btn-with-icon-text-no-border-no-hover](./docs/readme-md/img/button/btn-with-icon-text-no-border-no-hover.png)
+
+hover
+
+![btn-with-icon-text-no-border-hover](./docs/readme-md/img/button/btn-with-icon-text-no-border-hover.png)
+
 # 🔀 Enrutado
 
 El nombre de las carpetas dentro de `src/app` tiene que coincidir exactamente con las rutas definidas en `src/app/app.routes.ts`
