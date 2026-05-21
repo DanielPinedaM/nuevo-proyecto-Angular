@@ -1304,7 +1304,7 @@ Por esta razón, en este proyecto:
 
 Cuando Signal Forms sea estable y maduro, se podrá migrar gradualmente.
 
-### 🧹 Sufijos en nombres de archivos
+## 🧹 Sufijos en nombres de archivos
 
 [Angular moderno eliminó la necesidad de usar sufijos como:](https://www.reddit.com/r/angular/comments/1lk8r9k/bring_back_suffixes_in_angular_20_cli_need_20/?tl=es-419)
 
