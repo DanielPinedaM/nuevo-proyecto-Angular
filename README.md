@@ -753,13 +753,49 @@ hover
 
 ![btn-with-icon-text-no-border-hover](./docs/readme-md/img/button/btn-with-icon-text-no-border-hover.png)
 
+# 🔒 Protección de Rutas
+
+Todas las páginas protegidas de la aplicación deben ser `children` de `MainWrapperComponent`.
+
+Los `children` de `MainWrapperComponent` son las rutas protegidas despues de que el usuario se loguea.
+
+```ts
+/* src/app/app.routes.ts */
+import { Routes } from "@angular/router";
+import { AuthGuard } from "@/shared/guards/auth.guard";
+
+// #region - contenedor principal de paginas despues de loguearse
+import { MainWrapperComponent } from '@/app/home/main-wrapper/main-wrapper.component';
+// #endregion
+
+import { BotsComponent } from '@/app/home/bots/bots.component';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: MainWrapperComponent,
+
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+
+    children: [
+      {
+        // /bots
+        path: 'bots',
+        component: BotsComponent,
+      },
+    ],
+  },
+];
+```
+
 # 🔀 Enrutado
 
 El nombre de las carpetas dentro de `src/app` tiene que coincidir exactamente con las rutas definidas en `src/app/app.routes.ts`
 
 Esto permite ubicar los componentes que corresponden a cada URL
 
-Además, todas las páginas protegidas de la aplicación deben ser `children` de `MainWrapperComponent`.
+Además,
 
 ***✅ Correcto:***
 
