@@ -506,7 +506,7 @@ Ejemplo:
 ```html
 <!-- my-component.component.html -->
 
-<img src="/assets/icon/my-image.png" alt="image" />
+<img src="/assets/img/my-image.png" alt="image" />
 ```
 
 ### Iconos
