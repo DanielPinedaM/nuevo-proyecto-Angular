@@ -1006,14 +1006,10 @@ El estilo de boton desactivado se aplica a cualquier variante de botón, sin imp
 ![boton-desactivado](./docs/readme-md/img/button/boton-desactivado.png)
 
 ```html
-<button disabled class="btn btn-danger">
-  Danger
-</button>
+<button disabled class="btn btn-danger">Danger</button>
 
 <!-- Enlaces -->
-<button disabled class="btn btn-link" routerLink="/home">
-  Link
-</button>
+<button disabled class="btn btn-link" routerLink="/home">Link</button>
 ```
 
 ### 📐 Tamaños
@@ -1080,9 +1076,23 @@ Esto significa que no es necesario declararlo explícitamente: si no se especifi
   </button>
 ```
 
-### Modificadores - Boton en bloque - Responsive
+### Modificadores - Boton en Bloque - Responsive
 
-`btn-full-width` Hace que el boton ocupe todo al ancho disponible de su contenedor padre y es responsive, usa `width: 100%`.
+En CSS un elemento en bloque es aquel que ocupa todo el ancho disponible de su contenedor y siempre inicia en una nueva línea ("renglon")
+
+```SCSS
+.block {
+  display: block;
+}
+```
+
+```SCSS
+.flex {
+  display: flex;
+}
+```
+
+`btn-full-width` hace que el boton ocupe todo al ancho disponible de su contenedor padre y es responsive, usa `width: 100%`.
 
 Funciona para cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
 
