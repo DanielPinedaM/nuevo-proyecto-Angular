@@ -1,9 +1,13 @@
 /*
-****************************************************************
-* Estilos globales de Sass para botones                        *
-* codigo basado en arquitectura de Bootstrap 5.3 para botones  *
-* https://getbootstrap.com/docs/5.3/components/buttons/        *
-**************************************************************** */
+***********************************************************************************
+* Estilos globales de Sass para botones                                           *
+*                                                                                 *
+* Arquitectura basada en:                                                         *
+* - Bootstrap 5.3 buttons    https://getbootstrap.com/docs/5.3/components/buttons *
+* - Tailwind 4 font-size     https://tailwindcss.com/docs/font-size               *
+* - Tailwind 4 line-height   https://tailwindcss.com/docs/line-height             *
+* - Tailwind 4 padding       https://tailwindcss.com/docs/padding                 *
+*********************************************************************************** */
 
 @use "./variable.scss" as variable;
 
@@ -24,8 +28,7 @@
   // py-2 px-4
   padding: 0.5rem 1rem;
 
-  // text-base
-  font-size: 1rem;
+  font-size: 1rem; // text-base = 1rem = 16px
   line-height: calc(1.2 / 1);
 }
 
@@ -536,15 +539,9 @@ Estilos para enlaces. Ejemplo:
   }
 }
 
-/* *********************************************************************************************
-* Tamaño de boton                                                                              *
-*                                                                                              *
-* Arquitectura basada en:                                                                      *
-* - Bootstrap 5.3 buttons sizing   https://getbootstrap.com/docs/5.3/components/buttons/#sizes *
-* - Tailwind 4 font-size           https://tailwindcss.com/docs/font-size                      *
-* - Tailwind 4 line-height         https://tailwindcss.com/docs/line-height                    *
-* - Tailwind 4 padding             https://tailwindcss.com/docs/padding                        *
-************************************************************************************************ */
+/* ****************
+* Tamaño de boton *
+******************* */
 
 /* extra small */
 .btn-xs {
@@ -601,11 +598,9 @@ Estilos para enlaces. Ejemplo:
   line-height: calc(2 / 1.5);
 }
 
-/* **************************************************************
-* boton q contiene SOLAMENTE icono                              *
-* Arquitectura basada en:                                       *
-* - Tailwind 4 font-size https://tailwindcss.com/docs/font-size *
-***************************************************************** */
+/* *********************************
+* boton q contiene SOLAMENTE icono *
+************************************ */
 
 // modificador
 // Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto),
@@ -629,7 +624,7 @@ Estilos para enlaces. Ejemplo:
 }
 
 .btn-base.btn-icon-only {
-  font-size: 1rem; // text-base = 16px
+  font-size: 1rem; // text-base = 1rem = 16px
 }
 
 .btn-lg.btn-icon-only {
