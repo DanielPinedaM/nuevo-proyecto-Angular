@@ -1,3 +1,5 @@
+@use "./variable.scss" as variable;
+
 /*
 ***********************************************************************************
 * Estilos globales de Sass para botones                                           *
@@ -24,40 +26,41 @@
 *                                                                               *
 ********************************************************************************* */
 
-$primary:                 oklch(54.62% 0.228 262.44);          // #0d6efd
-$primary-contrast:        oklch(48.84% 0.217 264.38);          // #0b5ed7
-$primary-emphasis:        oklch(54.62% 0.228 262.44 / 0.25);   // #0d6efd40
+$primary: oklch(54.62% 0.228 262.44); // #0d6efd
+$primary-contrast: oklch(48.84% 0.217 264.38); // #0b5ed7
+$primary-emphasis: oklch(54.62% 0.228 262.44 / 0.25); // #0d6efd40
 
-$secondary:               oklch(55.42% 0.023 264.36);          // #6c757d
-$secondary-contrast:      oklch(49.96% 0.02 264.11);           // #5c636a
-$secondary-emphasis:      oklch(55.42% 0.023 264.36 / 0.4);    // #6c757d66
+$secondary: oklch(55.42% 0.023 264.36); // #6c757d
+$secondary-contrast: oklch(49.96% 0.02 264.11); // #5c636a
+$secondary-emphasis: oklch(55.42% 0.023 264.36 / 0.4); // #6c757d66
 
-$success:                oklch(57.93% 0.126 158.62);           // #198754
-$success-contrast:       oklch(52.34% 0.113 158.91);           // #157347
-$success-emphasis:       oklch(57.93% 0.126 158.62 / 0.4);     // #19875466
+$success: oklch(57.93% 0.126 158.62); // #198754
+$success-contrast: oklch(52.34% 0.113 158.91); // #157347
+$success-emphasis: oklch(57.93% 0.126 158.62 / 0.4); // #19875466
 
-$danger:                 oklch(60.24% 0.208 24.18);            // #dc3545
-$danger-contrast:        oklch(53.08% 0.183 22.64);            // #bb2d3b
-$danger-emphasis:        oklch(60.24% 0.208 24.18 / 0.4);      // #dc354566
+$danger: oklch(60.24% 0.208 24.18); // #dc3545
+$danger-contrast: oklch(53.08% 0.183 22.64); // #bb2d3b
+$danger-emphasis: oklch(60.24% 0.208 24.18 / 0.4); // #dc354566
 
-$warning:                oklch(87.73% 0.181 92.84);            // #ffc107
-$warning-contrast:       oklch(89.92% 0.17 94.41);             // #ffca2c
-$warning-emphasis:       oklch(87.73% 0.181 92.84 / 0.4);      // #ffc10766
+$warning: oklch(87.73% 0.181 92.84); // #ffc107
+$warning-contrast: oklch(89.92% 0.17 94.41); // #ffca2c
+$warning-emphasis: oklch(87.73% 0.181 92.84 / 0.4); // #ffc10766
 
-$info:                   oklch(78.44% 0.135 220.52);           // #0dcaf0
-$info-contrast:          oklch(81.36% 0.114 220.17);           // #31d2f2
-$info-emphasis:          oklch(78.44% 0.135 220.52 / 0.4);     // #0dcaf066
+$info: oklch(78.44% 0.135 220.52); // #0dcaf0
+$info-contrast: oklch(81.36% 0.114 220.17); // #31d2f2
+$info-emphasis: oklch(78.44% 0.135 220.52 / 0.4); // #0dcaf066
 
-$light:                  oklch(99.12% 0.002 264.54);           // #fdfdfe
-$light-contrast:         oklch(87.34% 0.006 264.51);           // #d3d4d5
-$light-emphasis:         oklch(55.42% 0.023 264.36 / 0.4);     // #6c757d66
+$light: oklch(99.12% 0.002 264.54); // #fdfdfe
+$light-contrast: oklch(87.34% 0.006 264.51); // #d3d4d5
+$light-emphasis: oklch(55.42% 0.023 264.36 / 0.4); // #6c757d66
 
-$dark:                   oklch(27.03% 0.015 264.05);           // #212529
-$dark-contrast:          oklch(35.18% 0.018 264.11);           // #343a40
-$dark-emphasis:          oklch(27.03% 0.015 264.05 / 0.4);     // #21252966
+$dark: oklch(27.03% 0.015 264.05); // #212529
+$dark-contrast: oklch(35.18% 0.018 264.11); // #343a40
+$dark-emphasis: oklch(27.03% 0.015 264.05 / 0.4); // #21252966
 
-$ghost:                   transparent;
-$ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
+$ghost: transparent;
+$ghost-contrast: oklch(55.9% 0.22 264.05 / 0.08); // #0d6efd14
+$ghost-emphasis: oklch(55.42% 0.023 264.36 / 0.35); // #6c757d59
 
 /* ********
 * @extend *
@@ -143,6 +146,7 @@ $ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
 
   background-color: transparent;
 
+  font-family: variable.$inter;
   font-weight: 500;
 
   // Eliminar color de fondo azul cuando se hace click en los enlaces <a>
@@ -404,13 +408,13 @@ Estilos para enlaces. Ejemplo:
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: rgba(13, 110, 253, 0.08);
+      background-color: $ghost-contrast;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: rgba(13, 110, 253, 0.12);
+      background-color: $ghost-contrast;
     }
   }
 }
@@ -669,8 +673,8 @@ Estilos para enlaces. Ejemplo:
 
   // como la clase .btn usa flex entonces se necesita
   // hacer que boton tenga medidas de width y height
-  flex-shrink: 0; // evitar q boton se encoja
-  flex-grow: 0;   // evitar q boton se expanda
+  flex-shrink: 0;  // evitar q boton se encoja
+  flex-grow: 0;    // evitar q boton se expanda
 }
 
 // tamaño boton que solo tiene icono
@@ -709,7 +713,7 @@ Estilos para enlaces. Ejemplo:
 .btn-outline-primary,
 .btn-link {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $primary-emphasis; // #0d6efd40
+    box-shadow: 0 0 0 0.25rem $primary-emphasis;
   }
 }
 
@@ -717,7 +721,7 @@ Estilos para enlaces. Ejemplo:
 .btn-secondary,
 .btn-outline-secondary {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $secondary-emphasis; // #6c757d66
+    box-shadow: 0 0 0 0.25rem $secondary-emphasis;
   }
 }
 
@@ -725,7 +729,7 @@ Estilos para enlaces. Ejemplo:
 .btn-success,
 .btn-outline-success {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $success-emphasis; // #19875466
+    box-shadow: 0 0 0 0.25rem $success-emphasis;
   }
 }
 
@@ -733,7 +737,7 @@ Estilos para enlaces. Ejemplo:
 .btn-danger,
 .btn-outline-danger {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $danger-emphasis; // #dc354566
+    box-shadow: 0 0 0 0.25rem $danger-emphasis;
   }
 }
 
@@ -741,7 +745,7 @@ Estilos para enlaces. Ejemplo:
 .btn-warning,
 .btn-outline-warning {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $warning-emphasis; // #ffc10766
+    box-shadow: 0 0 0 0.25rem $warning-emphasis;
   }
 }
 
@@ -749,7 +753,7 @@ Estilos para enlaces. Ejemplo:
 .btn-info,
 .btn-outline-info {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $info-emphasis; // #0dcaf066
+    box-shadow: 0 0 0 0.25rem $info-emphasis;
   }
 }
 
@@ -757,7 +761,7 @@ Estilos para enlaces. Ejemplo:
 .btn-light,
 .btn-outline-light {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $light-emphasis; // #6c757d66
+    box-shadow: 0 0 0 0.25rem $light-emphasis;
   }
 }
 
@@ -765,14 +769,14 @@ Estilos para enlaces. Ejemplo:
 .btn-dark,
 .btn-outline-dark {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $dark-emphasis; // #21252966
+    box-shadow: 0 0 0 0.25rem $dark-emphasis;
   }
 }
 
 /* ghost */
 .btn-ghost {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $ghost-emphasis; // #6c757d59
+    box-shadow: 0 0 0 0.25rem $ghost-emphasis;
   }
 }
 
