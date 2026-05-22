@@ -580,7 +580,7 @@ La arquitectura está diseñada para proyectos grandes y escalables, separando r
 | modificadores     | `.btn-outline`   | Agrega estilos con borde                                               |
 | tamaños           | `.btn-sm`        | Tamaño pequeño                                                         |
 | tamaños           | `.btn-lg`        | Tamaño grande                                                          |
-| estilos de iconos | `.btn-icon`      | Estilos para botones con iconos                                        |
+| estilos de iconos | `.btn-icon-only` | Estilos para boton que contiene solamente icono (sin texto)            |
 
 **NO** usar etiquetas `<img>` para iconos porque las imágenes no se integran correctamente con la arquitectura CSS de los botones y dificultan aplicar estilos dinámicos como:
 
