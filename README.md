@@ -71,7 +71,7 @@ src/
 │   │     ├── breadcrumbs/ → Componente con migas de pan
 │   │     ├── loader/ → icono de cargando
 │   │     └── menu/ → Componente de menú
-│   │ 
+│   │
 │   ├── models/ → contiene tipos de datos y constantes globales
 │   │   ├── constants/
 │   │   ├── interface/
@@ -81,13 +81,13 @@ src/
 │   │ ├── general-api/ →
 │   │ │ └── http-gateway-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
 │   │ │ └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
-│   │ 
+│   │
 │   ├── service/ → clases reutilizables usadas para separar lógica reutilizable que no debería estar dentro de los componentes
 │   │ └── RxJS-BehaviorSubject/ → Archivos con RxJS BehaviorSubject ()
 │   │     └── layout/
 │   │         └── loader.service.ts → estado global para ocultar y mostrar icono de cargando
 │   │         └── viewport-width.service.ts → devuelve un numero con el ancho del viewport (pantalla),
-│   │         └── current-route.service.ts → devuelve un string con la ruta actual 
+│   │         └── current-route.service.ts → devuelve un string con la ruta actual
 │   │
 │   ├── utils/
 │   │ ├── class/
@@ -110,7 +110,7 @@ src/
 │   │        └── _prime-ng.scss → estilos que afectan a Prime NG
 │   │        └── _sweet-alert-2.scss → estilos que afectan a Sweet Alert 2
 │   │        └── _tailwind.css → archivo de configuración de Tailwind 4
-│   │ 
+│   │
 │   ├── _button.scss → estilos globales de botones
 │   ├── _reset.scss → elimina los estilos por defecto del navegador para asegurar una apariencia uniforme en todos los navegadores
 │   ├── _scroll-bar.scss → estilos globales de barra de scroll
@@ -124,140 +124,125 @@ Usar la librería **Luxon** para el manejo de fechas. **NO** usar `new Date()` *
 
 Esto se debe a que:
 
-* `new Date()` tiene comportamientos inconsistentes entre zonas horarias.
+- `new Date()` tiene comportamientos inconsistentes entre zonas horarias.
 
-* `new Date()` Es difícil de formatear y manipular de forma segura.
+- `new Date()` Es difícil de formatear y manipular de forma segura.
 
-* `new Date()` No maneja bien timezones ni conversiones complejas.
+- `new Date()` No maneja bien timezones ni conversiones complejas.
 
-* [Moment.js está en modo legacy/deprecado y ya no se recomienda para proyectos modernos.](https://momentjs.com/docs/#/-project-status/)
+- [Moment.js está en modo legacy/deprecado y ya no se recomienda para proyectos modernos.](https://momentjs.com/docs/#/-project-status/)
 
-* Luxon ofrece una API más clara, moderna y robusta para fechas, tiempos y zonas horarias.
+- Luxon ofrece una API más clara, moderna y robusta para fechas, tiempos y zonas horarias.
 
-***❌ Incorrecto - usar `new Date()`***
+**❌ Incorrecto - usar `new Date()`**
 
 ```ts
 const now = new Date();
 const formatted = now.toLocaleDateString();
 ```
 
-***❌ Incorrecto - usar moment.js***
+**❌ Incorrecto - usar moment.js**
 
 ```ts
-import moment from 'moment';
+import moment from "moment";
 
-const today = moment().format('YYYY-MM-DD');
+const today = moment().format("YYYY-MM-DD");
 ```
 
-***✅ Correcto - usar Luxon***
+**✅ Correcto - usar Luxon**
 
 ```ts
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 
 const now = DateTime.now();
-const formatted = now.toFormat('yyyy-MM-dd');
+const formatted = now.toFormat("yyyy-MM-dd");
 ```
 
 En `src\shared\utils\class\LuxonClass.utils.ts` hay funciones para el manejo (formateo) de fecha y hora usando Luxon.
 
-***❌ Incorrecto - NO usar `formatDate`, usar Luxon directo***
+**❌ Incorrecto - NO usar `formatDate`, usar Luxon directo**
 
 Problemas de este enfoque:
 
-* Repetición de código en múltiples componentes
+- Repetición de código en múltiples componentes
 
-* cada dev formatea fechas de forma distinta, sin estandarización.
+- cada dev formatea fechas de forma distinta, sin estandarización.
 
 ```ts
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 
 export class BotsComponent {
   getDate() {
     const now = DateTime.now();
 
-    const formatted = now
-         .setLocale('es')
-         .toFormat('d-LLL-yyyy hh:mm:ss a');
+    const formatted = now.setLocale("es").toFormat("d-LLL-yyyy hh:mm:ss a");
 
     console.log(formatted);
   }
 }
 ```
 
-***✅ Correcto - usar `formatDate`***
+**✅ Correcto - usar `formatDate`**
 
 ```ts
-import { Component, inject } from '@angular/core';
-import { DateTime } from 'luxon';
-import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+import { Component, inject } from "@angular/core";
+import { DateTime } from "luxon";
+import LuxonClass from "@/shared/utils/class/LuxonClass.utils";
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
+  selector: "app-bots",
+  templateUrl: "./bots.component.html",
 })
 export class BotsComponent {
-
   private dateUtils = inject(LuxonClass);
 
   getDate() {
-    const formatted = this.dateUtils.formatDate(
-      DateTime.now(),
-      'd-LLL-yyyy hh:mm:ss a'
-    );
+    const formatted = this.dateUtils.formatDate(DateTime.now(), "d-LLL-yyyy hh:mm:ss a");
 
     console.log(formatted);
   }
 }
 ```
 
-En `src\shared\utils\class\LuxonClass.utils.ts` hay función para obtener fecha y hora actual con formato de fecha y hora personalizada 
+En `src\shared\utils\class\LuxonClass.utils.ts` hay función para obtener fecha y hora actual con formato de fecha y hora personalizada
 
-***❌ Incorrecto - usar Luxon directamente para obtener fecha y hora actual***
+**❌ Incorrecto - usar Luxon directamente para obtener fecha y hora actual**
 
 Problemas de este enfoque:
 
-* Repetición de código en múltiples componentes
+- Repetición de código en múltiples componentes
 
-* cada dev formatea fechas de forma distinta, sin estandarización.
+- cada dev formatea fechas de forma distinta, sin estandarización.
 
 ```ts
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 
 export class BotsComponent {
-
   getCurrentDateTime() {
-    const now = DateTime.now()
-      .setLocale('es')
-      .toFormat('d-LLL-yyyy hh:mm:ss a')
-      .replace(/\.$/, '');
+    const now = DateTime.now().setLocale("es").toFormat("d-LLL-yyyy hh:mm:ss a").replace(/\.$/, "");
 
-    const fixed = now
-      .replace(/p\.\s?m/gi, 'p.m')
-      .replace(/a\.\s?m/gi, 'a.m');
+    const fixed = now.replace(/p\.\s?m/gi, "p.m").replace(/a\.\s?m/gi, "a.m");
 
     console.log(fixed);
   }
 }
 ```
 
-****✅ Ejemplo correcto - usar `LuxonClass.utils.ts`****
+\***\*✅ Ejemplo correcto - usar `LuxonClass.utils.ts`\*\***
 
 ```ts
-import { Component, inject } from '@angular/core';
-import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+import { Component, inject } from "@angular/core";
+import LuxonClass from "@/shared/utils/class/LuxonClass.utils";
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
+  selector: "app-bots",
+  templateUrl: "./bots.component.html",
 })
 export class BotsComponent {
-
   private dateUtils = inject(LuxonClass);
 
   getCurrentDateTime() {
-    const current = this.dateUtils.currentDateAndTime(
-      'd-LLL-yyyy hh:mm:ss a'
-    );
+    const current = this.dateUtils.currentDateAndTime("d-LLL-yyyy hh:mm:ss a");
 
     console.log(current);
   }
@@ -276,7 +261,7 @@ La configuración de Tailwind ahora se realiza en el archivo `src/styles/global/
 
 Esto permite centralizar la definición de tokens de diseño (colores, media queries, etc.) sin necesidad de configuración en archivo JavaScript.
 
-***❌ Incorrecto - Configurar Tailwind 3 con `.js`***
+**❌ Incorrecto - Configurar Tailwind 3 con `.js`**
 
 ```js
 /* tailwind.config.js */
@@ -285,14 +270,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-color': '#FF0000',
+        "primary-color": "#FF0000",
       },
     },
   },
 };
 ```
 
-***✅ Correcto - Configurar Tailwind 4 con `.css`***
+**✅ Correcto - Configurar Tailwind 4 con `.css`**
 
 ```CSS
 /* src/styles/global/library/tailwind.css */
@@ -312,23 +297,23 @@ En VS Code o en cualquier editor basado en VS Code (Antigravity, Cursor, Windsur
 
 **3.** Abrir el archivo `settings.json`
 
-   - Atajo rápido: `Ctrl + Shift + P`
-   - Luego escribir: `Preferences: Open User Settings (JSON)`
+- Atajo rápido: `Ctrl + Shift + P`
+- Luego escribir: `Preferences: Open User Settings (JSON)`
 
 **4.** En `settings.json` agregar esto:
 
 ```json
 /* Tailwind 4 */
 {
-  "tailwindCSS.experimental.configFile": "src/styles/global/library/tailwind.css", /* ruta del archivo .css de configuracion de Tailwind 4 */
+  "tailwindCSS.experimental.configFile": "src/styles/global/library/tailwind.css" /* ruta del archivo .css de configuracion de Tailwind 4 */,
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.includeLanguages": {
-      "javascript": "javascript",
-      "javascriptreact": "javascriptreact",
-      "plaintext": "html",
-      "typescript": "typescript",
-      "typescriptreact": "typescriptreact"
-  },
+    "javascript": "javascript",
+    "javascriptreact": "javascriptreact",
+    "plaintext": "html",
+    "typescript": "typescript",
+    "typescriptreact": "typescriptreact"
+  }
 }
 ```
 
@@ -338,7 +323,7 @@ Las variables con nombres de los colores de **Sass** en `src/styles/global/_vari
 
 Esto garantiza que los colores sean los mismos entre los estilos globales definidos en Sass y los estilos de cada componente definidos con Tailwind.
 
-****✅ Ejemplo:****
+\***\*✅ Ejemplo:\*\***
 
 En Sass y Tailwind ambos colores tienen exactamente el mismo nombre `primary-color` y son el mismo color rojo `#FF0000`
 
@@ -346,7 +331,7 @@ En Sass y Tailwind ambos colores tienen exactamente el mismo nombre `primary-col
 // src/styles/global/_variable.scss
 
 // colores de Sass
-$primary-color: #FF0000;
+$primary-color: #ff0000;
 ```
 
 [Documentación de variables de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4#css-theme-variables)
@@ -364,21 +349,21 @@ colores de Tailwind */
 
 ## 🤔 ¿Cómo usar Tailwind y Sass juntos?
 
-****❌ Incorrecto:****
+\***\*❌ Incorrecto:\*\***
 
 Todos los componentes de Angular **NO** pueden tener archivos de Sass ni CSS con `styleUrls`,
 
 Mezclar Sass y Tailwind en un mismo componente es mala práctica porque los estilos de Sass y Tailwind se sobrescriben debido a la especificidad, herencia y cascada de CSS.
 
-****❌ Ejemplo incorrecto:****
+\***\*❌ Ejemplo incorrecto:\*\***
 
 ```ts
 /* bots.component.ts */
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
-  styleUrls: ["./bots.component.scss"], /*  NO se puede escribir `styleUrls` */
+  selector: "app-bots",
+  templateUrl: "./bots.component.html",
+  styleUrls: ["./bots.component.scss"] /*  NO se puede escribir `styleUrls` */,
 })
 export class BotsComponent {}
 ```
@@ -400,13 +385,13 @@ export class BotsComponent {}
 }
 ```
 
-***✅ Correcto:***
+**✅ Correcto:**
 
 Sass para estilos globales en `src/styles/global/...`
 
 Tailwind para estilos especificos de cada componente en `src/app/...` y `src/shared/components/...`
 
-****✅ Ejemplo Correcto de Sass global:****
+\***\*✅ Ejemplo Correcto de Sass global:\*\***
 
 ```scss
 // src/styles/global/__scroll-bar.scss
@@ -433,14 +418,14 @@ Tailwind para estilos especificos de cada componente en `src/app/...` y `src/sha
 </div>
 ```
 
-****✅ Ejemplo Correcto de Tailwind:****
+\***\*✅ Ejemplo Correcto de Tailwind:\*\***
 
 ```ts
 /* bots.component.ts */
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
+  selector: "app-bots",
+  templateUrl: "./bots.component.html",
 })
 export class BotsComponent {}
 ```
@@ -464,7 +449,7 @@ src/
     └── img/
 ```
 
-***✅ Correcto:***
+**✅ Correcto:**
 
 Al usar la etiqueta `<img>`, siempre utilizar rutas **absolutas** desde `/assets`.
 
@@ -475,7 +460,7 @@ Al usar la etiqueta `<img>`, siempre utilizar rutas **absolutas** desde `/assets
 <img src="/assets/img/logo.png" alt="Logo" />
 ```
 
-***❌ Incorrecto:***
+**❌ Incorrecto:**
 
 **NO** usar rutas **relativas** para acceder a imágenes e iconos
 
@@ -513,21 +498,53 @@ Ejemplo:
 
 **NO** instales otra libreria para iconos porque en este proyecto es estandar usar [Angular Material Icons](https://fonts.google.com/icons)
 
-Dar prioridad a usar los iconos de [Angular Material Icons](https://fonts.google.com/icons). Ejemplo:
+Dar prioridad a usar los iconos de [Angular Material Icons](https://fonts.google.com/icons)
+
+Usar siempre la siguiente estructura:
 
 ```html
 <!-- my-component.component.html -->
 
-<span class="material-symbols-outlined">
-  home
-</span>
+<span class="material-symbols-outlined"> home </span>
+```
+
+La clase:
+
+```html
+material-symbols-outlined
+```
+
+No debe modificarse ni reemplazarse.
+
+Esa clase es la que permite renderizar correctamente los iconos de Angular Material.
+
+Lo único que debe cambiar es el nombre del icono:
+
+```html
+home
+```
+
+Dependiendo del icono que se quiera mostrar.
+
+Ejemplos:
+
+```html
+<span class="material-symbols-outlined"> delete </span>
+```
+
+```html
+<span class="material-symbols-outlined"> settings </span>
+```
+
+```html
+<span class="material-symbols-outlined"> search </span>
 ```
 
 No agregar imágenes/SVGs manualmente si el icono ya existe en [Angular Material Icons](https://fonts.google.com/icons)
 
-Cuando el icono no este en [Angular Material Icons](https://fonts.google.com/icons), entonces agregarlo dentro de la carpeta `src/assets/icon/...`. 
+Cuando el icono no este en [Angular Material Icons](https://fonts.google.com/icons), entonces agregarlo dentro de la carpeta `src/assets/icon/...`.
 
-Los **iconos** del proyecto se deben guardar dentro de la carpeta 
+Los **iconos** del proyecto se deben guardar dentro de la carpeta
 
 ```txt
 src/assets/icon/
@@ -543,215 +560,554 @@ Ejemplo:
 
 ## 🔘 Estilos Globales para Botones
 
-Para que los iconos de los botones funcionen se tiene que usar iconos de [Angular Material Icons](https://fonts.google.com/icons)
+Está guía de estilos para botones está basada en:
 
-***❌ Incorrecto:***
+- [Arquitectura de Bootstrap 5.3 para botones](https://getbootstrap.com/docs/5.3/components/buttons/)
 
-Usar Tailwind para estilos de los botones
+- [Tailwind 4 font-size](https://tailwindcss.com/docs/font-size)
+
+- [Tailwind 4 line-height](https://tailwindcss.com/docs/line-height)
+
+- [Tailwind 4 padding](https://tailwindcss.com/docs/padding)
+
+La arquitectura está diseñada para proyectos grandes y escalables, separando responsabilidades en:
+
+| Categoría         | Ejemplo de clase | Responsabilidad                                                        |
+| ----------------- | ---------------- | ---------------------------------------------------------------------- |
+| clases base       | `.btn`           | Estilos base para boton (reset CSS para boton, borde redondeado, etc.) |
+| variantes         | `.btn-primary`   | Variante visual principal                                              |
+| variantes         | `.btn-secondary` | Variante visual secundaria                                             |
+| modificadores     | `.btn-outline`   | Agrega estilos con borde                                               |
+| tamaños           | `.btn-sm`        | Tamaño pequeño                                                         |
+| tamaños           | `.btn-lg`        | Tamaño grande                                                          |
+| estilos de iconos | `.btn-icon`      | Estilos para botones con iconos                                        |
+
+**NO** usar etiquetas `<img>` para iconos porque las imágenes no se integran correctamente con la arquitectura CSS de los botones y dificultan aplicar estilos dinámicos como:
+
+- `color`
+- `hover`
+- `active`
+- `disabled`
+- `font-size`
+- dark mode
+
+Esto rompe la consistencia visual y vuelve el código más difícil de mantener y escalar.
+
+**❌ Incorrecto:**
+
+```html
+<button>
+  <img src="/assets/icon/delete.svg" alt="Eliminar" />
+</button>
+```
+
+Por ejemplo, para intentar cambiar color, tamaño o estados visuales de imágenes `<img>`, normalmente se termina recurriendo a hacks visuales con CSS, lo cual es mala práctica:
+
+```SCSS
+// cambiar tamaño de imagen
+button {
+  img {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+}
+```
+
+```SCSS
+// cambiar color de imagen
+img {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+```
+
+```SCSS
+// Recortar la imagen usando la forma del SVG
+img {
+  mask-image: url(icon.svg);
+}
+```
+
+```SCSS
+// Hacer imagen semitransparente al pasar el mouse
+button {
+  &:hover {
+    img {
+      opacity: 0.5;
+    }
+  }
+}
+```
+
+Ese tipo de soluciones:
+
+- Son difíciles de mantener.
+- Generan inconsistencias visuales.
+- Complican los estilos para los estados del botón.
+- Rompen fácilmente en dark mode.
+- Vuelven el CSS más complejo y frágil.
+
+**_✅ Correcto:_**
+
+Los iconos de los botones deben utilizar [Angular Material Icons](https://fonts.google.com/icons)
+
+Los [iconos de Angular Material](https://fonts.google.com/icons) funcionan como texto estilizable mediante CSS, lo que permite integrarlos correctamente con la arquitectura visual del proyecto.
+
+```html
+<button class="btn btn-primary">
+  <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+```
+
+**_❌ Incorrecto:_**
+
+Usar Tailwind CSS para definir estilos de botones directamente en cada componente, ya que esto suele generar:
+
+- Código duplicado.
+- Múltiples implementaciones distintas para el mismo tipo de botón.
+- Inconsistencias visuales.
+- Dificultad para mantener un estándar de diseño.
+- Dificultad para reutilizar estilos.
+- Componentes difíciles de escalar y mantener.
 
 ```HTML
-<!-- my-component.component.html -->
-
-<button
-    class="rounded-2xl bg-blue-500 hover:bg-blue-600 px-4 py-2 text-white disabled:cursor-not-allowed enabled:cursor-pointer"
-  >
+<button class="rounded-2xl bg-blue-500 hover:bg-blue-600 px-4 py-2 text-white disabled:cursor-not-allowed enabled:cursor-pointer">
   Aceptar
 </button>
 ```
 
-***✅ Correcto:***
+Usar muchas clases de Sass para cada uno de los estilos de los botones, porque mezcla múltiples responsabilidades en una sola clase:
 
-Siempre se tiene que usar las clases de CSS con los estilos globales para los botones definidos en `src/styles/global/__button.scss`
-
-`__button.scss` tiene estilos para todos los tipos de botones
-
-A continuacion, para cada uno de los botones se muestra como usarlos y se explica sus estilos:
-
-### Boton primario para acciones de confirmacion (guardar, aceptar, si)
-
-  - ❌ icono
-  - ✅ texto
-  - ❌ borde
-  - ✅ fondo
+- Icono
+- Texto
+- Borde
 
 ```HTML
-<!-- my-component.component.html -->
-
-<button class="btn-primary">
-  Aceptar
-</button>
-```
-
-**NO** hover
-
-![btn-primary](./docs/readme-md/img/button/btn-primary.png)
-
-### Boton secundario con borde para acciones de cancelacion (eliminar, cancelar, no)
-
-  - ❌ icono
-  - ✅ texto
-  - ✅ borde
-  - 🖱️ fondo solo se muestra en hover
-
-```HTML
-<!-- my-component.component.html -->
-
-<button class="btn-secondary-with-border">
-  Cancelar
-</button>
-```
-
-**NO** hover
-
-![btn-secondary-with-border-no-hover](./docs/readme-md/img/button/btn-secondary-with-border-no-hover.png)
-
-hover
-
-![btn-secondary-with-border-hover](./docs/readme-md/img/button/btn-secondary-with-border-hover.png)
-
-### Boton secundario sin borde para acciones de cancelacion (eliminar, cancelar, no)
-
-  - ❌ icono
-  - ✅ texto
-  - ❌ borde
-  - 🖱️ fondo solo se muestra en hover
-
-```HTML
-<!-- my-component.component.html -->
-
-<button class="btn-secondary-no-border">
-  Cancelar
-</button>
-```
-
-**NO** hover
-
-![btn-secondary-no-border-no-hover](./docs/readme-md/img/button/btn-secondary-no-border-no-hover.png)
-
-hover
-
-![btn-secondary-no-border-hover](./docs/readme-md/img/button/btn-secondary-no-border-hover.png)
-
-### Boton con icono y texto sin borde
-
-  - ✅ icono
-  - ✅ texto
-  - ❌ borde
-  - 🖱️ fondo solo se muestra en hover
-
-```HTML
-<!-- my-component.component.html -->
-
-<button class="btn-icon-no-border">
-  <span class="material-symbols-outlined">
-    home
-  </span>
-  <span>Boton</span>
-</button>
-```
-
-**NO** hover
-
-![btn-icon-no-border-no-hover](./docs/readme-md/img/button/btn-icon-no-border-no-hover.png)
-
-hover
-
-![btn-icon-no-border-hover](./docs/readme-md/img/button/btn-icon-no-border-hover.png)
-
-### Boton con icono y borde
-
-  - ✅ icono
-  - ❌ texto
-  - ✅ borde
-  - 🖱️ fondo solo se muestra en hover
-
-```HTML
-<!-- my-component.component.html -->
-
-<button class="btn-icon-with-border">
-    <span class="material-symbols-outlined"> home </span>
-</button>
-```
-
-**NO** hover
-
-![btn-icon-with-border-no-hover](./docs/readme-md/img/button/btn-icon-with-border-no-hover.png)
-
-hover
-
-![btn-icon-with-border-hover](./docs/readme-md/img/button/btn-icon-with-border-hover.png)
-
-### Boton con icono, texto y fondo
-
-  - ✅ icono
-  - ✅ texto
-  - ❌ borde
-  - ✅ fondo
-
-```HTML
-<!-- my-component.component.html -->
-
-<button class="btn-with-icon-text-background">
-  <span class="material-symbols-outlined"> home </span>
-  <span>Boton</span>
-</button>
-```
-
-**NO** hover
-
-![btn-with-icon-text-background-no-hover](./docs/readme-md/img/button/btn-with-icon-text-background-no-hover.png)
-
-hover
-
-![btn-with-icon-text-background-hover](./docs/readme-md/img/button/btn-with-icon-text-background-hover.png)
-
-### Boton con icono, texto y borde
-
-  - ✅ icono
-  - ✅ texto
-  - ✅ borde
-  - 🖱️ fondo solo se muestra en hover
-
-```HTML
-<!-- my-component.component.html -->
-
 <button class="btn-with-icon-text-border">
   <span class="material-symbols-outlined"> home </span>
   <span>Boton</span>
 </button>
 ```
 
-**NO** hover
+Ese enfoque no escala bien, ya que cada nueva combinación obliga a crear más clases:
 
-![btn-with-icon-text-border-no-hover](./docs/readme-md/img/button/btn-with-icon-text-border-no-hover.png)
-
-hover
-
-![btn-with-icon-text-border-hover](./docs/readme-md/img/button/btn-with-icon-text-border-hover.png)
-
-### Boton con icono y texto
-
-  - ✅ icono
-  - ✅ texto
-  - ❌ borde
-  - 🖱️ fondo solo se muestra en hover
-
-```HTML
-<!-- my-component.component.html -->
-
-<button class="btn-with-icon-text-no-border">
-  <span class="material-symbols-outlined"> home </span>
-  <span>Boton</span>
-</button> 
+```SCSS
+.btn-with-icon-text-border-loading {}
+.btn-with-icon-text-background-lg {}
+.btn-with-icon-text-border-disabled {}
 ```
 
-**NO** hover
+Esto genera:
 
-![btn-with-icon-text-no-border-no-hover](./docs/readme-md/img/button/btn-with-icon-text-no-border-no-hover.png)
+- Archivos Sass enormes y difíciles de mantener.
+- Demasiadas líneas de código con responsabilidades mezcladas.
+- Estilos difíciles de entender y modificar.
+- Miedo a modificar estilos existentes porque un cambio puede romper otros botones.
+- Duplicación innecesaria de código.
+- Creación constante de nuevas clases para cubrir cada nueva variante de botón.
+- Arquitectura no escalable.
 
-hover
+**✅ Correcto:**
 
-![btn-with-icon-text-no-border-hover](./docs/readme-md/img/button/btn-with-icon-text-no-border-hover.png)
+Las clases de botones deben representar una sola responsabilidad y ser **composables**.
+
+```txt
+En arquitectura CSS y de componentes, composable significa que una clase puede combinarse con otras clases pequeñas y reutilizables para construir distintos comportamientos sin duplicar código.
+```
+
+```SCSS
+.btn {}
+.btn-sm {}
+.btn-primary {}
+.btn-outline-primary {}
+.btn-full-width {}
+```
+
+Cada clase modifica únicamente una característica específica del botón:
+
+- Tamaño
+- Icono
+- Estado
+- Ancho
+
+Esto permite combinar comportamientos sin duplicar estilos.
+
+### 📖 Manual de Uso para Dar Estilos a Botones
+
+Esta guía explica cómo utilizar correctamente los estilos globales de botones definidos en:
+
+```txt
+src/styles/global/_button.scss
+```
+
+### ✨ UI/UX
+
+En el diseño de interfaces (UI/UX), el color de un botón no es solo decorativo:
+cada variante representa una intención de acción dentro del sistema.
+
+Esto ayuda al usuario a entender rápidamente qué va a ocurrir antes de hacer clic.
+
+**🔴 Los colores fuertes:**
+
+- Capturan atención.
+- Indican importancia.
+- El usuario lo identifica como el botón más importante para hacer clic.
+
+**⚪ Los colores suaves o transparentes:**
+
+- Reducen distracción.
+- Bajan la jerarquía visual.
+- Mantienen el foco en el contenido principal.
+
+**📏 Reglas de UI/UX**
+
+- Solo debe existir 1 acción primaria por pantalla (colores fuertes).
+- Las acciones secundarias deben tener menor jerarquía visual (colores suaves).
+- Las acciones destructivas deben ser claramente identificables.
+- El color no es decoración, es comunicación.
+
+### Clase `.btn` con Estilos Base
+
+La clase `.btn` define los estilos base y actúa como un **reset CSS obligatorio para todos los botones**, sin importar su variante o tipo (`primary`, `outline`, `ghost`, etc.).
+
+Esta clase **siempre debe utilizarse**, ya que establece la estructura común del componente y garantiza consistencia en toda la UI.
+
+Incluye estilos fundamentales como `padding`, `font-size`, alineación del contenido, comportamiento de interacción (`hover`, `active`, `disabled`) y configuración de layout.
+
+Por defecto, `.btn` tiene `background-color: transparent`, por lo que **no representa un botón visual completo por sí sola**. Su función es servir como base para que las variantes (`.btn-primary`, `.btn-outline-*`, etc.) apliquen el estilo visual final.
+
+- Botones **activados** usan `cursor: pointer` 👆🏻 para indicar que el botón es interactivo y puede ser clickeado.
+
+- Botones **desactivados** usan `cursor: not-allowed` 🚫 para indicar que el botón no está disponible y no puede ser clickeado.
+
+```html
+<button class="btn">Base class</button>
+```
+
+### Botones con Color de Fondo
+
+En sistemas de diseño modernos, los botones se clasifican según su nivel de importancia y riesgo de la acción:
+
+| Tipo de boton    | Significado                                                    |
+| ---------------- | -------------------------------------------------------------- |
+| 🔵 **Primary**   | acción principal (continuar / confirmar / guardar)             |
+| ⚪ **Secondary** | acción secundaria (cancelar / salir)                           |
+| 👻 **Ghost**     | acción discreta sin estructura visual fuerte - no tiene border |
+| 🔴 **Danger**    | eliminar o destruir                                            |
+| 🟡 **Warning**   | advertencia                                                    |
+| 🟢 **Success**   | confirmación positiva                                          |
+| 🔷 **Info**      | información                                                    |
+| 🔗 **Link**      | navegación / enlaces                                           |
+| ⚫ **Dark**      | variante de alto contraste para acciones neutras o de soporte  |
+
+![variantes-con-color-de-fondo](./docs/readme-md/img/button/variantes-con-color-de-fondo.png)
+
+```html
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-success">Success</button>
+<button class="btn btn-danger">Danger</button>
+<button class="btn btn-warning">Warning</button>
+<button class="btn btn-info">Info</button>
+<button class="btn btn-light">Light</button>
+<button class="btn btn-dark">Dark</button>
+<button class="btn btn-ghost">Ghost</button>
+
+<!-- Enlaces -->
+<button class="btn btn-link" routerLink="/home">Link</button>
+<a class="btn btn-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com">Ir a Google</a>
+```
+
+### Botones con Borde
+
+Las clases `.btn-outline-*` se usan para botones que tienen `border`, pero no color de fondo `background-color` por defecto.
+
+El comportamiento visual depende del estado de interacción:
+
+- **Estado normal (sin `hover`)** → sin fondo `background-color: transparent` y se muestra únicamente el `border`.
+
+- **Estado `hover`** → botón cambia su `background-color` dependiendo del tipo de botón.
+
+Algunos botones usan colores claros en el texto o borde, por lo que deben colocarse sobre fondos oscuros para mantener un buen contraste y asegurar que sean claramente visibles.
+
+![borde-activado](./docs/readme-md/img/button/borde-activado.png)
+
+```html
+<button class="btn btn-outline-primary">Primary</button>
+<button class="btn btn-outline-secondary">Secondary</button>
+<button class="btn btn-outline-success">Success</button>
+<button class="btn btn-outline-danger">Danger</button>
+<button class="btn btn-outline-warning">Warning</button>
+<button class="btn btn-outline-info">Info</button>
+<button class="btn btn-outline-light">Light</button>
+<button class="btn btn-outline-dark">Dark</button>
+```
+
+### Botones con Icono
+
+Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), se utilicen las clases `btn` y `btn-icon-only`.
+
+![solo-icono](./docs/readme-md/img/button/solo-icono.png)
+
+```html
+<!-- bordes redondeados -->
+<button class="btn btn-icon-only btn-warning">
+  <span class="material-symbols-outlined">warning</span>
+</button>
+
+<!-- btn-rounded-full forma de circulo -->
+<button class="btn btn-icon-only btn-outline-danger btn-rounded-full">
+  <span class="material-symbols-outlined">delete</span>
+</button>
+
+<button class="btn btn-icon-only btn-ghost btn-rounded-full">
+  <span class="material-symbols-outlined">settings</span>
+</button>
+
+<!-- xs boton muy pequeño -->
+<button class="btn btn-icon-only btn-info btn-rounded-full btn-xs">
+  <span class="material-symbols-outlined">info</span>
+</button>
+
+<!-- 2xl boton muy grande -->
+<button class="btn btn-icon-only btn-primary btn-rounded-full btn-2xl">
+  <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+```
+
+### Botones con Icono + Fondo
+
+![icono-fondo](./docs/readme-md/img/button/icono-fondo.png)
+
+```html
+<button class="btn btn-icon-only btn-primary">
+  <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+
+<button class="btn btn-icon-only btn-secondary">
+  <span class="material-symbols-outlined">close</span>
+</button>
+
+<button class="btn btn-icon-only btn-success">
+  <span class="material-symbols-outlined">check_circle</span>
+</button>
+
+<button class="btn btn-icon-only btn-danger">
+  <span class="material-symbols-outlined">delete</span>
+</button>
+
+<button class="btn btn-icon-only btn-warning">
+  <span class="material-symbols-outlined">warning</span>
+</button>
+
+<button class="btn btn-icon-only btn-info">
+  <span class="material-symbols-outlined">info</span>
+</button>
+
+<button class="btn btn-icon-only btn-light">
+  <span class="material-symbols-outlined">light_mode</span>
+</button>
+
+<button class="btn btn-icon-only btn-dark">
+  <span class="material-symbols-outlined">dark_mode</span>
+</button>
+```
+
+### Botones con Icono + Borde
+
+![icono-borde](./docs/readme-md/img/button/icono-borde.png)
+
+```html
+<button class="btn btn-icon-only btn-outline-primary">
+  <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+
+<button class="btn btn-icon-only btn-outline-secondary">
+  <span class="material-symbols-outlined">close</span>
+</button>
+
+<button class="btn btn-icon-only btn-outline-success">
+  <span class="material-symbols-outlined">check_circle</span>
+</button>
+
+<button class="btn btn-icon-only btn-outline-danger">
+  <span class="material-symbols-outlined">delete</span>
+</button>
+
+<button class="btn btn-icon-only btn-outline-warning">
+  <span class="material-symbols-outlined">warning</span>
+</button>
+
+<button class="btn btn-icon-only btn-outline-info">
+  <span class="material-symbols-outlined">info</span>
+</button>
+
+<button class="btn btn-icon-only btn-outline-light">
+  <span class="material-symbols-outlined">light_mode</span>
+</button>
+
+<button class="btn btn-icon-only btn-outline-dark">
+  <span class="material-symbols-outlined">dark_mode</span>
+</button>
+```
+
+### Botones con Icono + Fondo + Texto
+
+![icono-fondo-texto](./docs/readme-md/img/button/icono-fondo-texto.png)
+
+```html
+<button class="btn btn-primary">
+  <span class="material-symbols-outlined">arrow_forward</span>
+  <span>Primary</span>
+</button>
+
+<button class="btn btn-secondary">
+  <span class="material-symbols-outlined">close</span>
+  <span>Secondary</span>
+</button>
+
+<button class="btn btn-success">
+  <span class="material-symbols-outlined">check_circle</span>
+  <span>Success</span>
+</button>
+
+<button class="btn btn-danger">
+  <span class="material-symbols-outlined">delete</span>
+  <span>Danger</span>
+</button>
+
+<button class="btn btn-warning">
+  <span class="material-symbols-outlined">warning</span>
+  <span>Warning</span>
+</button>
+
+<button class="btn btn-info">
+  <span class="material-symbols-outlined">info</span>
+  <span>Info</span>
+</button>
+
+<button class="btn btn-light">
+  <span class="material-symbols-outlined">light_mode</span>
+  <span>Light</span>
+</button>
+
+<button class="btn btn-dark">
+  <span class="material-symbols-outlined">dark_mode</span>
+  <span>Dark</span>
+</button>
+```
+
+### 🚫 Boton desactivado `cursor: not-allowed`
+
+Agregar el atributo booleano de HTML `disabled` a la etiqueta `<button>` hace que los botones tomen estilos de desactivados.
+
+El estilo de boton desactivado se aplica a cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
+
+![boton-desactivado](./docs/readme-md/img/button/boton-desactivado.png)
+
+```html
+<button disabled class="btn btn-danger">
+  Danger
+</button>
+
+<!-- Enlaces -->
+<button disabled class="btn btn-link" routerLink="/home">
+  Link
+</button>
+```
+
+### 📐 Tamaños
+
+Puedes modificar el tamaño de cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
+
+El ajuste de tamaño se aplica a todo el boton y afecta de manera proporcional a todos sus elementos internos:
+
+- Tamaño del botón `padding`.
+
+- Tamaño del texto `font-size`.
+
+- Tamaño de los iconos.
+
+- El espacio entre el icono y el texto `gap` es proporcional al tamaño del botón, ya que utiliza la unidad de medida `em`, la cual depende del `font-size` del propio botón.
+
+El tamaño por defecto de todos los botones es `.btn-base`:
+
+Esto significa que no es necesario declararlo explícitamente: si no se especifica un modificador de tamaño, el botón siempre asumirá este estilo automáticamente.
+
+```SCSS
+.btn-base {
+  // py-2 px-4
+  padding: 0.5rem 1rem;
+
+  // text-base
+  font-size: 1rem;
+  line-height: calc(1.2 / 1);
+}
+```
+
+![tamanos](./docs/readme-md/img/button/tamanos.png)
+
+```HTML
+  <button class="btn btn-primary btn-xs">
+    Muy pequeño
+  </button>
+
+  <button class="btn btn-outline-secondary btn-sm">
+    Pequeño
+  </button>
+
+  <button class="btn btn-outline-secondary">
+    Valor por defecto
+  </button>
+
+  <button class="btn btn-outline-secondary btn-base">
+    Valor por defecto
+  </button>
+
+  <button class="btn btn-success btn-lg">
+    <span class="material-symbols-outlined">check_circle</span>
+    <span>Grande</span>
+  </button>
+
+  <button class="btn btn-outline-danger btn-xl">
+    <span class="material-symbols-outlined">delete</span>
+    <span>Muy grande</span>
+  </button>
+
+  <button class="btn btn-warning btn-2xl">
+    <span class="material-symbols-outlined">warning</span>
+    <span>Enorme</span>
+  </button>
+```
+
+### Modificadores - Boton en bloque - Responsive
+
+`btn-full-width` Hace que el boton ocupe todo al ancho disponible de su contenedor padre y es responsive, usa `width: 100%`.
+
+Funciona para cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
+
+![boton-responsive](./docs/readme-md/img/button/boton-responsive.png)
+
+```HTML
+<!-- solo texto -->
+<button class="btn btn-icon-only btn-danger btn-full-width">Danger</button>
+
+<!-- solo icono + fondo -->
+<button class="btn btn-icon-only btn-dark btn-full-width">
+  <span class="material-symbols-outlined">dark_mode</span>
+</button>
+
+<!-- icono + fondo + texto -->
+<button class="btn btn-success btn-full-width">
+  <span class="material-symbols-outlined">check_circle</span>
+  <span>Success</span>
+</button>
+
+<!-- icono + borde -->
+<button class="btn btn-icon-only btn-outline-info btn-full-width">
+  <span class="material-symbols-outlined">info</span>
+</button>
+```
 
 # 🔒 Protección de Rutas
 
@@ -765,14 +1121,14 @@ import { Routes } from "@angular/router";
 import { AuthGuard } from "@/shared/guards/auth.guard";
 
 // #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from '@/app/home/main-wrapper/main-wrapper.component';
+import { MainWrapperComponent } from "@/app/home/main-wrapper/main-wrapper.component";
 // #endregion
 
-import { BotsComponent } from '@/app/home/bots/bots.component';
+import { BotsComponent } from "@/app/home/bots/bots.component";
 
 export const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: MainWrapperComponent,
 
     canActivate: [AuthGuard],
@@ -781,7 +1137,7 @@ export const routes: Routes = [
     children: [
       {
         // /bots
-        path: 'bots',
+        path: "bots",
         component: BotsComponent,
       },
     ],
@@ -797,7 +1153,7 @@ Esto permite ubicar los componentes que corresponden a cada URL
 
 Además,
 
-***✅ Correcto:***
+**✅ Correcto:**
 
 ```txt
 src/app/
@@ -813,14 +1169,14 @@ import { Routes } from "@angular/router";
 import { AuthGuard } from "@/shared/guards/auth.guard";
 
 // #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from '@/app/home/main-wrapper/main-wrapper.component';
+import { MainWrapperComponent } from "@/app/home/main-wrapper/main-wrapper.component";
 // #endregion
 
-import { BotsComponent } from '@/app/home/bots/bots.component';
+import { BotsComponent } from "@/app/home/bots/bots.component";
 
 export const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: MainWrapperComponent,
 
     canActivate: [AuthGuard],
@@ -829,7 +1185,7 @@ export const routes: Routes = [
     children: [
       {
         // /bots
-        path: 'bots',
+        path: "bots",
         component: BotsComponent,
       },
     ],
@@ -853,7 +1209,7 @@ Los componentes reutilizables y compartidos entre múltiples páginas deben esta
 
 Esto permite mantener una arquitectura escalable.
 
-***✅ Correcto:***
+**✅ Correcto:**
 
 ```txt
 src/
@@ -869,7 +1225,7 @@ src/
 │   │   │           ├── bot-card.component.ts
 │   │   │           ├── bot-card.component.html
 │   │   │           └── bot-card.component.spec.ts
-│   
+│
 ├── shared/
 │   └── components/
 │       ├── button/
@@ -878,13 +1234,14 @@ src/
 ```
 
 En este ejemplo:
-* `bot-card.component.ts` pertenece únicamente a la página de bots
 
-* `button`, `modal` y `spinner` son componentes reutilizables globales
+- `bot-card.component.ts` pertenece únicamente a la página de bots
 
-* Cada funcionalidad (*feature*) mantiene sus componentes encapsulados
+- `button`, `modal` y `spinner` son componentes reutilizables globales
 
-***❌ Incorrecto:***
+- Cada funcionalidad (_feature_) mantiene sus componentes encapsulados
+
+**❌ Incorrecto:**
 
 ```txt
 src/
@@ -922,29 +1279,30 @@ src/
 
 No se debe meter todo en una carpeta global `src/components` porque:
 
-* Mezcla componentes reutilizables con componentes específicos de páginas
+- Mezcla componentes reutilizables con componentes específicos de páginas
 
-* Dificulta encontrar archivos relacionados con una funcionalidad
+- Dificulta encontrar archivos relacionados con una funcionalidad
 
-* Genera desorden a medida que crece el proyecto
+- Genera desorden a medida que crece el proyecto
 
-* Rompe el encapsulamiento de cada módulo o página
+- Rompe el encapsulamiento de cada módulo o página
 
-* Es inmantenible e inescalable
+- Es inmantenible e inescalable
 
 ## Diferencia entre `src/app/bots/components` y `src/shared/components`
 
-* `src/app/bots/components` contiene componentes exclusivos de la funcionalidad (feature) `bots`
+- `src/app/bots/components` contiene componentes exclusivos de la funcionalidad (feature) `bots`
 
-* Estos componentes no deben reutilizarse globalmente porque pertenecen únicamente a esa página o *feature*
+- Estos componentes no deben reutilizarse globalmente porque pertenecen únicamente a esa página o _feature_
 
-* `src/shared/components` contiene componentes reutilizables en toda la aplicación
+- `src/shared/components` contiene componentes reutilizables en toda la aplicación
 
-* Los componentes compartidos deben ser genéricos y desacoplados de una funcionalidad específica
+- Los componentes compartidos deben ser genéricos y desacoplados de una funcionalidad específica
 
 # 🌐 Consumo de API
 
 En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `src\shared\API\general-api\http-gateway-observable.api.ts`, que maneja:
+
 - icono de loader global
 
 - manejo de errores `catchError`
@@ -957,7 +1315,8 @@ En este proyecto todas las peticiones HTTP deben hacerse usando el servicio cent
 
 - validaciones de seguridad (guards)
 
-- respuesta estándar con el tipo 
+- respuesta estándar con el tipo
+
 ```ts
 {
   success: boolean;
@@ -975,125 +1334,120 @@ No se debe consumir la API directamente con `HttpClient` + `try/catch` en compon
 
 ❌ Problemas de este enfoque:
 
-* Repite lógica en cada componente.
+- Repite lógica en cada componente.
 
-* No tiene loader global.
+- No tiene loader global.
 
-* No tiene manejo estandarizado de errores.
+- No tiene manejo estandarizado de errores.
 
-* No respeta arquitectura del proyecto.
+- No respeta arquitectura del proyecto.
 
-* Usa `try/catch` en cada llamada.
+- Usa `try/catch` en cada llamada.
 
-* No centraliza validaciones ni logging.
+- No centraliza validaciones ni logging.
 
-****❌ Ejemplo incorrecto - `lastValueFrom`****
+\***\*❌ Ejemplo incorrecto - `lastValueFrom`\*\***
 
 ```ts
-import { HttpClient } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { lastValueFrom } from "rxjs";
 
 export class BotsComponent {
   constructor(private http: HttpClient) {}
 
   async getBots() {
     try {
-      const data = await lastValueFrom(
-        this.http.get('https://api.com/bots')
-      );
+      const data = await lastValueFrom(this.http.get("https://api.com/bots"));
 
       console.log(data);
     } catch (error) {
-      console.error('Error API', error);
+      console.error("Error API", error);
     }
   }
 }
 ```
 
-****❌ Ejemplo incorrecto - `firstValueFrom`****
+\***\*❌ Ejemplo incorrecto - `firstValueFrom`\*\***
 
 ```ts
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { firstValueFrom } from "rxjs";
 
 export class BotsComponent {
   constructor(private http: HttpClient) {}
 
   async getBots() {
     try {
-      const data = await firstValueFrom(
-        this.http.get('https://api.com/bots')
-      );
+      const data = await firstValueFrom(this.http.get("https://api.com/bots"));
 
       console.log(data);
     } catch (error) {
-      console.error('Error API', error);
+      console.error("Error API", error);
     }
   }
 }
 ```
 
-****❌ Ejemplo incorrecto - Angular legacy - `toPromise()`****
+\***\*❌ Ejemplo incorrecto - Angular legacy - `toPromise()`\*\***
 
 Antes de `firstValueFrom`, en Angular antiguo se usaba `toPromise()`, pero este enfoque está **deprecado** y ya no se recomienda.
 
 ```ts
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 
 export class BotsComponent {
-
   constructor(private http: HttpClient) {}
 
   async getBots() {
     try {
-      const data = await this.http.get('https://api.com/bots').toPromise();
+      const data = await this.http.get("https://api.com/bots").toPromise();
 
       console.log(data);
     } catch (error) {
-      console.error('Error API', error);
+      console.error("Error API", error);
     }
   }
 }
 ```
 
-****❌ Ejemplo incorrecto - observable****
+\***\*❌ Ejemplo incorrecto - observable\*\***
 
 ```ts
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 
 export class BotsComponent {
   constructor(private http: HttpClient) {}
 
   getBots() {
-    this.http.get('https://api.com/bots').subscribe({
+    this.http.get("https://api.com/bots").subscribe({
       next: (data) => {
         console.log(data);
       },
       error: (error) => {
-        console.error('Error API', error);
+        console.error("Error API", error);
       },
     });
   }
 }
 ```
 
-****❌ Ejemplo incorrecto - `fetch`****
+\***\*❌ Ejemplo incorrecto - `fetch`\*\***
 
 Angular no usa `fetch` porque es una API básica del navegador y no se integra con la arquitectura del framework.
 
 ```ts
 export class BotsComponent {
-   async getBots() {
-     try {
-       const response = await fetch('https://api.com/bots');
-   
-       const data = await response.json();
-   
-       console.log(data);
-     } catch (error) {
-       console.error('Error API', error);
-     }
-   }
+  async getBots() {
+    try {
+      const response = await fetch("https://api.com/bots");
+
+      const data = await response.json();
+
+      console.log(data);
+    } catch (error) {
+      console.error("Error API", error);
+    }
+  }
 }
 ```
 
@@ -1101,39 +1455,38 @@ export class BotsComponent {
 
 Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-api\http-gateway-observable.api.ts`) centralizado.
 
-* NO usar `try/catch` aquí
+- NO usar `try/catch` aquí
 
-* El servicio `http-observable.service.ts` ya maneja errores internamente
+- El servicio `http-observable.service.ts` ya maneja errores internamente
 
-* La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
+- La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
 
-****✅ Ejemplo correcto con `http-observable.service.ts` y  `firstValueFrom`****
+\***\*✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`\*\***
 
 ```ts
-import { inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
-import { IResponse } from '@/shared/api/general-api/types/request-data.types';
-import { environment } from '@/environments/environment';
+import { inject } from "@angular/core";
+import { ApiGatewayService } from "@/shared/api/general-api/http-gateway-observable.api";
+import { IResponse } from "@/shared/api/general-api/types/request-data.types";
+import { environment } from "@/environments/environment";
 
 export class BotsComponent {
-
   http = inject(ApiGatewayService);
 
   async getBots() {
     const { success, status, message, data }: IResponse = await firstValueFrom(
       // aqui se concatena el environment.api con el endpoint específico de la petición
-      this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`)
+      this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
     );
 
     console.log("¿la peticion HTTP es exitosa o erronea? ", success);
-    console.log("numero de HTTP status", status)
+    console.log("numero de HTTP status", status);
 
     if (success) {
       console.log("peticion HTTP exitosa");
       console.log("mensaje con que responde la API", message);
       console.log("datos con que responde la API", data);
     } else {
-      console.error("error al llamar la API")
+      console.error("error al llamar la API");
     }
   }
 }
@@ -1145,7 +1498,7 @@ El icono de carga se oculta y muestra automáticamente desde `http-observable.se
 
 👉 **NO se debe crear estados manuales como `loader = true/false` en los componentes**, ya que el loader es global y centralizado.
 
-****❌ Ejemplo incorrecto****
+\***\*❌ Ejemplo incorrecto\*\***
 
 Crear estados locales de loading en cada componente:
 
@@ -1153,23 +1506,21 @@ Crear estados locales de loading en cada componente:
 /* bots.component.ts */
 
 export class BotsComponent {
-
   loading: boolean = false;
 
   getBots() {
     this.loading = true;
 
-    this.http.get('https://api.com/bots')
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error(err);
-          this.loading = false;
-        }
-      });
+    this.http.get("https://api.com/bots").subscribe({
+      next: (res) => {
+        console.log(res);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.loading = false;
+      },
+    });
   }
 }
 ```
@@ -1194,30 +1545,27 @@ export class BotsComponent {
 
 ❌ Problemas de este enfoque:
 
-* Duplica codigo para mostrar y ocultar icono de cargando en cada componente
+- Duplica codigo para mostrar y ocultar icono de cargando en cada componente
 
-* El loader no es global
+- El loader no es global
 
-* Riesgo de olvidar ocultar el icono de cargando
+- Riesgo de olvidar ocultar el icono de cargando
 
-* Cuando hay varias peticiones HTTP en un mismo componente se vuelve muy complejo saber en donde escribir `loader = true/false` para mostrar y ocultar el icono de cargando.
+- Cuando hay varias peticiones HTTP en un mismo componente se vuelve muy complejo saber en donde escribir `loader = true/false` para mostrar y ocultar el icono de cargando.
 
-****✅ Ejemplo correcto con `http-observable.service.ts`****
+\***\*✅ Ejemplo correcto con `http-observable.service.ts`\*\***
 
 ```ts
-import { inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
-import { IResponse } from '@/shared/api/general-api/types/request-data.types';
-import { environment } from '@/environments/environment';
+import { inject } from "@angular/core";
+import { ApiGatewayService } from "@/shared/api/general-api/http-gateway-observable.api";
+import { IResponse } from "@/shared/api/general-api/types/request-data.types";
+import { environment } from "@/environments/environment";
 
 export class BotsComponent {
-
   http = inject(ApiGatewayService);
 
   async getBots() {
-    const { success, status, message, data }: IResponse = await firstValueFrom(
-      this.http.POST(`${environment.api}`, optionsApi)
-    );
+    const { success, status, message, data }: IResponse = await firstValueFrom(this.http.POST(`${environment.api}`, optionsApi));
 
     if (success) {
       // ...
@@ -1255,40 +1603,41 @@ export interface IRequestOptions<T = any> {
 
 /**
 tipo de respuesta HTTP */
-export type IResponseType = 'arraybuffer' | 'blob' | 'json' | 'text';
+export type IResponseType = "arraybuffer" | "blob" | "json" | "text";
 ```
 
 ### 🧠 Explicación de opciones
 
-- `body` → datos enviados en POST, PUT o PATCH  
-- `params` → query params de la URL  
-- `headers` → headers personalizados  
+- `body` → datos enviados en POST, PUT o PATCH
+- `params` → query params de la URL
+- `headers` → headers personalizados
 - `responseType` → tipo de respuesta 'arraybuffer' | 'blob' | 'json' | 'text'
 
 ### 🎛️ Opciones de comportamiento global
 
-- `showLoader` → muestra/oculta el loader global  
-- `showLogger` → activa logs de request/response  
-- `executeErrorHandling` → ejecuta manejo de errores centralizado  
+- `showLoader` → muestra/oculta el loader global
+- `showLogger` → activa logs de request/response
+- `executeErrorHandling` → ejecuta manejo de errores centralizado
 
 ### 🔐 Seguridad y autenticación
 
-- `isASecurityEndpoint` → indica si requiere token o autenticación  
-- `withCredentials` → envía cookies y credenciales en requests cross-domain  
+- `isASecurityEndpoint` → indica si requiere token o autenticación
+- `withCredentials` → envía cookies y credenciales en requests cross-domain
 
 ### 🚀 Beneficio principal
 
 👉 Permite que todas las peticiones HTTP tengan un comportamiento consistente, reutilizable y centralizado sin repetir lógica en cada componente o servicio.
 
 ### 📦✅ Ejemplo de consumo de API con `POST` y `body`
+
 Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
 
 ```ts
-import { Component, inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
-import { firstValueFrom } from 'rxjs';
-import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/api/general-api/types/request-data.types';
+import { Component, inject } from "@angular/core";
+import { ApiGatewayService } from "@/shared/api/general-api/http-gateway-observable.api";
+import { firstValueFrom } from "rxjs";
+import { environment } from "@/environments/environment";
+import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 
 interface IBodyBots {
   name: string;
@@ -1296,24 +1645,21 @@ interface IBodyBots {
 }
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
+  selector: "app-bots",
+  templateUrl: "./bots.component.html",
 })
 export class BotsComponent {
-
   private http = inject(ApiGatewayService);
 
   async createBot() {
     const optionsApi: IRequestOptions<IBodyBots> = {
       body: {
-        name: 'Bot IA',
-        active: true
-      }
+        name: "Bot IA",
+        active: true,
+      },
     };
 
-    const { success, status, message, data }: IResponse = await firstValueFrom(
-      this.http.POST(`${environment.api}/bots`, optionsApi)
-    );
+    const { success, status, message, data }: IResponse = await firstValueFrom(this.http.POST(`${environment.api}/bots`, optionsApi));
 
     // ...
   }
@@ -1351,40 +1697,41 @@ Cuando Signal Forms sea estable y maduro, se podrá migrar gradualmente.
 
 porque con el tipo del archivo ya se entiende que hace el archivo por el decorador de Angular (`@Component`, `@Injectable`, etc).
 
-***❌ Angular moderno sin sufijos***
+**❌ Angular moderno sin sufijos**
 
-| Nombre Archivo   | Tipo de Archivo | decorador / tipo Angular  |
-|------------------|-----------------|---------------------------|
-| `login.ts`       | componente      | `@Component`              |
-| `auth.ts`        | servicio        | `@Injectable`             |
-| `auth-guard.ts`  | guard           | `CanActivateFn`           |
-| `list-table.ts`  | componente      | `@Component`              |
-| `format-date.ts` | pipe            | `@Pipe`                   |
-| `highlight.ts`   | directiva       | `@Directive`              |
-| `crypto.ts`      | utils           | `class` clase utilitaria  |
+| Nombre Archivo   | Tipo de Archivo | decorador / tipo Angular |
+| ---------------- | --------------- | ------------------------ |
+| `login.ts`       | componente      | `@Component`             |
+| `auth.ts`        | servicio        | `@Injectable`            |
+| `auth-guard.ts`  | guard           | `CanActivateFn`          |
+| `list-table.ts`  | componente      | `@Component`             |
+| `format-date.ts` | pipe            | `@Pipe`                  |
+| `highlight.ts`   | directiva       | `@Directive`             |
+| `crypto.ts`      | utils           | `class` clase utilitaria |
 
-***✅ Convención usada en este proyecto***
+**✅ Convención usada en este proyecto**
 
 Aunque Angular moderno ya no obliga a usar sufijos, en este proyecto sí se siguen utilizando para mantener mayor claridad y organización.
 
 Esto facilita:
-* Identificar rápidamente el tipo de archivo.
 
-* Mejorar la lectura de imports.
+- Identificar rápidamente el tipo de archivo.
 
-* Evitar confusión en proyectos grandes.
+- Mejorar la lectura de imports.
 
-* Mantener consistencia entre carpetas y archivos.
+- Evitar confusión en proyectos grandes.
 
-| Nombre Archivo             | Tipo de Archivo | decorador / tipo Angular  |
-|----------------------------|-----------------|---------------------------|
-| `login.component.ts`       | componente      | `@Component`              |
-| `auth.service.ts`          | servicio        | `@Injectable`             |
-| `auth.guard.ts`            | guard           | `CanActivateFn`           |
-| `list-table.component.ts`  | componente      | `@Component`              |
-| `format-date.pipe.ts`      | pipe            | `@Pipe`                   |
-| `highlight.directive.ts`   | directiva       | `@Directive`              |
-| `crypto.utils.ts`          | utils           | `class` clase utilitaria  |
+- Mantener consistencia entre carpetas y archivos.
+
+| Nombre Archivo            | Tipo de Archivo | decorador / tipo Angular |
+| ------------------------- | --------------- | ------------------------ |
+| `login.component.ts`      | componente      | `@Component`             |
+| `auth.service.ts`         | servicio        | `@Injectable`            |
+| `auth.guard.ts`           | guard           | `CanActivateFn`          |
+| `list-table.component.ts` | componente      | `@Component`             |
+| `format-date.pipe.ts`     | pipe            | `@Pipe`                  |
+| `highlight.directive.ts`  | directiva       | `@Directive`             |
+| `crypto.utils.ts`         | utils           | `class` clase utilitaria |
 
 ## 🧩 Standalone Components
 
@@ -1394,13 +1741,13 @@ Angular reemplazó la arquitectura basada en módulos (`NgModule`) por component
 
 Además:
 
-- Ya ***NO*** es necesario escribir `standalone: true` en los componentes.
+- Ya **NO** es necesario escribir `standalone: true` en los componentes.
 
 - `standalone` ahora es `true` por defecto.
 
 - Cada componente importa directamente sus propias dependencias en array `imports: []`
 
-****❌ Ejemplo Incorrecto - Angular legacy - `AppModule`****
+\***\*❌ Ejemplo Incorrecto - Angular legacy - `AppModule`\*\***
 
 ```TS
 /* app.module.ts */
@@ -1424,7 +1771,7 @@ import { BotsComponent } from './bots.component';
 export class AppModule {}
 ```
 
-****✅ Ejemplo Correcto - Angular moderno con Standalone Components****
+\***\*✅ Ejemplo Correcto - Angular moderno con Standalone Components\*\***
 
 ```TS
 /* children.component.ts */
@@ -1477,16 +1824,16 @@ ng generate @angular/core:control-flow
 ```
 
 | ❌ **NO** usar Angular legacy | ✅ Usar Angular moderno |
-|--------------------------------|-------------------------|
-| `*ngFor`                       | `@for`                  |
-| `*ngIf`                        | `@if`                   |
-| `*ngSwitch`                    | `@switch`               |
-| `*ngSwitchCase`                | `@case`                 |
-| `*ngSwitchDefault`             | `@default`              |
+| ----------------------------- | ----------------------- |
+| `*ngFor`                      | `@for`                  |
+| `*ngIf`                       | `@if`                   |
+| `*ngSwitch`                   | `@switch`               |
+| `*ngSwitchCase`               | `@case`                 |
+| `*ngSwitchDefault`            | `@default`              |
 
 ### **[`@for`](https://angular.dev/api/core/@for)**
 
-***❌ Incorrecto - Angular legacy - `*ngFor`***
+***❌ Incorrecto - Angular legacy - `*ngFor`\***
 
 ```TS
 /* products.component.ts */
@@ -1519,7 +1866,7 @@ export class ProductsComponent {
 </div>
 ```
 
-***✅ Correcto - Angular moderno `@for`***
+**✅ Correcto - Angular moderno `@for`**
 
 ```TS
 /* products.component.ts */
@@ -1556,7 +1903,7 @@ export class ProductsComponent {
 
 ### **[`@if` `@else if`](https://angular.dev/guide/templates/control-flow)**
 
-***❌ Incorrecto - Angular legacy - `*ngIf`***
+***❌ Incorrecto - Angular legacy - `*ngIf`\***
 
 ```TS
 /* status.component.ts */
@@ -1590,7 +1937,7 @@ export class StatusComponent {
 </div>
 ```
 
-***✅ Correcto - Angular moderno `@if` y `@else if`***
+**✅ Correcto - Angular moderno `@if` y `@else if`**
 
 ```TS
 /* status.component.ts */
@@ -1629,7 +1976,7 @@ export class StatusComponent {
 
 ### **[`@switch`, `@case`, `@default`](https://angular.dev/api/core/@switch)**
 
-***❌ Incorrecto - Angular legacy - `*ngSwitch`***
+***❌ Incorrecto - Angular legacy - `*ngSwitch`\***
 
 ```TS
 /* role.component.ts */
@@ -1663,7 +2010,7 @@ export class RoleComponent {
 </div>
 ```
 
-***✅ Correcto - Angular moderno `@switch`, `@case`, `@default`***
+**✅ Correcto - Angular moderno `@switch`, `@case`, `@default`**
 
 ```TS
 /* role.component.ts */
@@ -1717,17 +2064,18 @@ En Angular moderno ya no se recomienda usar `constructor()` para inyección de d
 👉 Siempre usar `inject()`.
 
 Esto permite:
-* menos boilerplate.
 
-* evitar constructores gigantes.
+- menos boilerplate.
 
-* mejor legibilidad
+- evitar constructores gigantes.
 
-* mejor tipado
+- mejor legibilidad
 
-* mejor compatibilidad con `Signals`.
+- mejor tipado
 
-****❌ Ejemplo incorrecto - Angular legacy - `constructor()`****
+- mejor compatibilidad con `Signals`.
+
+\***\*❌ Ejemplo incorrecto - Angular legacy - `constructor()`\*\***
 
 ```TS
 import { Component } from '@angular/core';
@@ -1748,7 +2096,7 @@ export class BotsComponent {
 }
 ```
 
-****✅ Ejemplo correcto - Angular moderno `inject()`****
+\***\*✅ Ejemplo correcto - Angular moderno `inject()`\*\***
 
 ```TS
 import { Component, inject } from '@angular/core';
@@ -1775,19 +2123,19 @@ Este proyecto **tiene** que usar signals para estados, **NO** estados tradiciona
 
 Los signals son reactivos, cuando un signal cambia:
 
-* Angular actualiza automáticamente todo lo que depende de ese estado.
+- Angular actualiza automáticamente todo lo que depende de ese estado.
 
-* No es necesario sincronizar estados manualmente.
+- No es necesario sincronizar estados manualmente.
 
-* No hace falta usar BehaviorSubject para compartir reactividad.
+- No hace falta usar BehaviorSubject para compartir reactividad.
 
-* Se escribe menos código.
+- Se escribe menos código.
 
-* La reactividad es más simple y mantenible.
+- La reactividad es más simple y mantenible.
 
-* Evita múltiples `subscribe()` innecesarios.
+- Evita múltiples `subscribe()` innecesarios.
 
-****❌ Ejemplo incorrecto - Angular legacy - estado tradicional NO reactivo automáticamente****
+\***\*❌ Ejemplo incorrecto - Angular legacy - estado tradicional NO reactivo automáticamente\*\***
 
 ```TS
 /* counter.component.ts */
@@ -1848,7 +2196,7 @@ export class CounterComponent {
 </button>
 ```
 
-****✅ Ejemplo correcto - Angular moderno estados con `signal`****
+\***\*✅ Ejemplo correcto - Angular moderno estados con `signal`\*\***
 
 ```TS
 /* counter.component.ts */
@@ -1910,7 +2258,7 @@ export class CounterComponent {
 
 [Tutorial](https://youtu.be/_XnEoK47Il0?si=bnZ1NuRuxLIaSYUv)
 
-****❌ Ejemplo incorrecto - Angular legacy - `@Input()`, `@Output()` y `*ngFor`****
+\****❌ Ejemplo incorrecto - Angular legacy - `@Input()`, `@Output()` y `*ngFor`\*\***
 
 ```TS
 /* product.interface.ts */
@@ -1925,7 +2273,7 @@ export interface IProduct {
 ```TS
 /* product-children.component.ts
 
-importar 
+importar
 - Input con I mayuscula
 - Output con O mayuscula */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -2004,7 +2352,7 @@ export class ParentComponent {
 </app-product-children>
 ```
 
-****✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`****
+\***\*✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`\*\***
 
 ```TS
 /* product.interface.ts */
