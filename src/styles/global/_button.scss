@@ -9,7 +9,55 @@
 * - Tailwind 4 padding       https://tailwindcss.com/docs/padding                 *
 *********************************************************************************** */
 
-@use "./variable.scss" as variable;
+/*
+*********************************************************************************
+* Variables de Sass para colores de botones                                     *
+* para colores SIEMPRE usar oklch                                               *
+*                                                                               *
+* | ------------------ | --------------------------------- | ---------------- | *                                                         *
+* | Variable           | Intención                         | Pseudo-clase CSS | *
+* | ------------------ | --------------------------------- | ---------------- | *
+* | primary            | color base                        | No aplica        | *
+* | primary-contrast   | variación más intensa/interactiva | :hover           | *
+* | primary-emphasis   | resaltado visual/accesibilidad    | :focus-visible   | *
+* | ------------------ | --------------------------------- | ---------------- | *
+*                                                                               *
+********************************************************************************* */
+
+$primary:                 oklch(54.62% 0.228 262.44);          // #0d6efd
+$primary-contrast:        oklch(48.84% 0.217 264.38);          // #0b5ed7
+$primary-emphasis:        oklch(54.62% 0.228 262.44 / 0.25);   // #0d6efd40
+
+$secondary:               oklch(55.42% 0.023 264.36);          // #6c757d
+$secondary-contrast:      oklch(49.96% 0.02 264.11);           // #5c636a
+$secondary-emphasis:      oklch(55.42% 0.023 264.36 / 0.4);    // #6c757d66
+
+$success:                oklch(57.93% 0.126 158.62);           // #198754
+$success-contrast:       oklch(52.34% 0.113 158.91);           // #157347
+$success-emphasis:       oklch(57.93% 0.126 158.62 / 0.4);     // #19875466
+
+$danger:                 oklch(60.24% 0.208 24.18);            // #dc3545
+$danger-contrast:        oklch(53.08% 0.183 22.64);            // #bb2d3b
+$danger-emphasis:        oklch(60.24% 0.208 24.18 / 0.4);      // #dc354566
+
+$warning:                oklch(87.73% 0.181 92.84);            // #ffc107
+$warning-contrast:       oklch(89.92% 0.17 94.41);             // #ffca2c
+$warning-emphasis:       oklch(87.73% 0.181 92.84 / 0.4);      // #ffc10766
+
+$info:                   oklch(78.44% 0.135 220.52);           // #0dcaf0
+$info-contrast:          oklch(81.36% 0.114 220.17);           // #31d2f2
+$info-emphasis:          oklch(78.44% 0.135 220.52 / 0.4);     // #0dcaf066
+
+$light:                  oklch(99.12% 0.002 264.54);           // #fdfdfe
+$light-contrast:         oklch(87.34% 0.006 264.51);           // #d3d4d5
+$light-emphasis:         oklch(55.42% 0.023 264.36 / 0.4);     // #6c757d66
+
+$dark:                   oklch(27.03% 0.015 264.05);           // #212529
+$dark-contrast:          oklch(35.18% 0.018 264.11);           // #343a40
+$dark-emphasis:          oklch(27.03% 0.015 264.05 / 0.4);     // #21252966
+
+$ghost:                   transparent;
+$ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
 
 /* ********
 * @extend *
@@ -29,7 +77,7 @@
   padding: 0.5rem 1rem;
 
   font-size: 1rem; // text-base = 1rem = 16px
-  line-height: calc(1.2 / 1);
+  line-height: calc(1.2 / 1); // (line-height que se desea aplicar / font-size)
 }
 
 /* ******************
@@ -89,18 +137,25 @@
   -moz-appearance: none;
   appearance: none;
 
+  touch-action: manipulation;
+
   border-radius: 0.5rem;
 
   background-color: transparent;
 
   font-weight: 500;
 
+  // Eliminar color de fondo azul cuando se hace click en los enlaces <a>
+  // https://stackoverflow.com/questions/21003535/anyway-to-prevent-the-blue-highlighting-of-elements-in-chrome-when-clicking-quic
+  -webkit-tap-highlight-color: transparent;
+
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
     color 0.2s ease,
     opacity 0.2s ease,
-    transform 0.1s ease;
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
 
   // tamaño iconos es proporcional al font-size del boton
   span,
@@ -118,7 +173,6 @@
 
   // botón activado
   &:enabled,
-  &:not(:disabled),
   &[role="button"]:not([aria-disabled="true"]) {
     cursor: pointer;
   }
@@ -147,162 +201,162 @@
 
 // boton primario para acciones de confirmacion (guardar, aceptar, si)
 .btn-primary {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: $primary;
+  border-color: $primary;
   color: white;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #0b5ed7;
-      border-color: #0a58ca;
+      background-color: $primary-contrast;
+      border-color: $primary-contrast;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #0b5ed7;
-      border-color: #0a58ca;
+      background-color: $primary-contrast;
+      border-color: $primary-contrast;
     }
   }
 }
 
 // boton secundario para acciones de cancelacion (eliminar, cancelar, no)
 .btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: $secondary;
+  border-color: $secondary;
   color: white;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #5c636a;
-      border-color: #565e64;
+      background-color: $secondary-contrast;
+      border-color: $secondary-contrast;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #5c636a;
-      border-color: #565e64;
+      background-color: $secondary-contrast;
+      border-color: $secondary-contrast;
     }
   }
 }
 
 .btn-success {
-  background-color: #198754;
-  border-color: #198754;
+  background-color: $success;
+  border-color: $success;
   color: #ffffff;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #157347;
-      border-color: #146c43;
+      background-color: $success-contrast;
+      border-color: $success-contrast;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #157347;
-      border-color: #146c43;
+      background-color: $success-contrast;
+      border-color: $success-contrast;
     }
   }
 }
 
 .btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: $danger;
+  border-color: $danger;
   color: white;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #bb2d3b;
-      border-color: #b02a37;
+      background-color: $danger-contrast;
+      border-color: $danger-contrast;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #bb2d3b;
-      border-color: #b02a37;
+      background-color: $danger-contrast;
+      border-color: $danger-contrast;
     }
   }
 }
 
 .btn-warning {
-  background-color: #ffc107;
-  border-color: #ffc107;
+  background-color: $warning;
+  border-color: $warning;
   color: #000000;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #ffca2c;
+      background-color: $warning-contrast;
       border-color: #ffc720;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #ffca2c;
+      background-color: $warning-contrast;
       border-color: #ffc720;
     }
   }
 }
 
 .btn-info {
-  background-color: #0dcaf0;
-  border-color: #0dcaf0;
+  background-color: $info;
+  border-color: $info;
   color: #000000;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #31d2f2;
-      border-color: #25cff2;
+      background-color: $info-contrast;
+      border-color: $info-contrast;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #31d2f2;
-      border-color: #25cff2;
+      background-color: $info-contrast;
+      border-color: $info-contrast;
     }
   }
 }
 
 .btn-light {
-  background-color: #fdfdfe;
+  background-color: $light;
   border-color: #dee2e6;
   color: #000000;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #d3d4d5;
+      background-color: $light-contrast;
       border-color: #c6c7c8;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #d3d4d5;
+      background-color: $light-contrast;
       border-color: #c6c7c8;
     }
   }
 }
 
 .btn-dark {
-  background-color: #212529;
-  border-color: #212529;
+  background-color: $dark;
+  border-color: $dark;
   color: #ffffff;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #343a40;
-      border-color: #343a40;
+      background-color: $dark-contrast;
+      border-color: $dark-contrast;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #343a40;
-      border-color: #343a40;
+      background-color: $dark-contrast;
+      border-color: $dark-contrast;
     }
   }
 }
@@ -324,7 +378,7 @@ Estilos para enlaces. Ejemplo:
 .btn-link {
   background-color: transparent;
   border-color: transparent;
-  color: #0d6efd;
+  color: $primary;
 
   padding: 0;
 
@@ -344,9 +398,9 @@ Estilos para enlaces. Ejemplo:
 }
 
 .btn-ghost {
-  background-color: transparent;
-  border-color: transparent;
-  color: #0d6efd;
+  background-color: $ghost;
+  border-color: $ghost;
+  color: $primary;
 
   @include hover-device {
     &:hover:not(:disabled) {
@@ -367,21 +421,21 @@ Estilos para enlaces. Ejemplo:
 
 .btn-outline-primary {
   background-color: transparent;
-  border-color: #0d6efd;
-  color: #0d6efd;
+  border-color: $primary;
+  color: $primary;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #0d6efd;
-      border-color: #0d6efd;
+      background-color: $primary;
+      border-color: $primary;
       color: white;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #0d6efd;
-      border-color: #0d6efd;
+      background-color: $primary;
+      border-color: $primary;
       color: white;
     }
   }
@@ -389,21 +443,21 @@ Estilos para enlaces. Ejemplo:
 
 .btn-outline-secondary {
   background-color: transparent;
-  border-color: #6c757d;
-  color: #6c757d;
+  border-color: $secondary;
+  color: $secondary;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #6c757d;
-      border-color: #6c757d;
+      background-color: $secondary;
+      border-color: $secondary;
       color: white;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #6c757d;
-      border-color: #6c757d;
+      background-color: $secondary;
+      border-color: $secondary;
       color: white;
     }
   }
@@ -411,21 +465,21 @@ Estilos para enlaces. Ejemplo:
 
 .btn-outline-success {
   background-color: transparent;
-  border-color: #198754;
-  color: #198754;
+  border-color: $success;
+  color: $success;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #198754;
-      border-color: #198754;
+      background-color: $success;
+      border-color: $success;
       color: white;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #198754;
-      border-color: #198754;
+      background-color: $success;
+      border-color: $success;
       color: white;
     }
   }
@@ -433,21 +487,21 @@ Estilos para enlaces. Ejemplo:
 
 .btn-outline-danger {
   background-color: transparent;
-  border-color: #dc3545;
-  color: #dc3545;
+  border-color: $danger;
+  color: $danger;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #dc3545;
-      border-color: #dc3545;
+      background-color: $danger;
+      border-color: $danger;
       color: white;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #dc3545;
-      border-color: #dc3545;
+      background-color: $danger;
+      border-color: $danger;
       color: white;
     }
   }
@@ -455,21 +509,21 @@ Estilos para enlaces. Ejemplo:
 
 .btn-outline-warning {
   background-color: transparent;
-  border-color: #ffc107;
-  color: #ffc107;
+  border-color: $warning;
+  color: $warning;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #ffc107;
-      border-color: #ffc107;
+      background-color: $warning;
+      border-color: $warning;
       color: black;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #ffc107;
-      border-color: #ffc107;
+      background-color: $warning;
+      border-color: $warning;
       color: black;
     }
   }
@@ -477,21 +531,21 @@ Estilos para enlaces. Ejemplo:
 
 .btn-outline-info {
   background-color: transparent;
-  border-color: #0dcaf0;
-  color: #0dcaf0;
+  border-color: $info;
+  color: $info;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #0dcaf0;
-      border-color: #0dcaf0;
+      background-color: $info;
+      border-color: $info;
       color: black;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #0dcaf0;
-      border-color: #0dcaf0;
+      background-color: $info;
+      border-color: $info;
       color: black;
     }
   }
@@ -504,14 +558,14 @@ Estilos para enlaces. Ejemplo:
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #d3d4d5;
+      background-color: $light-contrast;
       border-color: #c6c7c8;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #d3d4d5;
+      background-color: $light-contrast;
       border-color: #c6c7c8;
     }
   }
@@ -519,21 +573,21 @@ Estilos para enlaces. Ejemplo:
 
 .btn-outline-dark {
   background-color: transparent;
-  border-color: #212529;
-  color: #212529;
+  border-color: $dark;
+  color: $dark;
 
   @include hover-device {
     &:hover:not(:disabled) {
-      background-color: #212529;
-      border-color: #212529;
+      background-color: $dark;
+      border-color: $dark;
       color: white;
     }
   }
 
   @include touch-device {
     &:active:not(:disabled) {
-      background-color: #212529;
-      border-color: #212529;
+      background-color: $dark;
+      border-color: $dark;
       color: white;
     }
   }
@@ -612,6 +666,11 @@ Estilos para enlaces. Ejemplo:
   height: 2.5em;
 
   padding: 0;
+
+  // como la clase .btn usa flex entonces se necesita
+  // hacer que boton tenga medidas de width y height
+  flex-shrink: 0; // evitar q boton se encoja
+  flex-grow: 0;   // evitar q boton se expanda
 }
 
 // tamaño boton que solo tiene icono
@@ -650,7 +709,7 @@ Estilos para enlaces. Ejemplo:
 .btn-outline-primary,
 .btn-link {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 0.25rem $primary-emphasis; // #0d6efd40
   }
 }
 
@@ -658,7 +717,7 @@ Estilos para enlaces. Ejemplo:
 .btn-secondary,
 .btn-outline-secondary {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.4);
+    box-shadow: 0 0 0 0.25rem $secondary-emphasis; // #6c757d66
   }
 }
 
@@ -666,7 +725,7 @@ Estilos para enlaces. Ejemplo:
 .btn-success,
 .btn-outline-success {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.4);
+    box-shadow: 0 0 0 0.25rem $success-emphasis; // #19875466
   }
 }
 
@@ -674,7 +733,7 @@ Estilos para enlaces. Ejemplo:
 .btn-danger,
 .btn-outline-danger {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.4);
+    box-shadow: 0 0 0 0.25rem $danger-emphasis; // #dc354566
   }
 }
 
@@ -682,7 +741,7 @@ Estilos para enlaces. Ejemplo:
 .btn-warning,
 .btn-outline-warning {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0 0 0.25rem $warning-emphasis; // #ffc10766
   }
 }
 
@@ -690,7 +749,7 @@ Estilos para enlaces. Ejemplo:
 .btn-info,
 .btn-outline-info {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.4);
+    box-shadow: 0 0 0 0.25rem $info-emphasis; // #0dcaf066
   }
 }
 
@@ -698,7 +757,7 @@ Estilos para enlaces. Ejemplo:
 .btn-light,
 .btn-outline-light {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.4);
+    box-shadow: 0 0 0 0.25rem $light-emphasis; // #6c757d66
   }
 }
 
@@ -706,14 +765,14 @@ Estilos para enlaces. Ejemplo:
 .btn-dark,
 .btn-outline-dark {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.4);
+    box-shadow: 0 0 0 0.25rem $dark-emphasis; // #21252966
   }
 }
 
 /* ghost */
 .btn-ghost {
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.35);
+    box-shadow: 0 0 0 0.25rem $ghost-emphasis; // #6c757d59
   }
 }
 
