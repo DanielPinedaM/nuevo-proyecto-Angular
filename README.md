@@ -94,7 +94,7 @@ src/
 │   │
 │   ├── home/ → Contiene todas las rutas y componentes después de iniciar sesión
 │   │   └── main-wrapper/ → contenedor principal de paginas despues de loguearse
-│   │   └── bots/ → Define la ruta /bots, es una feature
+│   │   └── bots/ → Feature independiente que define la ruta `/bots`. El proyecto utiliza una arquitectura basada en funcionalidades (Feature-Based Architecture).
 │   │       ├── bots.component.html
 │   │       └── bots.component.ts
 │
