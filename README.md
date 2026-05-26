@@ -1,22 +1,20 @@
-# ⚠️ Advertencia: 🚨
+# 🅰️ Angular 21 + Prime NG 21 + Tailwind 4 + Sass
 
-Debido a que la IA no conoce las convenciones ni la arquitectura de este proyecto, antes de hacer preguntas a una IA (Chat GPT, Claude, Gemini, etc.), primero debes copiar y pegar completo este README.md en la IA para que las respuestas de la IA y el código generado sigan las buenas prácticas y se alineen correctamente con la arquitectura del proyecto.
+# 🟢 Versión de Node JS
 
-Desobedecer esta advertencia hace que el código generado sea desordenado, inconsistente y no siga las convenciones definidas en el proyecto.
+Este proyecto debe ejecutarse utilizando:
 
-# 🅰️ Angular 20 + Prime NG 20 + Tailwind 4 + Sass
+```bash
+Node JS 24.15.0
+```
 
-usar Node JS 24.15.0
-
-# 📦 Instalar paquetes
+# 📦 Instalar Paquetes
 
 ```javascript
 npm i
 ```
 
-# ▶️ Ejecutar proyecto
-
-Para mejorar rendimiento de ejecución de comandos y especificar el entorno de ejecución del proyecto se debe usar `node --run` en lugar de `npm run` o `npm start`.
+# ▶️ Ejecutar Proyecto
 
 | comando                | apunta a... | ruta archivo                                |
 | ---------------------- | ----------- | ------------------------------------------- |
@@ -31,7 +29,45 @@ Para mejorar rendimiento de ejecución de comandos y especificar el entorno de e
 | node --run build:test | pruebas     | `src/environments/environment.test.ts` |
 | node --run build:prod | producción  | `src/environments/environment.prod.ts` |
 
-# 📁 Estructura del Proyecto
+# 🤖 Uso de IA
+
+> [!WARNING]
+> # ⚠️ ****IMPORTANTE**** 🚨
+>
+> ****Ignorar esta sección ocasionará que la IA genere código que no respete la arquitectura, estructura ni las convenciones del proyecto, produciendo código inconsistentes y desordenadas.****
+
+Para que la IA pueda responder correctamente y respetar la estructura de este proyecto, antes de realizar cualquier pregunta en herramientas de IA como Chat GPT, Claude, Gemini, etc., ***desde aquí en adelante*** debes copiar y pegar completamente este `README.md`.
+
+No debes copiar secciones anteriores del `README.md`.
+
+Debes copiar únicamente el contenido que se encuentra desde aquí hacia abajo, incluyendo todas las secciones posteriores completas y sin omitir información.
+
+## Stack Frontend del Proyecto
+
+* Angular 21
+* TypeScript 6
+* Prime NG 21
+* Tailwind CSS 4
+* Sass (versión moderna con `@use` y `@forward`, no utilizar `@import`)
+* Luxon
+* Material Symbols Icons
+
+## Reglas Obligatorias para la IA
+
+* No generes análisis, recomendaciones ni comentarios adicionales hasta que empiece a realizar preguntas.
+
+* Todas las respuestas, recomendaciones y fragmentos de código deben respetar obligatoriamente la arquitectura, reglas, patrones y convenciones definidas en este documento.
+
+* No cuestiones, reemplaces, contradigas ni ignores las decisiones de arquitectura definidas en este proyecto.
+
+* Si existe alguna ambigüedad, falta de contexto o algún aspecto importante de arquitectura, estructura o convenciones que no esté definido, primero debes preguntar antes de asumir una implementación.
+
+* Si durante la conversación recibes instrucciones contradictorias, debes priorizar siempre las reglas y decisiones definidas inicialmente en este documento.
+
+
+* La arquitectura, reglas y convenciones definidas en este documento tienen prioridad absoluta. Sin embargo, como no todos los casos posibles están documentados, si un problema no puede resolverse respetando la arquitectura actual o requiere una solución no contemplada en el README, primero debes advertir explícitamente que dicha solución se sale de la arquitectura o convenciones establecidas antes de generar una implementación.
+
+# 📁 Estructura Base del Proyecto
 
 ```txt
 src/
@@ -496,9 +532,9 @@ Ejemplo:
 
 ### Iconos
 
-**NO** instales otra libreria para iconos porque en este proyecto es estandar usar [Angular Material Icons](https://fonts.google.com/icons)
+**NO** instales otra libreria para iconos porque en este proyecto es estandar usar [Material Symbols Icons](https://fonts.google.com/icons)
 
-Dar prioridad a usar los iconos de [Angular Material Icons](https://fonts.google.com/icons)
+Dar prioridad a usar los iconos de [Material Symbols Icons](https://fonts.google.com/icons)
 
 Usar siempre la siguiente estructura:
 
@@ -516,7 +552,7 @@ material-symbols-outlined
 
 No debe modificarse ni reemplazarse.
 
-Esa clase es la que permite renderizar correctamente los iconos de Angular Material.
+Esa clase es la que permite renderizar correctamente los Material Symbols Icons.
 
 Lo único que debe cambiar es el nombre del icono:
 
@@ -540,9 +576,9 @@ Ejemplos:
 <span class="material-symbols-outlined"> search </span>
 ```
 
-No agregar imágenes/SVGs manualmente si el icono ya existe en [Angular Material Icons](https://fonts.google.com/icons)
+No agregar imágenes/SVGs manualmente si el icono ya existe en [Material Symbols Icons](https://fonts.google.com/icons)
 
-Cuando el icono no este en [Angular Material Icons](https://fonts.google.com/icons), entonces agregarlo dentro de la carpeta `src/assets/icon/...`.
+Cuando el icono no este en [Material Symbols Icons](https://fonts.google.com/icons), entonces agregarlo dentro de la carpeta `src/assets/icon/...`.
 
 Los **iconos** del proyecto se deben guardar dentro de la carpeta
 
@@ -649,9 +685,9 @@ Ese tipo de soluciones:
 
 **_✅ Correcto:_**
 
-Los iconos de los botones deben utilizar [Angular Material Icons](https://fonts.google.com/icons)
+Los iconos de los botones deben utilizar [Material Symbols Icons](https://fonts.google.com/icons)
 
-Los [iconos de Angular Material](https://fonts.google.com/icons) funcionan como texto estilizable mediante CSS, lo que permite integrarlos correctamente con la arquitectura visual del proyecto.
+[Material Symbols Icons](https://fonts.google.com/icons) funcionan como texto estilizable mediante CSS, lo que permite integrarlos correctamente con la arquitectura visual del proyecto.
 
 ```html
 <button class="btn btn-primary">
