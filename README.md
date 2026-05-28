@@ -776,7 +776,7 @@ Mezclar las clases globales de botones (`.btn`, `.btn-primary`, `.btn-outline-*`
 ```HTML
 <button class="btn btn-primary bg-red-500 px-10 rounded-full">
   <span class="material-symbols-outlined">save</span>
-  Guardar
+  <span class="bg-blue-500">Guardar</span>
 </button>
 ```
 
