@@ -609,17 +609,84 @@ Está guía de estilos para botones está basada en:
 
 La arquitectura está diseñada para proyectos grandes y escalables, separando responsabilidades en:
 
-| Categoría         | Ejemplo de clase | Responsabilidad                                                        |
-| ----------------- | ---------------- | ---------------------------------------------------------------------- |
-| clases base       | `.btn`           | Estilos base para boton (reset CSS para boton, borde redondeado, etc.) |
-| variantes         | `.btn-primary`   | Variante visual principal                                              |
-| variantes         | `.btn-secondary` | Variante visual secundaria                                             |
-| modificadores     | `.btn-outline`   | Agrega estilos con borde                                               |
-| tamaños           | `.btn-sm`        | Tamaño pequeño                                                         |
-| tamaños           | `.btn-lg`        | Tamaño grande                                                          |
-| estilos de iconos | `.btn-icon-only` | Estilos para boton que contiene solamente icono (sin texto)            |
+| Categoría     | Ejemplo de clase | Responsabilidad                                                        |
+| ------------- | ---------------- | ---------------------------------------------------------------------- |
+| clase base    | `.btn`           | Estilos base para boton (reset CSS para boton, borde redondeado, etc.) |
+| variante      | `.btn-primary`   | Variante visual principal                                              |
+| variante      | `.btn-secondary` | Variante visual secundaria                                             |
+| variante      | `.btn-outline-*` | Agrega estilos con borde                                               |
+| tamaño        | `.btn-sm`        | Tamaño pequeño                                                         |
+| tamaño        | `.btn-lg`        | Tamaño grande                                                          |
+| modificador   | `.btn-icon-only` | Estilos para boton que contiene solamente icono (sin texto)            |
 
-**NO** usar etiquetas `<img>` para iconos porque las imágenes no se integran correctamente con la arquitectura CSS de los botones y dificultan aplicar estilos dinámicos como:
+**❌ Incorrecto:**
+
+Usar los [botones de Prime NG](https://primeng.org/button):
+
+* `p-button`
+
+* Atributo `pButton`
+
+* Directivas auxiliares `pButtonLabel` y `pButtonIcon`
+
+```TS
+/* my-component.component.ts */
+
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+  imports: [ButtonModule],
+})
+
+export class MyComponent {}
+```
+
+```HTML
+<!-- my-component.component.html -->
+
+<p-button label="Guardar" />
+
+<button pButton>
+    <i class="pi pi-check" pButtonIcon></i>
+    <span pButtonLabel>Guardar</span>
+</button>
+```
+
+La razón es que los [botones de Prime NG](https://primeng.org/button) agregan estilos por defecto que alteran los estilos globales de `_button.scss`
+
+**✅ Correcto:**
+
+Usar etiqueta `button` nativa de HTML:
+
+```TS
+/* my-component.component.ts */
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+
+export class MyComponent {}
+```
+
+```HTML
+<!-- my-component.component.html -->
+
+<button class="btn btn-primary">
+  <span>Guardar</span>
+</button>
+
+<button class="btn btn-primary">
+  <span class="material-symbols-outlined">arrow_forward</span>
+  <span>Primary</span>
+</button>
+```
+
+**❌ Incorrecto:**
+
+Usar etiquetas `<img>` para iconos porque las imágenes no se integran correctamente con la arquitectura CSS de los botones y dificultan aplicar estilos dinámicos como:
 
 - `color`
 - `hover`
@@ -629,8 +696,6 @@ La arquitectura está diseñada para proyectos grandes y escalables, separando r
 - dark mode
 
 Esto rompe la consistencia visual y vuelve el código más difícil de mantener y escalar.
-
-**❌ Incorrecto:**
 
 ```html
 <button>
@@ -676,7 +741,7 @@ button {
 }
 ```
 
-Ese tipo de soluciones:
+Esto genera:
 
 - Son difíciles de mantener.
 - Generan inconsistencias visuales.
@@ -684,7 +749,7 @@ Ese tipo de soluciones:
 - Rompen fácilmente en dark mode.
 - Vuelven el CSS más complejo y frágil.
 
-**_✅ Correcto:_**
+**✅ Correcto:**
 
 Los iconos de los botones deben utilizar [Material Symbols Icons](https://fonts.google.com/icons)
 
@@ -696,20 +761,22 @@ Los iconos de los botones deben utilizar [Material Symbols Icons](https://fonts.
 </button>
 ```
 
-**_❌ Incorrecto:_**
+**❌ Incorrecto:**
 
 Usar Tailwind CSS para definir estilos de botones directamente en cada componente, ya que esto suele generar:
-
-- Código duplicado.
-- Múltiples implementaciones distintas para el mismo tipo de botón.
-- Inconsistencias visuales.
-- Dificultad para mantener un estándar de diseño.
-- Dificultad para reutilizar estilos.
-- Componentes difíciles de escalar y mantener.
 
 ```HTML
 <button class="rounded-2xl bg-blue-500 hover:bg-blue-600 px-4 py-2 text-white disabled:cursor-not-allowed enabled:cursor-pointer">
   Aceptar
+</button>
+```
+
+Mezclar las clases globales de botones (`.btn`, `.btn-primary`, `.btn-outline-*`, etc.) con clases de Tailwind CSS.
+
+```HTML
+<button class="btn btn-primary bg-red-500 px-10 rounded-full">
+  <span class="material-symbols-outlined">save</span>
+  Guardar
 </button>
 ```
 
@@ -737,26 +804,28 @@ Ese enfoque no escala bien, ya que cada nueva combinación obliga a crear más c
 Esto genera:
 
 - Archivos Sass enormes y difíciles de mantener.
-- Demasiadas líneas de código con responsabilidades mezcladas.
-- Estilos difíciles de entender y modificar.
-- Miedo a modificar estilos existentes porque un cambio puede romper otros botones.
 - Duplicación innecesaria de código.
-- Creación constante de nuevas clases para cubrir cada nueva variante de botón.
-- Arquitectura no escalable.
+- Inconsistencias visuales.
+- Dificultad para reutilizar un estándar de diseño.
 
 **✅ Correcto:**
 
 Las clases de botones deben representar una sola responsabilidad y ser **composables**.
 
-```txt
 En arquitectura CSS y de componentes, composable significa que una clase puede combinarse con otras clases pequeñas y reutilizables para construir distintos comportamientos sin duplicar código.
-```
 
 ```SCSS
+// Reset CSS de boton
 .btn {}
+
+// tamaño
 .btn-sm {}
+
+// variantes
 .btn-primary {}
 .btn-outline-primary {}
+
+// modificadores
 .btn-full-width {}
 ```
 
@@ -818,7 +887,9 @@ Por defecto, `.btn` tiene `background-color: transparent`, por lo que **no repre
 - Botones **desactivados** usan `cursor: not-allowed` 🚫 para indicar que el botón no está disponible y no puede ser clickeado.
 
 ```html
-<button class="btn">Base class</button>
+<button class="btn">
+  Base class
+</button>
 ```
 
 ### Botones con Color de Fondo
@@ -848,14 +919,13 @@ En sistemas de diseño modernos, los botones se clasifican según su nivel de im
 <button class="btn btn-info">Info</button>
 <button class="btn btn-light">Light</button>
 <button class="btn btn-dark">Dark</button>
-<button class="btn btn-ghost">Ghost</button>
 
 <!-- Enlaces -->
-<button class="btn btn-link" routerLink="/home">Link</button>
+<a class="btn btn-link" routerLink="/home">Link</a>
 <a class="btn btn-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com">Ir a Google</a>
 ```
 
-### Botones con Borde
+### Botones con Borde + Texto
 
 Las clases `.btn-outline-*` se usan para botones que tienen `border`, pero no color de fondo `background-color` por defecto.
 
@@ -867,7 +937,7 @@ El comportamiento visual depende del estado de interacción:
 
 Algunos botones usan colores claros en el texto o borde, por lo que deben colocarse sobre fondos oscuros para mantener un buen contraste y asegurar que sean claramente visibles.
 
-![borde-activado](./docs/readme-md/img/button/borde-activado.png)
+![borde-con-texto](./docs/readme-md/img/button/borde-con-texto.png)
 
 ```html
 <button class="btn btn-outline-primary">Primary</button>
@@ -886,7 +956,7 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 
 ![solo-icono](./docs/readme-md/img/button/solo-icono.png)
 
-```html
+```HTML
 <!-- bordes redondeados -->
 <button class="btn btn-icon-only btn-warning">
   <span class="material-symbols-outlined">warning</span>
@@ -950,7 +1020,7 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 </button>
 ```
 
-### Botones con Icono + Borde
+### Botones con Borde + Icono
 
 ![icono-borde](./docs/readme-md/img/button/icono-borde.png)
 
@@ -1034,16 +1104,95 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 </button>
 ```
 
+### Botones Redondos
+
+`btn-rounded-full` redondea al maximo las esquinas de cualquier tipo de boton
+
+| Tipo de botón  | Condición (dimensiones) | Resultado visual                                  |
+|----------------|-------------------------|---------------------------------------------------|
+| Rectangular    | width ≠ height          | Esquinas totalmente redondeadas (forma alargada)  |
+| Cuadrado       | width = height          | Círculo perfecto (no óvalo)                       |
+
+![botones-redondos](./docs/readme-md/img/button/botones-redondos.png)
+
+```HTML
+<button class="btn btn-primary btn-rounded-full">Primary</button>
+
+<button class="btn btn-outline-secondary btn-rounded-full">Secondary</button>
+
+<button class="btn btn-info btn-rounded-full">
+  <span class="material-symbols-outlined">info</span>
+  <span>Info</span>
+</button>
+
+<button class="btn btn-icon-only btn-outline-danger btn-rounded-full">
+  <span class="material-symbols-outlined">delete</span>
+</button>
+
+<button class="btn btn-icon-only btn-warning btn-rounded-full">
+  <span class="material-symbols-outlined">warning</span>
+</button>
+
+<!-- SIN btn-rounded-full tiene esquinas redondeadas -->
+<button class="btn btn-icon-only btn-success">
+  <span class="material-symbols-outlined">check_circle</span>
+</button>
+```
+
+### Botones sin Fondo ni Borde
+
+`btn-ghost` tiene las siguientes características:
+
+- **Fondo:** transparente.
+- **Borde:** inexistente.
+- **Color:** usa los mismos colores de las variantes (primary, secondary, success, etc).
+- **Hover:** Cambia color de fondo al situar mouse en boton.
+- **Uso:** acciones secundarias o discretas.
+
+![botones-sin-fondo-ni-borde](./docs/readme-md/img/button/botones-sin-fondo-ni-borde.png)
+
+```HTML
+<button class="btn btn-primary btn-ghost">Primary</button>
+
+<button class="btn btn-secondary btn-ghost">
+  <span class="material-symbols-outlined">close</span>
+  <span>Secondary</span>
+</button>
+
+<button class="btn btn-icon-only btn-warning btn-ghost">
+  <span class="material-symbols-outlined">warning</span>
+</button>
+```
+
 ### 🚫 Boton desactivado `cursor: not-allowed`
 
 Agregar el atributo booleano de HTML `disabled` a la etiqueta `<button>` hace que los botones tomen estilos de desactivados.
 
-El estilo de boton desactivado se aplica a cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
+El estilo de boton desactivado se aplica a cualquier tipo de boton.
 
 ![boton-desactivado](./docs/readme-md/img/button/boton-desactivado.png)
 
-```html
-<button disabled class="btn btn-danger">Danger</button>
+```HTML
+<button disabled class="btn btn-primary">Primary</button>
+
+<button disabled class="btn btn-outline-secondary">Secondary</button>
+
+<button disabled class="btn btn-icon-only btn-outline-danger btn-rounded-full">
+  <span class="material-symbols-outlined">delete</span>
+</button>
+
+<button disabled class="btn btn-icon-only btn-warning">
+  <span class="material-symbols-outlined">warning</span>
+</button>
+
+<button disabled class="btn btn-icon-only btn-outline-info">
+  <span class="material-symbols-outlined">info</span>
+</button>
+
+<button disabled class="btn btn-dark">
+  <span class="material-symbols-outlined">dark_mode</span>
+  <span>Dark</span>
+</button>
 
 <!-- Enlaces -->
 <button disabled class="btn btn-link" routerLink="/home">Link</button>
@@ -1129,7 +1278,7 @@ En CSS un elemento en bloque es aquel que ocupa todo el ancho disponible de su c
 }
 ```
 
-`btn-full-width` hace que el boton ocupe todo al ancho disponible de su contenedor padre y es responsive, usa `width: 100%`.
+`btn-full-width` convierte el boton a elemento en bloque, hace que el boton ocupe todo al ancho disponible de su contenedor padre y es responsive
 
 Funciona para cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
 
@@ -1153,6 +1302,50 @@ Funciona para cualquier variante de botón, sin importar su estilo (fondo, borde
 <!-- icono + borde -->
 <button class="btn btn-icon-only btn-outline-info btn-full-width">
   <span class="material-symbols-outlined">info</span>
+</button>
+
+<!-- sin fondo ni borde  -->
+<button class="btn btn-icon-only btn-primary btn-ghost btn-full-width">
+  <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+```
+
+### Ubicación de Iconos y Texto en Botones
+
+**❌ Incorrecto:**
+
+Usar [flex-direction](https://tailwindcss.com/docs/flex-direction) para cambiar ubicacion de iconos:
+
+```HTML
+  <button class="btn btn-primary flex-row-reverse">
+    <span class="material-symbols-outlined">arrow_forward</span>
+    <span>Primary</span>
+  </button>
+```
+
+**✅ Correcto:**
+
+Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
+
+*icono a la izquierda - texto a la derecha*
+
+![icono-izquierda-texto-derecha](./docs/readme-md/img/button/icono-izquierda-texto-derecha.png)
+
+```HTML
+<button class="btn btn-primary">
+  <span class="material-symbols-outlined">arrow_forward</span>
+  <span>Primary</span>
+</button>
+```
+
+*icono a la derecha - texto a la izquierda*
+
+![icono-derecha-texto-izquierda](./docs/readme-md/img/button/icono-derecha-texto-izquierda.png)
+
+```HTML
+<button class="btn btn-primary">
+  <span>Primary</span>
+  <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 ```
 

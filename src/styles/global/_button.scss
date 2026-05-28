@@ -26,41 +26,37 @@
 *                                                                               *
 ********************************************************************************* */
 
-$primary:                 oklch(54.62% 0.228 262.44);          // #0d6efd
-$primary-contrast:        oklch(48.84% 0.217 264.38);          // #0b5ed7
-$primary-emphasis:        oklch(54.62% 0.228 262.44 / 0.25);   // #0d6efd40
+$primary: oklch(54.62% 0.228 262.44);                   // #0d6efd
+$primary-contrast: oklch(48.84% 0.217 264.38);          // #0b5ed7
+$primary-emphasis: oklch(54.62% 0.228 262.44 / 0.25);   // #0d6efd40
 
-$secondary:               oklch(55.42% 0.023 264.36);          // #6c757d
-$secondary-contrast:      oklch(49.96% 0.02 264.11);           // #5c636a
-$secondary-emphasis:      oklch(55.42% 0.023 264.36 / 0.4);    // #6c757d66
+$secondary: oklch(60% 0.06 250);                        // #7a8594
+$secondary-contrast: oklch(52% 0.06 250);               // #667182
+$secondary-emphasis: oklch(60% 0.06 250 / 0.4);         // #7a8594
 
-$success:                oklch(57.93% 0.126 158.62);           // #198754
-$success-contrast:       oklch(52.34% 0.113 158.91);           // #157347
-$success-emphasis:       oklch(57.93% 0.126 158.62 / 0.4);     // #19875466
+$success: oklch(57.93% 0.126 158.62);                   // #198754
+$success-contrast: oklch(52.34% 0.113 158.91);          // #157347
+$success-emphasis: oklch(57.93% 0.126 158.62 / 0.4);    // #19875466
 
-$danger:                 oklch(60.24% 0.208 24.18);            // #dc3545
-$danger-contrast:        oklch(53.08% 0.183 22.64);            // #bb2d3b
-$danger-emphasis:        oklch(60.24% 0.208 24.18 / 0.4);      // #dc354566
+$danger: oklch(60.24% 0.208 24.18);                     // #dc3545
+$danger-contrast: oklch(53.08% 0.183 22.64);            // #bb2d3b
+$danger-emphasis: oklch(60.24% 0.208 24.18 / 0.4);      // #dc354566
 
-$warning:                oklch(87.73% 0.181 92.84);            // #ffc107
-$warning-contrast:       oklch(89.92% 0.17 94.41);             // #ffca2c
-$warning-emphasis:       oklch(87.73% 0.181 92.84 / 0.4);      // #ffc10766
+$warning: oklch(87.73% 0.181 92.84);                    // #e7b400
+$warning-contrast: oklch(80% 0.2 92.84);                // #c98f00
+$warning-emphasis: oklch(87.73% 0.181 92.84 / 0.4);     // #e7b400;
 
-$info:                   oklch(78.44% 0.135 220.52);           // #0dcaf0
-$info-contrast:          oklch(81.36% 0.114 220.17);           // #31d2f2
-$info-emphasis:          oklch(78.44% 0.135 220.52 / 0.4);     // #0dcaf066
+$info: oklch(78.44% 0.135 220.52);                      // #0dcaf0
+$info-contrast: oklch(81.36% 0.114 220.17);             // #31d2f2
+$info-emphasis: oklch(78.44% 0.135 220.52 / 0.4);       // #0dcaf066
 
-$light:                  oklch(99.12% 0.002 264.54);           // #fdfdfe
-$light-contrast:         oklch(87.34% 0.006 264.51);           // #d3d4d5
-$light-emphasis:         oklch(55.42% 0.023 264.36 / 0.4);     // #6c757d66
+$light: oklch(87.2% 0.01 258.338);                      // #d1d5dc
+$light-contrast: oklch(82% 0.012 258.338);              // #bfc4cc
+$light-emphasis: oklch(87.2% 0.01 258.338 / 0.35);      // #d1d5dc
 
-$dark:                   oklch(27.03% 0.015 264.05);           // #212529
-$dark-contrast:          oklch(35.18% 0.018 264.11);           // #343a40
-$dark-emphasis:          oklch(27.03% 0.015 264.05 / 0.4);     // #21252966
-
-$ghost:                   transparent;
-$ghost-contrast:        oklch(55.9% 0.22 264.05 / 0.08);       // #0d6efd14
-$ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
+$dark: oklch(27.03% 0.015 264.05);                      // #212529
+$dark-contrast: oklch(35.18% 0.018 264.11);             // #343a40
+$dark-emphasis: oklch(27.03% 0.015 264.05 / 0.4);       // #21252966
 
 /* ********
 * @extend *
@@ -76,8 +72,7 @@ $ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
 // tamaño por defecto de los botones
 // .btn-base
 %extend-btn-base-size {
-  // py-2 px-4
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem; // py-2 px-4
 
   font-size: 1rem; // text-base = 1rem = 16px
   line-height: calc(1.2 / 1); // (line-height que se desea aplicar / font-size)
@@ -199,9 +194,9 @@ $ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
   }
 }
 
-/* *****************************
-* variantes con color de fondo *
-******************************** */
+/* **************************************
+* variante - botones con color de fondo *
+***************************************** */
 
 // boton primario para acciones de confirmacion (guardar, aceptar, si)
 .btn-primary {
@@ -248,7 +243,7 @@ $ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
 .btn-success {
   background-color: $success;
   border-color: $success;
-  color: #ffffff;
+  color: white;
 
   @include hover-device {
     &:hover:not(:disabled) {
@@ -288,7 +283,7 @@ $ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
 .btn-warning {
   background-color: $warning;
   border-color: $warning;
-  color: #000000;
+  color: white;
 
   @include hover-device {
     &:hover:not(:disabled) {
@@ -308,7 +303,7 @@ $ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
 .btn-info {
   background-color: $info;
   border-color: $info;
-  color: #000000;
+  color: white;
 
   @include hover-device {
     &:hover:not(:disabled) {
@@ -327,8 +322,8 @@ $ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
 
 .btn-light {
   background-color: $light;
-  border-color: #dee2e6;
-  color: #000000;
+  border-color: $light;
+  color: white;
 
   @include hover-device {
     &:hover:not(:disabled) {
@@ -348,7 +343,7 @@ $ghost-emphasis:        oklch(55.42% 0.023 264.36 / 0.35);     // #6c757d59
 .btn-dark {
   background-color: $dark;
   border-color: $dark;
-  color: #ffffff;
+  color: white;
 
   @include hover-device {
     &:hover:not(:disabled) {
@@ -401,27 +396,9 @@ Estilos para enlaces. Ejemplo:
   }
 }
 
-.btn-ghost {
-  background-color: $ghost;
-  border-color: $ghost;
-  color: $primary;
-
-  @include hover-device {
-    &:hover:not(:disabled) {
-      background-color: $ghost-contrast;
-    }
-  }
-
-  @include touch-device {
-    &:active:not(:disabled) {
-      background-color: $ghost-contrast;
-    }
-  }
-}
-
-/* ********************
-* variantes con borde *
-*********************** */
+/* *****************************
+* variante - botones con borde *
+******************************** */
 
 .btn-outline-primary {
   background-color: transparent;
@@ -520,7 +497,7 @@ Estilos para enlaces. Ejemplo:
     &:hover:not(:disabled) {
       background-color: $warning;
       border-color: $warning;
-      color: black;
+      color: white;
     }
   }
 
@@ -528,7 +505,7 @@ Estilos para enlaces. Ejemplo:
     &:active:not(:disabled) {
       background-color: $warning;
       border-color: $warning;
-      color: black;
+      color: white;
     }
   }
 }
@@ -542,7 +519,7 @@ Estilos para enlaces. Ejemplo:
     &:hover:not(:disabled) {
       background-color: $info;
       border-color: $info;
-      color: black;
+      color: white;
     }
   }
 
@@ -550,20 +527,21 @@ Estilos para enlaces. Ejemplo:
     &:active:not(:disabled) {
       background-color: $info;
       border-color: $info;
-      color: black;
+      color: white;
     }
   }
 }
 
 .btn-outline-light {
   background-color: transparent;
-  border-color: #dee2e6;
-  color: #000000;
+  border-color: $light;
+  color: $light;
 
   @include hover-device {
     &:hover:not(:disabled) {
       background-color: $light-contrast;
       border-color: #c6c7c8;
+      color: white;
     }
   }
 
@@ -571,6 +549,7 @@ Estilos para enlaces. Ejemplo:
     &:active:not(:disabled) {
       background-color: $light-contrast;
       border-color: #c6c7c8;
+      color: white;
     }
   }
 }
@@ -597,27 +576,160 @@ Estilos para enlaces. Ejemplo:
   }
 }
 
-/* ****************
-* Tamaño de boton *
-******************* */
+/* **************************************
+* variante - botones sin fondo ni borde *
+***************************************** */
+
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.btn-primary.btn-ghost {
+  color: $primary;
+
+  @include hover-device {
+    &:hover:not(:disabled) {
+      background-color: $primary-emphasis;
+    }
+  }
+
+  @include touch-device {
+    &:active:not(:disabled) {
+      background-color: $primary-emphasis;
+    }
+  }
+}
+
+.btn-secondary.btn-ghost {
+  color: $secondary;
+
+  @include hover-device {
+    &:hover:not(:disabled) {
+      background-color: $secondary-emphasis;
+    }
+  }
+
+  @include touch-device {
+    &:active:not(:disabled) {
+      background-color: $secondary-emphasis;
+    }
+  }
+}
+
+.btn-success.btn-ghost {
+  color: $success;
+
+  @include hover-device {
+    &:hover:not(:disabled) {
+      background-color: $success-emphasis;
+    }
+  }
+
+  @include touch-device {
+    &:active:not(:disabled) {
+      background-color: $success-emphasis;
+    }
+  }
+}
+
+.btn-danger.btn-ghost {
+  color: $danger;
+
+  @include hover-device {
+    &:hover:not(:disabled) {
+      background-color: $danger-emphasis;
+    }
+  }
+
+  @include touch-device {
+    &:active:not(:disabled) {
+      background-color: $danger-emphasis;
+    }
+  }
+}
+
+.btn-warning.btn-ghost {
+  color: $warning;
+
+  @include hover-device {
+    &:hover:not(:disabled) {
+      background-color: $warning-emphasis;
+    }
+  }
+
+  @include touch-device {
+    &:active:not(:disabled) {
+      background-color: $warning-emphasis;
+    }
+  }
+}
+
+.btn-info.btn-ghost {
+  color: $info;
+
+  @include hover-device {
+    &:hover:not(:disabled) {
+      background-color: $info-emphasis;
+    }
+  }
+
+  @include touch-device {
+    &:active:not(:disabled) {
+      background-color: $info-emphasis;
+    }
+  }
+}
+
+.btn-light.btn-ghost {
+  color: $light;
+
+  @include hover-device {
+    &:hover:not(:disabled) {
+      background-color: $light-emphasis;
+    }
+  }
+
+  @include touch-device {
+    &:active:not(:disabled) {
+      background-color: $light-emphasis;
+    }
+  }
+}
+
+.btn-dark.btn-ghost {
+  color: $dark;
+
+  @include hover-device {
+    &:hover:not(:disabled) {
+      background-color: $dark-emphasis;
+    }
+  }
+
+  @include touch-device {
+    &:active:not(:disabled) {
+      background-color: $dark-emphasis;
+    }
+  }
+}
+
+/* ******************************
+* modificador - tamaño de boton *
+********************************* */
 
 /* extra small */
 .btn-xs {
-  // py-1 px-2
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.5rem; // py-1 px-2
 
-  // text-xs
-  font-size: 0.75rem;
+  font-size: 0.75rem; // text-xs = 12px
   line-height: calc(1 / 0.75);
 }
 
 /* small */
 .btn-sm {
-  // py-1.5 px-3
-  padding: 0.375rem 0.75rem;
+  padding: 0.375rem 0.75rem; // py-1.5 px-3
 
-  // text-sm
-  font-size: 0.875rem;
+  font-size: 0.875rem; // text-sm = 14px
   line-height: calc(1.25 / 0.875);
 }
 
@@ -628,62 +740,39 @@ Estilos para enlaces. Ejemplo:
 
 /* large */
 .btn-lg {
-  // py-2.5 px-5
-  padding: 0.625rem 1.25rem;
+  padding: 0.625rem 1.25rem; // py-2.5 px-5
 
-  // text-lg
-  font-size: 1.125rem;
+  font-size: 1.125rem; // text-lg = 18px
   line-height: calc(1.75 / 1.125);
 }
 
 /* extra large */
 .btn-xl {
-  // py-3 px-6
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.5rem; // py-3 px-6
 
-  // text-xl
-  font-size: 1.25rem;
+  font-size: 1.25rem; // text-xl = 20px
   line-height: calc(1.75 / 1.25);
 }
 
 /* 2xl */
 .btn-2xl {
-  // py-4 px-8
-  padding: 1rem 2rem;
+  padding: 1rem 2rem; // py-4 px-8
 
-  // text-2xl
-  font-size: 1.5rem;
+  font-size: 1.5rem; // text-2xl = 24px
   line-height: calc(2 / 1.5);
 }
 
-/* *********************************
-* boton q contiene SOLAMENTE icono *
-************************************ */
-
-// modificador
-// Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto),
-// se utilicen las clases `btn` y `btn-icon-only`
-.btn-icon-only {
-  // usar "em" para q tamaño icono sea proporcional
-  // al font-size definido en cada "tamaño boton que solo tiene icono"
-  width: 2.5em;
-  height: 2.5em;
-
-  padding: 0;
-
-  // como la clase .btn usa flex entonces se necesita
-  // hacer que boton tenga medidas de width y height
-  flex-shrink: 0;  // evitar q boton se encoja
-  flex-grow: 0;    // evitar q boton se expanda
-}
+/* *********************************************************
+* modificador - tamaño de boton q contiene SOLAMENTE icono *
+************************************************************ */
 
 // tamaño boton que solo tiene icono
 .btn-xs.btn-icon-only {
-  font-size: 0.75rem; // text-xs
+  font-size: 0.75rem; // text-xs = 12px
 }
 
 .btn-sm.btn-icon-only {
-  font-size: 0.875rem; // text-sm
+  font-size: 0.875rem; // text-sm = 14px
 }
 
 .btn-base.btn-icon-only {
@@ -691,15 +780,15 @@ Estilos para enlaces. Ejemplo:
 }
 
 .btn-lg.btn-icon-only {
-  font-size: 1.125rem; // text-lg
+  font-size: 1.125rem; // text-lg = 18px
 }
 
 .btn-xl.btn-icon-only {
-  font-size: 1.25rem; // text-xl
+  font-size: 1.25rem; // text-xl = 20px
 }
 
 .btn-2xl.btn-icon-only {
-  font-size: 1.5rem; // text-2xl
+  font-size: 1.5rem; // text-2xl = 24px
 }
 
 /* **************************************************
@@ -773,26 +862,49 @@ Estilos para enlaces. Ejemplo:
   }
 }
 
-/* ghost */
-.btn-ghost {
-  &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $ghost-emphasis;
-  }
-}
-
 /* **************
 * modificadores *
 ***************** */
 
-// boton responsive que ocupa todo el ancho disponible
+// boton responsive que ocupa todo el ancho disponible de su contenedor padre
 .btn-full-width {
-  display: flex;
   width: 100%;
+
+  // flexbox
+  display: flex;
+  flex: 0 0 100%;
+
+  // grid
+  grid-column: 1 / -1;
 }
 
-// 50% es necesario para q
-// boton q solamente contiene icono
-// tenga forma de circulo perfecto (NO de ovalo)
+/*
+`btn-rounded-full` redondea al maximo las esquinas de cualquier tipo de boton
+
+|----------------|-------------------------|---------------------------------------------------|
+| Tipo de botón  | Condición (dimensiones) | Resultado visual                                  |
+|----------------|-------------------------|---------------------------------------------------|
+| Rectangular    | width ≠ height          | Esquinas totalmente redondeadas (forma alargada)  |
+| Cuadrado       | width = height          | Círculo perfecto (no óvalo)                       |
+|----------------|-------------------------|---------------------------------------------------| */
+
 .btn-rounded-full {
-  border-radius: 50%;
+  border-radius: 9999px;
+}
+
+/*
+Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto),
+se utilicen las clases `btn` y `btn-icon-only` */
+.btn-icon-only {
+  // usar "em" para q tamaño icono sea proporcional
+  // al font-size definido en cada "tamaño boton que solo tiene icono"
+  width: 2.5em;
+  height: 2.5em;
+
+  padding: 0;
+
+  // como la clase .btn usa flex entonces se necesita
+  // hacer que boton tenga medidas de width y height
+  flex-shrink: 0; // evitar q boton se encoja
+  flex-grow: 0; // evitar q boton se expanda
 }
