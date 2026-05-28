@@ -1,0 +1,66 @@
+@use "./tokens.scss" as color;
+
+/* *************************************************************
+* THEMES                                                       *
+* CSS custom properties que definen los colores de los botones *
+**************************************************************** */
+
+$text-color: oklch(1 0 0); // #fff
+
+// boton primario para acciones de confirmacion (guardar, aceptar, si)
+.btn-primary {
+  --btn-color: #{color.$primary};
+  --btn-color-contrast: #{color.$primary-contrast};
+  --btn-color-emphasis: #{color.$primary-emphasis};
+  --btn-text-color: $text-color;
+}
+
+// boton secundario para acciones de cancelacion (eliminar, cancelar, no)
+.btn-secondary {
+  --btn-color: #{color.$secondary};
+  --btn-color-contrast: #{color.$secondary-contrast};
+  --btn-color-emphasis: #{color.$secondary-emphasis};
+  --btn-text-color: $text-color;
+}
+
+.btn-success {
+  --btn-color: #{color.$success};
+  --btn-color-contrast: #{color.$success-contrast};
+  --btn-color-emphasis: #{color.$success-emphasis};
+  --btn-text-color: $text-color;
+}
+
+.btn-danger {
+  --btn-color: #{color.$danger};
+  --btn-color-contrast: #{color.$danger-contrast};
+  --btn-color-emphasis: #{color.$danger-emphasis};
+  --btn-text-color: $text-color;
+}
+
+.btn-warning {
+  --btn-color: #{color.$warning};
+  --btn-color-contrast: #{color.$warning-contrast};
+  --btn-color-emphasis: #{color.$warning-emphasis};
+  --btn-text-color: $text-color;
+}
+
+.btn-info {
+  --btn-color: #{color.$info};
+  --btn-color-contrast: #{color.$info-contrast};
+  --btn-color-emphasis: #{color.$info-emphasis};
+  --btn-text-color: $text-color;
+}
+
+.btn-light {
+  --btn-color: #{color.$light};
+  --btn-color-contrast: #{color.$light-contrast};
+  --btn-color-emphasis: #{color.$light-emphasis};
+  --btn-text-color: $text-color;
+}
+
+.btn-dark {
+  --btn-color: #{color.$dark};
+  --btn-color-contrast: #{color.$dark-contrast};
+  --btn-color-emphasis: #{color.$dark-emphasis};
+  --btn-text-color: $text-color;
+}

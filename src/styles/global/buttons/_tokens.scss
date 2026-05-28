@@ -1,0 +1,50 @@
+/* *******
+* TOKENS *
+********** */
+
+/*
+*********************************************************************************
+* Variables de Sass para colores de botones                                     *
+* para colores SIEMPRE usar oklch                                               *
+*                                                                               *
+* | ------------------ | --------------------------------- | ---------------- | *                                                         *
+* | Variable           | Intención                         | Pseudo-clase CSS | *
+* | ------------------ | --------------------------------- | ---------------- | *
+* | primary            | color base                        | No aplica        | *
+* | primary-contrast   | variación más intensa/interactiva | :hover           | *
+* | primary-emphasis   | resaltado visual/accesibilidad    | :focus-visible   | *
+* | ------------------ | --------------------------------- | ---------------- | *
+*                                                                               *
+********************************************************************************* */
+
+$primary: oklch(54.62% 0.228 262.44);                   // #0d6efd
+$primary-contrast: oklch(48.84% 0.217 264.38);          // #0b5ed7
+$primary-emphasis: oklch(54.62% 0.228 262.44 / 0.25);   // #0d6efd40
+
+$secondary: oklch(60% 0.06 250);                        // #7a8594
+$secondary-contrast: oklch(52% 0.06 250);               // #667182
+$secondary-emphasis: oklch(60% 0.06 250 / 0.4);         // #7a8594
+
+$success: oklch(57.93% 0.126 158.62);                   // #198754
+$success-contrast: oklch(52.34% 0.113 158.91);          // #157347
+$success-emphasis: oklch(57.93% 0.126 158.62 / 0.4);    // #19875466
+
+$danger: oklch(60.24% 0.208 24.18);                     // #dc3545
+$danger-contrast: oklch(53.08% 0.183 22.64);            // #bb2d3b
+$danger-emphasis: oklch(60.24% 0.208 24.18 / 0.4);      // #dc354566
+
+$warning: oklch(87.73% 0.181 92.84);                    // #e7b400
+$warning-contrast: oklch(80% 0.2 92.84);                // #c98f00
+$warning-emphasis: oklch(87.73% 0.181 92.84 / 0.4);     // #e7b400;
+
+$info: oklch(78.44% 0.135 220.52);                      // #0dcaf0
+$info-contrast: oklch(81.36% 0.114 220.17);             // #31d2f2
+$info-emphasis: oklch(78.44% 0.135 220.52 / 0.4);       // #0dcaf066
+
+$light: oklch(87.2% 0.01 258.338);                      // #d1d5dc
+$light-contrast: oklch(82% 0.012 258.338);              // #bfc4cc
+$light-emphasis: oklch(87.2% 0.01 258.338 / 0.35);      // #d1d5dc
+
+$dark: oklch(27.03% 0.015 264.05);                      // #212529
+$dark-contrast: oklch(35.18% 0.018 264.11);             // #343a40
+$dark-emphasis: oklch(27.03% 0.015 264.05 / 0.4);       // #21252966

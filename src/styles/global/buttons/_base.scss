@@ -1,0 +1,110 @@
+/* *****
+* BASE *
+******** */
+
+/* ***********************
+* Reset CSS para botones *
+************************** */
+
+.btn {
+  box-sizing: border-box;
+
+  /* **********************************
+  * tamaño por defecto de los botones *
+  * .btn-base                         *
+  ************************************* */
+  padding: 0.5rem 1rem; // py-2 px-4
+  font-size: 1rem; // text-base = 1rem = 16px
+  line-height: calc(1.2 / 1); // (line-height que se desea aplicar / font-size)
+
+  // icono y texto centrado
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin: 0;
+
+  // importante usar unidad "em"
+  // para que el espacio entre icono y texto
+  // sea proporcional al font-size definido en cada "Tamaño de boton"
+  gap: 0.5em;
+
+  width: fit-content;
+  height: fit-content;
+
+  white-space: nowrap;
+
+  text-decoration-line: none;
+
+  // NO permitir seleccionar (copiar) texto del boton
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  border: 1px solid transparent;
+  outline: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  touch-action: manipulation;
+
+  border-radius: 0.5rem;
+
+  background-color: transparent;
+
+  font-family: variable.$inter;
+  font-weight: 500;
+
+  // Eliminar color de fondo azul cuando se hace click en los enlaces <a>
+  // https://stackoverflow.com/questions/21003535/anyway-to-prevent-the-blue-highlighting-of-elements-in-chrome-when-clicking-quic
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
+
+  // tamaño iconos es proporcional al font-size del boton
+  span,
+  svg,
+  .material-symbols-outlined,
+  .material-symbols-rounded,
+  .material-symbols-sharp {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  /* **************************************************
+  * pseudo-clases CSS de estado/interacción del boton *
+  ***************************************************** */
+
+  // botón activado
+  &:enabled,
+  &[role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  // boton desactivado
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  // estilos en el instante en que el usuario esta haciendo click en boton activado
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  // accesibilidad - se activa al navegar en los botones con tecla tab
+  &:focus-visible {
+    outline: none;
+  }
+}
