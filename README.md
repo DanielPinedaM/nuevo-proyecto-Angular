@@ -1218,12 +1218,10 @@ Esto significa que no es necesario declararlo explícitamente: si no se especifi
 
 ```SCSS
 .btn-base {
-  // py-2 px-4
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem; // py-2 px-4
 
-  // text-base
-  font-size: 1rem;
-  line-height: calc(1.2 / 1);
+  font-size: 1rem; // text-base = 1rem = 16px
+  line-height: calc(1.2 / 1); // (line-height que se desea aplicar / font-size)
 }
 ```
 
