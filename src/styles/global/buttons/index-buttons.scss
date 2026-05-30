@@ -1,30 +1,101 @@
-/*
-****************************************************************************************
-* Estilos globales de Sass para botones                                                *
-*                                                                                      *
-* Arquitectura basada en:                                                              *
-* - Bootstrap 5.3   buttons       https://getbootstrap.com/docs/5.3/components/buttons *
-* - Tailwind 4      font-size     https://tailwindcss.com/docs/font-size               *
-* - Tailwind 4      line-height   https://tailwindcss.com/docs/line-height             *
-* - Tailwind 4      padding       https://tailwindcss.com/docs/padding                 *
-**************************************************************************************** */
+ /*
+================================================================================
+BUTTON SYSTEM - GLOBAL DESIGN CONTRACT (CSS COMPOSABLE SYSTEM)
+================================================================================
 
-/* ********************************************************************
-* Este archivo solamente orquesta/importa estilos globales de botones *
-* usando `@use`.                                                      *
-*                                                                     *
-* No debe contener:                                                   *
-* - clases CSS                                                        *
-* - estilos                                                           *
-* - lógica visual                                                     *
-* - variables                                                         *
-* - responsabilidades ajenas al sistema de botones                    *
-*********************************************************************** */
+Este sistema implementa un sistema de botones basado en CSS composable.
+Inspirado en Bootstrap 5.3 y Tailwind 4.
+================================================================================
+*/
+
+/* =============================================================================
+ARCHITECTURE MAP (RESPONSABILIDAD DE ARCHIVOS)
+=============================================================================
+
+base.scss
+- Estilos fundamentales del botón (.btn)
+- Reset + estructura base (layout, flex, box model)
+
+variants.scss
+- Variantes visuales (solid, outline, ghost, link)
+- Define comportamiento visual por tipo
+
+themes.scss
+- Colores del sistema (primary, secondary, success, etc.)
+- Basado en CSS variables del design system
+
+sizes.scss
+- Escalas de tamaño
+- padding + font-size + line-height
+
+states.scss
+- Estados del botón
+- hover, active, disabled, focus-visible
+
+effects.scss
+- Efectos visuales reutilizables
+- box-shadow, blur, elevation (sin lógica UI)
+
+modifiers.scss
+- Clases composables opcionales
+- full-width, rounded, icon-only
+=============================================================================*/
+
+/* =============================================================================
+STRICT DESIGN RULES (NO NEGOCIABLE)
+=============================================================================
+
+1. CSS COMPOSABLE ONLY
+- Todo debe ser componible mediante clases pequeñas.
+- No se permiten componentes monolíticos.
+
+2. SINGLE RESPONSIBILITY PER FILE
+- Cada archivo tiene una única responsabilidad visual.
+
+3. NO OVERRIDES
+- Prohibido romper composición con estilos globales o dependientes de orden.
+
+4. TOKEN-BASED SYSTEM ONLY
+- Todas las medidas deben venir de tokens.scss
+- Prohibido usar valores arbitrarios (ej: 13px, 7px)
+
+5. TOKEN SEPARATION
+- TIPOGRAFÍA ≠ SPACING
+- font-size y line-height solo tipografía
+- padding, margin, gap solo spacing
+
+6. CONSISTENCY SCALE (TAILWIND-LIKE)
+- Todo debe seguir escalas rem consistentes
+
+7. NO !IMPORTANT (PROHIBIDO)
+- Está estrictamente prohibido el uso de !important en todo el sistema.
+- No se permite su uso ni en componentes, ni en utilities, ni en estados.
+- Si se necesita !important, significa que el sistema de especificidad o arquitectura está mal diseñado y debe corregirse, no forzarse.
+
+8. TOKEN-BASED SYSTEM ONLY
+- Todas las medidas deben venir de tokens.scss
+=============================================================================*/
+
+
+/* =============================================================================
+ORCHESTRATION RULE
+=============================================================================
+
+Este archivo SOLO orquesta módulos SCSS.
+
+NO DEBE CONTENER:
+- estilos CSS
+- variables
+- lógica visual
+- reglas de UI
+
+Solo imports con @use
+=============================================================================*/
 
 @use "./base.scss";
-@use "./tokens.scss";
 @use "./variants.scss";
 @use "./themes.scss";
 @use "./sizes.scss";
 @use "./states.scss";
+@use "./effects.scss";
 @use "./modifiers.scss";
