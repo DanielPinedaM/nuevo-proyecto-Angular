@@ -84,6 +84,7 @@ src/
 │
 ├── app/
 │   ├── app.routes.ts → Definición de rutas (URL)
+│   │
 │   ├── not-found-404/ → Componente q se muestra al acceder a URLs inexxistentes
 │   │
 │   ├── auth/ → Rutas de autenticación
@@ -92,11 +93,11 @@ src/
 │   │   ├── recover-password/ → Enviar correo para recuperar contraseña
 │   │   └── register/ → Formulario de registro de nuevo usuario
 │   │
-│   ├── features/ → Contiene todas las rutas y componentes después de iniciar sesión
-│   │   └── main-wrapper/ → contenedor principal de paginas despues de loguearse
-│   │   └── bots/ → Feature independiente que define la ruta `/bots`. El proyecto utiliza una arquitectura basada en funcionalidades (Feature-Based Architecture).
-│   │       ├── bots.component.html
-│   │       └── bots.component.ts
+│   └── features/ → Contiene todas las rutas y componentes después de iniciar sesión
+│       ├── main-wrapper/ → contenedor principal de paginas despues de loguearse
+│       └── bots/ → Feature independiente que define la ruta `/bots`. El proyecto utiliza una arquitectura basada en funcionalidades (Feature-Based Architecture).
+│           ├── bots.component.html
+│           └── bots.component.ts
 │
 ├── shared/ → utilidades compartidas (globales) que se pueden usar en cualquier parte de la web
 │   ├── guards/
@@ -104,67 +105,65 @@ src/
 │   │
 │   ├── components/ → componentes que se pueden reutilizzar en varias features
 │   │
-│   ├── ui / → componentes visuales reutilizables
-│   │     ├── breadcrumbs/ → Componente con migas de pan
-│   │     ├── loader/ → icono de cargando
-│   │     └── menu/ → Componente de menú
+│   ├── ui/ → componentes visuales reutilizables
+│   │   ├── breadcrumbs/ → Componente con migas de pan
+│   │   ├── loader/ → icono de cargando
+│   │   └── menu/ → Componente de menú
 │   │
 │   ├── models/ → contiene tipos de datos y constantes globales
-│   │   └── constants/
-│   │   └── interface/
+│   │   ├── constants/
+│   │   ├── interface/
 │   │   └── enums/
 │   │
 │   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externos
-│   │ ├── general-api/ →
-│   │ │ └── http-gateway-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
-│   │ │ └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
+│   │   └── general-api/
+│   │       ├── http-gateway-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
+│   │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
 │   │
 │   ├── service/ → clases reutilizables usadas para separar lógica reutilizable que no debería estar dentro de los componentes
-│   │ └── RxJS-BehaviorSubject/ → Archivos con RxJS BehaviorSubject ()
-│   │     └── layout/
-│   │         └── loader.service.ts → estado global para ocultar y mostrar icono de cargando
-│   │         └── viewport-width.service.ts → devuelve un numero con el ancho del viewport (pantalla),
-│   │         └── current-route.service.ts → devuelve un string con la ruta actual
+│   │   └── RxJS-BehaviorSubject/ → Archivos con RxJS BehaviorSubject ()
+│   │       └── layout/
+│   │           ├── loader.service.ts → estado global para ocultar y mostrar icono de cargando
+│   │           ├── viewport-width.service.ts → devuelve un numero con el ancho del viewport (pantalla)
+│   │           └── current-route.service.ts → devuelve un string con la ruta actual
 │   │
-│   ├── utils/
-│   │ ├── class/
-│   │ │ ├── notification/ → carpeta con funciones para mostrar mensajes emergentes
-│   │ │ │   └── HotToastClass.utils.ts → Notificaciones tipo toast
-│   │ │ │   └── SweetAlertClass.utils.ts → Modal con SweetAlert2
-│   │ │ │
-│   │ │ ├── CryptoServiceClass.utils.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
-│   │ │ ├── DataTypeClass.utils.ts → funciones para tipos de datos de JS, ejemplo normalizar string
-│   │ │ ├── DownloadFileClass.utils.ts → funciones para descargar y ver archivos
-│   │ │ ├── GeneralClass.utils.ts → funciones globales q se pueden re-utilizar en cualquier parte de la web
-│   │ │ ├── LuxonClass.utils.ts → funciones para fechas usando Luxon
-│   │ │ ├── SessionStorageClass.utils.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
+│   └── utils/
+│       └── class/
+│           ├── notification/ → carpeta con funciones para mostrar mensajes emergentes
+│           │   ├── HotToastClass.utils.ts → Notificaciones tipo toast
+│           │   └── SweetAlertClass.utils.ts → Modal con SweetAlert2
+│           │
+│           ├── CryptoServiceClass.utils.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
+│           ├── DataTypeClass.utils.ts → funciones para tipos de datos de JS, ejemplo normalizar string
+│           ├── DownloadFileClass.utils.ts → funciones para descargar y ver archivos
+│           ├── GeneralClass.utils.ts → funciones globales q se pueden re-utilizar en cualquier parte de la web
+│           ├── LuxonClass.utils.ts → funciones para fechas usando Luxon
+│           └── SessionStorageClass.utils.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
 │
-├── styles/
-│   ├── main.scss → con @use importa estilos .scss globales de toda la pagina web, NO debe contener estilos directos
-│   │
-│   ├── global/ → estilos globales de toda la pagina web
-│   │     └── library/ → estilos que afectan las librerias
-│   │     │  └── _prime-ng.scss → estilos que afectan a Prime NG
-│   │     │  └── _sweet-alert-2.scss → estilos que afectan a Sweet Alert 2
-│   │     │  └── _tailwind.css → archivo de configuración de Tailwind 4
-│   │     │
-│   │     └── buttons/ → estilos globales de botones
-│   │        └── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
-│   │        └── _base.scss → Reset CSS para botones
-│   │        └── _effects.scss → utilidades visuales reutilizables para los botones (sombras, blur, filtros, etc.)
-│   │        └── _modifiers.scss → alteran/extienden características de los botones sin sobrescribir sus estilos principales 
-│   │        └── _sizes.scss → tamaño de boton
-│   │        └── _states.scss → estados de boton: hover, active, focus, disabled
-│   │        └── _themes.scss → CSS custom properties que definen los colores de los botones
-│   │        └── _tokens.scss → variables de Sass para botones
-│   │        └── _typography.scss → estilos globales de tipografía
-│   │        └── _variants.scss →  Define los estilos del botón (colores, fondo, borde)
-│   │
-│   ├── _reset.scss → elimina los estilos por defecto del navegador para asegurar una apariencia uniforme en todos los navegadores
-│   ├── _scroll-bar.scss → estilos globales de barra de scroll
-│   ├── _table.scss → estilos globales para tablas
-│   └── _variables.scss → variables globales de Sass
-
+└── styles/
+    ├── main.scss → con @use importa estilos .scss globales de toda la pagina web, NO debe contener estilos directos
+    │
+    └── global/ → estilos globales de toda la pagina web
+        ├── _reset.scss → elimina los estilos por defecto del navegador para asegurar una apariencia uniforme en todos los navegadores
+        ├── _scroll-bar.scss → estilos globales de barra de scroll
+        ├── _table.scss → estilos globales para tablas
+        ├── _variables.scss → variables globales de Sass
+        │
+        ├── library/ → estilos que afectan las librerias
+        │   ├── _prime-ng.scss → estilos que afectan a Prime NG
+        │   ├── _sweet-alert-2.scss → estilos que afectan a Sweet Alert 2
+        │   └── _tailwind.css → archivo de configuración de Tailwind 4
+        │
+        └── buttons/ → estilos globales de botones
+            ├── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
+            ├── _base.scss → Reset CSS para botones
+            ├── _effects.scss → utilidades visuales reutilizables para los botones (sombras, blur, filtros, etc.)
+            ├── _modifiers.scss → alteran/extienden características de los botones sin sobrescribir sus estilos principales
+            ├── _sizes.scss → tamaño de boton
+            ├── _states.scss → estados de boton: hover, active, focus, disabled
+            ├── _themes.scss → CSS custom properties que definen los colores de los botones
+            ├── _tokens.scss → variables de Sass para botones
+            └── _variants.scss → Define los estilos del botón (colores, fondo, borde)
 ```
 
 # 📅 Fechas
