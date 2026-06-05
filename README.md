@@ -111,8 +111,8 @@ src/
 │           ├── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots
 │           │   └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación (feature-wide)
 │           │
-│           └── utils/ → funciones auxiliares utilizadas únicamente por la feature bots
-│               └── class/ → clases utilitarias utilizadas únicamente por la feature bots
+│           └── utils/
+│               └── class/ → clases auxiliares utilizadas únicamente por la feature bots
 │
 ├── shared/ → utilidades compartidas (globales) que se pueden usar en cualquier parte de la web
 │   ├── guards/
