@@ -6,7 +6,7 @@ import { NotFound404Component } from '@/app/not-found-404/not-found-404.componen
 // #endregion
 
 // #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from '@/app/features/main-wrapper/main-wrapper.component';
+import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
 // #endregion
 
 // #region autenticacion

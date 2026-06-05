@@ -7,8 +7,8 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root',
 })
 
-/** 
- * devuelve un string con la ruta actual 
+/**
+ * devuelve un string con la ruta actual
  * q se actualiza cada vez q cambia la ruta actual (al navegar) */
 export class CurrentRouteService {
   private router = inject(Router);

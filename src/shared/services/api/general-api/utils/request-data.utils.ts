@@ -1,15 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
-import {
-  IObjectLogs,
-  IRequestOptions,
-  IResponse,
-} from '@/shared/api/general-api/types/request-data.types';
 import { HttpHeaders } from '@angular/common/http';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
-import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
+import { LoaderService } from '@/shared/services/stores/loader.store';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
+import {
+  IResponse,
+  IObjectLogs,
+  IRequestOptions,
+} from '@/shared/services/api/general-api/types/request-data.types';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +60,7 @@ export class RequestDataUtils {
         '\nDetalle: El usuario no está autenticado o la sesión ha expirado',
         '\nAcción: Re-dirigir al usuario a la página de inicio de sesión',
         '\nURL solicitada: ',
-        url
+        url,
       );
 
       // re-dirigir a /iniciar-sesion cuando el status de la respuesta de la api sea 401
@@ -75,30 +75,30 @@ export class RequestDataUtils {
         '\nDetalle: El usuario está autenticado pero no tiene permisos para acceder al recurso',
         "\nAcción: Mostrar un mensaje de 'acceso denegado' o re-dirigir y re-dirigir a la pagina web anterior en el historial del navegador",
         '\nURL solicitada:',
-        url
+        url,
       );
 
       // devolverme a la web anterior en el historial cuando el status de la respuesta de la api sea 403
       this.returnToBrowserHistory();
 
       this.hotToast.infoNotification(
-        'Acceso denegado, no tiene permisos para realizar esta acción'
+        'Acceso denegado, no tiene permisos para realizar esta acción',
       );
     } else if (status === 404) {
       console.error(
-        `❌ http.service.ts - error 404: Not Found - endpoint no encontrado, la URL solicitada "${url}" NO existe en el servidor`
+        `❌ http.service.ts - error 404: Not Found - endpoint no encontrado, la URL solicitada "${url}" NO existe en el servidor`,
       );
 
       this.hotToast.errorNotification(
-        'Ha ocurrido un error, por favor comuniquese con el administrador del sistema'
+        'Ha ocurrido un error, por favor comuniquese con el administrador del sistema',
       );
     } else if (status >= 500) {
       console.error(
-        `❌ http.service.ts - error en el servidor en la URL ${url}`
+        `❌ http.service.ts - error en el servidor en la URL ${url}`,
       );
 
       this.hotToast.errorNotification(
-        'Ha ocurrido un error, intentalo de nuevo mas tarde, estamos trabajando para solucionarlo'
+        'Ha ocurrido un error, intentalo de nuevo mas tarde, estamos trabajando para solucionarlo',
       );
     }
   }
@@ -133,7 +133,7 @@ export class RequestDataUtils {
           } else {
             // data es un array de objetos [{}]
             const areAllObjects: boolean = data?.every(
-              (item) => typeof item === 'object' && item && item !== null
+              (item) => typeof item === 'object' && item && item !== null,
             );
             if (areAllObjects) {
               data = `array de objetos con ${data.length} elemento ➡️ (${data.length}) [{}]`;
@@ -164,7 +164,7 @@ export class RequestDataUtils {
 
       console.info(
         `respuesta de la API apuntando a ➡️ ${environment.NODE_ENV} ⬅️`,
-        objectSuccesResponse
+        objectSuccesResponse,
       );
     }
 
@@ -186,7 +186,7 @@ export class RequestDataUtils {
     if (url) console.error('url ', url);
     if (environment.NODE_ENV)
       console.error(
-        `las variables de entorno estan apuntando al ambiente de ➡️ ${environment.NODE_ENV} ⬅️`
+        `las variables de entorno estan apuntando al ambiente de ➡️ ${environment.NODE_ENV} ⬅️`,
       );
     if (options) console.error('options ', options);
     if (response) console.error('response ', response);
@@ -209,7 +209,7 @@ export class RequestDataUtils {
       if (!this.dataTypeClass.isString(item)) {
         console.error(
           `❌ ERROR CRÍTICO\n verifica q el env ${item} este agregado a las variables de entorno \n unprotectedURLs`,
-          unprotectedURLs
+          unprotectedURLs,
         );
         return false;
       }

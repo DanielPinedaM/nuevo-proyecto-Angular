@@ -85,7 +85,7 @@ src/
 ├── app/
 │   ├── app.routes.ts → Definición de rutas (URL)
 │   │
-│   ├── not-found-404/ → Componente q se muestra al acceder a URLs inexxistentes
+│   ├── not-found-404/ → Componente q se muestra al acceder a URLs inexistentes
 │   │
 │   ├── auth/ → Rutas de autenticación
 │   │   ├── assign-password/ → Recuperar y cambiar la contraseña
@@ -94,10 +94,25 @@ src/
 │   │   └── register/ → Formulario de registro de nuevo usuario
 │   │
 │   └── features/ → Contiene todas las rutas y componentes después de iniciar sesión
-│       ├── main-wrapper/ → contenedor principal de paginas despues de loguearse
 │       └── bots/ → Feature independiente que define la ruta `/bots`. El proyecto utiliza una arquitectura basada en funcionalidades (Feature-Based Architecture).
 │           ├── bots.component.html
-│           └── bots.component.ts
+│           ├── bots.component.ts
+│           │
+│           ├── data-types/ → tipos de datos y constantes utilizados únicamente por la feature bots
+│           │   ├── constants/
+│           │   ├── interfaces/
+│           │   ├── enums/
+│           │   └── types/
+│           │
+│           ├── components/ → componentes reutilizables utilizados únicamente por la feature bots
+│           │
+│           ├── ui/ → componentes visuales reutilizables utilizados únicamente por la feature bots
+│           │
+│           ├── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots
+│           │   └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación (feature-wide)
+│           │
+│           └── utils/ → funciones auxiliares utilizadas únicamente por la feature bots
+│               └── class/ → clases utilitarias utilizadas únicamente por la feature bots
 │
 ├── shared/ → utilidades compartidas (globales) que se pueden usar en cualquier parte de la web
 │   ├── guards/
@@ -105,27 +120,31 @@ src/
 │   │
 │   ├── components/ → componentes que se pueden reutilizzar en varias features
 │   │
-│   ├── ui/ → componentes visuales reutilizables
-│   │   ├── breadcrumbs/ → Componente con migas de pan
-│   │   ├── loader/ → icono de cargando
-│   │   └── menu/ → Componente de menú
+│   ├── design/ → componentes relacionados con la maquetacion (presentación)
+│   │   ├── layouts/ → contenedores que definen la estructura visual y de navegación de una sección completa de la aplicación
+│   │   │   └── main-wrapper/ → contenedor principal de paginas despues de loguearse
+│   │   │
+│   │   └── ui/ → componentes visuales reutilizables que representan partes aisladas de la interfaz, no páginas ni estructuras de navegación completas
+│   │       ├── breadcrumbs/ → Componente con migas de pan
+│   │       ├── loader/ → icono de cargando
+│   │       └── menu/ → Componente de menú
 │   │
-│   ├── models/ → contiene tipos de datos y constantes globales
+│   ├── data-types/ → tipos de datos y constantes de la aplicación compartidos entre múltiples features.  A diferencia de `features/*/data-types`, su alcance no está limitado a una sola feature
 │   │   ├── constants/
 │   │   ├── interface/
 │   │   └── enums/
-│   │
-│   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externos
-│   │   └── general-api/
-│   │       ├── http-gateway-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
-│   │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
+│   │   └── types/
 │   │
 │   ├── service/ → clases reutilizables usadas para separar lógica reutilizable que no debería estar dentro de los componentes
-│   │   └── RxJS-BehaviorSubject/ → Archivos con RxJS BehaviorSubject ()
-│   │       └── layout/
-│   │           ├── loader.service.ts → estado global para ocultar y mostrar icono de cargando
-│   │           ├── viewport-width.service.ts → devuelve un numero con el ancho del viewport (pantalla)
-│   │           └── current-route.service.ts → devuelve un string con la ruta actual
+│   │   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externas
+│   │   │   └── general-api/
+│   │   │       ├── http-gateway-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
+│   │   │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
+│   │   │
+│   │   └── stores/ → estados globales de la aplicación compartidos entre múltiples features. A diferencia de `features/*/store`, su alcance no está limitado a una sola feature
+│   │       ├── loader.store.ts → estado global para ocultar y mostrar icono de cargando
+│   │       ├── viewport-width.store.ts → estado global con el ancho actual del viewport (pantalla)
+│   │       └── current-route.store.ts → estado global con la ruta actual
 │   │
 │   └── utils/
 │       └── class/
@@ -1702,7 +1721,7 @@ export class BotsComponent {
 
 ## ✅ Forma correcta
 
-Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-api\http-gateway-observable.api.ts`) centralizado.
+Se debe usar únicamente el ApiGatewayService (`src/services/api/general-api/http-gateway-observable.api`) centralizado.
 
 - NO usar `try/catch` aquí
 
@@ -1714,7 +1733,7 @@ Se debe usar únicamente el ApiGatewayService (`src\shared\API\general-api\http-
 
 ```ts
 import { inject } from "@angular/core";
-import { ApiGatewayService } from "@/shared/api/general-api/http-gateway-observable.api";
+import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 import { environment } from "@/environments/environment";
 
@@ -1806,7 +1825,7 @@ export class BotsComponent {
 
 ```ts
 import { inject } from "@angular/core";
-import { ApiGatewayService } from "@/shared/api/general-api/http-gateway-observable.api";
+import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 import { environment } from "@/environments/environment";
 
@@ -1883,7 +1902,7 @@ Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
 
 ```ts
 import { Component, inject } from "@angular/core";
-import { ApiGatewayService } from "@/shared/api/general-api/http-gateway-observable.api";
+import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { firstValueFrom } from "rxjs";
 import { environment } from "@/environments/environment";
 import { IResponse } from "@/shared/api/general-api/types/request-data.types";
@@ -2328,7 +2347,7 @@ Esto permite:
 
 ```TS
 import { Component } from '@angular/core';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
+import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
@@ -2349,7 +2368,7 @@ export class BotsComponent {
 
 ```TS
 import { Component, inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
+import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrentRouteService } from '@/shared/service/RxJS-BehaviorSubject/current-route.service';
+import { CurrentRouteService } from '@/shared/services/stores/current-route.store';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 
 @Component({

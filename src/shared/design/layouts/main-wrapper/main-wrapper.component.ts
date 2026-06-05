@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BreadcrumbsComponent } from '@/shared/ui/breadcrumbs/breadcrumbs.component';
-import { MainMenuComponent } from '@/shared/ui/menu/main-menu/main-menu.component';
+import { BreadcrumbsComponent } from '@/shared/design/ui/breadcrumbs/breadcrumbs.component';
+import { MainMenuComponent } from '@/shared/design/ui/menu/main-menu/main-menu.component';
 
 @Component({
   selector: 'app-main-wrapper',

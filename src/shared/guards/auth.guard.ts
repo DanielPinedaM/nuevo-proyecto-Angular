@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
-import { IResponse } from '@/shared/api/general-api/types/request-data.types';
+import { IResponse } from '@/shared/services/api/general-api/types/request-data.types';
+import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 
 export const AuthGuard: CanActivateFn = async (route, state) => {
   const http = inject(ApiGatewayService);

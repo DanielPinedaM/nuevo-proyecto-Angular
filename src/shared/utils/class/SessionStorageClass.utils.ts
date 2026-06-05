@@ -1,5 +1,6 @@
-import { objSessionStorage } from '@/shared/models/constants/session-storage.const';
 import { Injectable } from '@angular/core';
+
+const TOKEN_KEY = "token"
 
 /*
  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -148,7 +149,7 @@ export default class Storage {
     let value: string | null = null;
 
     // NO convertir el token a Base 64
-    if (property === objSessionStorage.token) {
+    if (property === TOKEN_KEY) {
       value = sessionStorage.getItem(btoa(property));
       return value;
     }
@@ -183,7 +184,7 @@ export default class Storage {
 
     let value: string | null = null;
 
-    if (property === objSessionStorage.token) {
+    if (property === TOKEN_KEY) {
       value = sessionStorage.getItem(property);
     } else {
       value = sessionStorage.getItem(btoa(property));
@@ -207,7 +208,7 @@ sessionStorage - guardar una nueva propiedad: valor
 
     const stringValue: TSessionStorageValue = this.#convertToStringify(value);
     // NO convertir el token a Base 64
-    if (property === objSessionStorage.token) {
+    if (property === TOKEN_KEY) {
       sessionStorage.setItem(btoa(property), stringValue as string);
     } else {
       sessionStorage.setItem(btoa(property), btoa(stringValue as string));
@@ -231,7 +232,7 @@ sessionStorage - guardar una nueva propiedad: valor
 
     const stringValue: TSessionStorageValue = this.#convertToStringify(value);
     // NO convertir el token a Base 64
-    if (property === objSessionStorage.token) {
+    if (property === TOKEN_KEY) {
       sessionStorage.setItem(btoa(property), stringValue as string);
     } else {
       sessionStorage.setItem(btoa(property), btoa(stringValue as string));
@@ -256,7 +257,7 @@ sessionStorage - guardar una nueva propiedad: valor
     const stringValue: TSessionStorageValue = this.#convertToStringify(value);
 
     // NO convertir el token a Base 64
-    if (property === objSessionStorage.token) {
+    if (property === TOKEN_KEY) {
       sessionStorage.setItem(btoa(property), stringValue as string);
     } else {
       sessionStorage.setItem(btoa(property), btoa(stringValue as string));

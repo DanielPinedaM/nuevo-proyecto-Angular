@@ -6,19 +6,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import { environment } from '@/environments/environment';
 import { RouterModule } from '@angular/router';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
-import { enterFields } from '@/shared/models/constants/error-message.const';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
-import {
-  IRequestOptions,
-  IResponse,
-} from '@/shared/api/general-api/types/request-data.types';
 import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
+import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
+import { enterFields } from '@/shared/data-types/constants/error-message.const';
+import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
 
 export interface IBodyRecoverPassword {
   email: string;

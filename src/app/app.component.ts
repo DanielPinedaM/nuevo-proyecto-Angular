@@ -2,7 +2,7 @@ import { environment } from '@/environments/environment';
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
+import { LoaderService } from '@/shared/services/stores/loader.store';
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
 import { LoaderComponent } from '@/shared/ui/loader/loader.component';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
@@ -31,9 +31,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.#getLoader();
-
     this.#logOutDueToInactivity();
-    this.#closeSessionWhenModifyingSessionStorage();
   }
 
   #getLoader(): void {
@@ -73,23 +71,6 @@ export class AppComponent {
         'Su sesión ya no se encuentra activa, ingrese nuevamente',
         'info',
       );
-    });
-  }
-
-  #closeSessionWhenModifyingSessionStorage(): void {
-    const immutableProperties: string[] = constImmutableProperties;
-    window.addEventListener('storage', (event: StorageEvent) => {
-      const modifiedProperty: string = event.key!;
-      const indexOf: number = immutableProperties.indexOf(modifiedProperty);
-
-      if (indexOf > -1) {
-        this.router.navigate(['/iniciar-sesion']);
-        this.sweetAlertClass.messageAlert(
-          'Sesión Inactiva',
-          'Su sesión ya no se encuentra activa, ingrese nuevamente',
-          'info',
-        );
-      }
     });
   }
 }

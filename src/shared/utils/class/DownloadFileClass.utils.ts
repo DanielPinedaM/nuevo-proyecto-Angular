@@ -6,10 +6,10 @@ import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import { saveAs } from 'file-saver';
 import { inject, Injectable, Injector } from '@angular/core';
 import * as ExcelJS from 'exceljs';
-import { IResponse } from '@/shared/api/general-api/types/request-data.types';
+import { IResponse } from '@/shared/services/api/general-api/types/request-data.types';
 import HotToastClass from './notification/HotToastClass.utils';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
-import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
+import { LoaderService } from '@/shared/services/stores/loader.store';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,7 @@ export default class DownloadFileClass {
   Funcion para descargar archivo */
   public downloadBlob = (
     blob: Blob | IResponse,
-    fileName: string | undefined
+    fileName: string | undefined,
   ): void => {
     const message: string = 'Ocurrió un error al descargar archivo';
 
@@ -40,7 +40,7 @@ export default class DownloadFileClass {
         '❌ error, no se puede descargar archivo ',
         fileName,
         'porque no hay un blob ',
-        blob
+        blob,
       );
 
       this.hotToast.errorNotification(message);
@@ -51,7 +51,7 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification(message);
       console.error(
         '❌ el nombre del archivo fileName NO puede ser falsy\n',
-        fileName
+        fileName,
       );
       return;
     }
@@ -62,7 +62,7 @@ export default class DownloadFileClass {
         '❌ error, no se puede descargar archivo ',
         fileName,
         'porque se necesita el nombre de la extension ',
-        extension
+        extension,
       );
 
       this.hotToast.errorNotification(message);
@@ -78,7 +78,7 @@ export default class DownloadFileClass {
       .replaceAll(' ', '-');
 
     this.hotToast.successNotification(
-      `Archivo descargado ${baseFileName}.${extension}`
+      `Archivo descargado ${baseFileName}.${extension}`,
     );
 
     saveAs(blob, `${date}-${baseFileName}.${extension}`);
@@ -96,7 +96,7 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification('Al ver archivo');
       console.error(
         '❌ error, para poder ver el archivo, tiene q ser tipo blob\n',
-        blob
+        blob,
       );
     }
   };
@@ -105,7 +105,7 @@ export default class DownloadFileClass {
   descargar Excel a partir de un array de objetos NO anidado */
   public downloadExcel = (
     nonNestedArrayOfObjects: Array<Record<string, any>>,
-    fileName: string
+    fileName: string,
   ): void => {
     const errroMessage: string = 'Ocurrió un error al descargar Excel';
 
@@ -113,7 +113,7 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification(errroMessage);
       console.error(
         '❌ el array de objetos NO puede ser falsy\n',
-        nonNestedArrayOfObjects
+        nonNestedArrayOfObjects,
       );
       return;
     }
@@ -122,7 +122,7 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification(errroMessage);
       console.error(
         '❌ el parametro nonNestedArrayOfObjects tiene q ser un array de objetos NO anidado\n',
-        nonNestedArrayOfObjects
+        nonNestedArrayOfObjects,
       );
       return;
     }
@@ -131,7 +131,7 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification(errroMessage);
       console.error(
         '❌ el array de objetos NO puede estar vacio, NI puede ser falsy\n',
-        nonNestedArrayOfObjects
+        nonNestedArrayOfObjects,
       );
       return;
     }
@@ -140,7 +140,7 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification(errroMessage);
       console.error(
         '❌ el nombre del archivo fileName NO puede ser falsy\n',
-        fileName
+        fileName,
       );
       return;
     }
@@ -149,7 +149,7 @@ export default class DownloadFileClass {
       this.hotToast.errorNotification(errroMessage);
       console.error(
         '❌ fileName tiene q contener la extension .xlsx\n',
-        fileName
+        fileName,
       );
       return;
     }
@@ -162,7 +162,7 @@ export default class DownloadFileClass {
 
     // Mayusculas iniciales a los nombres de las columnas del Excel
     const header: string[] = keys.map((key: string) =>
-      this.generalClass.titleCase(key ?? '')
+      this.generalClass.titleCase(key ?? ''),
     );
 
     // Agregar encabezados con estilos

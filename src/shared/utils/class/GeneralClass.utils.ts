@@ -1,14 +1,15 @@
-import { constRegex } from '@/shared/models/constants/regex.const';
+
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import HotToastClass from './notification/HotToastClass.utils';
 import { inject, Injectable } from '@angular/core';
 import { Options, titleCase as titleCaseNpm } from 'title-case';
-import { titleCaseOptions } from '@/shared/models/constants/title-case.const';
 import {
   minLengthPassword,
   securePasswordErrorMessage,
 } from '@/app/auth/models/constants/auth.const';
 import { IObjValidatePassword } from '@/app/auth/models/interfaces/auth.interfaces';
+import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
+import { titleCaseOptions } from '@/shared/data-types/constants/title-case.const';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export default class GeneralClass {
   hotToast = inject(HotToastClass);
 
   strongPassword = (password: string): boolean => {
-    return constRegex.text.strongPassword.test(password);
+    return CONST_REGEX.text.strongPassword.test(password);
   };
 
   /**

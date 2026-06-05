@@ -1,10 +1,16 @@
-import { CurrentRouteService } from '@/shared/service/RxJS-BehaviorSubject/current-route.service';
+import { CurrentRouteService } from '@/shared/services/stores/current-route.store';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
 import { CommonModule } from '@angular/common';
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import IMenuOptions from '@/shared/ui/menu/models/interfaces/menu.interfaces';
+
+interface IMenuOptions {
+  text: string;
+  path: string;
+  tooltip: string;
+  angularMaterialIcon: string;
+}
 
 @Component({
   selector: 'app-menu-mobile',
@@ -50,7 +56,7 @@ export class MenuMobileComponent implements OnInit {
       .messageQuestion(
         'Confirmación',
         '¿Está seguro que desea cerrar sesión?',
-        'warning'
+        'warning',
       )
       .then((result) => {
         this.isMenuOpen.set(false);

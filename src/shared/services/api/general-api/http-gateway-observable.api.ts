@@ -6,11 +6,11 @@ import {
   IRequestOptions,
   IResponse,
   TMethod,
-} from '@/shared/api/general-api/types/request-data.types';
+} from '@/shared/services/api/general-api/types/request-data.types';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
-import { LoaderService } from '@/shared/service/RxJS-BehaviorSubject/layout/loader.service';
+import { LoaderService } from '@/shared/services/stores/loader.store';
 import { environment } from '@/environments/environment';
-import { RequestDataUtils } from '@/shared/api/general-api/utils/request-data.utils';
+import { RequestDataUtils } from '@/shared/services/api/general-api/utils/request-data.utils';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 
 @Injectable({

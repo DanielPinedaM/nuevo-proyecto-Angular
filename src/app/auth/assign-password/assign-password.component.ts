@@ -6,31 +6,25 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  IRequestOptions,
-  IResponse,
-} from '@/shared/api/general-api/types/request-data.types'; 
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-observable.api';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
-import {
-  contactSupport,
-  enterFields,
-} from '@/shared/models/constants/error-message.const';
 import {
   IBodyAssignPassword,
   IInputValuePassword,
   IObjValidatePassword,
 } from '@/app/auth/models/interfaces/auth.interfaces';
 import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
-import { constRegex } from '@/shared/models/constants/regex.const';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
+import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
+import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
+import { contactSupport } from '@/shared/data-types/constants/error-message.const';
+import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
 
 @Component({
   selector: 'app-assign-password',
@@ -69,12 +63,12 @@ export class AssignPasswordComponent implements OnInit {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(minLengthPassword),
-      Validators.pattern(constRegex.text.strongPassword),
+      Validators.pattern(CONST_REGEX.text.strongPassword),
     ]),
     confirmPassword: new FormControl('', [
       Validators.required,
       Validators.minLength(minLengthPassword),
-      Validators.pattern(constRegex.text.strongPassword),
+      Validators.pattern(CONST_REGEX.text.strongPassword),
     ]),
   });
 
