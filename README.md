@@ -844,33 +844,19 @@ Las clases de botones deben representar una sola responsabilidad y ser **composa
 
 En arquitectura CSS y de componentes, composable significa que una clase puede combinarse con otras clases pequeñas y reutilizables para construir distintos comportamientos sin duplicar código.
 
-```SCSS
-// _base.scss: Reset CSS de boton
-.btn {}
+Cada clase modifica únicamente una característica específica del botón. Esto permite combinar comportamientos sin duplicar estilos:
 
-// _sizes.scss: tamaño de botones
-.btn-sm {}
-
-// _themes.scss: colores de botones
-.btn-primary {}
-
-// _modifiers.scss: modificadores
-.btn-full-width {}
-```
-
-Cada clase modifica únicamente una característica específica del botón:
-
-| Archivo           | Descripción                                                                      | Código de ejemplo    |
-| ----------------- | -------------------------------------------------------------------------------- | -------------------- |
-| `_base.scss`      | Define los estilos base y el reset CSS de todos los botones.                     | `.btn {}`            |
-| `_sizes.scss`     | Define los tamaños disponibles para los botones.                                 | `.btn-sm {}`         |
-| `_themes.scss`    | Define los colores y temas visuales de los botones.                              | `.btn-primary {}`    |
-| `_modifiers.scss` | Define modificadores que alteran o extienden el comportamiento visual del botón. | `.btn-full-width {}` |
-
-
-
-
-Esto permite combinar comportamientos sin duplicar estilos.
+| Archivo              | Descripción                                                                                                                                                                  | Ejemplo de código                                           |
+|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| `index-buttons.scss` | Archivo orquestador. Importa todos los módulos SCSS mediante `@use`. No debe contener estilos CSS, variables ni lógica visual.                                               | `@use "./base.scss";`                                       |
+| `_base.scss`         | Define la estructura base del sistema de botones: reset CSS, layout, alineación, box model y estilos fundamentales de `.btn`. Todas las variantes parten de esta clase base. | `.btn {} `                                                  |
+| `_variants.scss`     | Define la apariencia principal del botón (fondo, borde y comportamiento visual). Las variantes pueden combinarse con cualquier tema, tamaño o modificador.                   | `.btn-solid {} .btn-outline {} .btn-ghost {} .btn-link {} ` |
+| `_themes.scss`       | Define los temas de color mediante CSS Custom Properties. Cada tema establece los colores utilizados por las variantes (`solid`, `outline`, `ghost`, etc.).                  | `.btn-primary {} .btn-secondary {} .btn-success {} `        |
+| `_sizes.scss`        | Define la escala de tamaños del botón mediante `padding`, `font-size` y `line-height`. Puede combinarse con cualquier variante o tema.                                       | `.btn-xs {} .btn-sm {} .btn-base {} .btn-lg {} `            |
+| `_states.scss`       | Define los estados interactivos y de accesibilidad del botón. Centraliza comportamientos relacionados con `focus-visible`, `hover`, `active` y `disabled`.                   | `.btn:focus-visible {} `                                    |
+| `_effects.scss`      | Contiene utilidades visuales reutilizables independientes de la lógica del botón. Permite agregar efectos opcionales como sombras, blur o elevación.                         | `.btn-shadow {} `                                           |
+| `_modifiers.scss`    | Clases composables que alteran o extienden características específicas del botón sin modificar su variante principal.                                                        | `.btn-full-width {} .btn-rounded-full {} .btn-icon-only {} `|
+| `_tokens.scss`       | Variables globales de Sass utilizadas por todo el sistema de botones. Centraliza colores, tamaños tipográficos y escalas de espaciado para mantener consistencia visual.     | `$primary: oklch(...); $fs-base: 1rem; $sp-4: 1rem; `       |
 
 ### 📖 Manual de Uso para Dar Estilos a Botones
 
