@@ -637,17 +637,7 @@ Está guía de estilos para botones está basada en:
 
 - [Tailwind 4 padding](https://tailwindcss.com/docs/padding)
 
-La arquitectura está diseñada para proyectos grandes y escalables, separando responsabilidades en:
-
-| Categoría     | Ejemplo de clase | Responsabilidad                                                        |
-| ------------- | ---------------- | ---------------------------------------------------------------------- |
-| clase base    | `.btn`           | Estilos base para boton (reset CSS para boton, borde redondeado, etc.) |
-| variante      | `.btn-primary`   | Variante visual principal                                              |
-| variante      | `.btn-secondary` | Variante visual secundaria                                             |
-| variante      | `.btn-outline-*` | Agrega estilos con borde                                               |
-| tamaño        | `.btn-sm`        | Tamaño pequeño                                                         |
-| tamaño        | `.btn-lg`        | Tamaño grande                                                          |
-| modificador   | `.btn-icon-only` | Estilos para boton que contiene solamente icono (sin texto)            |
+La arquitectura está diseñada para proyectos grandes y escalables, separando responsabilidades.
 
 **❌ Incorrecto:**
 
