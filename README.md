@@ -92,7 +92,7 @@ src/
 │   │   ├── recover-password/ → Enviar correo para recuperar contraseña
 │   │   └── register/ → Formulario de registro de nuevo usuario
 │   │
-│   ├── home/ → Contiene todas las rutas y componentes después de iniciar sesión
+│   ├── features/ → Contiene todas las rutas y componentes después de iniciar sesión
 │   │   └── main-wrapper/ → contenedor principal de paginas despues de loguearse
 │   │   └── bots/ → Feature independiente que define la ruta `/bots`. El proyecto utiliza una arquitectura basada en funcionalidades (Feature-Based Architecture).
 │   │       ├── bots.component.html
@@ -110,9 +110,9 @@ src/
 │   │     └── menu/ → Componente de menú
 │   │
 │   ├── models/ → contiene tipos de datos y constantes globales
-│   │   ├── constants/
-│   │   ├── interface/
-│   │   ├── enums/
+│   │   └── constants/
+│   │   └── interface/
+│   │   └── enums/
 │   │
 │   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externos
 │   │ ├── general-api/ →
@@ -129,8 +129,8 @@ src/
 │   ├── utils/
 │   │ ├── class/
 │   │ │ ├── notification/ → carpeta con funciones para mostrar mensajes emergentes
-│   │ │ │   ── HotToastClass.utils.ts → Notificaciones tipo toast
-│   │ │ │   ── SweetAlertClass.utils.ts → Modal con SweetAlert2
+│   │ │ │   └── HotToastClass.utils.ts → Notificaciones tipo toast
+│   │ │ │   └── SweetAlertClass.utils.ts → Modal con SweetAlert2
 │   │ │ │
 │   │ │ ├── CryptoServiceClass.utils.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
 │   │ │ ├── DataTypeClass.utils.ts → funciones para tipos de datos de JS, ejemplo normalizar string
@@ -139,20 +139,32 @@ src/
 │   │ │ ├── LuxonClass.utils.ts → funciones para fechas usando Luxon
 │   │ │ ├── SessionStorageClass.utils.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
 │
-├── style/
-│   ├── styles.scss → importa estilos de toda la web, solo importa archivos de sass con @use, NO debe contener estilos directos
+├── styles/
+│   ├── main.scss → con @use importa estilos .scss globales de toda la pagina web, NO debe contener estilos directos
 │   │
 │   ├── global/ → estilos globales de toda la pagina web
 │   │     └── library/ → estilos que afectan las librerias
-│   │        └── _prime-ng.scss → estilos que afectan a Prime NG
-│   │        └── _sweet-alert-2.scss → estilos que afectan a Sweet Alert 2
-│   │        └── _tailwind.css → archivo de configuración de Tailwind 4
+│   │     │  └── _prime-ng.scss → estilos que afectan a Prime NG
+│   │     │  └── _sweet-alert-2.scss → estilos que afectan a Sweet Alert 2
+│   │     │  └── _tailwind.css → archivo de configuración de Tailwind 4
+│   │     │
+│   │     └── buttons/ → estilos globales de botones
+│   │        └── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
+│   │        └── _base.scss → Reset CSS para botones
+│   │        └── _effects.scss → utilidades visuales reutilizables para los botones (sombras, blur, filtros, etc.)
+│   │        └── _modifiers.scss → alteran/extienden características de los botones sin sobrescribir sus estilos principales 
+│   │        └── _sizes.scss → tamaño de boton
+│   │        └── _states.scss → estados de boton: hover, active, focus, disabled
+│   │        └── _themes.scss → CSS custom properties que definen los colores de los botones
+│   │        └── _tokens.scss → variables de Sass para botones
+│   │        └── _typography.scss → estilos globales de tipografía
+│   │        └── _variants.scss →  Define los estilos del botón (colores, fondo, borde)
 │   │
-│   ├── _button.scss → estilos globales de botones
 │   ├── _reset.scss → elimina los estilos por defecto del navegador para asegurar una apariencia uniforme en todos los navegadores
 │   ├── _scroll-bar.scss → estilos globales de barra de scroll
 │   ├── _table.scss → estilos globales para tablas
 │   └── _variables.scss → variables globales de Sass
+
 ```
 
 # 📅 Fechas
@@ -1359,10 +1371,10 @@ import { Routes } from "@angular/router";
 import { AuthGuard } from "@/shared/guards/auth.guard";
 
 // #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from "@/app/home/main-wrapper/main-wrapper.component";
+import { MainWrapperComponent } from "@/app/features/main-wrapper/main-wrapper.component";
 // #endregion
 
-import { BotsComponent } from "@/app/home/bots/bots.component";
+import { BotsComponent } from "@/app/features/bots/bots.component";
 
 export const routes: Routes = [
   {
@@ -1395,7 +1407,7 @@ Además,
 
 ```txt
 src/app/
-├── home/
+├── features/
 │     └── bots/
 │         └── bots.component.html
 │         └── bots.component.ts
@@ -1407,10 +1419,10 @@ import { Routes } from "@angular/router";
 import { AuthGuard } from "@/shared/guards/auth.guard";
 
 // #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from "@/app/home/main-wrapper/main-wrapper.component";
+import { MainWrapperComponent } from "@/app/features/main-wrapper/main-wrapper.component";
 // #endregion
 
-import { BotsComponent } from "@/app/home/bots/bots.component";
+import { BotsComponent } from "@/app/features/bots/bots.component";
 
 export const routes: Routes = [
   {
@@ -1433,7 +1445,7 @@ export const routes: Routes = [
 
 En este ejemplo:
 
-- La URL `/bots` coincide con la estructura `src/app/home/bots`
+- La URL `/bots` coincide con la estructura `src/app/features/bots`
 
 - `BotsComponent` es hijo de `MainWrapperComponent`
 
@@ -1452,7 +1464,7 @@ Esto permite mantener una arquitectura escalable.
 ```txt
 src/
 ├── app/
-│   ├── home/
+│   ├── features/
 │   │   ├── bots/
 │   │   │   ├── bots.component.ts
 │   │   │   ├──  bots.component.html

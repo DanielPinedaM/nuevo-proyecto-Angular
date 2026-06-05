@@ -6,7 +6,7 @@ import { NotFound404Component } from '@/app/not-found-404/not-found-404.componen
 // #endregion
 
 // #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from '@/app/home/main-wrapper/main-wrapper.component';
+import { MainWrapperComponent } from '@/app/features/main-wrapper/main-wrapper.component';
 // #endregion
 
 // #region autenticacion
@@ -17,7 +17,7 @@ import { RegisterComponent } from '@/app/auth/register/register.component';
 import { AssignPasswordComponent } from '@/app/auth/assign-password/assign-password.component';
 // #endregion
 
-import { BotsComponent } from '@/app/home/bots/bots.component';
+import { BotsComponent } from '@/app/features/bots/bots.component';
 
 export const routes: Routes = [
   // cuando NO se copia una ruta, se re-dirige al login

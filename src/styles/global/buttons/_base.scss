@@ -16,8 +16,8 @@
   * tamaño por defecto de los botones *
   * .btn-base                         *
   ************************************* */
-  padding: token.$_2 token.$_4; // py-2 = 0.5rem = 8px, px-4 = 1rem = 16px
-  font-size: token.$_base; // text-base = 1rem = 16px
+  padding: token.$sp-2 token.$sp-4; // py-2 = 0.5rem = 8px, px-4 = 1rem = 16px
+  font-size: token.$fs-base; // text-base = 1rem = 16px
   line-height: calc(1.2 / 1); // (line-height que se desea aplicar / font-size)
 
   // icono y texto centrado
@@ -55,7 +55,7 @@
 
   touch-action: manipulation;
 
-  border-radius: token.$_2; // 0.5rem = 8px
+  border-radius: token.$sp-2; // 0.5rem = 8px
 
   background-color: transparent;
 
