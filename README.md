@@ -173,7 +173,7 @@ src/
         │   ├── _sweet-alert-2.scss → estilos que afectan a Sweet Alert 2
         │   └── _tailwind.css → archivo de configuración de Tailwind 4
         │
-        └── buttons/ → estilos globales de botones
+        └── buttons/ → estilos globales de botones organizados en archivos .scss composables que permiten combinar variantes, tamaños, estados y temas
             ├── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
             ├── _base.scss → Reset CSS para botones
             ├── _effects.scss → utilidades visuales reutilizables para los botones (sombras, blur, filtros, etc.)
