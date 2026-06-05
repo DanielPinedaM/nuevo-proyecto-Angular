@@ -845,26 +845,30 @@ Las clases de botones deben representar una sola responsabilidad y ser **composa
 En arquitectura CSS y de componentes, composable significa que una clase puede combinarse con otras clases pequeñas y reutilizables para construir distintos comportamientos sin duplicar código.
 
 ```SCSS
-// Reset CSS de boton
+// _base.scss: Reset CSS de boton
 .btn {}
 
-// tamaño
+// _sizes.scss: tamaño de botones
 .btn-sm {}
 
-// variantes
+// _themes.scss: colores de botones
 .btn-primary {}
-.btn-outline-primary {}
 
-// modificadores
+// _modifiers.scss: modificadores
 .btn-full-width {}
 ```
 
 Cada clase modifica únicamente una característica específica del botón:
 
-- Tamaño
-- Icono
-- Estado
-- Ancho
+| Archivo           | Descripción                                                                      | Código de ejemplo    |
+| ----------------- | -------------------------------------------------------------------------------- | -------------------- |
+| `_base.scss`      | Define los estilos base y el reset CSS de todos los botones.                     | `.btn {}`            |
+| `_sizes.scss`     | Define los tamaños disponibles para los botones.                                 | `.btn-sm {}`         |
+| `_themes.scss`    | Define los colores y temas visuales de los botones.                              | `.btn-primary {}`    |
+| `_modifiers.scss` | Define modificadores que alteran o extienden el comportamiento visual del botón. | `.btn-full-width {}` |
+
+
+
 
 Esto permite combinar comportamientos sin duplicar estilos.
 
