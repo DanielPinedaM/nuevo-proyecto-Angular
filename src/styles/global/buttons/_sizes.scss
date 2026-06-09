@@ -22,7 +22,7 @@
 
 /* base */
 .btn-base {
-  padding: token.$sp-2 token.$sp-4;    // py-2 = 0.5rem = 8px, px-4 = 1rem = 16px
+  padding: token.$sp-2 token.$sp-4;    // py-2 = 0.5rem = 8px, px-3 = 0.75rem = 12px
 
   font-size: token.$fs-base;           // text-base = 1rem = 16px
   line-height: calc(1.2 / 1);
@@ -56,46 +56,4 @@
 
   font-size: token.$fs-3xl;            // text-3xl = 1.875rem = 30px
   line-height: calc(2.25 / 1.875);
-}
-
-.btn-4xl {
-  padding: token.$sp-6 token.$sp-12;   // py-6 = 1.5rem = 24px, px-12 = 3rem = 48px
-
-  font-size: token.$fs-4xl;            // text-4xl = 2.25rem = 36px
-  line-height: calc(2.5 / 2.25);
-}
-
-.btn-5xl {
-  padding: token.$sp-7 token.$sp-14;   // py-7 = 1.75rem = 28px, px-14 = 3.5rem = 56px
-
-  font-size: token.$fs-5xl;            // text-5xl = 3rem = 48px
-  line-height: 1;
-}
-
-.btn-6xl {
-  padding: token.$sp-8 token.$sp-16;   // py-8 = 2rem = 32px, px-16 = 4rem = 64px
-
-  font-size: token.$fs-6xl;            // text-6xl = 3.75rem = 60px
-  line-height: 1;
-}
-
-.btn-7xl {
-  padding: token.$sp-10 token.$sp-20;  // py-10 = 2.5rem = 40px, px-20 = 5rem = 80px
-
-  font-size: token.$fs-7xl;            // text-7xl = 4.5rem = 72px
-  line-height: 1;
-}
-
-.btn-8xl {
-  padding: token.$sp-12 token.$sp-24;  // py-12 = 3rem = 48px, px-24 = 6rem = 96px
-
-  font-size: token.$fs-8xl;            // text-8xl = 6rem = 96px
-  line-height: 1;
-}
-
-.btn-9xl {
-  padding: token.$sp-16 token.$sp-32;  // py-16 = 4rem = 64px, px-32 = 8rem = 128px
-
-  font-size: token.$fs-9xl;            // text-9xl = 8rem = 128px
-  line-height: 1;
 }

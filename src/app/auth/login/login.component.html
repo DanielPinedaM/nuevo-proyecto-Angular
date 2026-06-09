@@ -1,34 +1,4 @@
-<section class="flex flex-wrap m-2">
-  <button class="btn btn-primary btn-outline btn-icon-only btn-xs">
-    <span class="material-symbols-outlined">close</span>
-  </button>
-
-  <button class="btn btn-primary btn-outline btn-icon-only btn-sm">
-    <span class="material-symbols-outlined">close</span>
-  </button>
-
-  <button class="btn btn-primary btn-outline btn-icon-only btn-base">
-    <span class="material-symbols-outlined">close</span>
-  </button>
-
-  <button class="btn btn-primary btn-outline btn-icon-only">
-    <span class="material-symbols-outlined">close</span>
-  </button>
-
-  <button class="btn btn-primary btn-outline btn-icon-only btn-lg">
-    <span class="material-symbols-outlined">close</span>
-  </button>
-
-  <button class="btn btn-primary btn-outline btn-icon-only btn-xl">
-    <span class="material-symbols-outlined">close</span>
-  </button>
-
-  <button class="btn btn-primary btn-outline btn-icon-only btn-2xl">
-    <span class="material-symbols-outlined">close</span>
-  </button>
-</section>
-
-<!-- <section
+<section
   class="mx-auto max-w-[364px] sm:max-w-sm px-8 sm:p-0 min-h-dvh flex items-center justify-center"
 >
   <div class="w-full">
@@ -57,17 +27,21 @@
           class="block w-full"
           placeholder="nombre@correo.gov.co"
         />
-        @if (formLogin.get('email')?.touched && !dataLoginBurned) {
-        @if(formLogin.get('email')?.hasError("required")) {
-        <p-message severity="error" text="Correo es obligatorio"></p-message>
-        } @else if (formLogin.get('email')?.hasError('minlength')) {
-        <p-message
-          severity="error"
-          text="Correo es de mínimo 3 caracteres"
-        ></p-message>
-        } @else if (formLogin.get('email')?.hasError('email')) {
-        <p-message severity="error" text="Correo invalido"></p-message>
-        } }
+        @if (formLogin.get("email")?.touched && !dataLoginBurned) {
+          @if (formLogin.get("email")?.hasError("required")) {
+            <p-message
+              severity="error"
+              text="Correo es obligatorio"
+            ></p-message>
+          } @else if (formLogin.get("email")?.hasError("minlength")) {
+            <p-message
+              severity="error"
+              text="Correo es de mínimo 3 caracteres"
+            ></p-message>
+          } @else if (formLogin.get("email")?.hasError("email")) {
+            <p-message severity="error" text="Correo invalido"></p-message>
+          }
+        }
       </div>
 
       <div class="mb-3">
@@ -83,13 +57,14 @@
           (paste)="doNotAllowCopyPasteCut($event)"
           (copy)="doNotAllowCopyPasteCut($event)"
         />
-        @if (formLogin.get('password')?.touched && !dataLoginBurned) { @if
-        (formLogin.get('password')?.hasError("required")) {
-        <p-message
-          severity="error"
-          text="Contraseña es obligatoria"
-        ></p-message>
-        } }
+        @if (formLogin.get("password")?.touched && !dataLoginBurned) {
+          @if (formLogin.get("password")?.hasError("required")) {
+            <p-message
+              severity="error"
+              text="Contraseña es obligatoria"
+            ></p-message>
+          }
+        }
       </div>
 
       <div class="flex items-center justify-between mb-5 gap-x-1">
@@ -122,4 +97,3 @@
     </form>
   </div>
 </section>
- -->

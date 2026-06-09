@@ -63,3 +63,10 @@
   --btn-color-emphasis: #{token.$dark-emphasis};
   --btn-text-color: #{token.$btn-text-color};
 }
+
+.btn-link {
+  --btn-color: #{token.$link};
+  --btn-color-contrast: #{token.$link-contrast};
+  --btn-color-emphasis: #{token.$link-emphasis};
+  --btn-text-color: #{token.$link};
+}

@@ -52,6 +52,10 @@ $dark:                  oklch(27.03% 0.015 264.05);          // #212529
 $dark-contrast:         oklch(35.18% 0.018 264.11);          // #343a40
 $dark-emphasis:         oklch(27.03% 0.015 264.05 / 0.4);    // #21252966
 
+$link:                 oklch(54.62% 0.228 262.44);
+$link-contrast:        oklch(48.84% 0.217 264.38);
+$link-emphasis:        oklch(54.62% 0.228 262.44 / 0.25);
+
 /*
 ******************************************************************
 * Variables de Sass para TAMAÑO DE LETRA font-size               *

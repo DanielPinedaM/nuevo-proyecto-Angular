@@ -294,7 +294,7 @@ export class BotsComponent {
 }
 ```
 
-\***\*✅ Ejemplo correcto - usar `LuxonClass.utils.ts`\*\***
+***✅ Ejemplo correcto - usar `LuxonClass.utils.ts`***
 
 ```ts
 import { Component, inject } from "@angular/core";
@@ -389,7 +389,7 @@ Las variables con nombres de los colores de **Sass** en `src/styles/global/_vari
 
 Esto garantiza que los colores sean los mismos entre los estilos globales definidos en Sass y los estilos de cada componente definidos con Tailwind.
 
-\***\*✅ Ejemplo:\*\***
+***✅ Ejemplo:***
 
 En Sass y Tailwind ambos colores tienen exactamente el mismo nombre `primary-color` y son el mismo color rojo `oklch(62.8% 0.258 29.23)`
 
@@ -415,13 +415,13 @@ colores de Tailwind */
 
 ## 🤔 ¿Cómo usar Tailwind y Sass juntos?
 
-\***\*❌ Incorrecto:\*\***
+***❌ Incorrecto:***
 
 Todos los componentes de Angular **NO** pueden tener archivos de Sass ni CSS con `styleUrls`,
 
 Mezclar Sass y Tailwind en un mismo componente es mala práctica porque los estilos de Sass y Tailwind se sobrescriben debido a la especificidad, herencia y cascada de CSS.
 
-\***\*❌ Ejemplo incorrecto:\*\***
+***❌ Ejemplo incorrecto:***
 
 ```ts
 /* bots.component.ts */
@@ -457,7 +457,7 @@ Sass para estilos globales en `src/styles/global/...`
 
 Tailwind para estilos especificos de cada componente en `src/app/...` y `src/shared/components/...`
 
-\***\*✅ Ejemplo Correcto de Sass global:\*\***
+***✅ Ejemplo Correcto de Sass global:***
 
 ```scss
 // src/styles/global/__scroll-bar.scss
@@ -484,7 +484,7 @@ Tailwind para estilos especificos de cada componente en `src/app/...` y `src/sha
 </div>
 ```
 
-\***\*✅ Ejemplo Correcto de Tailwind:\*\***
+***✅ Ejemplo Correcto de Tailwind:***
 
 ```ts
 /* bots.component.ts */
@@ -920,14 +920,14 @@ En sistemas de diseño modernos, los botones se clasifican según su nivel de im
 ![variantes-con-color-de-fondo](./docs/readme-md/img/button/variantes-con-color-de-fondo.png)
 
 ```html
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-secondary">Secondary</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-danger">Danger</button>
-<button class="btn btn-warning">Warning</button>
-<button class="btn btn-info">Info</button>
-<button class="btn btn-light">Light</button>
-<button class="btn btn-dark">Dark</button>
+<button class="btn btn-primary btn-background">Primary</button>
+<button class="btn btn-secondary btn-background">Secondary</button>
+<button class="btn btn-success btn-background">Success</button>
+<button class="btn btn-danger btn-background">Danger</button>
+<button class="btn btn-warning btn-background">Warning</button>
+<button class="btn btn-info btn-background">Info</button>
+<button class="btn btn-light btn-background">Light</button>
+<button class="btn btn-dark btn-background">Dark</button>
 
 <!-- Enlaces -->
 <a class="btn btn-link" routerLink="/home">Link</a>
@@ -949,14 +949,57 @@ Algunos botones usan colores claros en el texto o borde, por lo que deben coloca
 ![borde-con-texto](./docs/readme-md/img/button/borde-con-texto.png)
 
 ```html
-<button class="btn btn-outline-primary">Primary</button>
-<button class="btn btn-outline-secondary">Secondary</button>
-<button class="btn btn-outline-success">Success</button>
-<button class="btn btn-outline-danger">Danger</button>
-<button class="btn btn-outline-warning">Warning</button>
-<button class="btn btn-outline-info">Info</button>
-<button class="btn btn-outline-light">Light</button>
-<button class="btn btn-outline-dark">Dark</button>
+<button class="btn btn-primary btn-outline">Primary</button>
+<button class="btn btn-secondary btn-outline">Secondary</button>
+<button class="btn btn-success btn-outline">Success</button>
+<button class="btn btn-danger btn-outline">Danger</button>
+<button class="btn btn-warning btn-outline">Warning</button>
+<button class="btn btn-info btn-outline">Info</button>
+<button class="btn btn-light btn-outline">Light</button>
+<button class="btn btn-dark btn-outline">Dark</button>
+```
+
+### Botones con sombra
+
+`btn-shadow` agrega una sombra a cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
+
+![sombra-fondo](./docs/readme-md/img/button/sombra-fondo.png)
+
+```html
+<button class="btn btn-primary btn-background btn-shadow">Primary</button>
+<button class="btn btn-secondary btn-background btn-shadow">Secondary</button>
+<button class="btn btn-success btn-background btn-shadow">Success</button>
+<button class="btn btn-danger btn-background btn-shadow">Danger</button>
+<button class="btn btn-warning btn-background btn-shadow">Warning</button>
+<button class="btn btn-info btn-background btn-shadow">Info</button>
+<button class="btn btn-light btn-background btn-shadow">Light</button>
+<button class="btn btn-dark btn-background btn-shadow">Dark</button>
+```
+
+![sombra-no-fondo](./docs/readme-md/img/button/sombra-no-fondo.png)
+
+```html
+<button class="btn btn-primary btn-ghost btn-shadow">Primary</button>
+<button class="btn btn-secondary btn-ghost btn-shadow">Secondary</button>
+<button class="btn btn-success btn-ghost btn-shadow">Success</button>
+<button class="btn btn-danger btn-ghost btn-shadow">Danger</button>
+<button class="btn btn-warning btn-ghost btn-shadow">Warning</button>
+<button class="btn btn-info btn-ghost btn-shadow">Info</button>
+<button class="btn btn-light btn-ghost btn-shadow">Light</button>
+<button class="btn btn-dark btn-ghost btn-shadow">Dark</button>
+```
+
+![sombra-outline](./docs/readme-md/img/button/sombra-outline.png)
+
+```html
+<button class="btn btn-primary btn-outline btn-shadow">Primary</button>
+<button class="btn btn-secondary btn-outline btn-shadow">Secondary</button>
+<button class="btn btn-success btn-outline btn-shadow">Success</button>
+<button class="btn btn-danger btn-outline btn-shadow">Danger</button>
+<button class="btn btn-warning btn-outline btn-shadow">Warning</button>
+<button class="btn btn-info btn-outline btn-shadow">Info</button>
+<button class="btn btn-light btn-outline btn-shadow">Light</button>
+<button class="btn btn-dark btn-outline btn-shadow">Dark</button>
 ```
 
 ### Botones con Icono
@@ -967,26 +1010,26 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 
 ```HTML
 <!-- bordes redondeados -->
-<button class="btn btn-icon-only btn-warning">
+<button class="btn btn-warning btn-background btn-base">
   <span class="material-symbols-outlined">warning</span>
 </button>
 
 <!-- btn-rounded-full forma de circulo -->
-<button class="btn btn-icon-only btn-outline-danger btn-rounded-full">
+<button class="btn btn-outline btn-danger btn-icon-only btn-rounded-full">
   <span class="material-symbols-outlined">delete</span>
 </button>
 
-<button class="btn btn-icon-only btn-ghost btn-rounded-full">
+<button class="btn btn-ghost btn-dark btn-icon-only btn-rounded-full">
   <span class="material-symbols-outlined">settings</span>
 </button>
 
 <!-- xs boton muy pequeño -->
-<button class="btn btn-icon-only btn-info btn-rounded-full btn-xs">
+<button class="btn btn-info btn-background btn-icon-only btn-rounded-full btn-xs">
   <span class="material-symbols-outlined">info</span>
 </button>
 
 <!-- 2xl boton muy grande -->
-<button class="btn btn-icon-only btn-primary btn-rounded-full btn-2xl">
+<button class="btn btn-primary btn-background btn-icon-only btn-rounded-full btn-2xl">
   <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 ```
@@ -996,35 +1039,35 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 ![icono-fondo](./docs/readme-md/img/button/icono-fondo.png)
 
 ```html
-<button class="btn btn-icon-only btn-primary">
+<button class="btn btn-primary btn-background btn-icon-only">
   <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 
-<button class="btn btn-icon-only btn-secondary">
+<button class="btn btn-secondary btn-background btn-icon-only">
   <span class="material-symbols-outlined">close</span>
 </button>
 
-<button class="btn btn-icon-only btn-success">
+<button class="btn btn-success btn-background btn-icon-only">
   <span class="material-symbols-outlined">check_circle</span>
 </button>
 
-<button class="btn btn-icon-only btn-danger">
+<button class="btn btn-danger btn-background btn-icon-only">
   <span class="material-symbols-outlined">delete</span>
 </button>
 
-<button class="btn btn-icon-only btn-warning">
+<button class="btn btn-warning btn-background btn-icon-only">
   <span class="material-symbols-outlined">warning</span>
 </button>
 
-<button class="btn btn-icon-only btn-info">
+<button class="btn btn-info btn-background btn-icon-only">
   <span class="material-symbols-outlined">info</span>
 </button>
 
-<button class="btn btn-icon-only btn-light">
+<button class="btn btn-light btn-background btn-icon-only">
   <span class="material-symbols-outlined">light_mode</span>
 </button>
 
-<button class="btn btn-icon-only btn-dark">
+<button class="btn btn-dark btn-background btn-icon-only">
   <span class="material-symbols-outlined">dark_mode</span>
 </button>
 ```
@@ -1034,35 +1077,35 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 ![icono-borde](./docs/readme-md/img/button/icono-borde.png)
 
 ```html
-<button class="btn btn-icon-only btn-outline-primary">
+<button class="btn btn-primary btn-outline btn-icon-only">
   <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 
-<button class="btn btn-icon-only btn-outline-secondary">
+<button class="btn btn-secondary btn-outline btn-icon-only">
   <span class="material-symbols-outlined">close</span>
 </button>
 
-<button class="btn btn-icon-only btn-outline-success">
+<button class="btn btn-success btn-outline btn-icon-only">
   <span class="material-symbols-outlined">check_circle</span>
 </button>
 
-<button class="btn btn-icon-only btn-outline-danger">
+<button class="btn btn-danger btn-outline btn-icon-only">
   <span class="material-symbols-outlined">delete</span>
 </button>
 
-<button class="btn btn-icon-only btn-outline-warning">
+<button class="btn btn-warning btn-outline btn-icon-only">
   <span class="material-symbols-outlined">warning</span>
 </button>
 
-<button class="btn btn-icon-only btn-outline-info">
+<button class="btn btn-info btn-outline btn-icon-only">
   <span class="material-symbols-outlined">info</span>
 </button>
 
-<button class="btn btn-icon-only btn-outline-light">
+<button class="btn btn-light btn-outline btn-icon-only">
   <span class="material-symbols-outlined">light_mode</span>
 </button>
 
-<button class="btn btn-icon-only btn-outline-dark">
+<button class="btn btn-dark btn-outline btn-icon-only">
   <span class="material-symbols-outlined">dark_mode</span>
 </button>
 ```
@@ -1072,42 +1115,42 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 ![icono-fondo-texto](./docs/readme-md/img/button/icono-fondo-texto.png)
 
 ```html
-<button class="btn btn-primary">
+<button class="btn btn-primary btn-background">
   <span class="material-symbols-outlined">arrow_forward</span>
   <span>Primary</span>
 </button>
 
-<button class="btn btn-secondary">
+<button class="btn btn-secondary btn-background">
   <span class="material-symbols-outlined">close</span>
   <span>Secondary</span>
 </button>
 
-<button class="btn btn-success">
+<button class="btn btn-success btn-background">
   <span class="material-symbols-outlined">check_circle</span>
   <span>Success</span>
 </button>
 
-<button class="btn btn-danger">
+<button class="btn btn-danger btn-background">
   <span class="material-symbols-outlined">delete</span>
   <span>Danger</span>
 </button>
 
-<button class="btn btn-warning">
+<button class="btn btn-warning btn-background">
   <span class="material-symbols-outlined">warning</span>
   <span>Warning</span>
 </button>
 
-<button class="btn btn-info">
+<button class="btn btn-info btn-background">
   <span class="material-symbols-outlined">info</span>
   <span>Info</span>
 </button>
 
-<button class="btn btn-light">
+<button class="btn btn-light btn-background">
   <span class="material-symbols-outlined">light_mode</span>
   <span>Light</span>
 </button>
 
-<button class="btn btn-dark">
+<button class="btn btn-dark btn-background">
   <span class="material-symbols-outlined">dark_mode</span>
   <span>Dark</span>
 </button>
@@ -1125,25 +1168,25 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 ![botones-redondos](./docs/readme-md/img/button/botones-redondos.png)
 
 ```HTML
-<button class="btn btn-primary btn-rounded-full">Primary</button>
+<button class="btn btn-primary btn-background btn-rounded-full">Primary</button>
 
-<button class="btn btn-outline-secondary btn-rounded-full">Secondary</button>
+<button class="btn btn-secondary btn-outline btn-rounded-full">Secondary</button>
 
-<button class="btn btn-info btn-rounded-full">
+<button class="btn btn-info btn-background btn-rounded-full">
   <span class="material-symbols-outlined">info</span>
   <span>Info</span>
 </button>
 
-<button class="btn btn-icon-only btn-outline-danger btn-rounded-full">
+<button class="btn btn-outline btn-danger btn-icon-only btn-rounded-full">
   <span class="material-symbols-outlined">delete</span>
 </button>
 
-<button class="btn btn-icon-only btn-warning btn-rounded-full">
+<button class="btn btn-background btn-warning btn-icon-only btn-rounded-full">
   <span class="material-symbols-outlined">warning</span>
 </button>
 
 <!-- SIN btn-rounded-full tiene esquinas redondeadas -->
-<button class="btn btn-icon-only btn-success">
+<button class="btn btn-background btn-success btn-icon-only">
   <span class="material-symbols-outlined">check_circle</span>
 </button>
 ```
@@ -1168,7 +1211,7 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
   <span>Secondary</span>
 </button>
 
-<button class="btn btn-icon-only btn-warning btn-ghost">
+<button class="btn btn-warning btn-ghost btn-icon-only btn-rounded-full">
   <span class="material-symbols-outlined">warning</span>
 </button>
 ```
@@ -1182,23 +1225,23 @@ El estilo de boton desactivado se aplica a cualquier tipo de boton.
 ![boton-desactivado](./docs/readme-md/img/button/boton-desactivado.png)
 
 ```HTML
-<button disabled class="btn btn-primary">Primary</button>
+<button disabled class="btn btn-primary btn-background">Primary</button>
 
-<button disabled class="btn btn-outline-secondary">Secondary</button>
+<button disabled class="btn btn-secondary btn-outline">Secondary</button>
 
-<button disabled class="btn btn-icon-only btn-outline-danger btn-rounded-full">
+<button disabled class="btn btn-icon-only btn-outline btn-danger btn-rounded-full">
   <span class="material-symbols-outlined">delete</span>
 </button>
 
-<button disabled class="btn btn-icon-only btn-warning">
+<button disabled class="btn btn-icon-only btn-warning btn-background">
   <span class="material-symbols-outlined">warning</span>
 </button>
 
-<button disabled class="btn btn-icon-only btn-outline-info">
+<button disabled class="btn btn-icon-only btn-outline btn-info">
   <span class="material-symbols-outlined">info</span>
 </button>
 
-<button disabled class="btn btn-dark">
+<button disabled class="btn btn-dark btn-background">
   <span class="material-symbols-outlined">dark_mode</span>
   <span>Dark</span>
 </button>
@@ -1227,46 +1270,51 @@ Esto significa que no es necesario declararlo explícitamente: si no se especifi
 
 ```SCSS
 .btn-base {
-  padding: 0.5rem 1rem; // py-2 px-4
+  padding: 0.5rem 1rem;         // py-2 = 0.5rem = 8px, px-3 = 0.75rem = 12px
 
-  font-size: 1rem; // text-base = 1rem = 16px
-  line-height: calc(1.2 / 1); // (line-height que se desea aplicar / font-size)
+  font-size: 1rem;              // text-base = 1rem = 16px
+  line-height: calc(1.2 / 1);   // (line-height que se desea aplicar / font-size)
 }
 ```
 
 ![tamanos](./docs/readme-md/img/button/tamanos.png)
 
 ```HTML
-  <button class="btn btn-primary btn-xs">
-    Muy pequeño
-  </button>
+<button class="btn btn-primary btn-background btn-xs">
+  Muy pequeño
+</button>
 
-  <button class="btn btn-outline-secondary btn-sm">
-    Pequeño
-  </button>
+<button class="btn btn-secondary btn-outline btn-sm">
+  Pequeño
+</button>
 
-  <button class="btn btn-outline-secondary">
-    Valor por defecto
-  </button>
+<button class="btn btn-secondary btn-outline">
+  Valor por defecto
+</button>
 
-  <button class="btn btn-outline-secondary btn-base">
-    Valor por defecto
-  </button>
+<button class="btn btn-secondary btn-outline btn-base">
+  Valor por defecto
+</button>
 
-  <button class="btn btn-success btn-lg">
-    <span class="material-symbols-outlined">check_circle</span>
-    <span>Grande</span>
-  </button>
+<button class="btn btn-success btn-background btn-lg">
+  <span class="material-symbols-outlined">check_circle</span>
+  <span>Grande</span>
+</button>
 
-  <button class="btn btn-outline-danger btn-xl">
-    <span class="material-symbols-outlined">delete</span>
-    <span>Muy grande</span>
-  </button>
+<button class="btn btn-danger btn-outline btn-xl">
+  <span class="material-symbols-outlined">delete</span>
+  <span>Muy grande</span>
+</button>
 
-  <button class="btn btn-warning btn-2xl">
-    <span class="material-symbols-outlined">warning</span>
-    <span>Enorme</span>
-  </button>
+<button class="btn btn-warning btn-background btn-2xl">
+  <span class="material-symbols-outlined">warning</span>
+  <span>Enorme</span>
+</button>
+
+<button class="btn btn-info btn-background btn-3xl">
+  <span class="material-symbols-outlined">rocket_launch</span>
+  <span>Gigante</span>
+</button>
 ```
 
 ### Modificadores - Boton en Bloque - Responsive
@@ -1293,26 +1341,26 @@ Funciona para cualquier variante de botón, sin importar su estilo (fondo, borde
 
 ```HTML
 <!-- solo texto -->
-<button class="btn btn-icon-only btn-danger btn-full-width">Danger</button>
+<button class="btn btn-danger btn-background btn-full-width">Danger</button>
 
 <!-- solo icono + fondo -->
-<button class="btn btn-icon-only btn-dark btn-full-width">
+<button class="btn btn-dark btn-background btn-icon-only btn-full-width">
   <span class="material-symbols-outlined">dark_mode</span>
 </button>
 
 <!-- icono + fondo + texto -->
-<button class="btn btn-success btn-full-width">
+<button class="btn btn-success btn-background btn-full-width">
   <span class="material-symbols-outlined">check_circle</span>
   <span>Success</span>
 </button>
 
 <!-- icono + borde -->
-<button class="btn btn-icon-only btn-outline-info btn-full-width">
+<button class="btn btn-outline btn-info btn-icon-only btn-full-width">
   <span class="material-symbols-outlined">info</span>
 </button>
 
 <!-- sin fondo ni borde  -->
-<button class="btn btn-icon-only btn-primary btn-ghost btn-full-width">
+<button class="btn btn-primary btn-icon-only btn-ghost btn-full-width">
   <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 ```
@@ -1324,10 +1372,10 @@ Funciona para cualquier variante de botón, sin importar su estilo (fondo, borde
 Usar [flex-direction](https://tailwindcss.com/docs/flex-direction) para cambiar ubicacion de iconos:
 
 ```HTML
-  <button class="btn btn-primary flex-row-reverse">
-    <span class="material-symbols-outlined">arrow_forward</span>
-    <span>Primary</span>
-  </button>
+<button class="btn btn-primary btn-background flex-row-reverse">
+  <span class="material-symbols-outlined">arrow_forward</span>
+  <span>Primary</span>
+</button>
 ```
 
 **✅ Correcto:**
@@ -1339,7 +1387,7 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 ![icono-izquierda-texto-derecha](./docs/readme-md/img/button/icono-izquierda-texto-derecha.png)
 
 ```HTML
-<button class="btn btn-primary">
+<button class="btn btn-primary btn-background">
   <span class="material-symbols-outlined">arrow_forward</span>
   <span>Primary</span>
 </button>
@@ -1350,7 +1398,7 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 ![icono-derecha-texto-izquierda](./docs/readme-md/img/button/icono-derecha-texto-izquierda.png)
 
 ```HTML
-<button class="btn btn-primary">
+<button class="btn btn-primary btn-background">
   <span>Primary</span>
   <span class="material-symbols-outlined">arrow_forward</span>
 </button>
@@ -1593,7 +1641,7 @@ No se debe consumir la API directamente con `HttpClient` + `try/catch` en compon
 
 - No centraliza validaciones ni logging.
 
-\***\*❌ Ejemplo incorrecto - `lastValueFrom`\*\***
+***❌ Ejemplo incorrecto - `lastValueFrom`***
 
 ```ts
 import { HttpClient } from "@angular/common/http";
@@ -1614,7 +1662,7 @@ export class BotsComponent {
 }
 ```
 
-\***\*❌ Ejemplo incorrecto - `firstValueFrom`\*\***
+***❌ Ejemplo incorrecto - `firstValueFrom`***
 
 ```ts
 import { HttpClient } from "@angular/common/http";
@@ -1635,7 +1683,7 @@ export class BotsComponent {
 }
 ```
 
-\***\*❌ Ejemplo incorrecto - Angular legacy - `toPromise()`\*\***
+***❌ Ejemplo incorrecto - Angular legacy - `toPromise()`***
 
 Antes de `firstValueFrom`, en Angular antiguo se usaba `toPromise()`, pero este enfoque está **deprecado** y ya no se recomienda.
 
@@ -1657,7 +1705,7 @@ export class BotsComponent {
 }
 ```
 
-\***\*❌ Ejemplo incorrecto - observable\*\***
+***❌ Ejemplo incorrecto - observable***
 
 ```ts
 import { HttpClient } from "@angular/common/http";
@@ -1678,7 +1726,7 @@ export class BotsComponent {
 }
 ```
 
-\***\*❌ Ejemplo incorrecto - `fetch`\*\***
+***❌ Ejemplo incorrecto - `fetch`***
 
 Angular no usa `fetch` porque es una API básica del navegador y no se integra con la arquitectura del framework.
 
@@ -1708,7 +1756,7 @@ Se debe usar únicamente el ApiGatewayService (`src/services/api/general-api/htt
 
 - La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
 
-\***\*✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`\*\***
+***✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`***
 
 ```ts
 import { inject } from "@angular/core";
@@ -1745,7 +1793,7 @@ El icono de carga se oculta y muestra automáticamente desde `http-observable.se
 
 👉 **NO se debe crear estados manuales como `loader = true/false` en los componentes**, ya que el loader es global y centralizado.
 
-\***\*❌ Ejemplo incorrecto\*\***
+***❌ Ejemplo incorrecto***
 
 Crear estados locales de loading en cada componente:
 
@@ -1800,7 +1848,7 @@ export class BotsComponent {
 
 - Cuando hay varias peticiones HTTP en un mismo componente se vuelve muy complejo saber en donde escribir `loader = true/false` para mostrar y ocultar el icono de cargando.
 
-\***\*✅ Ejemplo correcto con `http-observable.service.ts`\*\***
+***✅ Ejemplo correcto con `http-observable.service.ts`***
 
 ```ts
 import { inject } from "@angular/core";
@@ -1994,7 +2042,7 @@ Además:
 
 - Cada componente importa directamente sus propias dependencias en array `imports: []`
 
-\***\*❌ Ejemplo Incorrecto - Angular legacy - `AppModule`\*\***
+***❌ Ejemplo Incorrecto - Angular legacy - `AppModule`***
 
 ```TS
 /* app.module.ts */
@@ -2018,7 +2066,7 @@ import { BotsComponent } from './bots.component';
 export class AppModule {}
 ```
 
-\***\*✅ Ejemplo Correcto - Angular moderno con Standalone Components\*\***
+***✅ Ejemplo Correcto - Angular moderno con Standalone Components***
 
 ```TS
 /* children.component.ts */
@@ -2322,7 +2370,7 @@ Esto permite:
 
 - mejor compatibilidad con `Signals`.
 
-\***\*❌ Ejemplo incorrecto - Angular legacy - `constructor()`\*\***
+***❌ Ejemplo incorrecto - Angular legacy - `constructor()`***
 
 ```TS
 import { Component } from '@angular/core';
@@ -2343,7 +2391,7 @@ export class BotsComponent {
 }
 ```
 
-\***\*✅ Ejemplo correcto - Angular moderno `inject()`\*\***
+***✅ Ejemplo correcto - Angular moderno `inject()`***
 
 ```TS
 import { Component, inject } from '@angular/core';
@@ -2382,7 +2430,7 @@ Los signals son reactivos, cuando un signal cambia:
 
 - Evita múltiples `subscribe()` innecesarios.
 
-\***\*❌ Ejemplo incorrecto - Angular legacy - estado tradicional NO reactivo automáticamente\*\***
+***❌ Ejemplo incorrecto - Angular legacy - estado tradicional NO reactivo automáticamente***
 
 ```TS
 /* counter.component.ts */
@@ -2443,7 +2491,7 @@ export class CounterComponent {
 </button>
 ```
 
-\***\*✅ Ejemplo correcto - Angular moderno estados con `signal`\*\***
+***✅ Ejemplo correcto - Angular moderno estados con `signal`***
 
 ```TS
 /* counter.component.ts */
@@ -2505,7 +2553,7 @@ export class CounterComponent {
 
 [Tutorial](https://youtu.be/_XnEoK47Il0?si=bnZ1NuRuxLIaSYUv)
 
-\****❌ Ejemplo incorrecto - Angular legacy - `@Input()`, `@Output()` y `*ngFor`\*\***
+\****❌ Ejemplo incorrecto - Angular legacy - `@Input()`, `@Output()` y `*ngFor`***
 
 ```TS
 /* product.interface.ts */
@@ -2599,7 +2647,7 @@ export class ParentComponent {
 </app-product-children>
 ```
 
-\***\*✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`\*\***
+***✅ Ejemplo correcto - Angular moderno `input()` signal, `output()` y `@for`***
 
 ```TS
 /* product.interface.ts */
