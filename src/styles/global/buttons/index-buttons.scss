@@ -92,10 +92,10 @@ NO DEBE CONTENER:
 Solo imports con @use
 =============================================================================*/
 
-@use "./base.scss";
-@use "./sizes.scss";
-@use "./variants.scss";
-@use "./themes.scss";
-@use "./states.scss";
-@use "./effects.scss";
-@use "./modifiers.scss";
+@use "./_base.scss";
+@use "./_variants.scss";
+@use "./_sizes.scss";
+@use "./_themes.scss";
+@use "./_states.scss";
+@use "./_effects.scss";
+@use "./_modifiers.scss";

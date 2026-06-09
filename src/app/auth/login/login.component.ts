@@ -133,10 +133,7 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmitLogin(): Promise<void> {
-    if (this.formLogin.invalid && !this.dataLoginBurned) {
-      this.hotToast.infoNotification(enterFields);
-      return;
-    }
+    if (this.formLogin.invalid && !this.dataLoginBurned) return;
 
     const { email, password } = this.formLogin.value;
 

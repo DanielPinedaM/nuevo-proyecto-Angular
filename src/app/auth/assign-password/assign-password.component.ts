@@ -110,10 +110,7 @@ export class AssignPasswordComponent implements OnInit {
   async onSubmitAssignPassword(): Promise<void> {
     this.formAssignPassword.markAllAsTouched();
 
-    if (this.formAssignPassword.invalid || this.objValidatePassword()?.error) {
-      this.hotToast.infoNotification(enterFields);
-      return;
-    }
+    if (this.formAssignPassword.invalid || this.objValidatePassword()?.error) return;
 
     if (!this.idParams) {
       this.hotToast.infoNotification(contactSupport);

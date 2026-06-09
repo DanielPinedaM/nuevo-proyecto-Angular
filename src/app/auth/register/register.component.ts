@@ -138,10 +138,7 @@ export class RegisterComponent implements OnInit {
   async onSubmitRegister(): Promise<void> {
     this.formRegister.markAllAsTouched();
 
-    if (this.formRegister.invalid || this.objValidatePassword()?.error) {
-      this.hotToast.infoNotification(enterFields);
-      return;
-    }
+    if (this.formRegister.invalid || this.objValidatePassword()?.error) return;
 
     const result = await this.sweetAlertClass.messageQuestion(
       'Confirmación',

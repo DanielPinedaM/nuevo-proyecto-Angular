@@ -50,10 +50,7 @@ export class RecoverPasswordComponent implements OnInit {
   async onSubmitRecoverPassword(): Promise<void> {
     this.formRecoverPassword.markAllAsTouched();
 
-    if (this.formRecoverPassword.invalid) {
-      this.hotToast.infoNotification(enterFields);
-      return;
-    }
+    if (this.formRecoverPassword.invalid) return;
 
     const { email } = this.formRecoverPassword.value;
 

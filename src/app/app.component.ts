@@ -4,9 +4,8 @@ import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
-import { LoaderComponent } from '@/shared/ui/loader/loader.component';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
-import { constImmutableProperties } from '@/shared/models/constants/session-storage.const';
+import { LoaderComponent } from '@/shared/design/ui/loader/loader.component';
 
 const AUTH_ROUTES: string[] = [
   'iniciar-sesion',

@@ -40,12 +40,12 @@ btn-rounded-full redondea al maximo las esquinas de cualquier tipo de boton
 ********************************************************************************* */
 
 .btn-icon-only {
-  // usar "em" para q tamaño icono sea proporcional
-  // al font-size definido en cada "tamaño boton que solo tiene icono"
+  /* usar "em" para q tamaño icono sea proporcional
+  al font-size definido en _sizes.scss */
   width: 2.5em;
   height: 2.5em;
 
-  /* mismo line-height que .btn-base de _sizes.scss
+  /* mismo line-height que tiene clase .btn-base en _sizes.scss
   para NO agregar espacio adicional al icono */
   line-height: calc(1.2 / 1);
 
@@ -57,6 +57,6 @@ btn-rounded-full redondea al maximo las esquinas de cualquier tipo de boton
 
   /* como la clase .btn usa flex entonces se necesita
   hacer que boton tenga medidas de width y height */
-  flex-shrink: 0; // evitar q boton se encoja
-  flex-grow: 0; // evitar q boton se expanda
+  flex-shrink: 0; // evitar q boton se ENCOJA
+  flex-grow: 0;   // evitar q boton se EXPANDA
 }
