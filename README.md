@@ -693,11 +693,11 @@ export class MyComponent {}
 ```HTML
 <!-- my-component.component.html -->
 
-<button class="btn btn-primary">
+<button class="btn btn-primary btn-background">
   <span>Guardar</span>
 </button>
 
-<button class="btn btn-primary">
+<button class="btn btn-primary btn-background">
   <span class="material-symbols-outlined">arrow_forward</span>
   <span>Primary</span>
 </button>
