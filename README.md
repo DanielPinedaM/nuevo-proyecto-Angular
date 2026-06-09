@@ -903,6 +903,8 @@ Por defecto, `.btn` tiene `background-color: transparent`, por lo que **no repre
 
 ### Botones con Color de Fondo
 
+`btn-background` agrega color de fondo al boton.
+
 En sistemas de diseño modernos, los botones se clasifican según su nivel de importancia y riesgo de la acción:
 
 | Tipo de boton    | Significado                                                    |
