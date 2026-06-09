@@ -138,7 +138,6 @@ src/
 │   ├── service/ → clases reutilizables usadas para separar lógica reutilizable que no debería estar dentro de los componentes
 │   │   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externas
 │   │   │   └── general-api/
-│   │   │       ├── http-gateway-async-await.api.ts → Clase legacy mantenida únicamente por compatibilidad para peticiones HTTP usando async/await
 │   │   │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
 │   │   │
 │   │   └── stores/ → estados globales de la aplicación compartidos entre múltiples features. A diferencia de `features/*/store`, su alcance no está limitado a una sola feature
