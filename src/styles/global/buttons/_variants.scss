@@ -23,11 +23,11 @@
 }
 
 /* *************************
-* solid                    *
+* .btn-background          *
 * boton con color de fondo *
 **************************** */
 
-.btn-solid {
+.btn-background {
   background-color: var(--btn-color);
   border-color: var(--btn-color);
   color: var(--btn-text-color);
@@ -48,7 +48,7 @@
 }
 
 /* ****************
-* outline         *
+* .btn-outline    *
 * boton con borde *
 ******************* */
 
@@ -75,7 +75,7 @@
 }
 
 /* *************************
-* ghost                    *
+* .btn-ghost               *
 * boton sin fondo ni borde *
 **************************** */
 
@@ -98,9 +98,9 @@
 }
 
 /*
-********
-* Link *
-********
+*************
+* .btn-link *
+*************
 
 Estilos para enlaces. Ejemplo:
 

@@ -93,9 +93,9 @@ Solo imports con @use
 =============================================================================*/
 
 @use "./base.scss";
+@use "./sizes.scss";
 @use "./variants.scss";
 @use "./themes.scss";
-@use "./sizes.scss";
 @use "./states.scss";
 @use "./effects.scss";
 @use "./modifiers.scss";

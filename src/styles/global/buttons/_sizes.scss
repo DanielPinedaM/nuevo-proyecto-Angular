@@ -51,33 +51,3 @@
   font-size: token.$fs-2xl; // text-2xl = 1.5rem = 24px
   line-height: calc(2 / 1.5);
 }
-
-/* *******************************************
-* tamaño de boton q contiene SOLAMENTE icono *
-********************************************** */
-
-/*
-INCOMOPLETO - estoy revisando si borrar esto - es muy probable de q si lo borrar
-.btn-xs.btn-icon-only {
-  font-size: token.$fs-xs; // text-xs = 0.75rem = 12px
-}
-
-.btn-sm.btn-icon-only {
-  font-size: token.$fs-sm; // text-sm = 0.875rem = 14px
-}
-
-.btn-base.btn-icon-only {
-  font-size: token.$fs-base; // text-base = 1rem = 16px
-}
-
-.btn-lg.btn-icon-only {
-  font-size: token.$fs-lg; // text-lg = 1.125rem = 18px
-}
-
-.btn-xl.btn-icon-only {
-  font-size: token.$fs-xl; // text-xl = 1.25rem = 20px
-}
-
-.btn-2xl.btn-icon-only {
-  font-size: token.$fs-2xl; // text-2xl = 1.5rem = 24px
-} */
