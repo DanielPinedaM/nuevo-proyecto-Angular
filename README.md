@@ -986,7 +986,7 @@ Los iconos de los botones deben utilizar [Material Symbols Icons](https://fonts.
 
 **❌ Incorrecto:**
 
-Usar Tailwind CSS para definir estilos de botones directamente en cada componente, ya que esto suele generar:
+Usar Tailwind CSS para definir estilos de botones directamente en cada componente, ya que esto genera estilos inconsistentes y no escalables:
 
 ```HTML
 <button class="rounded-2xl bg-blue-500 hover:bg-blue-600 px-4 py-2 text-white disabled:cursor-not-allowed enabled:cursor-pointer">
