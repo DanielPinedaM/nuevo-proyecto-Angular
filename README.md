@@ -776,7 +776,7 @@ export class MyComponent {}
 <!-- my-component.component.html -->
 
 <button class="btn btn-primary btn-background">
-  <span>Primary</span>
+  Primary
 </button>
 
 <button class="btn btn-secondary btn-background">
