@@ -673,7 +673,7 @@ export class MyComponent {}
 </button>
 ```
 
-La razón es que los [botones de Prime NG](https://primeng.org/button) agregan estilos por defecto que alteran los estilos globales de `_button.scss`
+La razón es que los [botones de Prime NG](https://primeng.org/button) agregan estilos por defecto que alteran los estilos globales de `index-buttons.scss`
 
 **✅ Correcto:**
 
@@ -852,7 +852,7 @@ Cada clase modifica únicamente una característica específica del botón. Esto
 Esta guía explica cómo utilizar correctamente los estilos globales de botones definidos en:
 
 ```txt
-src/styles/global/_button.scss
+src/styles/global/buttons
 ```
 
 ### ✨ UI/UX
