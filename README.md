@@ -1306,7 +1306,7 @@ Esto significa que no es necesario declararlo explícitamente: si no se especifi
 
 ```SCSS
 .btn-base {
-  padding: 0.5rem 1rem;         // py-2 = 0.5rem = 8px, px-3 = 0.75rem = 12px
+  padding: 0.5rem 0.75rem;      // py-2 = 0.5rem = 8px, px-3 = 0.75rem = 12px
 
   font-size: 1rem;              // text-base = 1rem = 16px
   line-height: calc(1.2 / 1);   // (line-height que se desea aplicar / font-size)
@@ -1452,7 +1452,7 @@ import { Routes } from "@angular/router";
 import { AuthGuard } from "@/shared/guards/auth.guard";
 
 // #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from "@/app/features/main-wrapper/main-wrapper.component";
+import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
 // #endregion
 
 import { BotsComponent } from "@/app/features/bots/bots.component";
@@ -1500,7 +1500,7 @@ import { Routes } from "@angular/router";
 import { AuthGuard } from "@/shared/guards/auth.guard";
 
 // #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from "@/app/features/main-wrapper/main-wrapper.component";
+import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
 // #endregion
 
 import { BotsComponent } from "@/app/features/bots/bots.component";
