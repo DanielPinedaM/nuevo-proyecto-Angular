@@ -1,8 +1,10 @@
-/* ******************************
- * VARIANTES                    *
- * Define los estilos del botón *
- * (colores, fondo, borde)      *
- ******************************** */
+/* ***********************************************
+* Variantes                                      *
+* Variantes visuales                             *
+* (background, outline, ghost, link)             *
+* que define la apariencia                       *
+* y comportamiento visual según el tipo de botón *
+ ************************************************* */
 
 /* ******************
 * @mixin / @include *
@@ -106,6 +108,12 @@ Estilos para enlaces. Ejemplo:
 
 <button class="btn btn-link"
         routerLink="/home">
+  Ir a home
+</button>
+
+<button class="btn btn-link"
+        routerLink="/home"
+        disabled>
   Ir a home
 </button>
 

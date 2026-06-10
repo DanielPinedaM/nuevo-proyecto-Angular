@@ -175,13 +175,14 @@ src/
         └── buttons/ → estilos globales de botones organizados en archivos .scss composables que permiten combinar variantes, tamaños, estados y temas
             ├── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
             ├── _base.scss → Reset CSS para botones
-            ├── _effects.scss → utilidades visuales reutilizables para los botones (sombras, blur, filtros, etc.)
+            ├── _effects.scss → utilidades visuales reutilizables para los botones: box-shadow, blur, elevation (sin lógica UI)
             ├── _modifiers.scss → alteran/extienden características de los botones sin sobrescribir sus estilos principales
-            ├── _sizes.scss → tamaño de boton
+            ├── _sizes.scss → Define el tamaño del botón mediante tokens basados en la escala de Tailwind CSS 4 para padding, font-size y line-height.
             ├── _states.scss → estados de boton: hover, active, focus, disabled
-            ├── _themes.scss → CSS custom properties que definen los colores de los botones
-            ├── _tokens.scss → variables de Sass para botones
-            └── _variants.scss → Define los estilos del botón (colores, fondo, borde)
+            ├── _themes.scss → Define los temas de color del botón mediante CSS Custom Properties generadas a partir de _tokens.scss.
+            ├── _tokens.scss → Define los tokens de diseño del sistema de botones mediante variables Sass (colores, tipografía, espaciado y escalas).
+            ├── _mixins.scss → codigo de Sass que se repite en diferentes archivos de src\styles\global\buttons
+            └── _variants.scss → Variantes visuales (background, outline, ghost, link) que define la apariencia y comportamiento visual según el tipo de botón.
 ```
 
 # 📅 Fechas
@@ -844,7 +845,8 @@ Cada clase modifica únicamente una característica específica del botón. Esto
 | `_sizes.scss`        | Define la escala de tamaños del botón mediante `padding`, `font-size` y `line-height`. Puede combinarse con cualquier variante o tema.                                       | `.btn-xs {} .btn-sm {} .btn-base {} .btn-lg {} `                 |
 | `_states.scss`       | Define los estados interactivos y de accesibilidad del botón. Centraliza comportamientos relacionados con `focus-visible`, `hover`, `active` y `disabled`.                   |                                                                  |
 | `_effects.scss`      | Contiene utilidades visuales reutilizables independientes de la lógica del botón. Permite agregar efectos opcionales como sombras, blur o elevación.                         | `.btn-shadow {} `                                                |
-| `_modifiers.scss`    | Clases composables que alteran o extienden características específicas del botón sin modificar su variante principal.                                                        | `.btn-full-width {} .btn-rounded-full {} .btn-icon-only {} `     |
+| `_modifiers.scss`    | Clases composables que alteran o extienden características específicas del botón sin modificar su variante principal.                                                        | `.btn-full-width {} .btn-rounded-full {} .btn-icon-only {}`      |
+| `_mixins.scss`       | Codigo de Sass reutilizable que se repite en diferentes archivos de src\styles\global\buttons                                                                                | `@mixin btn-base-size {}`                                        |
 | `_tokens.scss`       | Variables globales de Sass utilizadas por todo el sistema de botones. Centraliza colores, tamaños tipográficos y escalas de espaciado para mantener consistencia visual.     | `$primary: oklch(...);                              `            |
 
 ### 📖 Manual de Uso para Dar Estilos a Botones

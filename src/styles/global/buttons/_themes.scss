@@ -1,9 +1,10 @@
 @use "./_tokens.scss" as token;
 
 /* ***************************************
-* THEMES                                 *
-* CSS custom properties                  *
-* que definen los colores de los botones *
+* Themes                                 *
+* Define los temas de color del botón    *
+* mediante CSS Custom Properties         *
+* generadas a partir de _tokens.scss     *
 ****************************************** */
 
 // boton primario para acciones de confirmacion (guardar, aceptar, si)
