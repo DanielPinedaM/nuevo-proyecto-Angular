@@ -13,9 +13,9 @@
   * tamaño por defecto de los botones                             *
   * es es el mismo que la clase .btn-base del archivo _sizes.scss *
   ***************************************************************** */
-  padding: token.$sp-2 token.$sp-3;  // py-2 = 0.5rem = 8px, px-3 = 0.75rem = 12px
-  font-size: token.$fs-base;         // text-base = 1rem = 16px
-  line-height: calc(1.2 / 1);        // (line-height que se desea aplicar / font-size)
+  padding: token.$sp-2 token.$sp-3;   // py-2 = 0.5rem = 8px, px-3 = 0.75rem = 12px
+  font-size: token.$fs-base;          // text-base = 1rem = 16px
+  line-height: calc(1.2 / 1);         // (line-height que se desea aplicar / font-size)
 
   // icono y texto centrado
   display: inline-flex;
@@ -25,9 +25,9 @@
 
   margin: 0;
 
-  // importante usar unidad "em"
-  // para que el espacio entre icono y texto
-  // sea proporcional al font-size definido en cada "Tamaño de boton"
+  /* usar unidad de medida "em"
+  para que el espacio entre icono y texto
+  sea proporcional al font-size definido en _sizes.scss (Tamaño de boton) */
   gap: 0.5em;
 
   width: fit-content;
