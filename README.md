@@ -98,18 +98,18 @@ src/
 │           ├── bots.component.html
 │           ├── bots.component.ts
 │           │
-│           ├── data-types/ → tipos de datos y constantes utilizados únicamente por la feature bots
+│           ├── data-types/ → tipos de datos, contratos, constantes y definiciones utilizados exclusivamente por la feature bots. Pueden representar conceptos de negocio específicos de la feature, por lo que no deben utilizarse desde otras features
 │           │   ├── constants/
 │           │   ├── interfaces/
 │           │   ├── enums/
 │           │   └── types/
 │           │
-│           ├── components/ → componentes reutilizables utilizados únicamente por la feature bots
+│           ├── components/ → componentes reutilizables internos de la feature bots. Pueden contener lógica, dependencias y acceso a servicios de esta feature. Su alcance está limitado a bots y no deben utilizarse desde otras features
 │           │
-│           ├── ui/ → componentes visuales reutilizables utilizados únicamente por la feature bots
+│           ├── ui/ → componentes visuales reutilizables utilizados únicamente por la feature bots. Están enfocados en la presentación de la interfaz y deben mantenerse desacoplados de la lógica de negocio
 │           │
-│           ├── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots
-│           │   └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación (feature-wide)
+│           ├── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots. Pueden depender de modelos, reglas de negocio y casos de uso específicos de la feature. Su alcance está limitado a bots y no deben utilizarse desde otras features.
+│           │   └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación
 │           │
 │           └── utils/
 │               └── class/ → clases auxiliares utilizadas únicamente por la feature bots
@@ -118,7 +118,7 @@ src/
 │   ├── guards/
 │   │   └── auth.guard.ts → protección de rutas de todos los componentes que estan despues de loguearse
 │   │
-│   ├── components/ → componentes que se pueden reutilizzar en varias features
+│   ├── components/ → componentes reutilizables con alcance global que pueden ser utilizados por múltiples features de la aplicación. No deben contener lógica de negocio específica de una feature ni depender de carpetas dentro de `src/app/features/*`
 │   │
 │   ├── design/ → componentes relacionados con la maquetacion (presentación)
 │   │   ├── layouts/ → contenedores que definen la estructura visual y de navegación de una sección completa de la aplicación
@@ -129,13 +129,13 @@ src/
 │   │       ├── loader/ → icono de cargando
 │   │       └── menu/ → Componente de menú
 │   │
-│   ├── data-types/ → tipos de datos y constantes de la aplicación compartidos entre múltiples features.  A diferencia de `features/*/data-types`, su alcance no está limitado a una sola feature
+│   ├── data-types/ → tipos de datos, contratos, constantes y definiciones reutilizables compartidos entre múltiples features de la aplicación. No deben depender de logica de negocio de una feature
 │   │   ├── constants/
 │   │   ├── interface/
 │   │   └── enums/
 │   │   └── types/
 │   │
-│   ├── service/ → clases reutilizables usadas para separar lógica reutilizable que no debería estar dentro de los componentes
+│   ├── services/ → servicios reutilizables de alcance global que pueden ser utilizados por múltiples features de la aplicación. Encapsulan lógica transversal, infraestructura, acceso a APIs, utilidades técnicas y gestión de estado compartido. No deben depender de reglas de negocio específicas de una feature.
 │   │   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externas
 │   │   │   └── general-api/
 │   │   │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
@@ -495,94 +495,208 @@ Cuando se utilicen colores mediante valores arbitrarios de Tailwind, el color ta
 <div class="bg-[hsla(0,_100%,_50%,_0.5)]"></div>
 ```
 
-## 🤔 ¿Cómo usar Tailwind y Sass juntos?
+## 🤔 ¿Cómo Usar Tailwind y Sass Juntos?
 
-***❌ Incorrecto:***
+### ✅ PATRÓN CORRECTO (OBLIGATORIO)
 
-Todos los componentes de Angular **NO** pueden tener archivos de Sass ni CSS con `styleUrls`,
+👉 Separación estricta de responsabilidades:
 
-Mezclar Sass y Tailwind en un mismo componente es mala práctica porque los estilos de Sass y Tailwind se sobrescriben debido a la especificidad, herencia y cascada de CSS.
-
-***❌ Ejemplo incorrecto:***
+* ***Sass*** para estilos globales en `src/styles/global/...`
 
 ```ts
-/* bots.component.ts */
+/* my-component.component.ts */
+
+import { Component, signal } from '@angular/core';
+import { TableModule } from 'primeng/table';
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+}
+
+const PRODUCTS: Product\[] = \[
+  { id: 1, name: 'Laptop', price: 2500 },
+  { id: 2, name: 'Mouse', price: 50 },
+]
 
 @Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
-  styleUrls: ["./bots.component.scss"] /*  NO se puede escribir `styleUrls` */,
+  selector: 'app-my-component',
+  imports: [TableModule],
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {}
+export class MyComponent {
+  readonly products = signal<Product\[]>(PRODUCTS);
+}
 ```
 
 ```HTML
-<!-- bots.component.html -->
+<!-- my-component.component.html -->
 
-<button id="btn-guardar"
-        class="bg-red-600">
-  Guardar
-</button>
+<p-table [value]="products()">
+    <ng-template #header>
+        <tr>
+            <th>Identificacion</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+        </tr>
+    </ng-template>
+
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+        </tr>
+    </ng-template>
+</p-table>
 ```
 
 ```scss
-/* bots.component.scss */
+// src/styles/global/_table.scss
+@use './variable.scss' as variable;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  thead,
+  tfoot,
+  th {
+    background-color: variable.$blue-ocean;
+    color: oklch(100% 0 0); /\* #ffffff \*/
+  }
+
+  // ...
+}
+```
+
+* ***Tailwind*** para estilos especificos de cada componente en:
+
+* `src/app/...`
+
+* `src/shared/components/...`
+
+* `src/shared/design/layouts/...`
+
+* `src/shared/design/ui/...`
+
+```html
+<!-- my-component.component.html -->
+
+<h1 class="text-center text-blue-600">
+  Guardar
+</h1>
+```
+
+### 🚨 PRINCIPIO BASE (INNEGOCIABLE)
+
+* ❌ Tailwind y Sass **NO** se mezclan en la capa de UI
+* ❌ **NO** existen overrides entre Sass y Tailwind
+* ❌ **NO** se resuelve con especificidad
+* ❌ **NO** está permitido usar `!important` ni en Sass ni en Tailwind
+* ❌ **NO** se duplican responsabilidades de estilos
+* ❌ **NO** se crean estilos visuales en Sass para componentes
+
+👉 Si esto ocurre, la arquitectura está mal diseñada.
+
+### ❌ LOS COMPONENTES DE ANGULAR NO PUEDEN USAR:
+
+* Estilos en linea `style=" "` 
+
+* Binding de estilo `[style.prop]`
+
+* Directiva `[ngStyle]=" "`
+
+* `styleUrls: ['./component.scss']`
+
+* `styleUrls: ['./component.css']`
+
+### 🚫 En Sass global
+
+Está prohibido:
+
+* Estilos de UI de componentes
+* Cards, layouts
+* Selectores por ID para componentes
+* Overrides de Tailwind
+* Diseño de interfaces completas
+
+### 🚨 ANTIPATRÓN - ERROR CRÍTICO
+
+```ts
+/* my-component.component.html */
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+  styleUrls: ['./my-component.component.scss']
+})
+export class MyComponent {}
+```
+
+```scss
+/* my-component.component.scss */
 
 #btn-guardar {
-  background-color: red;
+  background-color: blue !important;
+}
+
+.card {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid oklch(92.2% 0.005 264);
 }
 ```
 
-**✅ Correcto:**
+```html
+<!-- my-component.component.html -->
 
-Sass para estilos globales en `src/styles/global/...`
+<button id="btn-guardar" class="bg-red-600!">
+  Guardar
+</button>
 
-Tailwind para estilos especificos de cada componente en `src/app/...` y `src/shared/components/...`
+<div class="card">
+  Contenido de la card
+</div>
+```
 
-***✅ Ejemplo Correcto de Sass global:***
+### ❌ PROHIBIDO USAR `@apply` DE TAILWIND
+
+En estos enlaces el creador de Tailwind explica porque **NO** usar `@apply`:
+
+* [Tutorial](https://x.com/adamwathan/status/1226511611592085504)
+* [X (Twitter)](https://x.com/adamwathan/status/1559250403547652097)
+
+Está estrictamente prohibido utilizar la directiva `@apply` de Tailwind.
+
+Esto incluye cualquier uso dentro de archivos:
+
+* `.css`
+* `.scss`
+* cualquier archivo de estilos globales o de componentes
+
+***❌ EJEMPLO INCORRECTO USANDO  `@apply`***
 
 ```scss
-// src/styles/global/__scroll-bar.scss
+/* src/styles/global/global.scss 
 
-// ocultar barra de scroll, pero hacer q siga funcionando la barra de scroll
-.hidden-scrollbar::-webkit-scrollbar {
-  display: none;
+❌ MAL: usando Tailwind dentro de Sass/CSS con @apply */
+
+.button {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg;
 }
 ```
 
-```HTML
-<!-- my-component-1.component.html -->
+```html
+<!-- my-component.component.html -->
 
-<div class="hidden-scrollbar overflow-auto">
-  ...
-</div>
-```
-
-```HTML
-<!-- my-component-2.component.html -->
-
-<div class="hidden-scrollbar overflow-auto">
-  ...
-</div>
-```
-
-***✅ Ejemplo Correcto de Tailwind:***
-
-```ts
-/* bots.component.ts */
-
-@Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
-})
-export class BotsComponent {}
-```
-
-```HTML
-<!-- bots.component.html -->
-
-<button class="bg-red-600">
-  Guardar
+<button class="button">
+  Boton
 </button>
 ```
 
@@ -2083,6 +2197,8 @@ export class BotsComponent {
 ## 📝 Formularios
 
 [Tutorial de formularios reactivos con signals](https://youtu.be/7V9I9_qwx74?si=m5Bn3_ygcEEuSpXx)
+
+# INCOMPLETO - aqui me falta escribir que NO se puede usar ng model
 
 Angular 21 moderno introdujo los nuevos [**Signal Forms**](https://angular.dev/essentials/signal-forms), que permiten manejar formularios usando `signal()` y reactividad automática.
 
