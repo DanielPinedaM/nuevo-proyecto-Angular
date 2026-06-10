@@ -553,7 +553,7 @@ export class MyComponent {
 ```
 
 ```scss
-// src/styles/global/_table.scss
+// estilo global para tablas en src/styles/global/_table.scss
 @use './variable.scss' as variable;
 
 table {
