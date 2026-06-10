@@ -29,7 +29,7 @@ npm i
 | node --run build:test | pruebas     | `src/environments/environment.test.ts` |
 | node --run build:prod | producción  | `src/environments/environment.prod.ts` |
 
-# 🤖 Uso de IA
+# 🤖 Skill para Uso de IA
 
 > [!WARNING]
 > # ⚠️ ****IMPORTANTE**** 🚨
