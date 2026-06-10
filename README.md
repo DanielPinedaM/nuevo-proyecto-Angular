@@ -1,4 +1,4 @@
-# 🅰️ Angular 21 + Prime NG 21 + Tailwind 4 + Sass
+# 🅰️ Angular 22 + Prime NG 21 + Tailwind 4 + Sass
 
 # 🟢 Versión de Node JS
 
@@ -44,7 +44,7 @@ Debes copiar únicamente el contenido que se encuentra desde aquí hacia abajo, 
 
 ## Stack Frontend del Proyecto
 
-* Angular 21
+* Angular 22
 * TypeScript 6
 * Prime NG 21
 * Tailwind CSS 4
