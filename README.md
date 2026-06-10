@@ -236,9 +236,15 @@ Problemas de este enfoque:
 - cada dev formatea fechas de forma distinta, sin estandarización.
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { DateTime } from "luxon";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   getDate() {
     const now = DateTime.now();
 
@@ -252,15 +258,16 @@ export class BotsComponent {
 **✅ Correcto - usar `formatDate`**
 
 ```ts
+/* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import { DateTime } from "luxon";
 import LuxonClass from "@/shared/utils/class/LuxonClass.utils";
 
 @Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   private dateUtils = inject(LuxonClass);
 
   getDate() {
@@ -282,9 +289,15 @@ Problemas de este enfoque:
 - cada dev formatea fechas de forma distinta, sin estandarización.
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { DateTime } from "luxon";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   getCurrentDateTime() {
     const now = DateTime.now().setLocale("es").toFormat("d-LLL-yyyy hh:mm:ss a").replace(/\.$/, "");
 
@@ -298,14 +311,15 @@ export class BotsComponent {
 ***✅ Ejemplo correcto - usar `LuxonClass.utils.ts`***
 
 ```ts
+/* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import LuxonClass from "@/shared/utils/class/LuxonClass.utils";
 
 @Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   private dateUtils = inject(LuxonClass);
 
   getCurrentDateTime() {
@@ -505,7 +519,6 @@ Cuando se utilicen colores mediante valores arbitrarios de Tailwind, el color ta
 
 ```ts
 /* my-component.component.ts */
-
 import { Component, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
@@ -604,13 +617,9 @@ table {
 ### ❌ LOS COMPONENTES DE ANGULAR NO PUEDEN USAR:
 
 * Estilos en linea `style=" "` 
-
 * Binding de estilo `[style.prop]`
-
 * Directiva `[ngStyle]=" "`
-
 * `styleUrls: ['./component.scss']`
-
 * `styleUrls: ['./component.css']`
 
 ### 🚫 En Sass global
@@ -626,8 +635,7 @@ Está prohibido:
 ### 🚨 ANTIPATRÓN - ERROR CRÍTICO
 
 ```ts
-/* my-component.component.html */
-
+/* my-component.component.ts */
 import { Component } from '@angular/core';
 
 @Component({
@@ -846,7 +854,7 @@ Usar los [botones de Prime NG](https://primeng.org/button):
 
 ```TS
 /* my-component.component.ts */
-
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -877,12 +885,12 @@ Usar etiqueta `button` nativa de HTML:
 
 ```TS
 /* my-component.component.ts */
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-my-component',
   templateUrl: './my-component.component.html',
 })
-
 export class MyComponent {}
 ```
 
@@ -1875,10 +1883,16 @@ No se debe consumir la API directamente con `HttpClient` + `try/catch` en compon
 ***❌ Ejemplo incorrecto - `lastValueFrom`***
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { lastValueFrom } from "rxjs";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   constructor(private http: HttpClient) {}
 
   async getBots() {
@@ -1896,10 +1910,16 @@ export class BotsComponent {
 ***❌ Ejemplo incorrecto - `firstValueFrom`***
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   constructor(private http: HttpClient) {}
 
   async getBots() {
@@ -1919,9 +1939,15 @@ export class BotsComponent {
 Antes de `firstValueFrom`, en Angular antiguo se usaba `toPromise()`, pero este enfoque está **deprecado** y ya no se recomienda.
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   constructor(private http: HttpClient) {}
 
   async getBots() {
@@ -1939,9 +1965,15 @@ export class BotsComponent {
 ***❌ Ejemplo incorrecto - observable***
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   constructor(private http: HttpClient) {}
 
   getBots() {
@@ -1962,7 +1994,14 @@ export class BotsComponent {
 Angular no usa `fetch` porque es una API básica del navegador y no se integra con la arquitectura del framework.
 
 ```ts
-export class BotsComponent {
+/* my-component.component.ts */
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   async getBots() {
     try {
       const response = await fetch("https://api.com/bots");
@@ -1990,12 +2029,17 @@ Se debe usar únicamente el ApiGatewayService (`src/services/api/general-api/htt
 ***✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`***
 
 ```ts
-import { inject } from "@angular/core";
+/* my-component.component.ts */
+import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 import { environment } from "@/environments/environment";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   http = inject(ApiGatewayService);
 
   async getBots() {
@@ -2029,9 +2073,14 @@ El icono de carga se oculta y muestra automáticamente desde `http-observable.se
 Crear estados locales de loading en cada componente:
 
 ```ts
-/* bots.component.ts */
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   loading: boolean = false;
 
   getBots() {
@@ -2052,7 +2101,7 @@ export class BotsComponent {
 ```
 
 ```HTML
-<!-- bots.component.html -->
+<!-- my-component.component.html -->
 
 <button (click)="getBots()">
   Obtener bots
@@ -2082,12 +2131,17 @@ export class BotsComponent {
 ***✅ Ejemplo correcto con `http-observable.service.ts`***
 
 ```ts
-import { inject } from "@angular/core";
+/* my-component.component.ts */
+import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 import { environment } from "@/environments/environment";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   http = inject(ApiGatewayService);
 
   async getBots() {
@@ -2159,6 +2213,7 @@ export type IResponseType = "arraybuffer" | "blob" | "json" | "text";
 Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
 
 ```ts
+/* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { firstValueFrom } from "rxjs";
@@ -2171,10 +2226,10 @@ interface IBodyBots {
 }
 
 @Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   private http = inject(ApiGatewayService);
 
   async createBot() {
@@ -2279,7 +2334,6 @@ Además:
 
 ```TS
 /* app.module.ts */
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -2606,15 +2660,16 @@ Esto permite:
 ***❌ Ejemplo incorrecto - Angular legacy - `constructor()`***
 
 ```TS
+/* my-component.component.ts */
 import { Component } from '@angular/core';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   constructor(
     private http: ApiGatewayService,
     private dateUtils: LuxonClass,
@@ -2627,15 +2682,16 @@ export class BotsComponent {
 ***✅ Ejemplo correcto - Angular moderno `inject()`***
 
 ```TS
+/* my-component.component.ts */
 import { Component, inject } from '@angular/core';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   private http = inject(ApiGatewayService);
   private dateUtils = inject(LuxonClass);
 
