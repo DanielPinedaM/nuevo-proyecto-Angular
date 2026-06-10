@@ -695,12 +695,12 @@ export class MyComponent {}
 <!-- my-component.component.html -->
 
 <button class="btn btn-primary btn-background">
-  <span>Guardar</span>
+  <span>Primary</span>
 </button>
 
-<button class="btn btn-primary btn-background">
+<button class="btn btn-secondary btn-background">
   <span class="material-symbols-outlined">arrow_forward</span>
-  <span>Primary</span>
+  <span>Secondary</span>
 </button>
 ```
 
@@ -776,7 +776,7 @@ Los iconos de los botones deben utilizar [Material Symbols Icons](https://fonts.
 [Material Symbols Icons](https://fonts.google.com/icons) funcionan como texto estilizable mediante CSS, lo que permite integrarlos correctamente con la arquitectura visual del proyecto.
 
 ```html
-<button class="btn btn-primary">
+<button class="btn btn-primary btn-outline btn-icon-only btn-rounded-full btn-shadow">
   <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 ```
@@ -903,6 +903,30 @@ Por defecto, `.btn` tiene `background-color: transparent`, por lo que **no repre
 </button>
 ```
 
+### Enlaces
+
+`btn btn-link` define los estilos para los enlaces para `<a>` y `<button>`
+
+![enlaces](./docs/readme-md/img/button/enlaces.png)
+
+```html
+<a class="btn btn-link" routerLink="/home">
+  Ir a home
+</a>
+
+<button class="btn btn-link" routerLink="/home">
+  Ir a home
+</button>
+
+<button class="btn btn-link" routerLink="/home" disabled>
+  Ir a home
+</button>
+
+<a class="btn btn-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com">
+  Ir a Google
+</a>
+```
+
 ### Botones con Color de Fondo
 
 `btn-background` agrega color de fondo al boton.
@@ -932,10 +956,6 @@ En sistemas de diseño modernos, los botones se clasifican según su nivel de im
 <button class="btn btn-info btn-background">Info</button>
 <button class="btn btn-light btn-background">Light</button>
 <button class="btn btn-dark btn-background">Dark</button>
-
-<!-- Enlaces -->
-<a class="btn btn-link" routerLink="/home">Link</a>
-<a class="btn btn-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com">Ir a Google</a>
 ```
 
 ### Botones con Borde + Texto
@@ -967,43 +987,49 @@ Algunos botones usan colores claros en el texto o borde, por lo que deben coloca
 
 `btn-shadow` agrega una sombra a cualquier variante de botón, sin importar su estilo (fondo, borde o ghost).
 
-![sombra-fondo](./docs/readme-md/img/button/sombra-fondo.png)
+![botones-con-sombra](./docs/readme-md/img/button/botones-con-sombra.png)
 
 ```html
+<!-- sombra + fondo + texto -->
 <button class="btn btn-primary btn-background btn-shadow">Primary</button>
-<button class="btn btn-secondary btn-background btn-shadow">Secondary</button>
-<button class="btn btn-success btn-background btn-shadow">Success</button>
-<button class="btn btn-danger btn-background btn-shadow">Danger</button>
-<button class="btn btn-warning btn-background btn-shadow">Warning</button>
-<button class="btn btn-info btn-background btn-shadow">Info</button>
-<button class="btn btn-light btn-background btn-shadow">Light</button>
-<button class="btn btn-dark btn-background btn-shadow">Dark</button>
-```
 
-![sombra-no-fondo](./docs/readme-md/img/button/sombra-no-fondo.png)
-
-```html
-<button class="btn btn-primary btn-ghost btn-shadow">Primary</button>
+<!-- sombra + texto -->
 <button class="btn btn-secondary btn-ghost btn-shadow">Secondary</button>
-<button class="btn btn-success btn-ghost btn-shadow">Success</button>
-<button class="btn btn-danger btn-ghost btn-shadow">Danger</button>
-<button class="btn btn-warning btn-ghost btn-shadow">Warning</button>
-<button class="btn btn-info btn-ghost btn-shadow">Info</button>
-<button class="btn btn-light btn-ghost btn-shadow">Light</button>
-<button class="btn btn-dark btn-ghost btn-shadow">Dark</button>
-```
 
-![sombra-outline](./docs/readme-md/img/button/sombra-outline.png)
-
-```html
-<button class="btn btn-primary btn-outline btn-shadow">Primary</button>
-<button class="btn btn-secondary btn-outline btn-shadow">Secondary</button>
+<!-- sombra + borde + texto -->
 <button class="btn btn-success btn-outline btn-shadow">Success</button>
-<button class="btn btn-danger btn-outline btn-shadow">Danger</button>
-<button class="btn btn-warning btn-outline btn-shadow">Warning</button>
-<button class="btn btn-info btn-outline btn-shadow">Info</button>
-<button class="btn btn-light btn-outline btn-shadow">Light</button>
-<button class="btn btn-dark btn-outline btn-shadow">Dark</button>
+
+<!-- sombra + bordes redondeados + icono + fondo -->
+<button class="btn btn-warning btn-background btn-base btn-shadow">
+  <span class="material-symbols-outlined">warning</span>
+</button>
+
+<!-- sombra + bordes redondeados + icono + borde -->
+<button class="btn btn-success btn-outline btn-icon-only btn-shadow">
+  <span class="material-symbols-outlined">check_circle</span>
+</button>
+
+<!-- sombra + borde + btn-rounded-full forma de circulo + icono -->
+<button class="btn btn-outline btn-danger btn-icon-only btn-rounded-full btn-shadow">
+  <span class="material-symbols-outlined">delete</span>
+</button>
+
+<!-- sombra + btn-rounded-full forma de circulo + icono -->
+<button class="btn btn-ghost btn-info btn-icon-only btn-rounded-full btn-shadow">
+  <span class="material-symbols-outlined">info</span>
+</button>
+
+<!-- sombra + icono + fondo + texto -->
+<button class="btn btn-primary btn-background btn-shadow">
+  <span class="material-symbols-outlined">arrow_forward</span>
+  <span>Primary</span>
+</button>
+
+<!-- sombra + icono + fondo + texto + boton redondo -->
+<button class="btn btn-info btn-background btn-rounded-full btn-shadow">
+  <span class="material-symbols-outlined">info</span>
+  <span>Info</span>
+</button>
 ```
 
 ### Botones con Icono
@@ -1205,7 +1231,13 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 - **Hover:** Cambia color de fondo al situar mouse en boton.
 - **Uso:** acciones secundarias o discretas.
 
+***NO hover***
+
 ![botones-sin-fondo-ni-borde](./docs/readme-md/img/button/botones-sin-fondo-ni-borde.png)
+
+***hover***
+
+![botones-sin-fondo-ni-borde-hover](./docs/readme-md/img/button/botones-sin-fondo-ni-borde-hover.png)
 
 ```HTML
 <button class="btn btn-primary btn-ghost">Primary</button>
