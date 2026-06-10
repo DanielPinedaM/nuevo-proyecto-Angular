@@ -14,7 +14,6 @@ import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
-import { enterFields } from '@/shared/data-types/constants/error-message.const';
 import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
 
 export interface IBodyRecoverPassword {
