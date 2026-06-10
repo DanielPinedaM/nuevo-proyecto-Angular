@@ -76,6 +76,13 @@
     line-height: inherit;
   }
 
+  svg,
+  .material-symbols-outlined,
+  .material-symbols-rounded,
+  .material-symbols-sharp {
+    display: block;
+  }
+
   /* **************************************************
   * pseudo-clases CSS de estado/interacción del boton *
   ***************************************************** */
