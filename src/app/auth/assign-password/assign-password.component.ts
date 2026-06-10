@@ -23,7 +23,6 @@ import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
 import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
-import { contactSupport } from '@/shared/data-types/constants/error-message.const';
 import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
 
 @Component({
@@ -113,8 +112,6 @@ export class AssignPasswordComponent implements OnInit {
     if (this.formAssignPassword.invalid || this.objValidatePassword()?.error) return;
 
     if (!this.idParams) {
-      this.hotToast.infoNotification(contactSupport);
-
       console.error(
         '❌ error, en el params NO existe el ID de recuperar clave ',
         '\nthis.idParams',

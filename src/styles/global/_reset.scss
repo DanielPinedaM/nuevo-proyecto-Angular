@@ -10,25 +10,13 @@
 * selector universal *
 ********************** */
 
-*:not(.btn):not([class*="swal"]):not([class*="p-"])::before,
-*:not(.btn):not([class*="swal"]):not([class*="p-"])::after,
-*:not(.btn):not([class*="swal"]):not([class*="p-"]) {
-  box-sizing: border-box;
-}
-
-*:not(.btn):not([class*="swal"]):not([class*="p-"]):not([class*="m-"]):not(
-    [class*="mx-"]
-  ):not([class*="my-"]):not([class*="ms-"]):not([class*="me-"]):not(
-    [class*="mt-"]
-  ):not([class*="mr-"]):not([class*="mb-"]):not([class*="ml-"]):not(
-    [class*="space-"]
-  ):not([class*="p-"]):not([class*="px-"]):not([class*="py-"]):not(
-    [class*="ps-"]
-  ):not([class*="pe-"]):not([class*="pt-"]):not([class*="pr-"]):not(
-    [class*="pb-"]
-  ):not([class*="pl-"]) {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
+
+  box-sizing: border-box;
 }
 
 /*
@@ -156,19 +144,6 @@ td {
 }
 
 /*
-********************
-* <input> - Campos *
-******************** */
-
-input {
-  &:disabled {
-    &::placeholder {
-      color: variable.$gray-dark !important;
-    }
-  }
-}
-
-/*
 *******************************************************
 * Multimedia Responsive                               *
 * https://www.youtube.com/watch?v=udGrXWeJp1Y&t=4090s *
@@ -178,8 +153,14 @@ img,
 audio,
 video,
 canvas,
-svg,
 picture {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// SVGs globales - NO afectar a botones con clase .btn
+svg:not(.btn svg) {
   display: block;
   max-width: 100%;
   height: auto;

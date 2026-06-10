@@ -21,8 +21,6 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
-import { enterFields } from '@/shared/data-types/constants/error-message.const';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

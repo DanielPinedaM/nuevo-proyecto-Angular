@@ -98,18 +98,18 @@ src/
 │           ├── bots.component.html
 │           ├── bots.component.ts
 │           │
-│           ├── data-types/ → tipos de datos y constantes utilizados únicamente por la feature bots
+│           ├── data-types/ → tipos de datos, contratos, constantes y definiciones utilizados exclusivamente por la feature bots. Pueden representar conceptos de negocio específicos de la feature, por lo que no deben utilizarse desde otras features
 │           │   ├── constants/
 │           │   ├── interfaces/
 │           │   ├── enums/
 │           │   └── types/
 │           │
-│           ├── components/ → componentes reutilizables utilizados únicamente por la feature bots
+│           ├── components/ → componentes reutilizables internos de la feature bots. Pueden contener lógica, dependencias y acceso a servicios de esta feature. Su alcance está limitado a bots y no deben utilizarse desde otras features
 │           │
-│           ├── ui/ → componentes visuales reutilizables utilizados únicamente por la feature bots
+│           ├── ui/ → componentes visuales reutilizables utilizados únicamente por la feature bots. Están enfocados en la presentación de la interfaz y deben mantenerse desacoplados de la lógica de negocio
 │           │
-│           ├── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots
-│           │   └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación (feature-wide)
+│           ├── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots. Pueden depender de modelos, reglas de negocio y casos de uso específicos de la feature. Su alcance está limitado a bots y no deben utilizarse desde otras features.
+│           │   └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación
 │           │
 │           └── utils/
 │               └── class/ → clases auxiliares utilizadas únicamente por la feature bots
@@ -118,7 +118,7 @@ src/
 │   ├── guards/
 │   │   └── auth.guard.ts → protección de rutas de todos los componentes que estan despues de loguearse
 │   │
-│   ├── components/ → componentes que se pueden reutilizzar en varias features
+│   ├── components/ → componentes reutilizables con alcance global que pueden ser utilizados por múltiples features de la aplicación. No deben contener lógica de negocio específica de una feature ni depender de carpetas dentro de `src/app/features/*`
 │   │
 │   ├── design/ → componentes relacionados con la maquetacion (presentación)
 │   │   ├── layouts/ → contenedores que definen la estructura visual y de navegación de una sección completa de la aplicación
@@ -129,13 +129,13 @@ src/
 │   │       ├── loader/ → icono de cargando
 │   │       └── menu/ → Componente de menú
 │   │
-│   ├── data-types/ → tipos de datos y constantes de la aplicación compartidos entre múltiples features.  A diferencia de `features/*/data-types`, su alcance no está limitado a una sola feature
+│   ├── data-types/ → tipos de datos, contratos, constantes y definiciones reutilizables compartidos entre múltiples features de la aplicación. No deben depender de logica de negocio de una feature
 │   │   ├── constants/
 │   │   ├── interface/
 │   │   └── enums/
 │   │   └── types/
 │   │
-│   ├── service/ → clases reutilizables usadas para separar lógica reutilizable que no debería estar dentro de los componentes
+│   ├── services/ → servicios reutilizables de alcance global que pueden ser utilizados por múltiples features de la aplicación. Encapsulan lógica transversal, infraestructura, acceso a APIs, utilidades técnicas y gestión de estado compartido. No deben depender de reglas de negocio específicas de una feature.
 │   │   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externas
 │   │   │   └── general-api/
 │   │   │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
@@ -236,9 +236,15 @@ Problemas de este enfoque:
 - cada dev formatea fechas de forma distinta, sin estandarización.
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { DateTime } from "luxon";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   getDate() {
     const now = DateTime.now();
 
@@ -252,15 +258,16 @@ export class BotsComponent {
 **✅ Correcto - usar `formatDate`**
 
 ```ts
+/* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import { DateTime } from "luxon";
 import LuxonClass from "@/shared/utils/class/LuxonClass.utils";
 
 @Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   private dateUtils = inject(LuxonClass);
 
   getDate() {
@@ -282,9 +289,15 @@ Problemas de este enfoque:
 - cada dev formatea fechas de forma distinta, sin estandarización.
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { DateTime } from "luxon";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   getCurrentDateTime() {
     const now = DateTime.now().setLocale("es").toFormat("d-LLL-yyyy hh:mm:ss a").replace(/\.$/, "");
 
@@ -298,14 +311,15 @@ export class BotsComponent {
 ***✅ Ejemplo correcto - usar `LuxonClass.utils.ts`***
 
 ```ts
+/* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import LuxonClass from "@/shared/utils/class/LuxonClass.utils";
 
 @Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   private dateUtils = inject(LuxonClass);
 
   getCurrentDateTime() {
@@ -386,122 +400,311 @@ En VS Code o en cualquier editor basado en VS Code (Antigravity, Cursor, Windsur
 
 ## 🎨 Variables de Colores Tailwind y Sass
 
-Las variables con nombres de los colores de **Sass** en `src/styles/global/_variable.scss` y **Tailwind** en `src/styles/global/library/tailwind.css` tienen que ser exactamente los mismos
+[Documentación de variables de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4#css-theme-variables)
+
+Las variables con nombres de los colores de **Sass** en `src/styles/global/variable.scss` y **Tailwind** en `src/styles/global/library/tailwind.css` deben mantener exactamente el mismo nombre y el mismo valor.
 
 Esto garantiza que los colores sean los mismos entre los estilos globales definidos en Sass y los estilos de cada componente definidos con Tailwind.
 
-***✅ Ejemplo:***
+***✅ Ejemplo Correcto:***
 
-En Sass y Tailwind ambos colores tienen exactamente el mismo nombre `primary-color` y son el mismo color rojo `oklch(62.8% 0.258 29.23)`
+En Sass y Tailwind ambos colores tienen exactamente el mismo nombre `primary-color` y son el mismo valor con color rojo `oklch(62.8% 0.258 29.23)`
 
 ```scss
-// src/styles/global/_variable.scss
+/*
+src/styles/global/variable.scss
 
-// colores de Sass
-$primary-color: oklch(62.8% 0.258 29.23); /* #FF0000 */
+colores de Sass */
+$primary-color: oklch(62.8% 0.258 29.23) ;
 ```
-
-[Documentación de variables de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4#css-theme-variables)
 
 ```CSS
 /*
 src/styles/global/library/tailwind.css
 
 colores de Tailwind */
-
 @theme {
-  --color-primary-color: oklch(62.8% 0.258 29.23); /* #FF0000 */
+  --color-primary-color: oklch(62.8% 0.258 29.23) ;
 }
 ```
 
-## 🤔 ¿Cómo usar Tailwind y Sass juntos?
+***❌ Ejemplo Incorrecto:***
 
-***❌ Incorrecto:***
+Los nombres o valores no coinciden entre Sass y Tailwind.
 
-Todos los componentes de Angular **NO** pueden tener archivos de Sass ni CSS con `styleUrls`,
 
-Mezclar Sass y Tailwind en un mismo componente es mala práctica porque los estilos de Sass y Tailwind se sobrescriben debido a la especificidad, herencia y cascada de CSS.
+```scss
+/*
+src/styles/global/variable.scss
 
-***❌ Ejemplo incorrecto:***
+colores de Sass */
+$primary-color: oklch(62.8% 0.258 29.23); // color rojo
+```
+
+```css
+/*
+src/styles/global/library/tailwind.css
+
+colores de Tailwind */
+@theme {
+  --color-brand-primary: oklch(54.6% 0.245 262.881); /* color azul */
+}
+```
+
+### 🎨 Formato de Colores
+
+Todos los colores del proyecto se definen utilizando el formato `oklch`.
+
+***✅ Ejemplo Correcto***
+
+```scss
+oklch(62.8% 0.258 29.23)
+```
+
+***❌ Ejemplo Incorrecto***
+
+```scss
+/* Hexadecimal */
+#FF0000
+
+/* RGB */
+rgb(255 0 0)
+
+/* RGBA */
+rgba(255 0 0 / 50%)
+
+/* HSL  */
+hsl(0 100% 50%)
+
+/* HSLA */
+hsla(0, 100%, 50%, 0.5)
+```
+
+### 🎨 Tailwind Custom Values
+
+Cuando se utilicen colores mediante valores arbitrarios de Tailwind, el color también debe estar definido en formato `oklch`.
+
+***✅ Ejemplo Correcto***
+
+```html
+<div class="bg-[oklch(62.8%_0.258_29.23)]"></div>
+```
+
+***❌ Ejemplo Incorrecto***
+
+```html
+<!-- Hexadecimal -->
+<div class="bg-[#FF0000]"></div>
+
+<!-- RGB -->
+<div class="bg-[rgb(255_0_0)]"></div>
+
+<!-- RGBA -->
+<div class="bg-[rgba(255_0_0_/_50%)]"></div>
+
+<!-- HSL -->
+<div class="bg-[hsl(0_100%_50%)]"></div>
+
+<!-- HSLA -->
+<div class="bg-[hsla(0,_100%,_50%,_0.5)]"></div>
+```
+
+## 🤔 ¿Cómo Usar Tailwind y Sass Juntos?
+
+### ✅ PATRÓN CORRECTO (OBLIGATORIO)
+
+👉 Separación estricta de responsabilidades:
+
+* ***Sass*** para estilos globales en `src/styles/global/...`
 
 ```ts
-/* bots.component.ts */
+/* my-component.component.ts */
+import { Component, signal } from '@angular/core';
+import { TableModule } from 'primeng/table';
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+}
+
+const PRODUCTS: Product\[] = \[
+  { id: 1, name: 'Laptop', price: 2500 },
+  { id: 2, name: 'Mouse', price: 50 },
+]
 
 @Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
-  styleUrls: ["./bots.component.scss"] /*  NO se puede escribir `styleUrls` */,
+  selector: 'app-my-component',
+  imports: [TableModule],
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {}
+export class MyComponent {
+  readonly products = signal<Product\[]>(PRODUCTS);
+}
 ```
 
 ```HTML
-<!-- bots.component.html -->
+<!-- my-component.component.html -->
 
-<button id="btn-guardar"
-        class="bg-red-600">
-  Guardar
-</button>
+<p-table [value]="products()">
+    <ng-template #header>
+        <tr>
+            <th>Identificacion</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+        </tr>
+    </ng-template>
+
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+        </tr>
+    </ng-template>
+</p-table>
 ```
 
 ```scss
-/* bots.component.scss */
+// estilo global para tablas en src/styles/global/_table.scss
+@use './variable.scss' as variable;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  thead,
+  tfoot,
+  th {
+    background-color: variable.$blue-ocean;
+    color: oklch(100% 0 0); /\* #ffffff \*/
+  }
+
+  // ...
+}
+```
+
+* ***Tailwind*** para estilos especificos de cada componente en:
+
+* `src/app/...`
+
+* `src/shared/components/...`
+
+* `src/shared/design/layouts/...`
+
+* `src/shared/design/ui/...`
+
+```html
+<!-- my-component.component.html -->
+
+<h1 class="text-center text-blue-600">
+  Guardar
+</h1>
+```
+
+### 🚨 PRINCIPIO BASE (INNEGOCIABLE)
+
+* ❌ Tailwind y Sass **NO** se mezclan en la capa de UI
+* ❌ **NO** existen overrides entre Sass y Tailwind
+* ❌ **NO** se resuelve con especificidad
+* ❌ **NO** está permitido usar `!important` ni en Sass ni en Tailwind
+* ❌ **NO** se duplican responsabilidades de estilos
+* ❌ **NO** se crean estilos visuales en Sass para componentes
+
+👉 Si esto ocurre, la arquitectura está mal diseñada.
+
+### ❌ LOS COMPONENTES DE ANGULAR NO PUEDEN USAR:
+
+* Estilos en linea `style=" "` 
+* Binding de estilo `[style.prop]`
+* Directiva `[ngStyle]=" "`
+* `styleUrls: ['./component.scss']`
+* `styleUrls: ['./component.css']`
+
+### 🚫 En Sass global
+
+Está prohibido:
+
+* Estilos de UI de componentes
+* Cards, layouts
+* Selectores por ID para componentes
+* Overrides de Tailwind
+* Diseño de interfaces completas
+
+### 🚨 ANTIPATRÓN - ERROR CRÍTICO
+
+```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+  styleUrls: ['./my-component.component.scss']
+})
+export class MyComponent {}
+```
+
+```scss
+/* my-component.component.scss */
 
 #btn-guardar {
-  background-color: red;
+  background-color: blue !important;
+}
+
+.card {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid oklch(92.2% 0.005 264);
 }
 ```
 
-**✅ Correcto:**
+```html
+<!-- my-component.component.html -->
 
-Sass para estilos globales en `src/styles/global/...`
+<button id="btn-guardar" class="bg-red-600!">
+  Guardar
+</button>
 
-Tailwind para estilos especificos de cada componente en `src/app/...` y `src/shared/components/...`
+<div class="card">
+  Contenido de la card
+</div>
+```
 
-***✅ Ejemplo Correcto de Sass global:***
+### ❌ PROHIBIDO USAR `@apply` DE TAILWIND
+
+En estos enlaces el creador de Tailwind explica porque **NO** usar `@apply`:
+
+* [Tutorial](https://x.com/adamwathan/status/1226511611592085504)
+* [X (Twitter)](https://x.com/adamwathan/status/1559250403547652097)
+
+Está estrictamente prohibido utilizar la directiva `@apply` de Tailwind.
+
+Esto incluye cualquier uso dentro de archivos:
+
+* `.css`
+* `.scss`
+* cualquier archivo de estilos globales o de componentes
+
+***❌ EJEMPLO INCORRECTO USANDO  `@apply`***
 
 ```scss
-// src/styles/global/__scroll-bar.scss
+/* src/styles/global/global.scss 
 
-// ocultar barra de scroll, pero hacer q siga funcionando la barra de scroll
-.hidden-scrollbar::-webkit-scrollbar {
-  display: none;
+❌ MAL: usando Tailwind dentro de Sass/CSS con @apply */
+
+.button {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg;
 }
 ```
 
-```HTML
-<!-- my-component-1.component.html -->
+```html
+<!-- my-component.component.html -->
 
-<div class="hidden-scrollbar overflow-auto">
-  ...
-</div>
-```
-
-```HTML
-<!-- my-component-2.component.html -->
-
-<div class="hidden-scrollbar overflow-auto">
-  ...
-</div>
-```
-
-***✅ Ejemplo Correcto de Tailwind:***
-
-```ts
-/* bots.component.ts */
-
-@Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
-})
-export class BotsComponent {}
-```
-
-```HTML
-<!-- bots.component.html -->
-
-<button class="bg-red-600">
-  Guardar
+<button class="button">
+  Boton
 </button>
 ```
 
@@ -651,7 +854,7 @@ Usar los [botones de Prime NG](https://primeng.org/button):
 
 ```TS
 /* my-component.component.ts */
-
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -682,12 +885,12 @@ Usar etiqueta `button` nativa de HTML:
 
 ```TS
 /* my-component.component.ts */
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-my-component',
   templateUrl: './my-component.component.html',
 })
-
 export class MyComponent {}
 ```
 
@@ -695,7 +898,7 @@ export class MyComponent {}
 <!-- my-component.component.html -->
 
 <button class="btn btn-primary btn-background">
-  <span>Primary</span>
+  Primary
 </button>
 
 <button class="btn btn-secondary btn-background">
@@ -1680,10 +1883,16 @@ No se debe consumir la API directamente con `HttpClient` + `try/catch` en compon
 ***❌ Ejemplo incorrecto - `lastValueFrom`***
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { lastValueFrom } from "rxjs";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   constructor(private http: HttpClient) {}
 
   async getBots() {
@@ -1701,10 +1910,16 @@ export class BotsComponent {
 ***❌ Ejemplo incorrecto - `firstValueFrom`***
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   constructor(private http: HttpClient) {}
 
   async getBots() {
@@ -1724,9 +1939,15 @@ export class BotsComponent {
 Antes de `firstValueFrom`, en Angular antiguo se usaba `toPromise()`, pero este enfoque está **deprecado** y ya no se recomienda.
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   constructor(private http: HttpClient) {}
 
   async getBots() {
@@ -1744,9 +1965,15 @@ export class BotsComponent {
 ***❌ Ejemplo incorrecto - observable***
 
 ```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   constructor(private http: HttpClient) {}
 
   getBots() {
@@ -1767,7 +1994,14 @@ export class BotsComponent {
 Angular no usa `fetch` porque es una API básica del navegador y no se integra con la arquitectura del framework.
 
 ```ts
-export class BotsComponent {
+/* my-component.component.ts */
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   async getBots() {
     try {
       const response = await fetch("https://api.com/bots");
@@ -1795,12 +2029,17 @@ Se debe usar únicamente el ApiGatewayService (`src/services/api/general-api/htt
 ***✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`***
 
 ```ts
-import { inject } from "@angular/core";
+/* my-component.component.ts */
+import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 import { environment } from "@/environments/environment";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   http = inject(ApiGatewayService);
 
   async getBots() {
@@ -1834,9 +2073,14 @@ El icono de carga se oculta y muestra automáticamente desde `http-observable.se
 Crear estados locales de loading en cada componente:
 
 ```ts
-/* bots.component.ts */
+/* my-component.component.ts */
+import { Component } from '@angular/core';
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   loading: boolean = false;
 
   getBots() {
@@ -1857,7 +2101,7 @@ export class BotsComponent {
 ```
 
 ```HTML
-<!-- bots.component.html -->
+<!-- my-component.component.html -->
 
 <button (click)="getBots()">
   Obtener bots
@@ -1887,12 +2131,17 @@ export class BotsComponent {
 ***✅ Ejemplo correcto con `http-observable.service.ts`***
 
 ```ts
-import { inject } from "@angular/core";
+/* my-component.component.ts */
+import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 import { environment } from "@/environments/environment";
 
-export class BotsComponent {
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
   http = inject(ApiGatewayService);
 
   async getBots() {
@@ -1964,6 +2213,7 @@ export type IResponseType = "arraybuffer" | "blob" | "json" | "text";
 Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
 
 ```ts
+/* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { firstValueFrom } from "rxjs";
@@ -1976,10 +2226,10 @@ interface IBodyBots {
 }
 
 @Component({
-  selector: "app-bots",
-  templateUrl: "./bots.component.html",
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   private http = inject(ApiGatewayService);
 
   async createBot() {
@@ -2002,6 +2252,8 @@ export class BotsComponent {
 ## 📝 Formularios
 
 [Tutorial de formularios reactivos con signals](https://youtu.be/7V9I9_qwx74?si=m5Bn3_ygcEEuSpXx)
+
+# INCOMPLETO - aqui me falta escribir que NO se puede usar ng model
 
 Angular 21 moderno introdujo los nuevos [**Signal Forms**](https://angular.dev/essentials/signal-forms), que permiten manejar formularios usando `signal()` y reactividad automática.
 
@@ -2082,7 +2334,6 @@ Además:
 
 ```TS
 /* app.module.ts */
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -2409,15 +2660,16 @@ Esto permite:
 ***❌ Ejemplo incorrecto - Angular legacy - `constructor()`***
 
 ```TS
+/* my-component.component.ts */
 import { Component } from '@angular/core';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   constructor(
     private http: ApiGatewayService,
     private dateUtils: LuxonClass,
@@ -2430,15 +2682,16 @@ export class BotsComponent {
 ***✅ Ejemplo correcto - Angular moderno `inject()`***
 
 ```TS
+/* my-component.component.ts */
 import { Component, inject } from '@angular/core';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
-  selector: 'app-bots',
-  templateUrl: './bots.component.html',
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
 })
-export class BotsComponent {
+export class MyComponent {
   private http = inject(ApiGatewayService);
   private dateUtils = inject(LuxonClass);
 
