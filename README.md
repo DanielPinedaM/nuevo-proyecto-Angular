@@ -1121,7 +1121,7 @@ Por defecto, `.btn` tiene `background-color: transparent`, por lo que **no repre
   Ir a home
 </button>
 
-<button class="btn btn-link" routerLink="/home" disabled>
+<button disabled class="btn btn-link" routerLink="/home">
   Ir a home
 </button>
 
