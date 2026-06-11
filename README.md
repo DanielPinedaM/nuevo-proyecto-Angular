@@ -1203,7 +1203,7 @@ Algunos botones usan colores claros en el texto o borde, por lo que deben coloca
 <button class="btn btn-success btn-outline btn-shadow">Success</button>
 
 <!-- sombra + bordes redondeados + icono + fondo -->
-<button class="btn btn-warning btn-background btn-base btn-shadow">
+<button class="btn btn-warning btn-background btn-icon-only btn-shadow">
   <span class="material-symbols-outlined">warning</span>
 </button>
 
@@ -1243,7 +1243,7 @@ Es obligatorio que, cuando el botón contenga únicamente un icono (sin texto), 
 
 ```HTML
 <!-- bordes redondeados -->
-<button class="btn btn-warning btn-background btn-base">
+<button class="btn btn-warning btn-background btn-icon-only">
   <span class="material-symbols-outlined">warning</span>
 </button>
 
