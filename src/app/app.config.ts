@@ -43,9 +43,6 @@ export const appConfig: ApplicationConfig = {
         preset: PRESET,
 
         options: {
-          // forzar tema blanco en navegadores configurados con tema oscuro
-          darkModeSelector: false || 'none',
-
           cssLayer: {
             name: 'primeng',
             order: 'tailwind, primeng',
