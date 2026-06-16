@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from '@/shared/guards/auth.guard';
 
 // #region - error 404 ruta inexistente
-import { NotFound404Component } from '@/app/not-found-404/not-found-404.component';
+import { NotFound404Component } from '@/shared/design/ui/not-found-404/not-found-404.component';
 // #endregion
 
 // #region - contenedor principal de paginas despues de loguearse

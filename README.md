@@ -85,8 +85,6 @@ src/
 ├── app/
 │   ├── app.routes.ts → Definición de rutas (URL)
 │   │
-│   ├── not-found-404/ → Componente q se muestra al acceder a URLs inexistentes
-│   │
 │   ├── auth/ → Rutas de autenticación
 │   │   ├── assign-password/ → Recuperar y cambiar la contraseña
 │   │   ├── login/ → Iniciar sesión
