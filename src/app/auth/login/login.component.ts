@@ -20,7 +20,7 @@ import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
-import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
+import { IRequestOptions } from '@/shared/services/api/general-api/types/request-data.types';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -147,7 +147,7 @@ export class LoginComponent implements OnInit {
       },
     };
 
-    const { success, data, message }: IResponse = await firstValueFrom(
+    const { success, data, message } = await firstValueFrom(
       this.http.POST(`${environment.api}`, optionsApi)
     );
 

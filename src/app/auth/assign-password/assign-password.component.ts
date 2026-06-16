@@ -21,7 +21,7 @@ import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
-import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
+import { IRequestOptions } from '@/shared/services/api/general-api/types/request-data.types';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
 
@@ -131,7 +131,7 @@ export class AssignPasswordComponent implements OnInit {
       },
     };
 
-    const { success, message }: IResponse = await firstValueFrom(
+    const { success, message } = await firstValueFrom(
       this.http.POST(`${environment.api}`, optionsApi)
     );
 

@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
-import { IResponse } from '@/shared/services/api/general-api/types/request-data.types';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
 
 export const AuthGuard: CanActivateFn = async (route, state) => {
@@ -22,7 +21,7 @@ export const AuthGuard: CanActivateFn = async (route, state) => {
    * - La autenticación debe depender exclusivamente de la validación realizada por el backend sobre la cookie HttpOnly.
    * - Ignorar estas recomendaciones y exponer el JWT al código JavaScript del frontend incrementa significativamente el riesgo de robo del token mediante ataques XSS (Cross-Site Scripting)
    * - Descomentar el código de validación ubicado más abajo para activar la protección de rutas. Actualmente se encuentra comentado únicamente para facilitar pruebas y permitir la navegación sin restricciones durante el desarrollo. */
-  //const { success, message, status }: IResponse = await firstValueFrom(
+  //const { success, message, status } = await firstValueFrom(
   //  http.GET(`${environment.api}reemplazar-por-endpoint-de-autenticacion`),
   //);
 

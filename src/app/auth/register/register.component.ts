@@ -23,7 +23,7 @@ import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
-import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
+import { IRequestOptions } from '@/shared/services/api/general-api/types/request-data.types';
 import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
 
 @Component({
@@ -164,7 +164,7 @@ export class RegisterComponent implements OnInit {
       },
     };
 
-    const { success, data, message }: IResponse = await firstValueFrom(
+    const { success, data, message } = await firstValueFrom(
       this.http.POST(`${environment.api}`, optionsApi)
     );
 

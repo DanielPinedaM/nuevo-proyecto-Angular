@@ -2032,7 +2032,6 @@ Se debe usar únicamente el ApiGatewayService (`src/services/api/general-api/htt
 /* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
-import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 import { environment } from "@/environments/environment";
 
 @Component({
@@ -2043,7 +2042,7 @@ export class MyComponent {
   http = inject(ApiGatewayService);
 
   async getBots() {
-    const { success, status, message, data }: IResponse = await firstValueFrom(
+    const { success, status, message, data } = await firstValueFrom(
       // aqui se concatena el environment.api con el endpoint específico de la petición
       this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
     );
@@ -2134,7 +2133,6 @@ export class MyComponent {
 /* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
-import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 import { environment } from "@/environments/environment";
 
 @Component({
@@ -2145,7 +2143,7 @@ export class MyComponent {
   http = inject(ApiGatewayService);
 
   async getBots() {
-    const { success, status, message, data }: IResponse = await firstValueFrom(this.http.POST(`${environment.api}`, optionsApi));
+    const { success, status, message, data } = await firstValueFrom(this.http.POST(`${environment.api}`, optionsApi));
 
     if (success) {
       // ...
@@ -2218,7 +2216,6 @@ import { Component, inject } from "@angular/core";
 import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
 import { firstValueFrom } from "rxjs";
 import { environment } from "@/environments/environment";
-import { IResponse } from "@/shared/api/general-api/types/request-data.types";
 
 interface IBodyBots {
   name: string;
@@ -2240,7 +2237,7 @@ export class MyComponent {
       },
     };
 
-    const { success, status, message, data }: IResponse = await firstValueFrom(this.http.POST(`${environment.api}/bots`, optionsApi));
+    const { success, status, message, data } = await firstValueFrom(this.http.POST(`${environment.api}/bots`, optionsApi));
 
     // ...
   }

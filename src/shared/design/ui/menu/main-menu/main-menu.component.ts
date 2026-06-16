@@ -37,7 +37,7 @@ export class MainMenuComponent implements OnInit {
       return;
     }
 
-    const { success, data }: IResponse = await firstValueFrom(
+    const { success, data } = await firstValueFrom(
       this.http.POST(`${environment.api}`),
     );
 

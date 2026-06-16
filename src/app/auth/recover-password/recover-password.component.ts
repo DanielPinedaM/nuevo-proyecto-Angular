@@ -14,7 +14,7 @@ import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
-import { IRequestOptions, IResponse } from '@/shared/services/api/general-api/types/request-data.types';
+import { IRequestOptions } from '@/shared/services/api/general-api/types/request-data.types';
 
 export interface IBodyRecoverPassword {
   email: string;
@@ -59,7 +59,7 @@ export class RecoverPasswordComponent implements OnInit {
       },
     };
 
-    const { success, message }: IResponse = await firstValueFrom(
+    const { success, message } = await firstValueFrom(
       this.http.POST(`${environment.api}`, optionsApi)
     );
 
