@@ -1,9 +1,12 @@
-import { CurrentRouteService } from '@/shared/services/stores/current-route.store';
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, inject, input, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map, startWith } from 'rxjs';
+
 import { TooltipModule } from 'primeng/tooltip';
+
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 
 interface IMenuOptions {
   text: string;
@@ -14,31 +17,31 @@ interface IMenuOptions {
 
 @Component({
   selector: 'app-menu-desktop',
+  standalone: true,
   templateUrl: './menu-desktop.component.html',
   imports: [CommonModule, RouterModule, TooltipModule],
 })
-export class MenuDesktopComponent implements OnInit {
-  currentRouteService = inject(CurrentRouteService);
-  router = inject(Router);
-  toast = inject(ToastUtilsService);
+export class MenuDesktopComponent {
+  readonly router = inject(Router);
+  readonly toast = inject(ToastUtilsService);
 
-  currentRoute = signal<string>('');
-  showText = signal<boolean>(false);
+  readonly showText = signal<boolean>(false);
 
-  menuOptions = input.required<IMenuOptions[]>();
+  readonly currentRoute = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.router.url),
+      startWith(this.router.url),
+    ),
+    {
+      initialValue: this.router.url,
+    },
+  );
 
-  ngOnInit() {
-    this.#onChangeCurrentRoute();
-  }
-
-  #onChangeCurrentRoute(): void {
-    this.currentRouteService.currentRoute$.subscribe((currentRoute: string) => {
-      this.currentRoute.set(currentRoute);
-    });
-  }
+  readonly menuOptions = input.required<IMenuOptions[]>();
 
   onClickMinimizeOrMaximizeMenu(): void {
-    this.showText.update((prev) => !prev);
+    this.showText.update((previousValue) => !previousValue);
   }
 
   onClickLogOut(): void {

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BreadcrumbsComponent } from '@/shared/design/ui/breadcrumbs/breadcrumbs.component';
 import { MainMenuComponent } from '@/shared/design/ui/menu/main-menu/main-menu.component';
 
 @Component({
   selector: 'app-main-wrapper',
   templateUrl: './main-wrapper.component.html',
-  imports: [MainMenuComponent, BreadcrumbsComponent, RouterOutlet],
+  imports: [MainMenuComponent, RouterOutlet],
 })
 export class MainWrapperComponent implements OnInit {
   constructor() {}
