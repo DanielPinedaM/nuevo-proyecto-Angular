@@ -7,7 +7,7 @@ import {
   IResponse,
   TMethod,
 } from '@/shared/services/api/general-api/types/request-data.types';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import { environment } from '@/environments/environment';
 import { RequestDataUtils } from '@/shared/services/api/general-api/utils/request-data.utils';

@@ -1,5 +1,5 @@
 import { CurrentRouteService } from '@/shared/services/stores/current-route.store';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { CommonModule } from '@angular/common';
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';

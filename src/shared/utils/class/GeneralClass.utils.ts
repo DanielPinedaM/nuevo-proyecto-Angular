@@ -1,6 +1,6 @@
 
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { inject, Injectable } from '@angular/core';
 import { Options, titleCase as titleCaseNpm } from 'title-case';
 import {

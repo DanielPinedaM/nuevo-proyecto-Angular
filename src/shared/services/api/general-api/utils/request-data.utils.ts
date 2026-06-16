@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import {

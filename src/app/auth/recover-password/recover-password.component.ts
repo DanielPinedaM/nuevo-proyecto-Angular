@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
 import { RouterModule } from '@angular/router';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';

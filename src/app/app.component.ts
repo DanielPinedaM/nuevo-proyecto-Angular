@@ -5,7 +5,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import { LoaderComponent } from '@/shared/design/ui/loader/loader.component';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 
 const AUTH_ROUTES: string[] = [
   'iniciar-sesion',

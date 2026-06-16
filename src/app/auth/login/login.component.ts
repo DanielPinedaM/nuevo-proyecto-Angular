@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import { firstValueFrom } from 'rxjs';

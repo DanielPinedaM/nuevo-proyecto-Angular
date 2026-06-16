@@ -9,7 +9,7 @@ import {
 import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import {
   IBodyRegister,
   IInputValuePassword,

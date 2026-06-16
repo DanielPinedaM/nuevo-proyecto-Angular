@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
-import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
+import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
