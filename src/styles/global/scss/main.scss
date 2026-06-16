@@ -1,0 +1,28 @@
+/* *************************
+* estilos globales de sass *
+**************************** */
+
+@use "./_scroll-bar.scss";
+@use "./buttons/index-buttons.scss";
+@use "./prime-ng/index-prime-ng.scss";
+
+/*
+**************************************************
+* Material Symbols Icons                         *
+* https://fonts.google.com/icons                 *
+* https://www.npmjs.com/package/material-symbols *
+************************************************** */
+
+@use "./../../../../node_modules/material-symbols/index.css";
+
+/* *******************
+* iconos de Prime NG *
+********************** */
+
+@use "./../../../../node_modules/primeicons/primeicons.css";
+
+/* ******************
+* ngxpert hot toast *
+********************* */
+
+@use "@ngxpert/hot-toast/styles";

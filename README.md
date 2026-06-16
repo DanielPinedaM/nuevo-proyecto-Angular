@@ -158,30 +158,30 @@ src/
 │           └── SessionStorageClass.utils.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
 │
 └── styles/
-    ├── main.scss → con @use importa estilos .scss globales de toda la pagina web, NO debe contener estilos directos
-    │
-    └── global/ → estilos globales de toda la pagina web
-        ├── _reset.scss → elimina los estilos por defecto del navegador para asegurar una apariencia uniforme en todos los navegadores
-        ├── _scroll-bar.scss → estilos globales de barra de scroll
-        ├── _table.scss → estilos globales para tablas
-        ├── _variables.scss → variables globales de Sass
+    └── global/
+        ├── scss/
+        │   ├── main.scss → con @use importa estilos .scss globales de toda la pagina web, NO debe contener estilos directos
+        │   ├── _scroll-bar.scss → estilos globales de barra de scroll
+        │   ├── _variables.scss → variables globales de Sass
+        │   │
+        │   ├── prime-ng/ → sobrescribir estilos de Prime NG
+        │   │   └── index-prime-ng.scss → con @use importa estilos .scss para Prime NG, NO debe contener estilos directos
+        │   │
+        │   └── buttons/ → estilos globales de botones organizados en archivos .scss composables que permiten combinar variantes, tamaños, estados y temas
+        │       ├── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
+        │       ├── _base.scss → Reset CSS para botones
+        │       ├── _effects.scss → utilidades visuales reutilizables para los botones: box-shadow, blur, elevation (sin lógica UI)
+        │       ├── _modifiers.scss → alteran/extienden características de los botones sin sobrescribir sus estilos principales
+        │       ├── _sizes.scss → Define el tamaño del botón mediante tokens basados en la escala de Tailwind CSS 4 para padding, font-size y line-height
+        │       ├── _states.scss → estados de boton: hover, active, focus, disabled
+        │       ├── _themes.scss → Define los temas de color del botón mediante CSS Custom Properties generadas a partir de _tokens.scss.
+        │       ├── _tokens.scss → Define los tokens de diseño del sistema de botones mediante variables Sass (colores, tipografía, espaciado y escalas).
+        │       ├── _mixins.scss → codigo de Sass que se repite en diferentes archivos de src\styles\global\scss\buttons
+        │       └── _variants.scss → Variantes visuales (background, outline, ghost, link) que define la apariencia y comportamiento visual según el tipo de botón.
         │
-        ├── library/ → estilos que afectan las librerias
-        │   ├── _prime-ng.scss → estilos que afectan a Prime NG
-        │   ├── _sweet-alert-2.scss → estilos que afectan a Sweet Alert 2
-        │   └── _tailwind.css → archivo de configuración de Tailwind 4
-        │
-        └── buttons/ → estilos globales de botones organizados en archivos .scss composables que permiten combinar variantes, tamaños, estados y temas
-            ├── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
-            ├── _base.scss → Reset CSS para botones
-            ├── _effects.scss → utilidades visuales reutilizables para los botones: box-shadow, blur, elevation (sin lógica UI)
-            ├── _modifiers.scss → alteran/extienden características de los botones sin sobrescribir sus estilos principales
-            ├── _sizes.scss → Define el tamaño del botón mediante tokens basados en la escala de Tailwind CSS 4 para padding, font-size y line-height.
-            ├── _states.scss → estados de boton: hover, active, focus, disabled
-            ├── _themes.scss → Define los temas de color del botón mediante CSS Custom Properties generadas a partir de _tokens.scss.
-            ├── _tokens.scss → Define los tokens de diseño del sistema de botones mediante variables Sass (colores, tipografía, espaciado y escalas).
-            ├── _mixins.scss → codigo de Sass que se repite en diferentes archivos de src\styles\global\buttons
-            └── _variants.scss → Variantes visuales (background, outline, ghost, link) que define la apariencia y comportamiento visual según el tipo de botón.
+        └── tailwind/
+            ├── index-tailwind.css → archivo de configuración de Tailwind 4
+            └── preflight.css → Reset CSS basado en Tailwind 4
 ```
 
 # 📅 Fechas

@@ -1,6 +1,5 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { providePrimeNG } from 'primeng/config';
@@ -11,7 +10,7 @@ import Aura from '@primeng/themes/aura';
 /**
 Personalizar colores de Prime NG
 https://primeng.org/theming#definepreset */
-const PRESET = definePreset(Aura, {
+const PRIME_NG_PRESET = definePreset(Aura, {
   semantic: {
     primary: {
       50: '{Sky.50}',
@@ -36,11 +35,10 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideHotToastConfig(),
 
-    // Prime NG
-    provideAnimationsAsync(),
+    // configuracion de Prime NG
     providePrimeNG({
       theme: {
-        preset: PRESET,
+        preset: PRIME_NG_PRESET,
 
         options: {
           cssLayer: {

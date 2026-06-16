@@ -55,8 +55,8 @@
               }
             ],
             "styles": [
-              "src/styles/main.scss",
-              "src/styles/global/library/tailwind.css"
+              "src/styles/global/tailwind/index-tailwind.css",
+              "src/styles/global/scss/main.scss"
             ],
             "scripts": []
           },
@@ -142,8 +142,8 @@
               }
             ],
             "styles": [
-              "src/styles/main.scss",
-              "src/styles/global/library/tailwind.css"
+              "src/styles/global/tailwind/index-tailwind.css",
+              "src/styles/global/scss/main.scss"
             ],
             "scripts": []
           }

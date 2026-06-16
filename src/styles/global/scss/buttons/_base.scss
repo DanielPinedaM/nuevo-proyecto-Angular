@@ -53,7 +53,7 @@
 
   background-color: transparent;
 
-  font-family: variable.$inter;
+  font-family: 'Inter', 'DM Sans', 'Helvetica Neue', Helvetica, sans-serif, system-ui;
 
   // eliminar espacio vertical en blanco que causa el line-height
   text-box: trim-both cap alphabetic;
@@ -61,6 +61,14 @@
   /* Eliminar color de fondo azul cuando se hace click en los enlaces <a>
   https://stackoverflow.com/questions/21003535/anyway-to-prevent-the-blue-highlighting-of-elements-in-chrome-when-clicking-quic */
   -webkit-tap-highlight-color: transparent;
+
+  /*
+  alineacion uniforme de los numeros
+  todos los numeros tienen el mismo ancho para q ocupen el mismo espacio
+  solo es compatible con fuentes OpenType
+  https://css-tricks.com/almanac/properties/f/font-variant-numeric/
+  https://practice.typekit.com/lesson/caring-about-opentype-features/ */
+  font-variant-numeric: tabular-nums;
 
   transition:
     background-color 0.2s ease,

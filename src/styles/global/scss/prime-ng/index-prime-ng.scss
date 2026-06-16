@@ -1,0 +1,15 @@
+// iconos de Prime React
+@use "../../../../../node_modules/primeicons/primeicons.css";
+
+// data
+@use "./data/_data-table.scss";
+
+// form
+@use "./form/_password.scss";
+@use "./form/_radio-button.scss";
+
+// overlay
+@use "./overlay/_dialog.scss";
+
+// panel
+@use "./panel/_tab-view.scss";
