@@ -386,7 +386,7 @@ En VS Code o en cualquier editor basado en VS Code (Antigravity, Cursor, Windsur
 ```json
 /* Tailwind 4 */
 {
-  "tailwindCSS.experimental.configFile": "src/styles/global/library/tailwind.css" /* ruta del archivo .css de configuracion de Tailwind 4 */,
+  "tailwindCSS.experimental.configFile": "src/styles/global/tailwind/index-tailwind.css" /* ruta del archivo .css de configuracion de Tailwind 4 */,
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.includeLanguages": {
     "javascript": "javascript",

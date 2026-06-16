@@ -45,9 +45,7 @@ https://medium.com/@daniel.codrea/setting-up-a-primeng-v19-and-tailwindcss-v4-pr
   --color-yellow: oklch(88.15% 0.161 98.62);                /* #f4d745 */
 
   /* semi-transparente */
-  --color-navy-light: oklch(33.14% 0.046 274.72 / 0.25);    /* #26314f40 */
-  --color-blue-light: oklch(65.94% 0.173 253.21 / 0.25);    /* #2196f340 */
-  --color-misty-rose: oklch(100% 0 0 / 0.30);               /* #ffffff4d */
+  --color-white-transparent: oklch(100% 0 0 / 0.30);               /* #ffffff4d */
 
   /*
   **************************************************
