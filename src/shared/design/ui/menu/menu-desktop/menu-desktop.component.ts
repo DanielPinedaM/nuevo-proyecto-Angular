@@ -1,6 +1,5 @@
 import { CurrentRouteService } from '@/shared/services/stores/current-route.store';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
-import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
 import { CommonModule } from '@angular/common';
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
@@ -19,7 +18,6 @@ interface IMenuOptions {
   imports: [CommonModule, RouterModule, TooltipModule],
 })
 export class MenuDesktopComponent implements OnInit {
-  sweetAlertClass = inject(SweetAlertClass);
   currentRouteService = inject(CurrentRouteService);
   router = inject(Router);
   hotToast = inject(HotToastClass);
@@ -44,17 +42,7 @@ export class MenuDesktopComponent implements OnInit {
   }
 
   onClickLogOut(): void {
-    this.sweetAlertClass
-      .messageQuestion(
-        'Confirmación',
-        '¿Está seguro que desea cerrar sesión?',
-        'warning',
-      )
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.hotToast.infoNotification('Se ha cerrado sesión');
-          this.router.navigate(['/iniciar-sesion']);
-        }
-      });
+    this.router.navigate(['/iniciar-sesion']);
+    this.hotToast.errorNotification('Se ha cerrado sesión');
   }
 }

@@ -148,8 +148,7 @@ src/
 │   └── utils/
 │       └── class/
 │           ├── notification/ → carpeta con funciones para mostrar mensajes emergentes
-│           │   ├── HotToastClass.utils.ts → Notificaciones tipo toast
-│           │   └── SweetAlertClass.utils.ts → Modal con SweetAlert2
+│           │   └── HotToastClass.utils.ts → Notificaciones tipo toast
 │           │
 │           ├── CryptoServiceClass.utils.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
 │           ├── DataTypeClass.utils.ts → funciones para tipos de datos de JS, ejemplo normalizar string

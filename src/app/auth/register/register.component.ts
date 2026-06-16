@@ -9,7 +9,6 @@ import {
 import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
 import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 import {
   IBodyRegister,
@@ -40,7 +39,6 @@ import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
 })
 export class RegisterComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
-  sweetAlertClass = inject(SweetAlertClass);
   generalClass = inject(GeneralClass);
   http = inject(ApiGatewayService);
   hotToast = inject(HotToastClass);
@@ -138,14 +136,6 @@ export class RegisterComponent implements OnInit {
     this.formRegister.markAllAsTouched();
 
     if (this.formRegister.invalid || this.objValidatePassword()?.error) return;
-
-    const result = await this.sweetAlertClass.messageQuestion(
-      'Confirmación',
-      '¿Sus datos son correctos?',
-      'warning'
-    );
-
-    if (!result.isConfirmed) return;
 
     const { nameUser, email, password } = this.formRegister.value;
 

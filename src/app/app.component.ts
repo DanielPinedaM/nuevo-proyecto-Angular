@@ -3,9 +3,9 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/shared/services/stores/loader.store';
-import SweetAlertClass from '@/shared/utils/class/notification/SweetAlertClass.utils';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import { LoaderComponent } from '@/shared/design/ui/loader/loader.component';
+import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
 
 const AUTH_ROUTES: string[] = [
   'iniciar-sesion',
@@ -21,7 +21,7 @@ const AUTH_ROUTES: string[] = [
 })
 export class AppComponent {
   storage = inject(Storage);
-  sweetAlertClass = inject(SweetAlertClass);
+  hotToast = inject(HotToastClass);
   bnIdle = inject(BnNgIdleService);
   router = inject(Router);
   loaderService = inject(LoaderService);
@@ -65,11 +65,7 @@ export class AppComponent {
       if (isAuthRoute) return;
 
       this.router.navigate(['/iniciar-sesion']);
-      this.sweetAlertClass.messageAlert(
-        'Sesión Inactiva',
-        'Su sesión ya no se encuentra activa, ingrese nuevamente',
-        'info',
-      );
+      this.hotToast.infoNotification('Su sesión ya no se encuentra activa, ingrese nuevamente');
     });
   }
 }
