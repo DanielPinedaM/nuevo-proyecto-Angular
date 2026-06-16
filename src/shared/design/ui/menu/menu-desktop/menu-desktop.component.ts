@@ -1,5 +1,5 @@
 import { CurrentRouteService } from '@/shared/services/stores/current-route.store';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import { CommonModule } from '@angular/common';
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
@@ -20,7 +20,7 @@ interface IMenuOptions {
 export class MenuDesktopComponent implements OnInit {
   currentRouteService = inject(CurrentRouteService);
   router = inject(Router);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
 
   currentRoute = signal<string>('');
   showText = signal<boolean>(false);
@@ -43,6 +43,6 @@ export class MenuDesktopComponent implements OnInit {
 
   onClickLogOut(): void {
     this.router.navigate(['/iniciar-sesion']);
-    this.hotToast.errorNotification('Se ha cerrado sesión');
+    this.toast.error('Se ha cerrado sesión');
   }
 }

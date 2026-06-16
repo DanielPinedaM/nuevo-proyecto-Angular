@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import {
@@ -16,7 +16,7 @@ import {
 })
 export class RequestDataUtils {
   dataTypeClass = inject(DataTypeClass);
-  private hotToast = inject(HotToastClass);
+  private toast = inject(ToastUtilsService);
   private router = inject(Router);
   private loaderService = inject(LoaderService);
 
@@ -67,7 +67,7 @@ export class RequestDataUtils {
       this.unauthorized();
 
       if (!this.pathnameIsLogin()) {
-        this.hotToast.infoNotification('Inicie sesión para continuar');
+        this.toast.info('Inicie sesión para continuar');
       }
     } else if (status === 403) {
       console.error(
@@ -81,7 +81,7 @@ export class RequestDataUtils {
       // devolverme a la web anterior en el historial cuando el status de la respuesta de la api sea 403
       this.returnToBrowserHistory();
 
-      this.hotToast.infoNotification(
+      this.toast.info(
         'Acceso denegado, no tiene permisos para realizar esta acción',
       );
     } else if (status === 404) {
@@ -89,7 +89,7 @@ export class RequestDataUtils {
         `❌ http.service.ts - error 404: Not Found - endpoint no encontrado, la URL solicitada "${url}" NO existe en el servidor`,
       );
 
-      this.hotToast.errorNotification(
+      this.toast.error(
         'Ha ocurrido un error, por favor comuniquese con el administrador del sistema',
       );
     } else if (status >= 500) {
@@ -97,7 +97,7 @@ export class RequestDataUtils {
         `❌ http.service.ts - error en el servidor en la URL ${url}`,
       );
 
-      this.hotToast.errorNotification(
+      this.toast.error(
         'Ha ocurrido un error, intentalo de nuevo mas tarde, estamos trabajando para solucionarlo',
       );
     }

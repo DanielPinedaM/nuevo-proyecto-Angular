@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
 import { RouterModule } from '@angular/router';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
@@ -34,7 +34,7 @@ export interface IBodyRecoverPassword {
 export class RecoverPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
   http = inject(ApiGatewayService);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
 
   ngOnInit() {}
 
@@ -64,12 +64,12 @@ export class RecoverPasswordComponent implements OnInit {
     );
 
     if (success) {
-      this.hotToast.successNotification(
+      this.toast.success(
         'Revise el correo que se le envio para continuar cambiando su contraseña'
       );
       this.formRecoverPassword.reset();
     } else {
-      this.hotToast.errorNotification(message);
+      this.toast.error(message);
     }
   }
 }

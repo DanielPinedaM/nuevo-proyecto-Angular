@@ -1,6 +1,6 @@
 
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
-import HotToastClass from './notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import { inject, Injectable } from '@angular/core';
 import { Options, titleCase as titleCaseNpm } from 'title-case';
 import {
@@ -16,7 +16,7 @@ import { titleCaseOptions } from '@/shared/data-types/constants/title-case.const
 })
 export default class GeneralClass {
   dataTypeClass = inject(DataTypeClass);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
 
   strongPassword = (password: string): boolean => {
     return CONST_REGEX.text.strongPassword.test(password);
@@ -198,7 +198,7 @@ export default class GeneralClass {
     const errorMessage: string = 'No se pudo copiar el texto';
 
     if (!this.dataTypeClass.isString(text)) {
-      this.hotToast.errorNotification(errorMessage);
+      this.toast.error(errorMessage);
       console.error(
         '❌ error, text NO es tipo string\ntypeof text ',
         typeof text
@@ -207,7 +207,7 @@ export default class GeneralClass {
     }
 
     if (text.trim() === '') {
-      this.hotToast.errorNotification(errorMessage);
+      this.toast.error(errorMessage);
       console.error("❌ error, text es un string vacio ''\ntext ", text);
       return;
     }
@@ -224,7 +224,7 @@ export default class GeneralClass {
     document.execCommand('copy');
     document.body.removeChild(selBox);
 
-    this.hotToast.successNotification('Texto copiado');
+    this.toast.success('Texto copiado');
   };
 
   /**

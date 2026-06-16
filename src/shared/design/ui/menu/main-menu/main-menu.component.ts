@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
 import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
@@ -23,7 +23,7 @@ interface IMenuOptions {
 export class MainMenuComponent implements OnInit {
   storage = inject(Storage);
   http = inject(ApiGatewayService);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
 
   menuOptions = signal<IMenuOptions[]>([]);
 
@@ -45,7 +45,7 @@ export class MainMenuComponent implements OnInit {
       this.menuOptions.set(data);
     } else {
       this.menuOptions.set([]);
-      this.hotToast.errorNotification('Al mostrar menu');
+      this.toast.error('Al mostrar menu');
     }
   }
 }

@@ -7,7 +7,7 @@ import { saveAs } from 'file-saver';
 import { inject, Injectable, Injector } from '@angular/core';
 import * as ExcelJS from 'exceljs';
 import { IResponse } from '@/shared/services/api/general-api/types/request-data.types';
-import HotToastClass from './notification/HotToastClass.utils';
+import ToastUtilsService from './notification/Toast.utils';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 
@@ -17,7 +17,7 @@ import { LoaderService } from '@/shared/services/stores/loader.store';
 export default class DownloadFileClass {
   luxonClass = inject(LuxonClass);
   loaderService = inject(LoaderService);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
   private injector = inject(Injector);
   private _generalClass: GeneralClass | null = null;
   get generalClass(): GeneralClass {
@@ -43,12 +43,12 @@ export default class DownloadFileClass {
         blob,
       );
 
-      this.hotToast.errorNotification(message);
+      this.toast.error(message);
       return;
     }
 
     if (!fileName) {
-      this.hotToast.errorNotification(message);
+      this.toast.error(message);
       console.error(
         '❌ el nombre del archivo fileName NO puede ser falsy\n',
         fileName,
@@ -65,7 +65,7 @@ export default class DownloadFileClass {
         extension,
       );
 
-      this.hotToast.errorNotification(message);
+      this.toast.error(message);
       return;
     }
 
@@ -77,7 +77,7 @@ export default class DownloadFileClass {
       .replaceAll(':', '_')
       .replaceAll(' ', '-');
 
-    this.hotToast.successNotification(
+    this.toast.success(
       `Archivo descargado ${baseFileName}.${extension}`,
     );
 
@@ -93,7 +93,7 @@ export default class DownloadFileClass {
 
       setTimeout(() => URL.revokeObjectURL(fileURL), 5000);
     } else {
-      this.hotToast.errorNotification('Al ver archivo');
+      this.toast.error('Al ver archivo');
       console.error(
         '❌ error, para poder ver el archivo, tiene q ser tipo blob\n',
         blob,
@@ -110,7 +110,7 @@ export default class DownloadFileClass {
     const errroMessage: string = 'Ocurrió un error al descargar Excel';
 
     if (!nonNestedArrayOfObjects) {
-      this.hotToast.errorNotification(errroMessage);
+      this.toast.error(errroMessage);
       console.error(
         '❌ el array de objetos NO puede ser falsy\n',
         nonNestedArrayOfObjects,
@@ -119,7 +119,7 @@ export default class DownloadFileClass {
     }
 
     if (!Array.isArray(nonNestedArrayOfObjects)) {
-      this.hotToast.errorNotification(errroMessage);
+      this.toast.error(errroMessage);
       console.error(
         '❌ el parametro nonNestedArrayOfObjects tiene q ser un array de objetos NO anidado\n',
         nonNestedArrayOfObjects,
@@ -128,7 +128,7 @@ export default class DownloadFileClass {
     }
 
     if (nonNestedArrayOfObjects.length === 0) {
-      this.hotToast.errorNotification(errroMessage);
+      this.toast.error(errroMessage);
       console.error(
         '❌ el array de objetos NO puede estar vacio, NI puede ser falsy\n',
         nonNestedArrayOfObjects,
@@ -137,7 +137,7 @@ export default class DownloadFileClass {
     }
 
     if (!fileName) {
-      this.hotToast.errorNotification(errroMessage);
+      this.toast.error(errroMessage);
       console.error(
         '❌ el nombre del archivo fileName NO puede ser falsy\n',
         fileName,
@@ -146,7 +146,7 @@ export default class DownloadFileClass {
     }
 
     if (!String(fileName).includes('.xlsx')) {
-      this.hotToast.errorNotification(errroMessage);
+      this.toast.error(errroMessage);
       console.error(
         '❌ fileName tiene q contener la extension .xlsx\n',
         fileName,
@@ -201,7 +201,7 @@ export default class DownloadFileClass {
       })
       .catch((error) => {
         console.error('❌ error al generar el archivo Excel\n', error);
-        this.hotToast.errorNotification(errroMessage);
+        this.toast.error(errroMessage);
       })
       .finally(() => {
         this.loaderService.setLoader(false);

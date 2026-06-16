@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
 import {
@@ -41,7 +41,7 @@ export class AssignPasswordComponent implements OnInit {
   generalClass = inject(GeneralClass);
   dataTypeClass = inject(DataTypeClass);
   http = inject(ApiGatewayService);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
   router = inject(Router);
   route = inject(ActivatedRoute);
 
@@ -73,7 +73,7 @@ export class AssignPasswordComponent implements OnInit {
 
   doNotAllowCopyPasteCut(event: ClipboardEvent): void {
     event.preventDefault();
-    this.hotToast.infoNotification(
+    this.toast.info(
       'No puedes copiar y pegar la contraseña, escribela manualmente'
     );
   }
@@ -136,13 +136,13 @@ export class AssignPasswordComponent implements OnInit {
     );
 
     if (success) {
-      this.hotToast.successNotification(
+      this.toast.success(
         'Se ha restablecido su contraseña, inicie sesion para continuar'
       );
       this.formAssignPassword.reset();
       this.router.navigate(['/iniciar-sesion']);
     } else {
-      this.hotToast.errorNotification(message);
+      this.toast.error(message);
     }
   }
 }

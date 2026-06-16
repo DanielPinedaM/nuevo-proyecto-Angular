@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import { firstValueFrom } from 'rxjs';
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
   dataTypeClass = inject(DataTypeClass);
   http = inject(ApiGatewayService);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
   router = inject(Router);
 
   dataLoginBurned: boolean = ['localhost'].includes(environment.NODE_ENV);
@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
   doNotAllowCopyPasteCut(event: ClipboardEvent): void {
     if (environment.production) {
       event.preventDefault();
-      this.hotToast.infoNotification(
+      this.toast.info(
         'No puedes copiar y pegar la contraseña, escribela manualmente'
       );
     }

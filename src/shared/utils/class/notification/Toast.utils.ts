@@ -2,27 +2,24 @@ import { inject, Injectable } from '@angular/core';
 import { HotToastService, ToastPosition } from '@ngxpert/hot-toast';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 
-/**
-funciones para mostrar toast */
+const GENERAL_STYLE = {
+  padding: '3px 6px',
+  borderRadius: '8px',
+  margin: '8px 8px 0 0',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '5px',
+};
+
 @Injectable({
   providedIn: 'root',
 })
-export default class HotToastClass {
+export default class ToastUtilsService {
   dataTypeClass = inject(DataTypeClass);
   toast = inject(HotToastService);
 
   private duration: number = 4000;
-
   private position: ToastPosition = 'top-right';
-
-  private generalStyle = {
-    padding: '3px 6px',
-    borderRadius: '8px',
-    margin: '8px 8px 0 0',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
-  };
 
   #normalizeMessage(message: string): string {
     return message
@@ -33,17 +30,17 @@ export default class HotToastClass {
       .replaceAll('NaN', '');
   }
 
-  successNotification(message: string): void {
+  success(message: string): void {
     if (!this.dataTypeClass.isString(message)) {
       console.error(
-        '❌ error - successNotification - ngxpert/hot-toast necesita el mensaje tipo string'
+        '❌ Toast.utils.ts - ngxpert/hot-toast necesita el mensaje tipo string',
       );
       return;
     }
 
     if (String(message).trim() === '') {
       console.error(
-        "❌ error - successNotification - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''"
+        "❌ Toast.utils.ts - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
       );
       return;
     }
@@ -55,22 +52,22 @@ export default class HotToastClass {
       style: {
         background: '#22c561',
         color: '#fff',
-        ...this.generalStyle,
+        ...GENERAL_STYLE,
       },
     });
   }
 
-  errorNotification(message: string): void {
+  error(message: string): void {
     if (!this.dataTypeClass.isString(message)) {
       console.error(
-        '❌ error - errorNotification - ngxpert/hot-toast necesita el mensaje tipo string'
+        '❌ Toast.utils.ts - ngxpert/hot-toast necesita el mensaje tipo string',
       );
       return;
     }
 
     if (String(message).trim() === '') {
       console.error(
-        "❌ error - errorNotification - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''"
+        "❌  Toast.utils.ts - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
       );
       return;
     }
@@ -82,22 +79,22 @@ export default class HotToastClass {
       style: {
         background: '#d03035',
         color: '#fff',
-        ...this.generalStyle,
+        ...GENERAL_STYLE,
       },
     });
   }
 
-  infoNotification(message: string): void {
+  info(message: string): void {
     if (!this.dataTypeClass.isString(message)) {
       console.error(
-        '❌ error - infoNotification - ngxpert/hot-toast necesita el mensaje tipo string'
+        '❌  Toast.utils.ts - ngxpert/hot-toast necesita el mensaje tipo string',
       );
       return;
     }
 
     if (String(message).trim() === '') {
       console.error(
-        "❌ error - infoNotification - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''"
+        "❌  Toast.utils.ts - el mensaje no puede ser un string vacio ''",
       );
       return;
     }
@@ -109,22 +106,22 @@ export default class HotToastClass {
       style: {
         background: '#61aaec',
         color: '#fff',
-        ...this.generalStyle,
+        ...GENERAL_STYLE,
       },
     });
   }
 
-  warningNotification(message: string): void {
+  warning(message: string): void {
     if (!this.dataTypeClass.isString(message)) {
       console.error(
-        '❌ error - warningNotification - ngxpert/hot-toast necesita el mensaje tipo string'
+        '❌  Toast.utils.ts - ngxpert/hot-toast necesita el mensaje tipo string',
       );
       return;
     }
 
     if (String(message).trim() === '') {
       console.error(
-        "❌ error - warningNotification - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''"
+        "❌ Toast.utils.ts - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
       );
       return;
     }
@@ -136,7 +133,7 @@ export default class HotToastClass {
       style: {
         background: '#f4d745',
         color: '#fff',
-        ...this.generalStyle,
+        ...GENERAL_STYLE,
       },
     });
   }

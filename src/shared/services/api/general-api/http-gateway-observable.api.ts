@@ -7,7 +7,7 @@ import {
   IResponse,
   TMethod,
 } from '@/shared/services/api/general-api/types/request-data.types';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import { environment } from '@/environments/environment';
 import { RequestDataUtils } from '@/shared/services/api/general-api/utils/request-data.utils';
@@ -19,7 +19,7 @@ import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 export class ApiGatewayService {
   private storage = inject(Storage);
   private httpClient = inject(HttpClient);
-  private hotToast = inject(HotToastClass);
+  private toast = inject(ToastUtilsService);
   private requestDataUtils = inject(RequestDataUtils);
   private loaderService = inject(LoaderService);
   private _timeout: number = 1000 * 60;
@@ -50,7 +50,7 @@ export class ApiGatewayService {
       const message: string =
         'Conéctese a internet para que la página web pueda funcionar';
 
-      this.hotToast.errorNotification(message);
+      this.toast.error(message);
 
       return of({
         success: false,

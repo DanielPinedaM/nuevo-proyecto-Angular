@@ -9,7 +9,7 @@ import {
 import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 import {
   IBodyRegister,
   IInputValuePassword,
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
   cryptoServiceClass = inject(CryptoServiceClass);
   generalClass = inject(GeneralClass);
   http = inject(ApiGatewayService);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
   router = inject(Router);
 
   // necesario para validar <input> contraseña y confirmar contraseña
@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
 
   doNotAllowCopyPasteCut(event: ClipboardEvent): void {
     event.preventDefault();
-    this.hotToast.infoNotification(
+    this.toast.info(
       'No puedes copiar y pegar la contraseña, escribela manualmente'
     );
   }
@@ -159,13 +159,13 @@ export class RegisterComponent implements OnInit {
     );
 
     if (success) {
-      this.hotToast.successNotification(
+      this.toast.success(
         `Usuario ${nameUser} registrado, inicie sesión para continuar `
       );
       this.formRegister.reset();
       this.router.navigate(['/iniciar-sesion']);
     } else {
-      this.hotToast.errorNotification(message);
+      this.toast.error(message);
     }
   }
 }

@@ -5,7 +5,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import { LoaderComponent } from '@/shared/design/ui/loader/loader.component';
-import HotToastClass from '@/shared/utils/class/notification/HotToastClass.utils';
+import ToastUtilsService from '@/shared/utils/class/notification/Toast.utils';
 
 const AUTH_ROUTES: string[] = [
   'iniciar-sesion',
@@ -21,7 +21,7 @@ const AUTH_ROUTES: string[] = [
 })
 export class AppComponent {
   storage = inject(Storage);
-  hotToast = inject(HotToastClass);
+  toast = inject(ToastUtilsService);
   bnIdle = inject(BnNgIdleService);
   router = inject(Router);
   loaderService = inject(LoaderService);
@@ -65,7 +65,7 @@ export class AppComponent {
       if (isAuthRoute) return;
 
       this.router.navigate(['/iniciar-sesion']);
-      this.hotToast.infoNotification('Su sesión ya no se encuentra activa, ingrese nuevamente');
+      this.toast.info('Su sesión ya no se encuentra activa, ingrese nuevamente');
     });
   }
 }
