@@ -29,20 +29,85 @@ npm i
 | node --run build:test | pruebas     | `src/environments/environment.test.ts` |
 | node --run build:prod | producción  | `src/environments/environment.prod.ts` |
 
-# 🤖 Skill para Uso de IA
+# 🤖 Uso de IA
 
 > [!WARNING]
 > # ⚠️ ****IMPORTANTE**** 🚨
 >
-> ****Ignorar esta sección ocasionará que la IA genere código que no respete la arquitectura, estructura ni las convenciones del proyecto, produciendo código inconsistentes y desordenadas.****
+> ****Ignorar esta sección ocasionará que la IA genere código que no respete la arquitectura, estructura ni las convenciones del proyecto, produciendo código inconsistente y desordenado.****
 
-Para que la IA pueda responder correctamente y respetar la estructura de este proyecto, antes de realizar cualquier pregunta en herramientas de IA como Chat GPT, Claude, Gemini, etc., ***desde aquí en adelante*** debes copiar y pegar completamente este `README.md`.
+Esta sección está diseñada para utilizarse como contexto en herramientas de IA como Chat GPT, Claude, Gemini, Antigravity, etc.
 
-No debes copiar secciones anteriores del `README.md`.
+Antes de realizar cualquier consulta relacionada con este proyecto en una IA, se debe proporcionar este contexto completo para que la herramienta pueda entender y respetar las reglas establecidas.
 
-Debes copiar únicamente el contenido que se encuentra desde aquí hacia abajo, incluyendo todas las secciones posteriores completas y sin omitir información.
+Es recomendable ****utilizar IA desde la terminal (bash)**** y no en interfaces graficasa web ni aplicaciones de escritorio.
 
-## Stack Frontend del Proyecto
+No es recomendable usar herramientas de IA mediante interfaces gráficas como:
+
+* [Open Code Desktop](https://youtu.be/_SVSv2Y59P0?si=auL72MgiH7cyg37J)
+
+* [GPT Codex Desktop](https://youtu.be/bgx8ownl3O4?si=IIRgtKcmLaHW_Jc0)
+* [Chat GPT desde la interfaz web](https://chatgpt.com/)
+
+* [Claude Desktop](https://youtu.be/DYwZy7VNKws?si=h8dUgpeITRXuf9G1)
+* [Claude desde la interfaz web](https://chat.chatbotapp.ai/claude)
+
+* [Google AI Studio](https://aistudio.google.com/)
+
+* Chats con interfaces gráficas equivalentes
+
+Siempre usar la IA en la terminal (bash)
+
+***Ejemplos:***
+
+* Chat GPT desde la interfaz web → usar [GPT Codex CLI](https://youtu.be/Ub-K1n4YYsg?si=AECFbRb8VmaquZYr)
+* Claude desde la interfaz web → usar [Claude Code](https://youtu.be/Bf7hfpItrDk?si=v05Cqqe4yW3vJBgx)
+* Google AI Studio → usar [Antigravity CLI](https://youtu.be/bdEqIchP4x4?si=o0-bS58bZbuPP99d)
+
+La terminal permite que la IA tenga:
+* Mayor contexto del proyecto
+
+* Estructura completa del código
+
+* Acceso al sistema operativo (archivos y carpetas)
+
+* Realizar cambios respetando la arquitectura del proyecto.
+
+## Uso de Git y de IA
+
+Siempre realizar un commit antes de solicitar modificaciones a la IA.
+
+Esto evita acumular cambios sin control y permite tener trazabilidad clara de lo que la IA modifica.
+
+Trabajar bajo el principio:
+
+> 1 commit = 1 feature
+
+## Contexto para la IA
+Este contenido puede utilizarse dentro de archivos de configuración como:
+
+* `CLAUDE.md`
+* Archivos equivalentes de instrucciones para otras herramientas de IA
+
+Al copiar este contenido hacia una herramienta de IA:
+
+* Copiar únicamente desde esta sección hacia abajo.
+* Copiar todas las secciones posteriores completas sin omitir reglas.
+* No copiar secciones anteriores de este `README.md`.
+* Antes de pegarlo en la IA, eliminar los emojis del README.md
+
+# `CLAUDE.md`
+
+# 🌐 Reglas de idioma
+
+* Responder siempre en español.
+* Redactar explicaciones y documentación en español.
+* Escribir código en inglés.
+* Mantener el código, identificadores, nombres de archivos, clases, interfaces, métodos, funciones y variables en inglés.
+* No traducir términos técnicos de uso común en desarrollo de software (por ejemplo: middleware, service, controller, repository, signal, interceptor, provider, endpoint, payload, etc).
+* No traducir nombres de frameworks, librerías, APIs ni patrones de diseño.
+
+# Stack Frontend del Proyecto
 
 * Angular 22
 * TypeScript 6
@@ -52,7 +117,7 @@ Debes copiar únicamente el contenido que se encuentra desde aquí hacia abajo, 
 * Luxon
 * Material Symbols Icons
 
-## Reglas Obligatorias para la IA
+# Reglas Obligatorias
 
 * No generes análisis, recomendaciones ni comentarios adicionales hasta que empiece a realizar preguntas.
 
@@ -115,8 +180,6 @@ src/
 ├── shared/ → utilidades compartidas (globales) que se pueden usar en cualquier parte de la web
 │   ├── guards/
 │   │   └── auth.guard.ts → protección de rutas de todos los componentes que estan despues de loguearse
-│   │
-│   ├── components/ → componentes reutilizables con alcance global que pueden ser utilizados por múltiples features de la aplicación. No deben contener lógica de negocio específica de una feature ni depender de carpetas dentro de `src/app/features/*`
 │   │
 │   ├── design/ → componentes relacionados con la maquetacion (presentación)
 │   │   ├── layouts/ → contenedores que definen la estructura visual y de navegación de una sección completa de la aplicación
@@ -585,8 +648,6 @@ table {
 * ***Tailwind*** para estilos especificos de cada componente en:
 
 * `src/app/...`
-
-* `src/shared/components/...`
 
 * `src/shared/design/layouts/...`
 
@@ -1731,104 +1792,6 @@ En este ejemplo:
 - `BotsComponent` es hijo de `MainWrapperComponent`
 
 - `AuthGuard` protege automáticamente todas las rutas hijas gracias a `canActivateChild`
-
-# 🧩 Organización de componentes
-
-Los componentes que pertenecen a una URL o página específica deben estar dentro de su módulo o ruta correspondiente en `src/app`.
-
-Los componentes reutilizables y compartidos entre múltiples páginas deben estar en `src/shared/components`.
-
-Esto permite mantener una arquitectura escalable.
-
-**✅ Correcto:**
-
-```txt
-src/
-├── app/
-│   ├── features/
-│   │   ├── bots/
-│   │   │   ├── bots.component.ts
-│   │   │   ├──  bots.component.html
-│   │   │   ├──  bots.component.spec.ts
-│   │   │   │
-│   │   │   └── components/
-│   │   │       └── bot-card/
-│   │   │           ├── bot-card.component.ts
-│   │   │           ├── bot-card.component.html
-│   │   │           └── bot-card.component.spec.ts
-│
-├── shared/
-│   └── components/
-│       ├── button/
-│       ├── modal/
-│       └── spinner/
-```
-
-En este ejemplo:
-
-- `bot-card.component.ts` pertenece únicamente a la página de bots
-
-- `button`, `modal` y `spinner` son componentes reutilizables globales
-
-- Cada funcionalidad (_feature_) mantiene sus componentes encapsulados
-
-**❌ Incorrecto:**
-
-```txt
-src/
-├── components/
-│   ├── bots/
-│   │   ├── bots.component.ts
-│   │   ├── bots.component.html
-│   │   └── bots.component.spec.ts
-│   │
-│   ├── botbot-cards/
-│   │   ├── bot-card.component.ts
-│   │   ├── bot-card.component.html
-│   │   └── bot-card.component.spec.ts
-│   │
-│   ├── home-banner/
-│   │   ├── home-banner.component.ts
-│   │   ├── home-banner.component.html
-│   │   └── home-banner.component.spec.ts
-│   │
-│   ├── button/
-│   │   ├── button.component.ts
-│   │   ├── button.component.html
-│   │   └── button.component.spec.ts
-│   │
-│   ├── modal/
-│   │   ├── modal.component.ts
-│   │   ├── modal.component.html
-│   │   └── modal.component.spec.ts
-│   │
-│   └── spinner/
-│       ├── spinner.component.ts
-│       ├── spinner.component.html
-│       └── spinner.component.spec.ts
-```
-
-No se debe meter todo en una carpeta global `src/components` porque:
-
-- Mezcla componentes reutilizables con componentes específicos de páginas
-
-- Dificulta encontrar archivos relacionados con una funcionalidad
-
-- Genera desorden a medida que crece el proyecto
-
-- Rompe el encapsulamiento de cada módulo o página
-
-- Es inmantenible e inescalable
-
-## Diferencia entre `src/app/bots/components` y `src/shared/components`
-
-- `src/app/bots/components` contiene componentes exclusivos de la funcionalidad (feature) `bots`
-
-- Estos componentes no deben reutilizarse globalmente porque pertenecen únicamente a esa página o _feature_
-
-- `src/shared/components` contiene componentes reutilizables en toda la aplicación
-
-- Los componentes compartidos deben ser genéricos y desacoplados de una funcionalidad específica
 
 # 🌐 Consumo de API
 
