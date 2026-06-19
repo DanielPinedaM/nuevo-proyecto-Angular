@@ -19,8 +19,8 @@ import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
-import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
-import { IRequestOptions } from '@/shared/services/api/general-api/types/request-data.types';
+import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

@@ -3,8 +3,8 @@ import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
-import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
-import { IResponse } from '@/shared/services/api/general-api/types/request-data.types';
+import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { IResponse } from '@/shared/services/api/http-client/types/request-data.types';
 import { MenuDesktopComponent } from '@/shared/design/ui/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/shared/design/ui/menu/menu-mobile/menu-mobile.component';
 

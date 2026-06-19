@@ -6,7 +6,7 @@ import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import { saveAs } from 'file-saver';
 import { inject, Injectable, Injector } from '@angular/core';
 import * as ExcelJS from 'exceljs';
-import { IResponse } from '@/shared/services/api/general-api/types/request-data.types';
+import { IResponse } from '@/shared/services/api/http-client/types/request-data.types';
 import ToastUtilsService from './Toast.utils';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 import { LoaderService } from '@/shared/services/stores/loader.store';

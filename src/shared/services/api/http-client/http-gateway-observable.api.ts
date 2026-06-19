@@ -6,11 +6,11 @@ import {
   IRequestOptions,
   IResponse,
   TMethod,
-} from '@/shared/services/api/general-api/types/request-data.types';
+} from '@/shared/services/api/http-client/types/request-data.types';
 import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import { environment } from '@/environments/environment';
-import { RequestDataUtils } from '@/shared/services/api/general-api/utils/request-data.utils';
+import { RequestDataUtils } from '@/shared/services/api/http-client/utils/request-data.utils';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 
 @Injectable({

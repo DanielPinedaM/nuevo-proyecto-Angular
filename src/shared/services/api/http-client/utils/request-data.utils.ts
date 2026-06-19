@@ -9,7 +9,7 @@ import {
   IResponse,
   IObjectLogs,
   IRequestOptions,
-} from '@/shared/services/api/general-api/types/request-data.types';
+} from '@/shared/services/api/http-client/types/request-data.types';
 
 @Injectable({
   providedIn: 'root',

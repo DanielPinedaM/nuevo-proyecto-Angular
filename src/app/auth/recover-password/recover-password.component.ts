@@ -13,8 +13,8 @@ import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
-import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
-import { IRequestOptions } from '@/shared/services/api/general-api/types/request-data.types';
+import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
 
 export interface IBodyRecoverPassword {
   email: string;

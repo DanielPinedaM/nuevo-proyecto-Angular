@@ -135,7 +135,7 @@ src/
 │   │
 │   ├── services/ → servicios reutilizables de alcance global que pueden ser utilizados por múltiples features de la aplicación. Encapsulan lógica transversal, infraestructura, acceso a APIs, utilidades técnicas y gestión de estado compartido. No deben depender de reglas de negocio específicas de una feature.
 │   │   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externas
-│   │   │   └── general-api/
+│   │   │   └── http-client/
 │   │   │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
 │   │   │
 │   │   └── stores/ → estados globales de la aplicación compartidos entre múltiples features. A diferencia de `features/*/store`, su alcance no está limitado a una sola feature
