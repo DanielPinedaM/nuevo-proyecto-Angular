@@ -354,7 +354,7 @@ Un componente pertenece a `components` cuando conoce el dominio, participa en un
 
 La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
 
-## Prohibido `src/shared/components`|
+## Prohibido `src/shared/components`
 
 La carpeta `src/shared/components` está prohibida.
 
@@ -425,42 +425,6 @@ La ubicación depende del alcance de reutilización:
 
 La decisión de ubicar un archivo en `features` o `shared` depende de su conocimiento del dominio y alcance de reutilización, no de si es un `ui` o un `layout`.
 
-# 🔒 Protección de Rutas
-
-Todas las páginas protegidas de la aplicación deben ser `children` de `MainWrapperComponent`.
-
-Los `children` de `MainWrapperComponent` son las rutas protegidas despues de que el usuario se loguea.
-
-```ts
-/* src/app/app.routes.ts */
-import { Routes } from "@angular/router";
-import { AuthGuard } from "@/shared/guards/auth.guard";
-
-// #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
-// #endregion
-
-import { BotsComponent } from "@/app/features/bots/bots.component";
-
-export const routes: Routes = [
-  {
-    path: "",
-    component: MainWrapperComponent,
-
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-
-    children: [
-      {
-        // /bots
-        path: "bots",
-        component: BotsComponent,
-      },
-    ],
-  },
-];
-```
-
 # 🔀 Enrutado
 
 El nombre de las carpetas dentro de `src/app` tiene que coincidir exactamente con las rutas definidas en `src/app/app.routes.ts`
@@ -516,6 +480,42 @@ En este ejemplo:
 - `BotsComponent` es hijo de `MainWrapperComponent`
 
 - `AuthGuard` protege automáticamente todas las rutas hijas gracias a `canActivateChild`
+
+# 🔒 Protección de Rutas
+
+Todas las páginas protegidas de la aplicación deben ser `children` de `MainWrapperComponent`.
+
+Los `children` de `MainWrapperComponent` son las rutas protegidas despues de que el usuario se loguea.
+
+```ts
+/* src/app/app.routes.ts */
+import { Routes } from "@angular/router";
+import { AuthGuard } from "@/shared/guards/auth.guard";
+
+// #region - contenedor principal de paginas despues de loguearse
+import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
+// #endregion
+
+import { BotsComponent } from "@/app/features/bots/bots.component";
+
+export const routes: Routes = [
+  {
+    path: "",
+    component: MainWrapperComponent,
+
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+
+    children: [
+      {
+        // /bots
+        path: "bots",
+        component: BotsComponent,
+      },
+    ],
+  },
+];
+```
 
 # 📅 Fechas
 
