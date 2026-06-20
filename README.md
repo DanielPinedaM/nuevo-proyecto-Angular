@@ -279,6 +279,8 @@ La reutilización no convierte automáticamente un archivo en código compartido
 
 
 
+> [!WARNING]
+> # ***INCOMPLETO - verificar manualmente otra vez todo este readme md, para pasar readme md de next a angular***
 
 
 
