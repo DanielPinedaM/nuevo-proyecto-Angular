@@ -222,9 +222,7 @@ src/
 │       │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
 │       │
 │       ├── stores/ → estados globales de la aplicación compartidos entre múltiples features. A diferencia de `features/*/store`, su alcance no está limitado a una sola feature
-│       │   ├── loader.store.ts → estado global para ocultar y mostrar icono de cargando
-│       │   ├── viewport-width.store.ts → estado global con el ancho actual del viewport (pantalla)
-│       │   └── current-route.store.ts → estado global con la ruta actual
+│       │   └── loader.store.ts → estado global para ocultar y mostrar icono de cargando
 │       │
 │       ├── Crypto.service.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
 │       ├── DataType.service.ts → funciones para tipos de datos de JS, ejemplo normalizar string
