@@ -109,7 +109,14 @@ Al copiar este contenido hacia una herramienta de IA:
 
 # Stack Frontend del Proyecto
 
-* Angular 22
+* Angular 22 moderno usando:
+  * Signal-based reactivity
+  * Signal Forms
+  * input y output con signals: `import { input, output } from '@angular/core'`
+  * Standalone Components
+  * Control Flow Directives: `@for`, `@if`, `@switch`, `@case`, `@default`
+  * Inyeccion de dependencias con `inject() `
+
 * TypeScript 6
 * Prime NG 21
 * Tailwind CSS 4
@@ -134,6 +141,12 @@ Al copiar este contenido hacia una herramienta de IA:
 * La arquitectura, reglas y convenciones definidas en este documento tienen prioridad absoluta. Sin embargo, como no todos los casos posibles están documentados, si un problema no puede resolverse respetando la arquitectura actual o requiere una solución no contemplada en el README, primero debes advertir explícitamente que dicha solución se sale de la arquitectura o convenciones establecidas antes de generar una implementación.
 
 # 📁 Estructura Base del Proyecto
+
+La estructura de carpetas definida a continuación **no representa la totalidad completa del proyecto**, representa la **arquitectura base de referencia**.
+
+Esta arquitectura define el patrón estructural que toda la aplicación debe seguir, independientemente del crecimiento del proyecto o la incorporación de nuevas features.
+
+Es la guía principal que determina cómo se organiza el código, no una lista exhaustiva de todos los archivos existentes.
 
 ```txt
 src/
@@ -244,6 +257,170 @@ src/
             ├── index-tailwind.css → archivo de configuración de Tailwind 4
             └── preflight.css → Reset CSS basado en Tailwind 4
 ```
+
+# Feature Architecture
+
+Este proyecto utiliza **Feature Architecture** sobre Angular
+
+La regla principal es:
+
+* La lógica de negocio pertenece a una feature.
+
+* El código agnóstico al negocio pertenece a `shared`.
+
+Un archivo no debe moverse a `shared` únicamente porque se reutiliza en varias `features`
+
+La reutilización no convierte automáticamente un archivo en código compartido (`shared`)
+
+# Regla de Ubicación de Archivos y Carpetas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Diferencia entre `src/app/features` y `src/shared`
+
+## `src/app/features`
+
+Contiene código específico de una funcionalidad del sistema.
+
+Todo archivo que conozca entidades, reglas, procesos o casos de uso del negocio debe permanecer dentro de la feature correspondiente.
+
+La lógica de negocio nunca debe salir de su feature.
+
+**Ejemplo:**
+* `src/app/features/*/design/ui`: componentes visuales reutilizables únicamente dentro de la feature.
+
+* `src/app/features/*/design/layouts`: layouts y contenedores utilizados exclusivamente por la feature.
+
+* `src/app/features/*/guards`: guards con reglas de acceso o navegación específicas de la feature.
+
+* `src/app/features/*/services`: servicios con lógica de negocio y funcionalidades propias de la feature.
+
+* `src/app/features/*/services/stores`: gestión de datos propios de la feature.
+
+## `src/shared`
+
+Contiene únicamente código reutilizable y completamente agnóstico al dominio.
+
+`shared` no puede conocer ninguna `feature`.
+
+`shared` no puede contener reglas de negocio.
+
+`shared` no puede contener componentes, servicios o lógica relacionados con usuarios, autenticación, productos, órdenes, dashboard o cualquier otro concepto del dominio.
+
+**Ejemplo:**
+* `src/shared/design/ui`: componentes visuales reutilizables globalmente.
+
+* `src/shared/design/layouts`: layouts y contenedores reutilizables.
+
+* `src/shared/guards`: guards reutilizables para control de navegación y acceso, sin lógica de negocio específica de las features
+
+* `src/shared/services`: servicios con lógica reutilizable y utilidades compartidas entre múltiples features.
+
+* `src/shared/services/api`: capa de acceso a APIs externas. Su única responsabilidad es realizar llamadas HTTP y centralizar la comunicación con servicios externos.
+
+* `src/shared/services/stores`: estado global de toda la aplicación.
+
+# Diferencia entre `components` y `ui`
+
+## ui
+
+`ui` contiene exclusivamente componentes de presentación y maquetación.
+
+Los componentes de `ui` deben ser completamente agnósticos al dominio.
+
+Un componente de `ui` no puede conocer logica de negocio, entidades del sistema ni casos de uso.
+
+Su única responsabilidad es renderizar interfaz reutilizable.
+
+## components
+
+`components` contiene componentes con lógica de negocio específica de la feature donde están definidos.
+
+Un componente pertenece a `components` cuando conoce el dominio, participa en un caso de uso o implementa comportamiento propio de la funcionalidad.
+
+La lógica de negocio siempre pertenece a `components`, nunca a `ui`.
+
+## Prohibido `src/shared/components`|
+
+La carpeta `src/shared/components` está prohibida.
+
+`shared` representa código agnóstico al dominio.
+
+`components` representa componentes con comportamiento funcional asociado a una feature.
+
+Ambos conceptos son incompatibles.
+
+Si un componente es agnóstico al dominio, pertenece a `shared/ui`.
+
+Si un componente contiene lógica de negocio, pertenece a `src/app/features/*/components`.
+
+Por esta razón **NO** debe exitir:
+
+* `src/shared/components`
+* `src/app/shared/components`
+* `src/app/features/*/shared/components`.
+
+Las únicas ubicaciones válidas para componentes compartidos es:
+* `src/shared/design/layouts`
+
+* `src/shared/design/ui`
+
+# Diferencia entre `ui` y `layouts`
+
+## ui
+
+`ui` contiene exclusivamente componentes de presentación y maquetación reutilizables.
+
+Su responsabilidad es renderizar interfaz.
+
+Los componentes de `ui` deben ser completamente agnósticos al dominio y no pueden contener lógica de negocio, casos de uso ni conocimiento de entidades del sistema.
+
+Un componente de `ui` **NO** debe actuar como contenedor principal de una pantalla o sección compleja.
+
+****Ejemplos:****
+
+* Button
+* Modal
+* Card
+
+## layouts
+
+`layouts` contiene contenedores padre reutilizables encargados de definir la estructura visual de páginas, secciones o flujos.
+
+Su responsabilidad es organizar y componer componentes, proyectar contenido y establecer la distribución general de la interfaz.
+
+Un layout puede contener múltiples componentes de `ui`, pero un componente de `ui` no debe asumir responsabilidades de layout.
+
+****Ejemplos:****
+
+* AuthLayout
+* DashboardLayout
+* HomeLayout
+
+## Regla de ubicación
+
+La ubicación depende del alcance de reutilización:
+
+* Si el elemento pertenece únicamente a una feature, debe ubicarse en:
+  * `src/app/features/*/design/ui`
+  * `src/app/features/*/design/layouts`
+
+* Si el elemento es reutilizable globalmente y no conoce ninguna regla de negocio, debe ubicarse en:
+  * `src/shared/design/ui`
+  * `src/shared/design/layouts`
+
+La decisión de ubicar un archivo en `features` o `shared` depende de su conocimiento del dominio y alcance de reutilización, no de si es un `ui` o un `layout`.
 
 # 📅 Fechas
 
