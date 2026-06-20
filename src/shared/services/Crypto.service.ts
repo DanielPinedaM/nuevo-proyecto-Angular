@@ -1,6 +1,6 @@
 ﻿import { inject, Injectable } from '@angular/core';
 import { enc, mode, pad, AES } from 'crypto-js';
-import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
+import DataTypeService from '@/shared/services/DataType.service';
 import {
   IVAuth,
   secretKeyAuthentication,
@@ -9,8 +9,8 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export default class CryptoServiceClass {
-  private dataTypeClass = inject(DataTypeClass);
+export default class CryptoService {
+  private dataTypeClass = inject(DataTypeService);
 
   async encrypt(text: string): Promise<string | null> {
     if (!this.dataTypeClass.isString(text)) {

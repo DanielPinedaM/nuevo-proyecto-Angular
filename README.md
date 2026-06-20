@@ -109,6 +109,8 @@ Al copiar este contenido hacia una herramienta de IA:
 
 # Stack Frontend del Proyecto
 
+* Node.js 24.16.0
+
 * Angular 22 moderno usando:
   * Signal-based reactivity
   * Signal Forms
@@ -155,7 +157,9 @@ src/
 │   └── img/ → Imágenes del proyecto
 │
 ├── environments/ → variables de entorno
-│   ├── environment.interface.ts → Tipos de datos de las variables de entorno
+│   ├── data-types/
+│   │   └── interfaces/
+│   │       └── environment.interface.ts → Tipos de datos de las variables de entorno
 │   ├── environment.localhost.ts → Variables de entorno de local host (desarrollo)
 │   ├── environment.prod.ts → Variables de entorno de producción
 │   └── environment.test.ts → Variables de entorno de pruebas
@@ -163,13 +167,16 @@ src/
 ├── app/
 │   ├── app.routes.ts → Definición de rutas (URL)
 │   │
-│   ├── auth/ → Rutas de autenticación
-│   │   ├── assign-password/ → Recuperar y cambiar la contraseña
-│   │   ├── login/ → Iniciar sesión
-│   │   ├── recover-password/ → Enviar correo para recuperar contraseña
-│   │   └── register/ → Formulario de registro de nuevo usuario
-│   │
 │   └── features/ → Contiene todas las rutas y componentes después de iniciar sesión
+│       ├── auth/ → Rutas de autenticación
+│       │   ├── assign-password/ → Recuperar y cambiar la contraseña
+│       │   ├── login/ → Iniciar sesión
+│       │   ├── recover-password/ → Enviar correo para recuperar contraseña
+│       │   ├── register/ → Formulario de registro de nuevo usuario
+│       │   └── data-types/ → tipos de datos, contratos, constantes y definiciones utilizados exclusivamente por auth
+│       │       ├── constants/
+│       │       └── interfaces/
+│       │
 │       └── bots/ → Feature independiente que define la ruta `/bots`. El proyecto utiliza una arquitectura basada en funcionalidades (Feature-Based Architecture).
 │           ├── bots.component.html
 │           ├── bots.component.ts
@@ -200,7 +207,7 @@ src/
 │   │   │
 │   │   └── ui/ → componentes visuales reutilizables que representan partes aisladas de la interfaz, no páginas ni estructuras de navegación completas
 │   │       ├── breadcrumbs/ → Componente con migas de pan
-│   │       ├── loader/ → icono de cargando
+│   │       ├── fixed-loader/ → icono de cargando
 │   │       └── menu/ → Componente de menú
 │   │
 │   ├── data-types/ → tipos de datos, contratos, constantes y definiciones reutilizables compartidos entre múltiples features de la aplicación. No deben depender de logica de negocio de una feature
@@ -209,27 +216,23 @@ src/
 │   │   └── enums/
 │   │   └── types/
 │   │
-│   ├── services/ → servicios reutilizables de alcance global que pueden ser utilizados por múltiples features de la aplicación. Encapsulan lógica transversal, infraestructura, acceso a APIs, utilidades técnicas y gestión de estado compartido. No deben depender de reglas de negocio específicas de una feature.
-│   │   ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externas
-│   │   │   └── http-client/
-│   │   │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
-│   │   │
-│   │   └── stores/ → estados globales de la aplicación compartidos entre múltiples features. A diferencia de `features/*/store`, su alcance no está limitado a una sola feature
-│   │       ├── loader.store.ts → estado global para ocultar y mostrar icono de cargando
-│   │       ├── viewport-width.store.ts → estado global con el ancho actual del viewport (pantalla)
-│   │       └── current-route.store.ts → estado global con la ruta actual
-│   │
-│   └── utils/
-│       └── class/
-│           ├── notification/ → carpeta con funciones para mostrar mensajes emergentes
-│           │   └── HotToastClass.utils.ts → Notificaciones tipo toast
-│           │
-│           ├── CryptoServiceClass.utils.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
-│           ├── DataTypeClass.utils.ts → funciones para tipos de datos de JS, ejemplo normalizar string
-│           ├── DownloadFileClass.utils.ts → funciones para descargar y ver archivos
-│           ├── GeneralClass.utils.ts → funciones globales q se pueden re-utilizar en cualquier parte de la web
-│           ├── LuxonClass.utils.ts → funciones para fechas usando Luxon
-│           └── SessionStorageClass.utils.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
+│   └── services/ → servicios reutilizables de alcance global que pueden ser utilizados por múltiples features de la aplicación. Encapsulan lógica transversal, infraestructura, acceso a APIs, utilidades técnicas y gestión de estado compartido. No deben depender de reglas de negocio específicas de una feature.
+│       ├── api/ → clases encargadas de realizar peticiones HTTP a APIs propias y externas
+│       │   └── http-client/
+│       │       └── http-gateway-observable.api.ts → Clase para peticiones HTTP usando Observables
+│       │
+│       ├── stores/ → estados globales de la aplicación compartidos entre múltiples features. A diferencia de `features/*/store`, su alcance no está limitado a una sola feature
+│       │   ├── loader.store.ts → estado global para ocultar y mostrar icono de cargando
+│       │   ├── viewport-width.store.ts → estado global con el ancho actual del viewport (pantalla)
+│       │   └── current-route.store.ts → estado global con la ruta actual
+│       │
+│       ├── Crypto.service.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
+│       ├── DataType.service.ts → funciones para tipos de datos de JS, ejemplo normalizar string
+│       ├── DownloadFile.service.ts → funciones para descargar y ver archivos
+│       ├── General.service.ts → funciones globales q se pueden re-utilizar en cualquier parte de la web
+│       ├── Luxon.service.ts → funciones para fechas usando Luxon
+│       ├── SessionStorage.service.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
+│       └── Toast.service.ts → notificaciones tipo toast
 │
 └── styles/
     └── global/
@@ -423,6 +426,98 @@ La ubicación depende del alcance de reutilización:
   * `src/shared/design/layouts`
 
 La decisión de ubicar un archivo en `features` o `shared` depende de su conocimiento del dominio y alcance de reutilización, no de si es un `ui` o un `layout`.
+
+# 🔒 Protección de Rutas
+
+Todas las páginas protegidas de la aplicación deben ser `children` de `MainWrapperComponent`.
+
+Los `children` de `MainWrapperComponent` son las rutas protegidas despues de que el usuario se loguea.
+
+```ts
+/* src/app/app.routes.ts */
+import { Routes } from "@angular/router";
+import { AuthGuard } from "@/shared/guards/auth.guard";
+
+// #region - contenedor principal de paginas despues de loguearse
+import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
+// #endregion
+
+import { BotsComponent } from "@/app/features/bots/bots.component";
+
+export const routes: Routes = [
+  {
+    path: "",
+    component: MainWrapperComponent,
+
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+
+    children: [
+      {
+        // /bots
+        path: "bots",
+        component: BotsComponent,
+      },
+    ],
+  },
+];
+```
+
+# 🔀 Enrutado
+
+El nombre de las carpetas dentro de `src/app` tiene que coincidir exactamente con las rutas definidas en `src/app/app.routes.ts`
+
+Esto permite ubicar los componentes que corresponden a cada URL
+
+Además,
+
+**✅ Correcto:**
+
+```txt
+src/app/
+├── features/
+│     └── bots/
+│         └── bots.component.html
+│         └── bots.component.ts
+```
+
+```ts
+/* src/app/app.routes.ts */
+import { Routes } from "@angular/router";
+import { AuthGuard } from "@/shared/guards/auth.guard";
+
+// #region - contenedor principal de paginas despues de loguearse
+import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
+// #endregion
+
+import { BotsComponent } from "@/app/features/bots/bots.component";
+
+export const routes: Routes = [
+  {
+    path: "",
+    component: MainWrapperComponent,
+
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+
+    children: [
+      {
+        // /bots
+        path: "bots",
+        component: BotsComponent,
+      },
+    ],
+  },
+];
+```
+
+En este ejemplo:
+
+- La URL `/bots` coincide con la estructura `src/app/features/bots`
+
+- `BotsComponent` es hijo de `MainWrapperComponent`
+
+- `AuthGuard` protege automáticamente todas las rutas hijas gracias a `canActivateChild`
 
 # 📅 Fechas
 
@@ -1879,98 +1974,6 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
   <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 ```
-
-# 🔒 Protección de Rutas
-
-Todas las páginas protegidas de la aplicación deben ser `children` de `MainWrapperComponent`.
-
-Los `children` de `MainWrapperComponent` son las rutas protegidas despues de que el usuario se loguea.
-
-```ts
-/* src/app/app.routes.ts */
-import { Routes } from "@angular/router";
-import { AuthGuard } from "@/shared/guards/auth.guard";
-
-// #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
-// #endregion
-
-import { BotsComponent } from "@/app/features/bots/bots.component";
-
-export const routes: Routes = [
-  {
-    path: "",
-    component: MainWrapperComponent,
-
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-
-    children: [
-      {
-        // /bots
-        path: "bots",
-        component: BotsComponent,
-      },
-    ],
-  },
-];
-```
-
-# 🔀 Enrutado
-
-El nombre de las carpetas dentro de `src/app` tiene que coincidir exactamente con las rutas definidas en `src/app/app.routes.ts`
-
-Esto permite ubicar los componentes que corresponden a cada URL
-
-Además,
-
-**✅ Correcto:**
-
-```txt
-src/app/
-├── features/
-│     └── bots/
-│         └── bots.component.html
-│         └── bots.component.ts
-```
-
-```ts
-/* src/app/app.routes.ts */
-import { Routes } from "@angular/router";
-import { AuthGuard } from "@/shared/guards/auth.guard";
-
-// #region - contenedor principal de paginas despues de loguearse
-import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-wrapper.component';
-// #endregion
-
-import { BotsComponent } from "@/app/features/bots/bots.component";
-
-export const routes: Routes = [
-  {
-    path: "",
-    component: MainWrapperComponent,
-
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-
-    children: [
-      {
-        // /bots
-        path: "bots",
-        component: BotsComponent,
-      },
-    ],
-  },
-];
-```
-
-En este ejemplo:
-
-- La URL `/bots` coincide con la estructura `src/app/features/bots`
-
-- `BotsComponent` es hijo de `MainWrapperComponent`
-
-- `AuthGuard` protege automáticamente todas las rutas hijas gracias a `canActivateChild`
 
 # 🌐 Consumo de API
 

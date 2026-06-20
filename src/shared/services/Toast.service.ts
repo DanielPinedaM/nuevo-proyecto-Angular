@@ -1,8 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+﻿import { inject, Injectable } from '@angular/core';
 import { HotToastService, ToastPosition } from '@ngxpert/hot-toast';
-import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
+import DataTypeService from '@/shared/services/DataType.service';
 
-const GENERAL_STYLE = {
+const TOAST_CONTAINER_STYLE = {
   padding: '3px 6px',
   borderRadius: '8px',
   margin: '8px 8px 0 0',
@@ -14,8 +14,8 @@ const GENERAL_STYLE = {
 @Injectable({
   providedIn: 'root',
 })
-export default class ToastUtilsService {
-  dataTypeClass = inject(DataTypeClass);
+export default class ToastService {
+  dataTypeClass = inject(DataTypeService);
   toast = inject(HotToastService);
 
   private duration: number = 4000;
@@ -46,13 +46,13 @@ export default class ToastUtilsService {
     }
 
     this.toast.show(`Éxito: ${this.#normalizeMessage(message)}`, {
-      icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined !text-white">check_circle</span><div/>',
+      icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined text-white">check_circle</span><div/>',
       duration: this.duration,
       position: this.position,
       style: {
         background: '#22c561',
         color: '#fff',
-        ...GENERAL_STYLE,
+        ...TOAST_CONTAINER_STYLE,
       },
     });
   }
@@ -73,13 +73,13 @@ export default class ToastUtilsService {
     }
 
     this.toast.show(`Error: ${this.#normalizeMessage(message)}`, {
-      icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined !text-white">cancel</span><div/>',
+      icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined text-white">cancel</span><div/>',
       duration: this.duration,
       position: this.position,
       style: {
         background: '#d03035',
         color: '#fff',
-        ...GENERAL_STYLE,
+        ...TOAST_CONTAINER_STYLE,
       },
     });
   }
@@ -100,13 +100,13 @@ export default class ToastUtilsService {
     }
 
     this.toast.show(`Aviso: ${this.#normalizeMessage(message)}`, {
-      icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined !text-white">info</span><div/>',
+      icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined text-white">info</span><div/>',
       duration: this.duration,
       position: this.position,
       style: {
         background: '#61aaec',
         color: '#fff',
-        ...GENERAL_STYLE,
+        ...TOAST_CONTAINER_STYLE,
       },
     });
   }
@@ -127,13 +127,13 @@ export default class ToastUtilsService {
     }
 
     this.toast.show(`Advertencia: ${this.#normalizeMessage(message)}`, {
-      icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined !text-white">warning</span><div/>',
+      icon: '<div class="flex h-full w-fit items-center"><span class="material-symbols-outlined text-white">warning</span><div/>',
       duration: this.duration,
       position: this.position,
       style: {
         background: '#f4d745',
         color: '#fff',
-        ...GENERAL_STYLE,
+        ...TOAST_CONTAINER_STYLE,
       },
     });
   }

@@ -1,6 +1,6 @@
 ﻿import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import Storage from '@/shared/utils/class/SessionStorageClass.utils';
+import SessionStorageService from '@/shared/services/SessionStorage.service';
 import {
   FormControl,
   FormGroup,
@@ -9,10 +9,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
-import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
+import DataTypeService from '@/shared/services/DataType.service';
+import ToastService from '@/shared/services/Toast.service';
 import { minLengthPassword } from '@/app/features/auth/data-types/constants/auth.const';
-import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
+import CryptoService from '@/shared/services/Crypto.service';
 import { firstValueFrom } from 'rxjs';
 import { IBodyLogin } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import { MessageModule } from 'primeng/message';
@@ -35,11 +35,11 @@ import { IRequestOptions } from '@/shared/services/api/http-client/types/request
   ],
 })
 export class LoginComponent implements OnInit {
-  storage = inject(Storage);
-  cryptoServiceClass = inject(CryptoServiceClass);
-  dataTypeClass = inject(DataTypeClass);
+  storage = inject(SessionStorageService);
+  cryptoServiceClass = inject(CryptoService);
+  dataTypeClass = inject(DataTypeService);
   http = inject(ApiGatewayService);
-  toast = inject(ToastUtilsService);
+  toast = inject(ToastService);
   router = inject(Router);
 
   dataLoginBurned: boolean = ['localhost'].includes(environment.NODE_ENV);

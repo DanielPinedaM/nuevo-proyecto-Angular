@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+﻿import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { environment } from '@/environments/environment';
 import { RouterModule } from '@angular/router';
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
-import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
+import ToastService from '@/shared/services/Toast.service';
+import CryptoService from '@/shared/services/Crypto.service';
 import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
@@ -32,9 +32,9 @@ export interface IBodyRecoverPassword {
   ],
 })
 export class RecoverPasswordComponent implements OnInit {
-  cryptoServiceClass = inject(CryptoServiceClass);
+  cryptoServiceClass = inject(CryptoService);
   http = inject(ApiGatewayService);
-  toast = inject(ToastUtilsService);
+  toast = inject(ToastService);
 
   ngOnInit() {}
 

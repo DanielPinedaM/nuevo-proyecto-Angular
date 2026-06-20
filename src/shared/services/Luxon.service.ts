@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Nullable } from 'primeng/ts-helpers';
 
 @Injectable({
   providedIn: 'root',
 })
-export default class LuxonClass {
+export default class LuxonService {
   /**
   Eliminar espacio en blanco reemplazando:
   - "p. m" por "p.m"

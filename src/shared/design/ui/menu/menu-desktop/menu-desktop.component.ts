@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+﻿import { CommonModule } from '@angular/common';
 import { Component, inject, input, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -6,7 +6,7 @@ import { filter, map, startWith } from 'rxjs';
 
 import { TooltipModule } from 'primeng/tooltip';
 
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
+import ToastService from '@/shared/services/Toast.service';
 
 interface IMenuOptions {
   text: string;
@@ -23,7 +23,7 @@ interface IMenuOptions {
 })
 export class MenuDesktopComponent {
   readonly router = inject(Router);
-  readonly toast = inject(ToastUtilsService);
+  readonly toast = inject(ToastService);
 
   readonly showText = signal<boolean>(false);
 

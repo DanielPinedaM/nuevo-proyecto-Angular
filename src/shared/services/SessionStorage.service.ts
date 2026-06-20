@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = "token"
 
@@ -32,7 +32,7 @@ export interface ISessionStorageObject {
 @Injectable({
   providedIn: 'root',
 })
-export default class Storage {
+export default class SessionStorageService {
   #errorMessage = (
     functionName: string,
     property: any,

@@ -1,6 +1,6 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import Storage from '@/shared/utils/class/SessionStorageClass.utils';
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
+﻿import { Component, inject, OnInit, signal } from '@angular/core';
+import SessionStorageService from '@/shared/services/SessionStorage.service';
+import ToastService from '@/shared/services/Toast.service';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
 import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
@@ -21,9 +21,9 @@ interface IMenuOptions {
   imports: [MenuDesktopComponent, MenuMobileComponent],
 })
 export class MainMenuComponent implements OnInit {
-  storage = inject(Storage);
+  storage = inject(SessionStorageService);
   http = inject(ApiGatewayService);
-  toast = inject(ToastUtilsService);
+  toast = inject(ToastService);
 
   menuOptions = signal<IMenuOptions[]>([]);
 

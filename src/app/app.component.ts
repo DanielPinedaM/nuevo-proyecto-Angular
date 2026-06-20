@@ -1,11 +1,11 @@
-import { environment } from '@/environments/environment';
+﻿import { environment } from '@/environments/environment';
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/shared/services/stores/loader.store';
-import Storage from '@/shared/utils/class/SessionStorageClass.utils';
-import { LoaderComponent } from '@/shared/design/ui/loader/loader.component';
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
+import SessionStorageService from '@/shared/services/SessionStorage.service';
+import { FixedLoaderComponent } from '@/shared/design/ui/fixed-loader/fixed-loader.component';
+import ToastService from '@/shared/services/Toast.service';
 
 const AUTH_ROUTES: string[] = [
   'iniciar-sesion',
@@ -16,12 +16,12 @@ const AUTH_ROUTES: string[] = [
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoaderComponent],
+  imports: [RouterOutlet, FixedLoaderComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  storage = inject(Storage);
-  toast = inject(ToastUtilsService);
+  storage = inject(SessionStorageService);
+  toast = inject(ToastService);
   bnIdle = inject(BnNgIdleService);
   router = inject(Router);
   loaderService = inject(LoaderService);

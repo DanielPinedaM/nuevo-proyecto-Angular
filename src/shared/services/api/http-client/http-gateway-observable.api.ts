@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+﻿import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError, finalize } from 'rxjs/operators';
 import { inject, Injectable } from '@angular/core';
 import { Observable, of, timeout } from 'rxjs';
@@ -7,19 +7,19 @@ import {
   IResponse,
   TMethod,
 } from '@/shared/services/api/http-client/types/request-data.types';
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
+import ToastService from '@/shared/services/Toast.service';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import { environment } from '@/environments/environment';
 import { RequestDataUtils } from '@/shared/services/api/http-client/utils/request-data.utils';
-import Storage from '@/shared/utils/class/SessionStorageClass.utils';
+import SessionStorageService from '@/shared/services/SessionStorage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiGatewayService {
-  private storage = inject(Storage);
+  private storage = inject(SessionStorageService);
   private httpClient = inject(HttpClient);
-  private toast = inject(ToastUtilsService);
+  private toast = inject(ToastService);
   private requestDataUtils = inject(RequestDataUtils);
   private loaderService = inject(LoaderService);
   private _timeout: number = 1000 * 60;

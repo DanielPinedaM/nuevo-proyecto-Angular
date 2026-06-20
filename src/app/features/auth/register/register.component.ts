@@ -9,15 +9,15 @@ import {
 import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
+import ToastService from '@/shared/services/Toast.service';
 import {
   IBodyRegister,
   IInputValuePassword,
   IObjValidatePassword,
 } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import { minLengthPassword } from '@/app/features/auth/data-types/constants/auth.const';
-import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
-import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
+import GeneralService from '@/shared/services/General.service';
+import CryptoService from '@/shared/services/Crypto.service';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
@@ -38,10 +38,10 @@ import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
   ],
 })
 export class RegisterComponent implements OnInit {
-  cryptoServiceClass = inject(CryptoServiceClass);
-  generalClass = inject(GeneralClass);
+  cryptoServiceClass = inject(CryptoService);
+  generalClass = inject(GeneralService);
   http = inject(ApiGatewayService);
-  toast = inject(ToastUtilsService);
+  toast = inject(ToastService);
   router = inject(Router);
 
   // necesario para validar <input> contraseña y confirmar contraseña

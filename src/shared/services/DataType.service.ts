@@ -1,19 +1,19 @@
-/* *********************************************
+﻿/* *********************************************
  * metodos relacionadas con los tipos de datos *
  * ********************************************* */
 
 import { inject, Injectable, Injector } from '@angular/core';
-import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
+import GeneralService from '@/shared/services/General.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export default class DataTypeClass {
+export default class DataTypeService {
   private injector = inject(Injector);
-  private _generalClass: GeneralClass | null = null;
-  get generalClass(): GeneralClass {
+  private _generalClass: GeneralService | null = null;
+  get generalClass(): GeneralService {
     if (!this._generalClass) {
-      this._generalClass = this.injector.get(GeneralClass);
+      this._generalClass = this.injector.get(GeneralService);
     }
     return this._generalClass;
   }

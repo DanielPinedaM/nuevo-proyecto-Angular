@@ -1,28 +1,28 @@
-/* ********************************
+﻿/* ********************************
  * metodos para descargar archivo *
  * ******************************** */
 
-import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
+import GeneralService from '@/shared/services/General.service';
 import { saveAs } from 'file-saver';
 import { inject, Injectable, Injector } from '@angular/core';
 import * as ExcelJS from 'exceljs';
 import { IResponse } from '@/shared/services/api/http-client/types/request-data.types';
-import ToastUtilsService from './Toast.utils';
-import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+import ToastService from './Toast.service';
+import LuxonService from '@/shared/services/Luxon.service';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 
 @Injectable({
   providedIn: 'root',
 })
-export default class DownloadFileClass {
-  luxonClass = inject(LuxonClass);
+export default class DownloadFileService {
+  luxonClass = inject(LuxonService);
   loaderService = inject(LoaderService);
-  toast = inject(ToastUtilsService);
+  toast = inject(ToastService);
   private injector = inject(Injector);
-  private _generalClass: GeneralClass | null = null;
-  get generalClass(): GeneralClass {
+  private _generalClass: GeneralService | null = null;
+  get generalClass(): GeneralService {
     if (!this._generalClass) {
-      this._generalClass = this.injector.get(GeneralClass);
+      this._generalClass = this.injector.get(GeneralService);
     }
     return this._generalClass;
   }

@@ -1,10 +1,10 @@
-import { inject, Injectable } from '@angular/core';
+﻿import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
-import ToastUtilsService from '@/shared/utils/class/Toast.utils';
+import ToastService from '@/shared/services/Toast.service';
 import { LoaderService } from '@/shared/services/stores/loader.store';
-import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
+import DataTypeService from '@/shared/services/DataType.service';
 import {
   IResponse,
   IObjectLogs,
@@ -15,8 +15,8 @@ import {
   providedIn: 'root',
 })
 export class RequestDataUtils {
-  dataTypeClass = inject(DataTypeClass);
-  private toast = inject(ToastUtilsService);
+  dataTypeClass = inject(DataTypeService);
+  private toast = inject(ToastService);
   private router = inject(Router);
   private loaderService = inject(LoaderService);
 
