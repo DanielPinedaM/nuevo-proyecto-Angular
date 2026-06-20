@@ -1,4 +1,4 @@
-
+﻿
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import ToastUtilsService from '@/shared/utils/class/Toast.utils';
 import { inject, Injectable } from '@angular/core';
@@ -6,8 +6,8 @@ import { Options, titleCase as titleCaseNpm } from 'title-case';
 import {
   minLengthPassword,
   securePasswordErrorMessage,
-} from '@/app/auth/models/constants/auth.const';
-import { IObjValidatePassword } from '@/app/auth/models/interfaces/auth.interfaces';
+} from '@/app/features/auth/data-types/constants/auth.const';
+import { IObjValidatePassword } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
 import { titleCaseOptions } from '@/shared/data-types/constants/title-case.const';
 

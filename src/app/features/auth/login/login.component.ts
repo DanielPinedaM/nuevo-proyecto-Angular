@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+﻿import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import Storage from '@/shared/utils/class/SessionStorageClass.utils';
 import {
@@ -11,10 +11,10 @@ import {
 import { environment } from '@/environments/environment';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import ToastUtilsService from '@/shared/utils/class/Toast.utils';
-import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
+import { minLengthPassword } from '@/app/features/auth/data-types/constants/auth.const';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import { firstValueFrom } from 'rxjs';
-import { IBodyLogin } from '@/app/auth/models/interfaces/auth.interfaces';
+import { IBodyLogin } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';

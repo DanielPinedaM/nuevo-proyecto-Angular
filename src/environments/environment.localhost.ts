@@ -1,6 +1,6 @@
-// variables de DESARROLLO (LOCAL HOST)
+﻿// variables de DESARROLLO (LOCAL HOST)
 
-import { IEnvironment } from '@/environments/environment.interface';
+import { IEnvironment } from '@/environments/data-types/interfaces/environment.interface';
 
 const api: string = 'http://localhost:3000/api/v1/';
 

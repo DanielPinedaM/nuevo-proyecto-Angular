@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+﻿import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -14,8 +14,8 @@ import {
   IBodyRegister,
   IInputValuePassword,
   IObjValidatePassword,
-} from '@/app/auth/models/interfaces/auth.interfaces';
-import { minLengthPassword } from '@/app/auth/models/constants/auth.const';
+} from '@/app/features/auth/data-types/interfaces/auth.interfaces';
+import { minLengthPassword } from '@/app/features/auth/data-types/constants/auth.const';
 import GeneralClass from '@/shared/utils/class/GeneralClass.utils';
 import CryptoServiceClass from '@/shared/utils/class/CryptoServiceClass.utils';
 import { MessageModule } from 'primeng/message';

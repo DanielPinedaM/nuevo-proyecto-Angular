@@ -1,10 +1,10 @@
-import { inject, Injectable } from '@angular/core';
+﻿import { inject, Injectable } from '@angular/core';
 import { enc, mode, pad, AES } from 'crypto-js';
 import DataTypeClass from '@/shared/utils/class/DataTypeClass.utils';
 import {
   IVAuth,
   secretKeyAuthentication,
-} from '@/app/auth/models/constants/auth.const';
+} from '@/app/features/auth/data-types/constants/auth.const';
 
 @Injectable({
   providedIn: 'root',

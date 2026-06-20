@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+﻿import { Routes } from '@angular/router';
 import { AuthGuard } from '@/shared/guards/auth.guard';
 
 // #region - error 404 ruta inexistente
@@ -10,11 +10,11 @@ import { MainWrapperComponent } from '@/shared/design/layouts/main-wrapper/main-
 // #endregion
 
 // #region autenticacion
-import { MainAuthComponent } from '@/app/auth/main-auth/main-auth.component';
-import { LoginComponent } from '@/app/auth/login/login.component';
-import { RecoverPasswordComponent } from '@/app/auth/recover-password/recover-password.component';
-import { RegisterComponent } from '@/app/auth/register/register.component';
-import { AssignPasswordComponent } from '@/app/auth/assign-password/assign-password.component';
+import { MainAuthComponent } from '@/app/features/auth/main-auth/main-auth.component';
+import { LoginComponent } from '@/app/features/auth/login/login.component';
+import { RecoverPasswordComponent } from '@/app/features/auth/recover-password/recover-password.component';
+import { RegisterComponent } from '@/app/features/auth/register/register.component';
+import { AssignPasswordComponent } from '@/app/features/auth/assign-password/assign-password.component';
 // #endregion
 
 import { BotsComponent } from '@/app/features/bots/bots.component';

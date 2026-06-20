@@ -1,6 +1,6 @@
-// variables de PRODUCCIÓN
+﻿// variables de PRODUCCIÓN
 
-import { IEnvironment } from '@/environments/environment.interface';
+import { IEnvironment } from '@/environments/data-types/interfaces/environment.interface';
 
 const api: string = 'https://aqui escribir dominio de PRODUCCION';
 
