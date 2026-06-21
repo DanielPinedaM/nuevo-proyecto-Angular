@@ -191,11 +191,8 @@ src/
 │           │
 │           ├── ui/ → componentes visuales reutilizables utilizados únicamente por la feature bots. Están enfocados en la presentación de la interfaz y deben mantenerse desacoplados de la lógica de negocio
 │           │
-│           ├── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots. Pueden depender de modelos, reglas de negocio y casos de uso específicos de la feature. Su alcance está limitado a bots y no deben utilizarse desde otras features.
-│           │   └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación
-│           │
-│           └── utils/
-│               └── class/ → clases auxiliares utilizadas únicamente por la feature bots
+│           └── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots. Pueden depender de modelos, reglas de negocio y casos de uso específicos de la feature. Su alcance está limitado a bots y no deben utilizarse desde otras features.
+│               └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación
 │
 ├── shared/ → utilidades compartidas (globales) que se pueden usar en cualquier parte de la web
 │   ├── guards/
@@ -557,7 +554,7 @@ const now = DateTime.now();
 const formatted = now.toFormat("yyyy-MM-dd");
 ```
 
-En `src\shared\utils\class\LuxonClass.utils.ts` hay funciones para el manejo (formateo) de fecha y hora usando Luxon.
+En `src/shared/services/Luxon.service.ts` hay funciones para el manejo (formateo) de fecha y hora usando Luxon.
 
 **❌ Incorrecto - NO usar `formatDate`, usar Luxon directo**
 
@@ -593,24 +590,23 @@ export class MyComponent {
 /* my-component.component.ts */
 import { Component, inject } from "@angular/core";
 import { DateTime } from "luxon";
-import LuxonClass from "@/shared/utils/class/LuxonClass.utils";
+import LuxonService from "@/shared/services/Luxon.service";
 
 @Component({
   selector: 'app-my-component',
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
-  private dateUtils = inject(LuxonClass);
+  luxon = inject(LuxonService);
 
   getDate() {
-    const formatted = this.dateUtils.formatDate(DateTime.now(), "d-LLL-yyyy hh:mm:ss a");
-
+    const formatted = this.luxon.formatDate(DateTime.now(), "d-LLL-yyyy hh:mm:ss a");
     console.log(formatted);
   }
 }
 ```
 
-En `src\shared\utils\class\LuxonClass.utils.ts` hay función para obtener fecha y hora actual con formato de fecha y hora personalizada
+En `src/shared/services/Luxon.service.ts` hay función para obtener fecha y hora actual con formato de fecha y hora personalizada
 
 **❌ Incorrecto - usar Luxon directamente para obtener fecha y hora actual**
 
@@ -640,22 +636,22 @@ export class MyComponent {
 }
 ```
 
-***✅ Ejemplo correcto - usar `LuxonClass.utils.ts`***
+***✅ Ejemplo correcto - usar `Luxon.service.ts`***
 
 ```ts
 /* my-component.component.ts */
 import { Component, inject } from "@angular/core";
-import LuxonClass from "@/shared/utils/class/LuxonClass.utils";
+import LuxonService from "@/shared/services/Luxon.service";
 
 @Component({
   selector: 'app-my-component',
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
-  private dateUtils = inject(LuxonClass);
+  luxon = inject(LuxonService);
 
   getCurrentDateTime() {
-    const current = this.dateUtils.currentDateAndTime("d-LLL-yyyy hh:mm:ss a");
+    const current = this.luxon.currentDateAndTime("d-LLL-yyyy hh:mm:ss a");
 
     console.log(current);
   }
@@ -2430,7 +2426,6 @@ porque con el tipo del archivo ya se entiende que hace el archivo por el decorad
 | `list-table.ts`  | componente      | `@Component`             |
 | `format-date.ts` | pipe            | `@Pipe`                  |
 | `highlight.ts`   | directiva       | `@Directive`             |
-| `crypto.ts`      | utils           | `class` clase utilitaria |
 
 **✅ Convención usada en este proyecto**
 
@@ -2454,7 +2449,6 @@ Esto facilita:
 | `list-table.component.ts` | componente      | `@Component`             |
 | `format-date.pipe.ts`     | pipe            | `@Pipe`                  |
 | `highlight.directive.ts`  | directiva       | `@Directive`             |
-| `crypto.utils.ts`         | utils           | `class` clase utilitaria |
 
 ## 🧩 Standalone Components
 
@@ -2803,7 +2797,7 @@ Esto permite:
 /* my-component.component.ts */
 import { Component } from '@angular/core';
 import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
-import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+import LuxonService from '@/shared/services/Luxon.service';
 
 @Component({
   selector: 'app-my-component',
@@ -2812,7 +2806,7 @@ import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 export class MyComponent {
   constructor(
     private http: GatewayApiService,
-    private dateUtils: LuxonClass,
+    private dateUtils: LuxonService,
   ) {}
 
   // ...
@@ -2825,15 +2819,15 @@ export class MyComponent {
 /* my-component.component.ts */
 import { Component, inject } from '@angular/core';
 import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
-import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
+import LuxonService from '@/shared/services/Luxon.service';
 
 @Component({
   selector: 'app-my-component',
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
-  private http = inject(GatewayApiService);
-  private dateUtils = inject(LuxonClass);
+  http = inject(GatewayApiService);
+  luxon = inject(LuxonService);
 
   // ...
 }
