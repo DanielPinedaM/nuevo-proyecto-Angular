@@ -10,7 +10,7 @@ import { TMethod } from '@/shared/services/api/http-client/data-types/types/gate
 import ToastService from '@/shared/services/Toast.service';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import { environment } from '@/environments/environment';
-import { RequestDataUtils } from '@/shared/services/api/http-client/utils/gateway.utils';
+import { GatewayHelperService } from '@/shared/services/api/http-client/gateway-helper.service';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class ApiGatewayService {
   private storage = inject(SessionStorageService);
   private httpClient = inject(HttpClient);
   private toast = inject(ToastService);
-  private requestDataUtils = inject(RequestDataUtils);
+  private gatewayHelper = inject(GatewayHelperService);
   private loaderService = inject(LoaderService);
   private _timeout: number = 1000 * 60;
 
@@ -85,7 +85,7 @@ export class ApiGatewayService {
     return requestFn().pipe(
       timeout(this._timeout),
       map((response: any) => {
-        this.requestDataUtils.successLogs({
+        this.gatewayHelper.successLogs({
           method,
           url,
           options,
@@ -103,9 +103,9 @@ export class ApiGatewayService {
             : error?.status;
 
         if (executeErrorHandling)
-          this.requestDataUtils.errorHandling(status, url);
+          this.gatewayHelper.errorHandling(status, url);
 
-        this.requestDataUtils.errorLogs({
+        this.gatewayHelper.errorLogs({
           method,
           url,
           options,
@@ -135,7 +135,7 @@ export class ApiGatewayService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
+    const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
     return this.executeRequest<T>(
       () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
@@ -149,7 +149,7 @@ export class ApiGatewayService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
+    const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
     return this.executeRequest<T>(
       () =>
@@ -168,7 +168,7 @@ export class ApiGatewayService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
+    const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
     return this.executeRequest<T>(
       () =>
@@ -187,7 +187,7 @@ export class ApiGatewayService {
     url: string,
     options: IRequestOptions = {}
   ): Observable<T | IResponse> {
-    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
+    const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
     return this.executeRequest<T>(
       () =>
@@ -208,7 +208,7 @@ export class ApiGatewayService {
   ): Observable<T | IResponse> {
     const method: TMethod = 'DELETE';
 
-    const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
+    const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
     return this.executeRequest<T>(
       () =>

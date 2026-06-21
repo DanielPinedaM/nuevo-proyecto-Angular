@@ -14,7 +14,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class RequestDataUtils {
+export class GatewayHelperService {
   dataTypeClass = inject(DataTypeService);
   private toast = inject(ToastService);
   private router = inject(Router);
@@ -221,7 +221,7 @@ export class RequestDataUtils {
 
   /**
   configuraciones por defecto para llamar la API */
-  #DEFAULT_OPTIONS(url: string): IRequestOptions {
+  private DEFAULT_OPTIONS(url: string): IRequestOptions {
     return {
       params: {},
       headers: { 'Content-Type': 'application/json' },
@@ -246,7 +246,7 @@ export class RequestDataUtils {
   opciones q recibe Angular httpClient */
   buildHttpOptions(url: string, options: IRequestOptions = {}): any {
     // Combinar opciones por defecto con las personalizadas
-    const defaultOptions = this.#DEFAULT_OPTIONS(url);
+    const defaultOptions = this.DEFAULT_OPTIONS(url);
 
     const mergedOptions: IRequestOptions = {
       ...defaultOptions,
