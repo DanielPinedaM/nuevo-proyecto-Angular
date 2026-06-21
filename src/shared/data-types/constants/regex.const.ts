@@ -1,4 +1,4 @@
-export const CONST_REGEX = {
+const CONST_REGEX = {
   number: {
     // valida numeros enteros, negativos y decimales con coma y punto
     integerOrDecimal: /^(-?\d{0,}(\,|\.)?){0,}$/,
@@ -19,3 +19,5 @@ export const CONST_REGEX = {
       /^(?=.[!@#$%^&()_+\[\]{};':"\\|,.<>/?])(?=.[0-9])(?=.[A-ZÑÁÉÍÓÚ])(?=.*[a-zñáéíóú])/,
   },
 };
+
+export default CONST_REGEX;

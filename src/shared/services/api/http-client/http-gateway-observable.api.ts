@@ -10,7 +10,7 @@ import {
 import ToastService from '@/shared/services/Toast.service';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import { environment } from '@/environments/environment';
-import { RequestDataUtils } from '@/shared/services/api/http-client/utils/request-data.utils';
+import { RequestDataUtils } from '@/shared/services/api/http-client/utils/gateway.utils';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class ApiGatewayService {
    ***************************
    * validar peticiones HTTP *
    *************************** */
-  #executeRequest<T = any>(
+  private executeRequest<T = any>(
     requestFn: () => Observable<T>,
     url: string = '',
     method: TMethod,
@@ -137,7 +137,7 @@ export class ApiGatewayService {
   ): Observable<T | IResponse> {
     const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
-    return this.#executeRequest<T>(
+    return this.executeRequest<T>(
       () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
       url,
       'GET',
@@ -151,7 +151,7 @@ export class ApiGatewayService {
   ): Observable<T | IResponse> {
     const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
-    return this.#executeRequest<T>(
+    return this.executeRequest<T>(
       () =>
         this.httpClient.post<T>(
           url,
@@ -170,7 +170,7 @@ export class ApiGatewayService {
   ): Observable<T | IResponse> {
     const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
-    return this.#executeRequest<T>(
+    return this.executeRequest<T>(
       () =>
         this.httpClient.put<T>(
           url,
@@ -189,7 +189,7 @@ export class ApiGatewayService {
   ): Observable<T | IResponse> {
     const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
-    return this.#executeRequest<T>(
+    return this.executeRequest<T>(
       () =>
         this.httpClient.patch<T>(
           url,
@@ -210,7 +210,7 @@ export class ApiGatewayService {
 
     const httpOptions = this.requestDataUtils.buildHttpOptions(url, options);
 
-    return this.#executeRequest<T>(
+    return this.executeRequest<T>(
       () =>
         this.httpClient.request<T>(method, url, {
           body: options?.body ?? {},

@@ -23,7 +23,7 @@ import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
-import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
+import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
 @Component({
   selector: 'app-register',

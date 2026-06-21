@@ -7,7 +7,7 @@ import {
   SECURE_PASSWORD_ERROR_MESSAGE,
 } from '@/app/features/auth/data-types/constants/auth.const';
 import { IObjValidatePassword } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
-import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
+import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
 @Injectable({
   providedIn: 'root',

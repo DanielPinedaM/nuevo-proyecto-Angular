@@ -23,7 +23,7 @@ import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
 import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
 import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
-import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
+import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
 @Component({
   selector: 'app-assign-password',
