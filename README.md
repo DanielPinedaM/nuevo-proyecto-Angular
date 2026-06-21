@@ -2540,12 +2540,12 @@ ng generate @angular/core:control-flow
 ```
 
 | ❌ **NO** usar Angular legacy | ✅ Usar Angular moderno |
-| ----------------------------- | ----------------------- |
-| `*ngFor`                      | `@for`                  |
-| `*ngIf`                       | `@if`                   |
-| `*ngSwitch`                   | `@switch`               |
-| `*ngSwitchCase`               | `@case`                 |
-| `*ngSwitchDefault`            | `@default`              |
+| ----------------------------- | ------------------------ |
+| `*ngFor`                      | `@for`                   |
+| `*ngIf`                       | `@if`                    |
+| `*ngSwitch`                   | `@switch`                |
+| `*ngSwitchCase`               | `@case`                  |
+| `*ngSwitchDefault`            | `@default`               |
 
 ### **[`@for`](https://angular.dev/api/core/@for)**
 
