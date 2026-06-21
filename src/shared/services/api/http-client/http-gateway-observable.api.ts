@@ -5,8 +5,8 @@ import { Observable, of, timeout } from 'rxjs';
 import {
   IRequestOptions,
   IResponse,
-  TMethod,
-} from '@/shared/services/api/http-client/types/request-data.types';
+} from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
+import { TMethod } from '@/shared/services/api/http-client/data-types/types/gateway.type';
 import ToastService from '@/shared/services/Toast.service';
 import { LoaderService } from '@/shared/services/stores/loader.store';
 import { environment } from '@/environments/environment';

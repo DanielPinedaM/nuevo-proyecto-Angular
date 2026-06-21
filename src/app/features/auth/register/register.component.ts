@@ -22,7 +22,7 @@ import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
-import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
+import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
 @Component({

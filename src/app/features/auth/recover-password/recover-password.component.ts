@@ -14,7 +14,7 @@ import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
-import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
+import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
 
 export interface IBodyRecoverPassword {
   email: string;

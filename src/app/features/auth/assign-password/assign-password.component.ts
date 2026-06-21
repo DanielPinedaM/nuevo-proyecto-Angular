@@ -21,7 +21,7 @@ import GeneralService from '@/shared/services/General.service';
 import DataTypeService from '@/shared/services/DataType.service';
 import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
-import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
+import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
 import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 

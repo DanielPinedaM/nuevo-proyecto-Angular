@@ -1,10 +1,9 @@
 ﻿import { inject, Injectable } from '@angular/core';
 import { enc, mode, pad, AES } from 'crypto-js';
 import DataTypeService from '@/shared/services/DataType.service';
-import {
-  IV_AUTH,
-  SECRET_KEY_AUTHENTICATION,
-} from '@/app/features/auth/data-types/constants/auth.const';
+
+const SECRET_KEY_AUTHENTICATION: string = 'GestionAlcaldeCO';
+const IV_AUTH: string = 'encryptionIntVec';
 
 @Injectable({
   providedIn: 'root',
