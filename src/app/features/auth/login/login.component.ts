@@ -11,7 +11,7 @@ import {
 import { environment } from '@/environments/environment';
 import DataTypeService from '@/shared/services/DataType.service';
 import ToastService from '@/shared/services/Toast.service';
-import { minLengthPassword } from '@/app/features/auth/data-types/constants/auth.const';
+import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
 import CryptoService from '@/shared/services/Crypto.service';
 import { firstValueFrom } from 'rxjs';
 import { IBodyLogin } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
   dataLoginBurned: boolean = ['localhost'].includes(environment.NODE_ENV);
 
-  minLengthPassword = signal<number>(minLengthPassword);
+  minLengthPassword = signal<number>(MIN_LENGTH_PASSWORD);
 
   formLogin = new FormGroup({
     email: new FormControl(

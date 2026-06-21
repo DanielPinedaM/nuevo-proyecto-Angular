@@ -3,8 +3,8 @@ import ToastService from '@/shared/services/Toast.service';
 import { inject, Injectable } from '@angular/core';
 import { Options, titleCase as titleCaseNpm } from 'title-case';
 import {
-  minLengthPassword,
-  securePasswordErrorMessage,
+  MIN_LENGTH_PASSWORD,
+  SECURE_PASSWORD_ERROR_MESSAGE,
 } from '@/app/features/auth/data-types/constants/auth.const';
 import { IObjValidatePassword } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import { CONST_REGEX } from '@/shared/data-types/constants/regex.const';
@@ -31,7 +31,7 @@ export default class GeneralService {
     const objValidatePassword: IObjValidatePassword = {
       error: true,
       message: '',
-      minLength: minLengthPassword,
+      minLength: MIN_LENGTH_PASSWORD,
 
       password,
       confirmPassword,
@@ -39,7 +39,7 @@ export default class GeneralService {
 
     // mensajes de error
     const type: string = 'Digite';
-    const containMinimum: string = `debe contener mínimo ${minLengthPassword} caracteres`;
+    const containMinimum: string = `debe contener mínimo ${MIN_LENGTH_PASSWORD} caracteres`;
     const notAText: string = 'no es un texto';
 
     // validar q contraseña y confirmar contraseña sean tipo string
@@ -58,7 +58,7 @@ export default class GeneralService {
     password = password.trim();
     confirmPassword = confirmPassword.trim();
 
-    // validar q contraseña tenga el numero de caracteres de la variable minLengthPassword
+    // validar q contraseña tenga el numero de caracteres de la variable MIN_LENGTH_PASSWORD
 
     // contraseña - hacer obligatorio
     if (password === '') {
@@ -67,7 +67,7 @@ export default class GeneralService {
     }
 
     // contraseña - validar numero caracteres
-    if (password.length < minLengthPassword) {
+    if (password.length < MIN_LENGTH_PASSWORD) {
       objValidatePassword.message = 'Contraseña' + ' ' + containMinimum;
       return objValidatePassword;
     }
@@ -75,7 +75,7 @@ export default class GeneralService {
     // contraseña - validar q sea segura
     if (!this.strongPassword(password)) {
       objValidatePassword.message =
-        'Contraseña no es segura,' + ' ' + securePasswordErrorMessage;
+        'Contraseña no es segura,' + ' ' + SECURE_PASSWORD_ERROR_MESSAGE;
       return objValidatePassword;
     }
 
@@ -86,7 +86,7 @@ export default class GeneralService {
     }
 
     // confirmar contraseña - validar numero caracteres
-    if (confirmPassword.length < minLengthPassword) {
+    if (confirmPassword.length < MIN_LENGTH_PASSWORD) {
       objValidatePassword.message =
         'Confirmar contraseña' + ' ' + containMinimum;
       return objValidatePassword;
@@ -101,7 +101,7 @@ export default class GeneralService {
     // confirmar contraseña - validar q sea segura
     if (!this.strongPassword(confirmPassword)) {
       objValidatePassword.message =
-        'Confirmar contraseña no es segura,' + ' ' + securePasswordErrorMessage;
+        'Confirmar contraseña no es segura,' + ' ' + SECURE_PASSWORD_ERROR_MESSAGE;
       return objValidatePassword;
     }
 

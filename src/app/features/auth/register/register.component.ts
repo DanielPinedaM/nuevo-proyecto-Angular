@@ -15,7 +15,7 @@ import {
   IInputValuePassword,
   IObjValidatePassword,
 } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
-import { minLengthPassword } from '@/app/features/auth/data-types/constants/auth.const';
+import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
 import GeneralService from '@/shared/services/General.service';
 import CryptoService from '@/shared/services/Crypto.service';
 import { MessageModule } from 'primeng/message';
@@ -68,12 +68,12 @@ export class RegisterComponent implements OnInit {
 
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(minLengthPassword),
+      Validators.minLength(MIN_LENGTH_PASSWORD),
       Validators.pattern(CONST_REGEX.text.strongPassword),
     ]),
     confirmPassword: new FormControl('', [
       Validators.required,
-      Validators.minLength(minLengthPassword),
+      Validators.minLength(MIN_LENGTH_PASSWORD),
       Validators.pattern(CONST_REGEX.text.strongPassword),
     ]),
   });
