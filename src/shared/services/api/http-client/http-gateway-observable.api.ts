@@ -45,21 +45,6 @@ export class ApiGatewayService {
       });
     }
 
-    // validar q tenga conexion a internet
-    if (!window?.navigator?.onLine) {
-      const message: string =
-        'Conéctese a internet para que la página web pueda funcionar';
-
-      this.toast.error(message);
-
-      return of({
-        success: false,
-        status: 503,
-        message,
-        data: [] as unknown as T,
-      });
-    }
-
     const {
       showLoader,
       showLogger,
