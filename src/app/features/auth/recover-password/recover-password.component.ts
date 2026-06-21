@@ -13,7 +13,7 @@ import CryptoService from '@/shared/services/Crypto.service';
 import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
-import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
 
 export interface IBodyRecoverPassword {
@@ -33,7 +33,7 @@ export interface IBodyRecoverPassword {
 })
 export class RecoverPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoService);
-  http = inject(ApiGatewayService);
+  http = inject(GatewayApiService);
   toast = inject(ToastService);
 
   ngOnInit() {}

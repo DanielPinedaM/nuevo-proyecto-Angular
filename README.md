@@ -1975,7 +1975,7 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 
 # 🌐 Consumo de API
 
-En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `src\shared\API\general-api\http-gateway-observable.api.ts`, que maneja:
+En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `GatewayApiService` (`src/shared/services/api/http-client/http-gateway-observable.api.ts`), que maneja:
 
 - icono de loader global
 
@@ -2158,7 +2158,7 @@ export class MyComponent {
 
 ## ✅ Forma correcta
 
-Se debe usar únicamente el ApiGatewayService (`src/services/api/general-api/http-gateway-observable.api`) centralizado.
+Se debe usar únicamente el `GatewayApiService` centralizado.
 
 - NO usar `try/catch` aquí
 
@@ -2171,7 +2171,7 @@ Se debe usar únicamente el ApiGatewayService (`src/services/api/general-api/htt
 ```ts
 /* my-component.component.ts */
 import { Component, inject } from "@angular/core";
-import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
+import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
 import { environment } from "@/environments/environment";
 
 @Component({
@@ -2179,7 +2179,7 @@ import { environment } from "@/environments/environment";
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
-  http = inject(ApiGatewayService);
+  http = inject(GatewayApiService);
 
   async getBots() {
     const { success, status, message, data } = await firstValueFrom(
@@ -2272,7 +2272,7 @@ export class MyComponent {
 ```ts
 /* my-component.component.ts */
 import { Component, inject } from "@angular/core";
-import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
+import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
 import { environment } from "@/environments/environment";
 
 @Component({
@@ -2280,7 +2280,7 @@ import { environment } from "@/environments/environment";
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
-  http = inject(ApiGatewayService);
+  http = inject(GatewayApiService);
 
   async getBots() {
     const { success, status, message, data } = await firstValueFrom(this.http.POST(`${environment.api}`, optionsApi));
@@ -2303,8 +2303,7 @@ Esto permite estandarizar el comportamiento de las llamadas HTTP sin repetir ló
 ## 📦 ¿Qué permite configurar?
 
 ```ts
-/* src\shared\API\general-api\types\request-data.types.ts */
-
+/* src/shared/services/api/http-client/data-types/interfaces/gateway.interface.ts */
 export interface IRequestOptions<T = any> {
   body?: T;
   params?: TParams;
@@ -2318,6 +2317,10 @@ export interface IRequestOptions<T = any> {
   isASecurityEndpoint?: boolean;
   withCredentials?: boolean;
 }
+```
+
+```ts
+/* src/shared/services/api/http-client/data-types/types/gateway.type.ts */
 
 /**
 tipo de respuesta HTTP */
@@ -2353,7 +2356,7 @@ Enviar datos al backend usando `POST` y el `body` de `IRequestOptions`.
 ```ts
 /* my-component.component.ts */
 import { Component, inject } from "@angular/core";
-import { ApiGatewayService } from "@/shared/services/api/general-api/http-gateway-observable.api";
+import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
 import { firstValueFrom } from "rxjs";
 import { environment } from "@/environments/environment";
 
@@ -2367,7 +2370,7 @@ interface IBodyBots {
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
-  private http = inject(ApiGatewayService);
+  private http = inject(GatewayApiService);
 
   async createBot() {
     const optionsApi: IRequestOptions<IBodyBots> = {
@@ -2799,7 +2802,7 @@ Esto permite:
 ```TS
 /* my-component.component.ts */
 import { Component } from '@angular/core';
-import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
+import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
@@ -2808,7 +2811,7 @@ import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 })
 export class MyComponent {
   constructor(
-    private http: ApiGatewayService,
+    private http: GatewayApiService,
     private dateUtils: LuxonClass,
   ) {}
 
@@ -2821,7 +2824,7 @@ export class MyComponent {
 ```TS
 /* my-component.component.ts */
 import { Component, inject } from '@angular/core';
-import { ApiGatewayService } from '@/shared/services/api/general-api/http-gateway-observable.api';
+import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
 
 @Component({
@@ -2829,7 +2832,7 @@ import LuxonClass from '@/shared/utils/class/LuxonClass.utils';
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
-  private http = inject(ApiGatewayService);
+  private http = inject(GatewayApiService);
   private dateUtils = inject(LuxonClass);
 
   // ...

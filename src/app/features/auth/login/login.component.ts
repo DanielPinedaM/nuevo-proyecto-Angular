@@ -19,7 +19,7 @@ import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
-import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
 @Component({
   selector: 'app-login',
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   storage = inject(SessionStorageService);
   cryptoServiceClass = inject(CryptoService);
   dataTypeClass = inject(DataTypeService);
-  http = inject(ApiGatewayService);
+  http = inject(GatewayApiService);
   toast = inject(ToastService);
   router = inject(Router);
 

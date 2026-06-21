@@ -3,7 +3,7 @@ import SessionStorageService from '@/shared/services/SessionStorage.service';
 import ToastService from '@/shared/services/Toast.service';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
-import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import { MenuDesktopComponent } from '@/shared/design/ui/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/shared/design/ui/menu/menu-mobile/menu-mobile.component';
 
@@ -21,7 +21,7 @@ interface IMenuOptions {
 })
 export class MainMenuComponent implements OnInit {
   storage = inject(SessionStorageService);
-  http = inject(ApiGatewayService);
+  http = inject(GatewayApiService);
   toast = inject(ToastService);
 
   menuOptions = signal<IMenuOptions[]>([]);

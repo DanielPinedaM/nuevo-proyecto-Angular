@@ -22,7 +22,7 @@ import DataTypeService from '@/shared/services/DataType.service';
 import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
 import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
-import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
 @Component({
@@ -40,7 +40,7 @@ export class AssignPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoService);
   generalClass = inject(GeneralService);
   dataTypeClass = inject(DataTypeService);
-  http = inject(ApiGatewayService);
+  http = inject(GatewayApiService);
   toast = inject(ToastService);
   router = inject(Router);
   route = inject(ActivatedRoute);

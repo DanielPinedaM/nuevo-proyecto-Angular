@@ -16,7 +16,7 @@ import SessionStorageService from '@/shared/services/SessionStorage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiGatewayService {
+export class GatewayApiService {
   private storage = inject(SessionStorageService);
   private httpClient = inject(HttpClient);
   private toast = inject(ToastService);

@@ -21,7 +21,7 @@ import CryptoService from '@/shared/services/Crypto.service';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
-import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
@@ -40,7 +40,7 @@ import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 export class RegisterComponent implements OnInit {
   cryptoServiceClass = inject(CryptoService);
   generalClass = inject(GeneralService);
-  http = inject(ApiGatewayService);
+  http = inject(GatewayApiService);
   toast = inject(ToastService);
   router = inject(Router);
 
