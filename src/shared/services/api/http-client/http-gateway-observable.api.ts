@@ -32,7 +32,7 @@ export class ApiGatewayService {
     requestFn: () => Observable<T>,
     url: string = '',
     method: TMethod,
-    options: IRequestOptions = {}
+    options: IRequestOptions = {},
   ): Observable<T | IResponse> {
     // validar URL q llama al endpoint
     const urlString: string = String(url);
@@ -102,8 +102,7 @@ export class ApiGatewayService {
             ? errorResponse.status
             : error?.status;
 
-        if (executeErrorHandling)
-          this.gatewayHelper.errorHandling(status, url);
+        if (executeErrorHandling) this.gatewayHelper.errorHandling(status, url);
 
         this.gatewayHelper.errorLogs({
           method,
@@ -123,7 +122,7 @@ export class ApiGatewayService {
       }),
       finalize(() => {
         if (showLoader) this.loaderService.setLoader(false);
-      })
+      }),
     );
   }
 
@@ -131,9 +130,9 @@ export class ApiGatewayService {
    ************************************************
    * metodos reactivos para llamar endpoint (API) *
    ************************************************ */
-  public GET<T = any>(
+  GET<T = any>(
     url: string,
-    options: IRequestOptions = {}
+    options: IRequestOptions = {},
   ): Observable<T | IResponse> {
     const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
@@ -141,13 +140,13 @@ export class ApiGatewayService {
       () => this.httpClient.get<T>(url, httpOptions) as Observable<T>,
       url,
       'GET',
-      options
+      options,
     );
   }
 
-  public POST<T = any>(
+  POST<T = any>(
     url: string,
-    options: IRequestOptions = {}
+    options: IRequestOptions = {},
   ): Observable<T | IResponse> {
     const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
@@ -156,17 +155,17 @@ export class ApiGatewayService {
         this.httpClient.post<T>(
           url,
           options?.body ?? {},
-          httpOptions
+          httpOptions,
         ) as Observable<T>,
       url,
       'POST',
-      options
+      options,
     );
   }
 
-  public PUT<T = any>(
+  PUT<T = any>(
     url: string,
-    options: IRequestOptions = {}
+    options: IRequestOptions = {},
   ): Observable<T | IResponse> {
     const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
@@ -175,17 +174,17 @@ export class ApiGatewayService {
         this.httpClient.put<T>(
           url,
           options?.body ?? {},
-          httpOptions
+          httpOptions,
         ) as Observable<T>,
       url,
       'PUT',
-      options
+      options,
     );
   }
 
-  public PATCH<T = any>(
+  PATCH<T = any>(
     url: string,
-    options: IRequestOptions = {}
+    options: IRequestOptions = {},
   ): Observable<T | IResponse> {
     const httpOptions = this.gatewayHelper.buildHttpOptions(url, options);
 
@@ -194,17 +193,17 @@ export class ApiGatewayService {
         this.httpClient.patch<T>(
           url,
           options?.body ?? {},
-          httpOptions
+          httpOptions,
         ) as Observable<T>,
       url,
       'PATCH',
-      options
+      options,
     );
   }
 
-  public DELETE<T = any>(
+  DELETE<T = any>(
     url: string,
-    options: IRequestOptions = {}
+    options: IRequestOptions = {},
   ): Observable<T | IResponse> {
     const method: TMethod = 'DELETE';
 
@@ -218,7 +217,7 @@ export class ApiGatewayService {
         }) as Observable<T>,
       url,
       method,
-      options
+      options,
     );
   }
 }
