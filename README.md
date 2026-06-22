@@ -100,9 +100,12 @@ Al copiar este contenido hacia una IA:
 # `CLAUDE.md`
 
 # 🌐 Reglas de Idioma
-* Responder siempre en español.
+* Responder siempre en español. Es decir, redactar en español todas las explicaciones, respuestas, preguntas, descripciones, análisis, recomendaciones, documentación y mensajes dirigidos al usuario.
 
-* Redactar explicaciones y documentación en español.
+* Mantener en español el razonamiento explicativo que se muestra al usuario para justificar una respuesta o decisión.
+
+* El razonamiento explicativo es generado y mostrado únicamente a criterio de la IA cuando sea necesario para justificar o aclarar una respuesta o decisión. Cuando este razonamiento se muestre al usuario, debe estar redactado en español.
+
 * No traducir términos técnicos de uso común en desarrollo de software (por ejemplo: middleware, service, controller, repository, signal, interceptor, provider, endpoint, payload).
 
 * No traducir nombres de frameworks, librerías, paquetes, APIs ni patrones de diseño.
@@ -216,13 +219,14 @@ Flujo para determinar el `<scope>`:
 5. Si el `<scope>` genera duda, omitirlo.
 
 ### Regla Cuando el Cambio no Coincide Exactamente con la Tabla
-
 * Nunca omitir el emoji.
 
 * Priorizar la coherencia semántica sobre la coincidencia exacta: elegir el tipo y el emoji de la tabla que mejor representen la intención del cambio.
 
-# Stack Frontend del Proyecto
+### Mostrar el Commit Después de Realizarlo
+Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
 
+# Stack Frontend del Proyecto
 * Node.js 24.16.0
 
 * Angular 22 moderno usando:
