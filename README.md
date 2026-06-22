@@ -48,7 +48,6 @@ Esta sección está diseñada para utilizarse como contexto en herramientas de I
 | Anomaly Innovations      | [`opencode web`](https://opencode.ai/docs/web/)                                         | [Open Code Desktop](https://youtu.be/_SVSv2Y59P0?si=LT2S0z10t1FBxlB6) | [Open Code CLI](https://youtu.be/2gO8WyctqMk?si=aNvHlf23tKfrN-Z3)  |
 
 ## Recomendación
-
 Usar la IA en el siguiente orden:
 
 1. Chat GPT para mejorar el prompt antes de enviarselo a Claude Code.
@@ -56,7 +55,6 @@ Usar la IA en el siguiente orden:
 3. Chat GPT para realizar preguntas sobre el código.
 
 ## Razón
-
 Como Chat GPT es gratis, se recomienda utilizarlo para mejorar el prompt antes de enviarlo a Claude Code, lo que permite que Claude haga mejores modificaciones en el código. Además Chat GPT, puede usarse para resolver dudas sobre el código sin consumir los tokens de Claude Code.
 
 No significa que no se pueda utilizar la IA del CLI para hacer preguntas. La razón para no hacerlo es ahorrar tokens.
@@ -66,7 +64,6 @@ No es obligatorio utilizar el CLI de Claude Code, pero sí es necesario pagar un
 La razón por la que es necesario pagar una IA es que este `README.md` es muy extenso y las IAs gratuitas tienen limitaciones.
 
 ## Edición de Código
-
 Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar el CLI para editar el código, ya que el CLI tiene:
 
 * Mayor contexto del proyecto.
@@ -75,7 +72,6 @@ Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar e
 * Capacidad para realizar cambios respetando la arquitectura del proyecto.
 
 ## Uso de Git y de IA
-
 Por cada feature terminada hacer un commit antes de solicitar nuevas modificaciones a la IA. Evita acumular demasiados cambios, ya que puedes perder el contexto de lo que la IA está realizando y cometer errores.
 
 Trabajar bajo el principio:
@@ -117,7 +113,6 @@ Al copiar este contenido hacia una IA:
 * Como excepción a la regla anterior, escribir en español los valores de `path` de las rutas definidas en `src/app/app.routes.ts` (por ejemplo, `iniciar-sesion` o `recuperar-clave`). El nombre del archivo y de la clase del componente asociado permanecen en inglés.
 
 ## Commits
-
 ### Fuente única de verdad para los commits
 * La tabla de la sección "Emojis por Tipo de Commit" es la única fuente de verdad para construir cualquier commit. El tipo y el emoji deben seleccionarse exclusivamente desde sus filas.
 
@@ -191,7 +186,6 @@ En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto
 | mock          | 🤡 | Cambios relacionados con mocks, datos simulados o datos quemados utilizados para pruebas y desarrollo                 |
 
 ### Reglas para el Scope
-
 * El `<scope>` es opcional.
 
 * Cuando se use, escribir el `<scope>` en inglés.
@@ -245,7 +239,6 @@ Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar 
 * Material Symbols Icons
 
 # Reglas Obligatorias
-
 * No generes análisis, recomendaciones ni comentarios adicionales hasta que empiece a realizar preguntas.
 
 * Todas las respuestas, recomendaciones y fragmentos de código deben respetar obligatoriamente la arquitectura, reglas, patrones y convenciones definidas en este documento.
