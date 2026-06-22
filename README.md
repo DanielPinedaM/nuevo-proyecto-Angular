@@ -5,7 +5,7 @@
 Este proyecto debe ejecutarse utilizando:
 
 ```bash
-Node JS 24.16.0
+Node JS 24.17.0
 ```
 
 # 📦 Instalar Paquetes
@@ -221,7 +221,7 @@ Flujo para determinar el `<scope>`:
 Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
 
 # Stack Frontend del Proyecto
-* Node.js 24.16.0
+* Node JS 24.17.0
 
 * Angular 22 moderno usando:
   * Signal-based reactivity
@@ -254,7 +254,6 @@ Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar 
 * La arquitectura, reglas y convenciones definidas en este documento tienen prioridad absoluta. Sin embargo, como no todos los casos posibles están documentados, si un problema no puede resolverse respetando la arquitectura actual o requiere una solución no contemplada en el README, primero debes advertir explícitamente que dicha solución se sale de la arquitectura o convenciones establecidas antes de generar una implementación.
 
 # 📁 Estructura Base del Proyecto
-
 La estructura de carpetas definida a continuación **no representa la totalidad completa del proyecto**, representa la **arquitectura base de referencia**.
 
 Esta arquitectura define el patrón estructural que toda la aplicación debe seguir, independientemente del crecimiento del proyecto o la incorporación de nuevas features.
