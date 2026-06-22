@@ -26,7 +26,7 @@ export class GatewayHelperService {
   }
 
   redirectToLogin(): void {
-    const login: string = '/iniciar-sesion';
+    const login = '/iniciar-sesion';
 
     if (!this.pathnameIsLogin()) {
       window.location.href = login;
@@ -42,7 +42,7 @@ export class GatewayHelperService {
   }
 
   pathnameIsLogin(): boolean {
-    const login: string = '/iniciar-sesion';
+    const login = '/iniciar-sesion';
 
     const pathname: string = window.location.pathname;
 

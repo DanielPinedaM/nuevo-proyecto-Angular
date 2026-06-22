@@ -38,9 +38,9 @@ export default class GeneralService {
     };
 
     // mensajes de error
-    const type: string = 'Digite';
-    const containMinimum: string = `debe contener mínimo ${MIN_LENGTH_PASSWORD} caracteres`;
-    const notAText: string = 'no es un texto';
+    const type = 'Digite';
+    const containMinimum = `debe contener mínimo ${MIN_LENGTH_PASSWORD} caracteres`;
+    const notAText = 'no es un texto';
 
     // validar q contraseña y confirmar contraseña sean tipo string
     if (!this.dataTypeClass.isString(password)) {
@@ -114,7 +114,7 @@ export default class GeneralService {
   /**
   prime NG - calcular paginador y numero de filas q se muestran en <table>
   el algoritmo funciona mejor si rows es multiplo de 3, pero puede ser cualquier numero */
-  rowsPerPageOptions = (length: number = 0, rows: number = 0): number[] => {
+  rowsPerPageOptions = (length = 0, rows = 0): number[] => {
     if (typeof length !== 'number') {
       console.error(
         'para calcular el numero de filas del paginador de prime NG la el parametro de la longitud length del array debe ser tipo number',
@@ -241,7 +241,7 @@ export default class GeneralService {
   /**
   copiar texto en portapapeles */
   public copyText = (text: string): void => {
-    const errorMessage: string = 'No se pudo copiar el texto';
+    const errorMessage = 'No se pudo copiar el texto';
 
     if (!this.dataTypeClass.isString(text)) {
       this.toast.error(errorMessage);

@@ -18,7 +18,7 @@ export default class ToastService {
   dataTypeClass = inject(DataTypeService);
   toast = inject(HotToastService);
 
-  private duration: number = 4000;
+  private duration = 4000;
   private position: ToastPosition = 'top-right';
 
   #normalizeMessage(message: string): string {

@@ -30,12 +30,12 @@ export class GatewayApiService {
    *************************** */
   private executeRequest<T = any>(
     requestFn: () => Observable<T>,
-    url: string = '',
+    url = '',
     method: TMethod,
     options: IRequestOptions = {},
   ): Observable<T | IResponse> {
     // validar URL q llama al endpoint
-    const urlString: string = String(url);
+    const urlString = String(url);
     if (!urlString.startsWith('http') || urlString === environment.api) {
       return of({
         success: false,

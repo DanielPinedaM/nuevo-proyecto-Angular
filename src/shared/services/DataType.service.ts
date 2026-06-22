@@ -70,7 +70,7 @@ export default class DataTypeService {
     )
       return null;
 
-    const number: number = Number(value);
+    const number = Number(value);
     return isNaN(number) ? null : number;
   };
 

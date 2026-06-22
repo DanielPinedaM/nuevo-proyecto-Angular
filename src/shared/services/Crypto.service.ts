@@ -2,8 +2,8 @@
 import { enc, mode, pad, AES } from 'crypto-js';
 import DataTypeService from '@/shared/services/DataType.service';
 
-const SECRET_KEY_AUTHENTICATION: string = 'GestionAlcaldeCO';
-const IV_AUTH: string = 'encryptionIntVec';
+const SECRET_KEY_AUTHENTICATION = 'GestionAlcaldeCO';
+const IV_AUTH = 'encryptionIntVec';
 
 @Injectable({
   providedIn: 'root',

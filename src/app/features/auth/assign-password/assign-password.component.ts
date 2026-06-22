@@ -79,7 +79,7 @@ export class AssignPasswordComponent implements OnInit {
   }
 
   onChangeValidatePassword(
-    value: string = '',
+    value = '',
     formControlName: 'password' | 'confirmPassword'
   ): void {
     if (!formControlName) {

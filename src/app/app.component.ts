@@ -1,5 +1,5 @@
 ﻿import { environment } from '@/environments/environment';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/shared/services/stores/loader.store';
@@ -19,7 +19,7 @@ const AUTH_ROUTES: string[] = [
   imports: [RouterOutlet, FixedLoaderComponent],
   templateUrl: './app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   storage = inject(SessionStorageService);
   toast = inject(ToastService);
   bnIdle = inject(BnNgIdleService);
@@ -36,7 +36,7 @@ export class AppComponent {
   #getLoader(): void {
     this.loaderService.getLoader().subscribe((loader: boolean) => {
       if (loader) {
-        const milliseconds: number = 120000;
+        const milliseconds = 120000;
 
         setTimeout(() => {
           this.loader.set(false);

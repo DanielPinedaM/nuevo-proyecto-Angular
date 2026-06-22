@@ -25,9 +25,7 @@ type TSessionStorageListValue =
   | undefined
   | boolean;
 
-export interface ISessionStorageObject {
-  [key: string]: string;
-}
+export type ISessionStorageObject = Record<string, string>;
 
 @Injectable({
   providedIn: 'root',
@@ -110,7 +108,7 @@ export default class SessionStorageService {
 
     if (!length) return null;
 
-    for (let i: number = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
       const key: string | null = sessionStorage.key(i);
 
       if (key) {

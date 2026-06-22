@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
     this.storage.deleteAll();
   }
 
-  setSessionStorage(data: { [key: string]: any }): void {
+  setSessionStorage(data: Record<string, any>): void {
     if (!data) {
       console.error(
         '❌ error, NO se puede setear Session Storage porque la api ha respondido con un valor falsy\n',

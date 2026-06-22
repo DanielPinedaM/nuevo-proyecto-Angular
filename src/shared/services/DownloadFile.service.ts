@@ -33,7 +33,7 @@ export default class DownloadFileService {
     blob: Blob | IResponse,
     fileName: string | undefined,
   ): void => {
-    const message: string = 'Ocurrió un error al descargar archivo';
+    const message = 'Ocurrió un error al descargar archivo';
 
     if (!(blob instanceof Blob)) {
       console.error(
@@ -104,10 +104,10 @@ export default class DownloadFileService {
   /**
   descargar Excel a partir de un array de objetos NO anidado */
   public downloadExcel = (
-    nonNestedArrayOfObjects: Array<Record<string, any>>,
+    nonNestedArrayOfObjects: Record<string, any>[],
     fileName: string,
   ): void => {
-    const errroMessage: string = 'Ocurrió un error al descargar Excel';
+    const errroMessage = 'Ocurrió un error al descargar Excel';
 
     if (!nonNestedArrayOfObjects) {
       this.toast.error(errroMessage);
