@@ -298,7 +298,7 @@ export default class GeneralService {
       return null;
     }
 
-    const randomArray: Uint32Array = new Uint32Array(1);
+    const randomArray = new Uint32Array(1);
     crypto.getRandomValues(randomArray);
 
     const index: number = randomArray[0] % max;

@@ -1,4 +1,4 @@
-﻿import { Component, inject, OnInit, signal } from '@angular/core';
+﻿import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -28,6 +28,7 @@ import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     ReactiveFormsModule,

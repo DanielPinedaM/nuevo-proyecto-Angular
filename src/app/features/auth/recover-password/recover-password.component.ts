@@ -1,4 +1,4 @@
-﻿import { Component, inject, OnInit } from '@angular/core';
+﻿import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -23,6 +23,7 @@ export interface IBodyRecoverPassword {
 @Component({
   selector: 'app-recover-password',
   templateUrl: './recover-password.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     ReactiveFormsModule,

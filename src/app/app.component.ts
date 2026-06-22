@@ -1,5 +1,5 @@
 ﻿import { environment } from '@/environments/environment';
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { LoaderService } from '@/shared/services/stores/loader.store';
@@ -17,6 +17,7 @@ const AUTH_ROUTES: string[] = [
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, FixedLoaderComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

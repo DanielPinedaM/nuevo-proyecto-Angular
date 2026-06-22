@@ -1,4 +1,4 @@
-﻿import { Component, inject, OnInit, signal } from '@angular/core';
+﻿import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
 import {
@@ -24,6 +24,7 @@ import { IRequestOptions } from '@/shared/services/api/http-client/data-types/in
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     ReactiveFormsModule,

@@ -112,7 +112,7 @@
         @if (objValidatePassword()?.error) {
         <p-message
           severity="error"
-          [text]="objValidatePassword()?.message"
+          [text]="$safeNavigationMigration(objValidatePassword()?.message)"
         ></p-message>
         }
       </div>

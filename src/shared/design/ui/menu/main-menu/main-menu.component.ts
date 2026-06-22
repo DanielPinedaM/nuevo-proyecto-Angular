@@ -1,4 +1,4 @@
-﻿import { Component, inject, OnInit, signal } from '@angular/core';
+﻿import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
 import ToastService from '@/shared/services/Toast.service';
 import { environment } from '@/environments/environment';
@@ -17,6 +17,7 @@ interface IMenuOptions {
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MenuDesktopComponent, MenuMobileComponent],
 })
 export class MainMenuComponent implements OnInit {
