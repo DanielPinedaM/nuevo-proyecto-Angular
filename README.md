@@ -2103,14 +2103,14 @@ El frontend **nunca** consume un endpoint de forma directa: toda petición pasa 
 El flujo de comunicación de este frontend es **SIEMPRE** el mismo y nunca se omite el paso por `GatewayApiService`:
 
 ```txt
-Frontend (componentes / servicios)
+Frontend
     ↓
 GatewayApiService (http-gateway-observable.api.ts)
     ↓
-┌──────────────────────┬──────────────────────┐
-↓                      ↓
-Internal APIs          External APIs
-(Servicio interno)     (Servicio externo / Third-Party)
+┌───┴────────────────┐
+↓                    ↓
+Internal APIs        External APIs
+(Servicio interno)   (Servicio externo / Third-Party)
 ```
 
 El motivo es que `http-gateway-observable.api.ts` estandariza la respuesta de todos los endpoint, devolviéndola siempre con la misma estructura sin importar su origen.
