@@ -2092,22 +2092,32 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 
 # 🌐 Consumo de API
 
-En este proyecto todas las peticiones HTTP deben hacerse usando el servicio centralizado `GatewayApiService` (`src/shared/services/api/http-client/http-gateway-observable.api.ts`), que maneja:
+En este proyecto es **SIEMPRE obligatorio**, sin ninguna excepción, usar el servicio centralizado `GatewayApiService` (`src/shared/services/api/http-client/http-gateway-observable.api.ts`) para realizar cualquier petición HTTP.
 
-- icono de loader global
+Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma:
 
-- manejo de errores `catchError`
+| Tipo                                  | Nombre común                                                      |
+| ------------------------------------- | ----------------------------------------------------------------- |
+| Servicio creado por tu equipo/empresa | **Servicio interno (Internal Service)**                           |
+| Servicio de otra empresa o proveedor  | **Servicio externo (External Service)** o **Third-Party Service** |
 
-- timeout
+El motivo es que `http-gateway-observable.api.ts` estandariza la respuesta de todos los endpoint, devolviéndola siempre con la misma estructura sin importar su origen. Gracias a esto se trabaja con una respuesta uniforme y predecible en todo el proyecto.
 
-- logging
+Además, `GatewayApiService` maneja:
 
-- logger
+* icono de loader global
 
-- validaciones de seguridad (guards)
+* manejo de errores `catchError`
 
-- respuesta estándar con el tipo
+* timeout
 
+* logging
+
+* logger
+
+* validaciones de seguridad (guards)
+
+* Respuesta estándar con el tipo:
 ```ts
 {
   success: boolean;
@@ -2117,7 +2127,7 @@ En este proyecto todas las peticiones HTTP deben hacerse usando el servicio cent
 }
 ```
 
-## ❌ Forma incorrecta
+***❌ Forma incorrecta***
 
 No se debe consumir la API directamente con `HttpClient` + `try/catch` en componentes o servicios externos.
 
