@@ -2094,14 +2094,26 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 
 En este proyecto es **SIEMPRE obligatorio**, sin ninguna excepción, usar el servicio centralizado `GatewayApiService` (`src/shared/services/api/http-client/http-gateway-observable.api.ts`) para realizar cualquier petición HTTP.
 
-Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma:
+Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma.
 
-| Tipo                                  | Nombre común                                                      |
-| ------------------------------------- | ----------------------------------------------------------------- |
-| Servicio creado por tu equipo/empresa | **Servicio interno (Internal Service)**                           |
-| Servicio de otra empresa o proveedor  | **Servicio externo (External Service)** o **Third-Party Service** |
+El frontend **nunca** consume un endpoint de forma directa: toda petición pasa primero por `GatewayApiService`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
 
-El motivo es que `http-gateway-observable.api.ts` estandariza la respuesta de todos los endpoint, devolviéndola siempre con la misma estructura sin importar su origen. Gracias a esto se trabaja con una respuesta uniforme y predecible en todo el proyecto.
+## Flujo:
+
+El flujo de comunicación de este frontend es **SIEMPRE** el mismo y nunca se omite el paso por `GatewayApiService`:
+
+```txt
+Frontend (componentes / servicios)
+    ↓
+GatewayApiService (http-gateway-observable.api.ts)
+    ↓
+┌──────────────────────┬──────────────────────┐
+↓                      ↓
+Internal APIs          External APIs
+(Servicio interno)     (Servicio externo / Third-Party)
+```
+
+El motivo es que `http-gateway-observable.api.ts` estandariza la respuesta de todos los endpoint, devolviéndola siempre con la misma estructura sin importar su origen.
 
 Además, `GatewayApiService` maneja:
 
@@ -2328,7 +2340,7 @@ export class MyComponent {
 }
 ```
 
-# ⏳ Icono de Loader Global
+## ⏳ Icono de Loader Global
 
 El icono de carga se oculta y muestra automáticamente desde `http-observable.service` y `loader.service.ts` cuando se realizan peticiones HTTP.
 
@@ -2421,7 +2433,7 @@ export class MyComponent {
 }
 ```
 
-# ⚙️ Configuración de peticiones HTTP (`IRequestOptions`)
+## ⚙️ Configuración de peticiones HTTP (`IRequestOptions`)
 
 En este proyecto todas las peticiones realizadas con `http-observable.service.ts` pueden configurarse mediante la interfaz `IRequestOptions`.
 
