@@ -32,7 +32,7 @@
   // peacock extension
   "peacock.color": "#DD0031",
 
-  /* Prettier: formateador de codigo */
+  // Prettier: formateador de codigo
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -71,7 +71,7 @@
     "typescriptreact"
   ],
   "eslint.run": "onType",
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabCompletion": "on",
   "editor.linkedEditing": true,
