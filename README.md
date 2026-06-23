@@ -2127,6 +2127,51 @@ Además, `GatewayApiService` maneja:
 }
 ```
 
+***✅ Forma correcta***
+
+Se debe usar únicamente el `GatewayApiService` centralizado.
+
+- NO usar `try/catch` aquí
+
+- El servicio `http-observable.service.ts` ya maneja errores internamente
+
+- La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
+
+***✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`***
+
+```ts
+/* my-component.component.ts */
+import { Component, inject } from "@angular/core";
+import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
+import { environment } from "@/environments/environment";
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
+  http = inject(GatewayApiService);
+
+  async getBots() {
+    const { success, status, message, data } = await firstValueFrom(
+      // aqui se concatena el environment.api con el endpoint específico de la petición
+      this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
+    );
+
+    console.log("¿la peticion HTTP es exitosa o erronea? ", success);
+    console.log("numero de HTTP status", status);
+
+    if (success) {
+      console.log("peticion HTTP exitosa");
+      console.log("mensaje con que responde la API", message);
+      console.log("datos con que responde la API", data);
+    } else {
+      console.error("error al llamar la API");
+    }
+  }
+}
+```
+
 ***❌ Forma incorrecta***
 
 No se debe consumir la API directamente con `HttpClient` + `try/catch` en componentes o servicios externos.
@@ -2278,51 +2323,6 @@ export class MyComponent {
       console.log(data);
     } catch (error) {
       console.error("Error API", error);
-    }
-  }
-}
-```
-
-## ✅ Forma correcta
-
-Se debe usar únicamente el `GatewayApiService` centralizado.
-
-- NO usar `try/catch` aquí
-
-- El servicio `http-observable.service.ts` ya maneja errores internamente
-
-- La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
-
-***✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`***
-
-```ts
-/* my-component.component.ts */
-import { Component, inject } from "@angular/core";
-import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
-import { environment } from "@/environments/environment";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  http = inject(GatewayApiService);
-
-  async getBots() {
-    const { success, status, message, data } = await firstValueFrom(
-      // aqui se concatena el environment.api con el endpoint específico de la petición
-      this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
-    );
-
-    console.log("¿la peticion HTTP es exitosa o erronea? ", success);
-    console.log("numero de HTTP status", status);
-
-    if (success) {
-      console.log("peticion HTTP exitosa");
-      console.log("mensaje con que responde la API", message);
-      console.log("datos con que responde la API", data);
-    } else {
-      console.error("error al llamar la API");
     }
   }
 }
