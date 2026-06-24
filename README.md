@@ -9,7 +9,24 @@
 >
 > **usando MCP de documentacion oficial de Angular migrar todos los formularios a signal forms**
 
-# 🅰️ Angular 22 + Prime NG 21 + Tailwind 4 + Sass
+# 🅰️ Stack Frontend del Proyecto
+A continuación, se presenta un resumen de las tecnologías principales del proyecto. No incluye la totalidad de dependencias:
+
+* Node JS 24.18.0
+
+* Angular 22
+
+* TypeScript 6
+
+* Prime NG 22
+
+* Tailwind CSS 4
+
+* Sass
+
+* Luxon 3
+
+* Material Symbols Icons
 
 # 🟢 Versión de Node JS
 
@@ -230,24 +247,6 @@ Flujo para determinar el `<scope>`:
 
 ### Mostrar el Commit Después de Realizarlo
 Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
-
-# Stack Frontend del Proyecto
-* Node JS 24.18.0
-
-* Angular 22 moderno usando:
-  * Signal-based reactivity
-  * Signal Forms
-  * input y output con signals: `import { input, output } from '@angular/core'`
-  * Standalone Components
-  * Control Flow Directives: `@for`, `@if`, `@switch`, `@case`, `@default`
-  * Inyeccion de dependencias con `inject() `
-
-* TypeScript 6
-* Prime NG 21
-* Tailwind CSS 4
-* Sass (versión moderna con `@use` y `@forward`, no utilizar `@import`)
-* Luxon
-* Material Symbols Icons
 
 # Reglas Obligatorias
 * No generes análisis, recomendaciones ni comentarios adicionales hasta que empiece a realizar preguntas.
@@ -2526,7 +2525,21 @@ export class MyComponent {
 }
 ```
 
-# ❌ Angular legacy VS ✅ Angular moderno
+# ❌ Angular Legacy VS ✅ Angular Moderno
+
+## 📜 Regla Obligatoria
+Usar Angular 22 moderno:
+* Signal-based reactivity
+
+* Signal Forms
+
+* input y output con signals: `import { input, output } from '@angular/core'`
+
+* Standalone Components
+
+* Control Flow Directives: `@for`, `@if`, `@switch`, `@case`, `@default`
+
+* Inyeccion de dependencias con `inject() `
 
 ## 📝 Formularios
 
