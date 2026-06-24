@@ -16,7 +16,7 @@
 Este proyecto debe ejecutarse utilizando:
 
 ```bash
-Node JS 24.17.0
+Node JS 24.18.0
 ```
 
 # 📦 Instalar Paquetes
@@ -232,7 +232,7 @@ Flujo para determinar el `<scope>`:
 Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
 
 # Stack Frontend del Proyecto
-* Node JS 24.17.0
+* Node JS 24.18.0
 
 * Angular 22 moderno usando:
   * Signal-based reactivity
