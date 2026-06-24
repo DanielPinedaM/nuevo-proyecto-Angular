@@ -8,6 +8,10 @@
 > **[conectar MCP de documentacion oficial de Angular](https://angular.dev/ai/mcp)**
 >
 > **usando MCP de documentacion oficial de Angular migrar todos los formularios a signal forms**
+>
+> completar la seccion "📝 Formularios"
+
+---
 
 # 🅰️ Stack Frontend del Proyecto
 A continuación, se presenta un resumen de las tecnologías principales del proyecto. No incluye la totalidad de dependencias:
