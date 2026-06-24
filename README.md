@@ -17,19 +17,12 @@
 A continuación, se presenta un resumen de las tecnologías principales del proyecto. No incluye la totalidad de dependencias:
 
 * Node JS 24.18.0
-
 * Angular 22
-
 * TypeScript 6
-
 * Prime NG 22
-
 * Tailwind CSS 4
-
 * Sass
-
 * Luxon 3
-
 * Material Symbols Icons
 
 # 🟢 Versión de Node JS
@@ -189,8 +182,6 @@ El encabezado es el `<emoji> <type>(<scope>): <mensaje en español>` y, debajo, 
 ```
 
 En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto por punto lo que resume el `<mensaje en español>` "agregar validación de token JWT", sin repetirlo literalmente.
-
-### Emojis por Tipo de Commit
 
 ### Emojis por Tipo de Commit
 
