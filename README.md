@@ -2528,7 +2528,7 @@ export class MyComponent {
 # ❌ Angular Legacy VS ✅ Angular Moderno
 
 ## 📜 Regla Obligatoria
-Usar Angular 22 moderno:
+Usar Angular 22 moderno. **NUNCA** usar Angular legacy:
 * Signal-based reactivity
 
 * Signal Forms
