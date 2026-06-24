@@ -131,8 +131,8 @@ pn i
 | Comando          | Apunta a ... | Ruta Archivo                                |
 | ---------------- | ------------ | ------------------------------------------- |
 | `pn start:local` | Local host   | `src/environments/environment.localhost.ts` |
-| `pn start:prod`  | Producción   | `src/environments/environment.prod.ts`      |
 | `pn start:test`  | Pruebas      | `src/environments/environment.test.ts`      |
+| `pn start:prod`  | Producción   | `src/environments/environment.prod.ts`      |
 
 # 🚀 Generar build (dist) para Desplegar
 
