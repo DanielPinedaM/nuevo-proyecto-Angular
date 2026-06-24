@@ -9,7 +9,7 @@
 >
 > **usando MCP de documentacion oficial de Angular migrar todos los formularios a signal forms**
 >
-> completar la seccion "📝 Formularios"
+> **completar la seccion "📝 Formularios"**
 
 ---
 
