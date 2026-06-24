@@ -130,16 +130,16 @@ pn i
 
 | Comando          | Apunta a ... | Ruta Archivo                                |
 | ---------------- | ------------ | ------------------------------------------- |
-| `pn start:local` | local host   | `src/environments/environment.localhost.ts` |
-| `pn start:prod`  | producción   | `src/environments/environment.prod.ts`      |
-| `pn start:test`  | pruebas      | `src/environments/environment.test.ts`      |
+| `pn start:local` | Local host   | `src/environments/environment.localhost.ts` |
+| `pn start:prod`  | Producción   | `src/environments/environment.prod.ts`      |
+| `pn start:test`  | Pruebas      | `src/environments/environment.test.ts`      |
 
 # 🚀 Generar build (dist) para Desplegar
 
 | Comando         | Apunta a ... | Ruta Archivo                           |
 | --------------- | ------------ | -------------------------------------- |
-| `pn build:test` | pruebas      | `src/environments/environment.test.ts` |
-| `pn build:prod` | producción   | `src/environments/environment.prod.ts` |
+| `pn build:test` | Pruebas      | `src/environments/environment.test.ts` |
+| `pn build:prod` | Producción   | `src/environments/environment.prod.ts` |
 
 # 🚫 Reglas Obligatorias para la IA
 * No generes análisis, recomendaciones ni comentarios adicionales hasta que empiece a realizar preguntas.
