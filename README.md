@@ -84,10 +84,10 @@ Este contenido puede utilizarse dentro de archivos de configuración como:
 
 Al copiar este contenido hacia una IA:
 
-* Copiar únicamente desde esta sección hacia abajo.
 * Copiar todas las secciones posteriores completas sin omitir reglas.
 * No copiar secciones anteriores de este `README.md`.
 * Antes de pegarlo en la IA, eliminar todos los emojis del `README.md`.
+* Copiar únicamente desde esta sección hacia abajo ⬇️
 
 # `CLAUDE.md`
 
