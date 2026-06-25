@@ -25,6 +25,19 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 * Luxon 3
 * Material Symbols Icons
 
+# ⌨️ Configurar Autocompletado, Formatear Código y Linter
+Usar VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.) para instalar las siguientes extensiones:
+
+* [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+
+* [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
+
+* [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+
+* [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+La configuración de autocompletado, formateo de código y linter ya está incluida en `.vscode/settings.json`. No es necesario realizar modificaciones adicionales.
+
 # 🤖 Uso de IA
 
 > [!WARNING]
@@ -832,36 +845,6 @@ module.exports = {
 
 @theme {
   --color-primary-color: oklch(62.8% 0.258 29.23); // #FF0000
-}
-```
-
-## ⌨️ Configurar Auto-completado y Linter de Tailwind 4
-
-En VS Code o en cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.), seguir estos pasos;
-
-**1.** Instalar extensión [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-
-**2.** Instalar extensión [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
-
-**3.** Abrir el archivo `settings.json`
-
-- Atajo rápido: `Ctrl + Shift + P`
-- Luego escribir: `Preferences: Open User Settings (JSON)`
-
-**4.** En `settings.json` agregar esto:
-
-```json
-/* Tailwind 4 */
-{
-  "tailwindCSS.experimental.configFile": "src/styles/global/tailwind/index-tailwind.css" /* ruta del archivo .css de configuracion de Tailwind 4 */,
-  "tailwindCSS.emmetCompletions": true,
-  "tailwindCSS.includeLanguages": {
-    "javascript": "javascript",
-    "javascriptreact": "javascriptreact",
-    "plaintext": "html",
-    "typescript": "typescript",
-    "typescriptreact": "typescriptreact"
-  }
 }
 ```
 
