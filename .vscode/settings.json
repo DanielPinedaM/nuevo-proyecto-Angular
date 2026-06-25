@@ -79,6 +79,7 @@
     "jsx-sublime-babel-tags": "javascriptreact",
     "typescript": "typescriptreact"
   },
+  "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "js/ts.implicitProjectConfig.checkJs": true,
   "eslint.useFlatConfig": true,
@@ -88,7 +89,6 @@
   "editor.linkedEditing": true,
   "emmet.triggerExpansionOnTab": true,
   "javascript.suggest.completeFunctionCalls": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
   "terminal.integrated.suggest.enabled": true,
   "editor.snippetSuggestions": "inline",
   "editor.acceptSuggestionOnEnter": "on",
