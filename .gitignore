@@ -42,3 +42,7 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Manejadores de paquetes diferente a pnpm
+package-lock.json
+yarn.lock
