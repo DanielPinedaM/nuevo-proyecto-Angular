@@ -2134,9 +2134,8 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 </button>
 ```
 
-# 🌐 Consumo de API
-
-En este proyecto es **SIEMPRE obligatorio**, sin ninguna excepción, usar el servicio centralizado `GatewayApiService` (`src/shared/services/api/http-client/http-gateway-observable.api.ts`) para realizar cualquier petición HTTP.
+# 🔌 Consumo de API
+En este proyecto es **OBLIGATORIO**, sin ninguna excepción, usar el servicio centralizado `GatewayApiService` (`src/shared/services/api/http-client/http-gateway-observable.api.ts`) para realizar cualquier petición HTTP.
 
 Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma.
 
@@ -2151,9 +2150,37 @@ Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PA
 }
 ```
 
-El frontend **nunca** consume un endpoint de forma directa: toda petición pasa primero por `GatewayApiService`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
+El frontend **NUNCA** consume un endpoint de forma directa:
 
-## Flujo:
+```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { environment } from '@/environments/environment';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
+  http = inject(HttpClient);
+
+  getBots() {
+    this.http.get(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (error) => {
+        console.error("Error API", error);
+      },
+    });
+  }
+}
+```
+
+Toda petición tiene que pasa primero por `GatewayApiService`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
+
+## 🔀 Flujo para Consumir API:
 
 El flujo de comunicación de este frontend es **SIEMPRE** el mismo y nunca se omite el paso por `GatewayApiService`:
 
@@ -2169,64 +2196,36 @@ Internal APIs     External APIs
 ```
 
 ## Reglas de `GatewayApiService`
-* **PROHIBIDO** meter lógica de negocio **DENTRO** de `GatewayApiService`.
+1. **PROHIBIDO** meter lógica de negocio **DENTRO** de `GatewayApiService`.
 
-* La lógica de negocio **TIENE** que estar en **DONDE SE LLAMA** a `GatewayApiService` (service, component, guard, etc).
+La lógica de negocio **TIENE** que estar en **DONDE SE LLAMA** a `GatewayApiService` (service, component, guard, interceptor, etc).
 
-* `GatewayApiService` es un wrapper de Angular `HttpClient`. Su **ÚNICA** responsabilidad es infraestructura de transporte HTTP, **NUNCA** reglas de negocio o de dominio.
+`GatewayApiService` es un wrapper de Angular `HttpClient`. Su **ÚNICA** responsabilidad es infraestructura de transporte HTTP, **NUNCA** reglas de negocio o de dominio.
 
-* ✅ Esto **SI** es responsabilidad de `GatewayApiService` (lógica de infraestructura/transporte):
+✅ Esto **SI** es responsabilidad de `GatewayApiService` (_lógica de infraestructura/transporte_):
   * Hacer peticiones HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
   * Mostrar/ocultar icono de cargando (loader).
-  * Manejo **centralizado** de errores HTTP por status code (401, 403, 404, 5xx). Esto es genérico y aplica a CUALQUIER endpoint, **NO** a un caso de negocio específico.
+  * Manejo **centralizado** de errores HTTP por status code (401, 403, 404, 5xx). Esto es genérico y aplica a **CUALQUIER** endpoint, **NO** a un caso de negocio específico.
   * Timeout de peticiones.
-  * Estandarización del formato de respuesta de la API
-  * Logger de peticiones HTTP exitosas y erróneas
+  * Estandarización del formato de respuesta de la API.
+  * Logger de peticiones HTTP exitosas y erróneas.
   * Construcción de opciones de la peticion HTTP: body, params, headers, responseType
 
-* ❌ Esto **JAMÁS** debe estar en `GatewayApiService` (lógica de negocio/dominio):
-  * Métodos con nombre de dominio específico. Ejemplo: `getPermisionsUserById()`, `getTaskByParams()`, `createInvoice()`, `validateUserAccess()`.
+❌ Esto **JAMÁS** debe estar en `GatewayApiService` (_lógica de negocio/dominio_):
+  * Métodos con nombre de dominio específico. Ejemplo: `getUserPermissionsById()`, `findTasksByFilters()`, `createInvoice()`, `cancelOrderById()`, `updateUserProfile()`, `sendPasswordResetEmail()`.
   * Validaciones de reglas de negocio. Ejemplo: "si el usuario no tiene el rol X, no puede ver Y".
-  * Transformación o filtrado de datos según reglas de dominio. Ejemplo: `bots.filter(bot => bot.active && bot.score > 50)`.
+  * Transformación o filtrado de datos según reglas de dominio. Ejemplo: `users.filter(user => user.active && user.role === 'admin')`.
   * Decisiones específicas de un flujo de negocio (qué hacer con la respuesta según el contexto de la feature).
 
-* Diferencia clave:
+Diferencia:
   * **Lógica de infraestructura/transporte**: "¿cómo viaja la petición?" (timeout, headers, formato, errores HTTP genéricos).
 
-  * **Lógica de negocio/dominio**: "¿qué significa esta petición/respuesta para la aplicación?" (permisos, tareas, facturas, reglas de dominio).
+  * **Lógica de negocio/dominio**: "¿qué significa esta petición/respuesta para la aplicación?" (permisos, tareas, facturas, reglas de la feature).
 
-* `GatewayApiService` solo responde la primera pregunta. La segunda siempre se resuelve en el servicio que lo consume.
+`GatewayApiService` solo responde la primera pregunta. La segunda siempre se resuelve en el servicio que lo consume.
 
-* Si es necesario, usar `firstValueFrom()` para convertir el observable de `GatewayApiService` a promesa.
 
-* **NO** consumir API directamente con `HttpClient`
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  constructor(private http: HttpClient) {}
-
-  getBots() {
-    this.http.get("https://api.com/bots").subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.error("Error API", error);
-      },
-    });
-  }
-}
-```
-
-* **NO*** usar `fetch` **NI** axios porque Angular recomienda usar `HttpClient` y Observables (RxJS)
+3. **NO** usar `fetch` **NI** axios porque Angular recomienda usar `HttpClient` y Observables (RxJS)
 
 ```ts
 /* my-component.component.ts */
@@ -2273,7 +2272,7 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient);
 
   async getBots() {
     try {
@@ -2287,13 +2286,14 @@ export class MyComponent {
 }
 ```
 
-* **NO** usar `lastValueFrom`
+* **NO** usar `lastValueFrom` para consumir API
 
 ```ts
 /* my-component.component.ts */
 import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { lastValueFrom } from "rxjs";
+import { environment } from '@/environments/environment';
 
 @Component({
   selector: 'app-my-component',
@@ -2307,13 +2307,38 @@ export class MyComponent {
       this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
     );
 
-    if (success) {
-      // ...
-    } else {
-      // ..
-    }
+    // ...
   }
 }
+```
+
+* Al usar `GatewayApiService` usar siempre la inyección de dependencias con `inject`:
+
+```ts
+import { inject } from "@angular/core";
+import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
+
+export class MyComponent {
+  http = inject(GatewayApiService);
+
+  // ...
+}
+```
+
+* **SIEMPRE** desestructurar la respuesta de la API para acceder directamente a sus propiedades (`success`, `status`, `message`, `data`):
+
+```ts
+const { success, status, message, data } = await firstValueFrom(
+  this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
+);
+```
+
+**NUNCA** guardar la respuesta completa en una variable y acceder a sus propiedades con notación de punto (`response.success`, `response.status`, `response.message`, `response.data`):
+
+```ts
+const response = await firstValueFrom(
+  this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
+);
 ```
 
 * Al llamar `GatewayApiService` **NUNCA** usar:
@@ -2321,7 +2346,7 @@ export class MyComponent {
   * Operador de RxJS `catchError`
   * Callback `error` del objeto pasado a `subscribe()`
 
-* El manejo de errores se tiene que hacer con if else asi:
+* El manejo de errores se tiene que hacer con `if else` asi:
 
 ```ts
 async getBots() {
@@ -2341,13 +2366,25 @@ async getBots() {
 
 * La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
 
+Segun sea necesario:
+  * usar `firstValueFrom()` para convertir el observable de `GatewayApiService` a promesa (ver _Casos Donde Usar `firstValueFrom()`_)
+
+  * Usar el observable de `GatewayApiService` (ver _Casos Donde Usar Observable_)
+
 ## Casos Donde Usar `firstValueFrom()`
+***Definicion:***
+
 *
 
 ## Casos Donde Usar Observable
+***Definicion:***
+
 * Debounce para retrasar peticiones HTTP al buscar en OnChange de input
 
+## Casos Donde Usar `toSignal`
+***Definicion:***
 
+Re-fetch reactivo
 
 
 Además, `GatewayApiService` maneja:
@@ -2357,6 +2394,8 @@ Además, `GatewayApiService` maneja:
 * logging
 * logger
 * validaciones de seguridad (guards)
+
+## ¿Como Desactivar el sticky loader icon de GatewayApiService?
 
 
 
@@ -2621,7 +2660,7 @@ export class MyComponent {
       },
     };
 
-    const { success, status, message, data } = await firstValueFrom(this.http.POST(`${environment.api}/bots`, optionsApi));
+    const { success, status, message, data } = await firstValueFrom(this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`, optionsApi));
 
     // ...
   }
