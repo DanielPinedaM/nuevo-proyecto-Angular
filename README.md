@@ -2102,6 +2102,17 @@ En este proyecto es **SIEMPRE obligatorio**, sin ninguna excepción, usar el ser
 
 Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma.
 
+`GatewayApiService` estandariza todas las llamadas a API y devuelve siempre la misma estructura:
+
+```ts
+{
+  success: boolean;
+  status: number;
+  message: string;
+  data: T;
+}
+```
+
 El frontend **nunca** consume un endpoint de forma directa: toda petición pasa primero por `GatewayApiService`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
 
 ## Flujo:
@@ -2119,41 +2130,198 @@ Internal APIs     External APIs
 (Servicio interno)（Servicio externo / Third-Party)
 ```
 
-El motivo es que `http-gateway-observable.api.ts` estandariza la respuesta de todos los endpoint, devolviéndola siempre con la misma estructura sin importar su origen.
+## Reglas de `GatewayApiService`
+* **PROHIBIDO** meter lógica de negocio **DENTRO** de `GatewayApiService`.
+
+* La lógica de negocio **TIENE** que estar en **DONDE SE LLAMA** a `GatewayApiService` (service, component, guard, etc).
+
+* `GatewayApiService` es un wrapper de Angular `HttpClient`. Su **ÚNICA** responsabilidad es infraestructura de transporte HTTP, **NUNCA** reglas de negocio o de dominio.
+
+* ✅ Esto **SI** es responsabilidad de `GatewayApiService` (lógica de infraestructura/transporte):
+  * Hacer peticiones HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
+  * Mostrar/ocultar icono de cargando (loader).
+  * Manejo **centralizado** de errores HTTP por status code (401, 403, 404, 5xx). Esto es genérico y aplica a CUALQUIER endpoint, **NO** a un caso de negocio específico.
+  * Timeout de peticiones.
+  * Estandarización del formato de respuesta de la API
+  * Logger de peticiones HTTP exitosas y erróneas
+  * Construcción de opciones de la peticion HTTP: body, params, headers, responseType
+
+* ❌ Esto **JAMÁS** debe estar en `GatewayApiService` (lógica de negocio/dominio):
+  * Métodos con nombre de dominio específico. Ejemplo: `getPermisionsUserById()`, `getTaskByParams()`, `createInvoice()`, `validateUserAccess()`.
+  * Validaciones de reglas de negocio. Ejemplo: "si el usuario no tiene el rol X, no puede ver Y".
+  * Transformación o filtrado de datos según reglas de dominio. Ejemplo: `bots.filter(bot => bot.active && bot.score > 50)`.
+  * Decisiones específicas de un flujo de negocio (qué hacer con la respuesta según el contexto de la feature).
+
+* Diferencia clave:
+  * **Lógica de infraestructura/transporte**: "¿cómo viaja la petición?" (timeout, headers, formato, errores HTTP genéricos).
+
+  * **Lógica de negocio/dominio**: "¿qué significa esta petición/respuesta para la aplicación?" (permisos, tareas, facturas, reglas de dominio).
+
+* `GatewayApiService` solo responde la primera pregunta. La segunda siempre se resuelve en el servicio que lo consume.
+
+* Si es necesario, usar `firstValueFrom()` para convertir el observable de `GatewayApiService` a promesa.
+
+* **NO** consumir API directamente con `HttpClient`
+
+```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
+  constructor(private http: HttpClient) {}
+
+  getBots() {
+    this.http.get("https://api.com/bots").subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (error) => {
+        console.error("Error API", error);
+      },
+    });
+  }
+}
+```
+
+* **NO*** usar `fetch` **NI** axios porque Angular recomienda usar `HttpClient` y Observables (RxJS)
+
+```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
+import axios from 'axios';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
+  // Usando fetch
+  async getBotsFetch() {
+    try {
+      const response = await fetch("https://api.com/bots");
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error API (fetch)", error);
+    }
+  }
+
+  // Usando axios
+  async getBotsAxios() {
+    try {
+      const response = await axios.get("https://api.com/bots");
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error API (axios)", error);
+    }
+  }
+}
+```
+
+* ***NO*** usar `toPromise()` porque es Angular legacy
+
+```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
+  constructor(private http: HttpClient) {}
+
+  async getBots() {
+    try {
+      const data = await this.http.get("https://api.com/bots").toPromise();
+
+      console.log(data);
+    } catch (error) {
+      console.error("Error API", error);
+    }
+  }
+}
+```
+
+* **NO** usar `lastValueFrom`
+
+```ts
+/* my-component.component.ts */
+import { Component } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { lastValueFrom } from "rxjs";
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html',
+})
+export class MyComponent {
+  http = inject(GatewayApiService);
+
+  async getBots() {
+    const { success } = await lastValueFrom(
+      this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
+    );
+
+    if (success) {
+      // ...
+    } else {
+      // ..
+    }
+  }
+}
+```
+
+* Al llamar `GatewayApiService` **NUNCA** usar:
+  * `try/catch`
+  * Operador de RxJS `catchError`
+  * Callback `error` del objeto pasado a `subscribe()`
+
+* El manejo de errores se tiene que hacer con if else asi:
+
+```ts
+async getBots() {
+  const { success } = await firstValueFrom(
+    this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
+  );
+
+  if (success) {
+    // codigo cuando peticion HTTP es exitosa
+  } else {
+    // codigo cuando peticion HTTP es erronea
+  }
+}
+```
+
+* **NO** propagar los errores de `GatewayApiService` con `throw new Error()` porque `GatewayApiService` ya centraliza el manejo de errores con `catchError`
+
+* La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
+
+## Casos Donde Usar `firstValueFrom()`
+*
+
+## Casos Donde Usar Observable
+* Debounce para retrasar peticiones HTTP al buscar en OnChange de input
+
+
+
 
 Además, `GatewayApiService` maneja:
 
 * icono de loader global
-
-* manejo de errores `catchError`
-
 * timeout
-
 * logging
-
 * logger
-
 * validaciones de seguridad (guards)
 
-* Respuesta estándar con el tipo:
-```ts
-{
-  success: boolean;
-  status: number;
-  message: string;
-  data: T;
-}
-```
 
-***✅ Forma correcta***
 
-Se debe usar únicamente el `GatewayApiService` centralizado.
-
-- NO usar `try/catch` aquí
-
-- El servicio `http-observable.service.ts` ya maneja errores internamente
-
-- La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
 
 ***✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`***
 
@@ -2192,159 +2360,14 @@ export class MyComponent {
 
 ***❌ Forma incorrecta***
 
-No se debe consumir la API directamente con `HttpClient` + `try/catch` en componentes o servicios externos.
-
-**NO** es necesario escribir `try/catch` porque la clase `http-observable.service.ts` ya se encarga de manejar los errores.
-
 ❌ Problemas de este enfoque:
 
-- Repite lógica en cada componente.
 
 - No tiene loader global.
 
 - No tiene manejo estandarizado de errores.
 
-- No respeta arquitectura del proyecto.
-
-- Usa `try/catch` en cada llamada.
-
 - No centraliza validaciones ni logging.
-
-***❌ Ejemplo incorrecto - `lastValueFrom`***
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { lastValueFrom } from "rxjs";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  constructor(private http: HttpClient) {}
-
-  async getBots() {
-    try {
-      const data = await lastValueFrom(this.http.get("https://api.com/bots"));
-
-      console.log(data);
-    } catch (error) {
-      console.error("Error API", error);
-    }
-  }
-}
-```
-
-***❌ Ejemplo incorrecto - `firstValueFrom`***
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { firstValueFrom } from "rxjs";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  constructor(private http: HttpClient) {}
-
-  async getBots() {
-    try {
-      const data = await firstValueFrom(this.http.get("https://api.com/bots"));
-
-      console.log(data);
-    } catch (error) {
-      console.error("Error API", error);
-    }
-  }
-}
-```
-
-***❌ Ejemplo incorrecto - Angular legacy - `toPromise()`***
-
-Antes de `firstValueFrom`, en Angular antiguo se usaba `toPromise()`, pero este enfoque está **deprecado** y ya no se recomienda.
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  constructor(private http: HttpClient) {}
-
-  async getBots() {
-    try {
-      const data = await this.http.get("https://api.com/bots").toPromise();
-
-      console.log(data);
-    } catch (error) {
-      console.error("Error API", error);
-    }
-  }
-}
-```
-
-***❌ Ejemplo incorrecto - observable***
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  constructor(private http: HttpClient) {}
-
-  getBots() {
-    this.http.get("https://api.com/bots").subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.error("Error API", error);
-      },
-    });
-  }
-}
-```
-
-***❌ Ejemplo incorrecto - `fetch`***
-
-Angular no usa `fetch` porque es una API básica del navegador y no se integra con la arquitectura del framework.
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  async getBots() {
-    try {
-      const response = await fetch("https://api.com/bots");
-
-      const data = await response.json();
-
-      console.log(data);
-    } catch (error) {
-      console.error("Error API", error);
-    }
-  }
-}
-```
 
 ## ⏳ Icono de Loader Global
 
@@ -2437,6 +2460,41 @@ export class MyComponent {
     }
   }
 }
+```
+
+```txt
+En nuevo proyecto angular
+
+En esta sección
+https://github.com/DanielPinedaM/nuevo-proyecto-Angular#-consumo-de-api
+
+Explicar con ejemplos y usando http gateway observable cuando usar cada uno de los patrones angular  para consumir API que son los siguientes
+
+async await  firstValueFrom
+
+toSignal()
+
+RxJS operators (switchMap, mergeMap, concatMap, exhaustMap, debounceTime, distinctUntilChanged) - este ejemplo debe ser de debounce
+
+ejecuta varias promesas en paralelo y devuelve los resultados cuando todas terminan correctamente; si una falla, la operación completa falla
+
+Ejecutar todas las peticiones en paralelo sin importar si fallan o son exitosas
+
+Esperar que una petición  termine antes de la siguiente
+
+Segunda petición depende del resultado de la primera
+
+Ejecutar peticiones secuencialmente
+
+Explicar la diferencia y cuando usar first value from y observables para hacer petición http
+
+También me falta ejemplo de llamar API usando  observable
+
+Observable no espera , es asíncrono , es como si pasara derecho , y cuando se resuelva la llamada a la API (promesa) entonces obtiene (devuelve) la respuesta 
+
+first value from usa await por lo q espera antes de continuar con la siguiente linea de código
+
+Observable sirve para hacer debounce
 ```
 
 ## ⚙️ Configuración de peticiones HTTP (`IRequestOptions`)
