@@ -27,6 +27,25 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
+## Instalar `pnpm`
+1. Abrir Git Bash
+
+2. Instalar:
+
+```console
+npm install -g pnpm@latest-11
+```
+
+3. Cerrar y volver abrir Git Bash
+
+4. Si la instalacion es correcta, al ejecutar
+
+```console
+pnpm -v
+```
+
+Debe mostrar la version de `pnpm` instalada
+
 ## `fnm`
 Para que `fnm` automáticamente al entrar a la carpeta del proyecto seleccione la versión correcta de Node.js que se especifica en el archivo `.nvmrc` que esta en la raiz del proyecto. Hacer esto:
 
@@ -84,6 +103,10 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.editorconfig`
 * `.prettierrc`
 * `eslint.config.js`
+
+# En Claude Code Configurar MCP de Documentación Oficial de Angular
+
+claude mcp add angular-cli -- pnpm dlx @angular/cli mcp
 
 # 🤖 Uso de IA
 
