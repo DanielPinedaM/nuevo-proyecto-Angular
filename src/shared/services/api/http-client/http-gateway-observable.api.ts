@@ -1,17 +1,17 @@
-﻿import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError, finalize } from 'rxjs/operators';
-import { inject, Injectable } from '@angular/core';
-import { Observable, of, timeout } from 'rxjs';
+﻿import { environment } from '@/environments/environment';
 import {
   IRequestOptions,
   IResponse,
 } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
 import { TMethod } from '@/shared/services/api/http-client/data-types/types/gateway.type';
-import ToastService from '@/shared/services/Toast.service';
-import { LoaderService } from '@/shared/services/stores/loader.store';
-import { environment } from '@/environments/environment';
 import { GatewayHelperService } from '@/shared/services/api/http-client/gateway-helper.service';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
+import { LoaderService } from '@/shared/services/stores/loader.store';
+import ToastService from '@/shared/services/Toast.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable, of, timeout } from 'rxjs';
+import { catchError, finalize, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -53,34 +53,6 @@ export class GatewayApiService {
     } = options;
 
     if (showLoader) this.loaderService.setLoader(true);
-
-    // Agregar token si el endpoint lo necesita
-    /*
-    des-comentar para enviar token por headers authorization Bearer. ⚠️ Esto se puede hackear con ataque XSS 🚨
-    if (isASecurityEndpoint) {
-      const token: string | null = this.storage.listValue(
-        objSessionStorage.token!
-      );
-
-      if (this.storage.search(objSessionStorage.token!)) {
-        // agregar token a los headers
-        this.httpHeader = this.httpHeader.append(
-          'authorization',
-          `Bearer ${token}`
-        );
-      } else {
-        console.error(`❌ error no se pudo obtener el token ${token}`);
-
-        this.unauthorized();
-
-        return of({
-          success: false,
-          status: 401,
-          message: 'Inice sesion para continuar',
-          data: [] as unknown as T,
-        });
-      }
-    } */
 
     return requestFn().pipe(
       timeout(this._timeout),
