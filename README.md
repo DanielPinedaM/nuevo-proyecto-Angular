@@ -2441,6 +2441,20 @@ async getBots() {
 
 * **NO** propagar los errores de `GatewayApiService` con `throw new Error()` porque `GatewayApiService` ya centraliza el manejo de errores con `catchError`
 
+* Ejemplo correcto SIN propagar error y sin try catch
+
+```ts
+getUser(id: string) {
+  return this.http.get<User>(`/api/users/${id}`); // me olvidé de poner IResponse<T>
+}
+```
+
+```html
+@if (userRes.isLoading()) { <spinner /> }
+@else if (!userRes.value()?.success) { <p>No se pudo cargar</p> }  <!-- chequeás el flag -->
+@else { <p>{{ userRes.value()?.data?.name }}</p> }                 <!-- value() es IResponse<User> → ?.data?.name -->
+```
+
 * La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
 
 Segun sea necesario:
