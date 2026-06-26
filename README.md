@@ -27,6 +27,16 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
+## Antes de Empezar
+Para que la configuración funcione, debes tener instalado:
+* VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.)
+
+* Git Bash
+
+* Node.js
+
+* Claude Code
+
 ## Instalar `pnpm`
 1. Abrir Git Bash
 
@@ -87,7 +97,7 @@ fnm use 24.18.0
 ```
 
 ## ⌨️ Autocompletado, Formatear Código y Linter
-Usar VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.) para instalar las siguientes extensiones:
+Instalar las siguientes extensiones:
 
 * [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
@@ -104,9 +114,53 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.js`
 
-# En Claude Code Configurar MCP de Documentación Oficial de Angular
+## 👾 En Claude Code Configurar MCP de Documentación Oficial de Angular
+1. Abrir Git Bash
 
+2. Abrir la carpeta del proyecto
+```console
+cd /ruta/a/tu/proyecto
+```
+
+3. Instalac MCP
+```console
 claude mcp add angular-cli -- pnpm dlx @angular/cli mcp
+```
+
+4. Si el MCP se instalo correctamente, la salida de la terminal debe ser:
+```console
+Added stdio MCP server angular-cli with command: pnpm dlx @angular/cli mcp to local config
+
+File modified: C:\Users\User\.claude.json [project: C:\Users\RUTA_DONDE_ESTA_EL_PROYECTO]
+```
+
+5. Para verificar conexión al MCP, ejecutar
+
+```console
+claude mcp list
+```
+
+La salida de la terminal debe ser:
+
+```console
+angular-cli: pnpm dlx @angular/cli mcp - ✔ Connected
+```
+
+```console
+claude
+```
+
+```console
+/mcp
+```
+
+La salida de la terminal debe ser:
+
+```console
+❯ angular-cli · ✔ connected · 9 tools
+```
+
+### [🔗 Click aqui para ver los comandos del MCP de Angular](https://angular.dev/ai/mcp)
 
 # 🤖 Uso de IA
 
