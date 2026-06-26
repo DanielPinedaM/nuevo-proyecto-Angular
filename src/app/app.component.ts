@@ -1,11 +1,11 @@
 ﻿import { environment } from '@/environments/environment';
-import { Component, inject, signal, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FixedLoaderComponent } from '@/shared/design/ui/fixed-loader/fixed-loader.component';
+import SessionStorageService from '@/shared/services/SessionStorage.service';
+import { LoaderService } from '@/shared/services/stores/loader.store';
+import ToastService from '@/shared/services/Toast.service';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { LoaderService } from '@/shared/services/stores/loader.store';
-import SessionStorageService from '@/shared/services/SessionStorage.service';
-import { FixedLoaderComponent } from '@/shared/design/ui/fixed-loader/fixed-loader.component';
-import ToastService from '@/shared/services/Toast.service';
 
 const AUTH_ROUTES: string[] = [
   'iniciar-sesion',
@@ -30,11 +30,11 @@ export class AppComponent implements OnInit {
   loader = signal<boolean>(false);
 
   ngOnInit(): void {
-    this.#getLoader();
+    this.getLoader();
     this.#logOutDueToInactivity();
   }
 
-  #getLoader(): void {
+  private getLoader(): void {
     this.loaderService.getLoader().subscribe((loader: boolean) => {
       if (loader) {
         const milliseconds = 120000;
