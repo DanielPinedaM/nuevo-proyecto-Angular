@@ -10,6 +10,7 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from '@/app/app.routes';
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
+import { withCredentialsInterceptor } from '@/shared/http-client/interceptors/with-credentials.interceptor';
 import { loaderInterceptor } from '@/shared/http-client/loader/interceptors/loader.interceptor';
 import { timeoutInterceptor } from '@/shared/http-client/interceptors/timeout.interceptor';
 import { errorInterceptor } from '@/shared/http-client/interceptors/error.interceptor';
@@ -43,6 +44,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
       withInterceptors([
+        withCredentialsInterceptor,
         loaderInterceptor,
         timeoutInterceptor,
         errorInterceptor,
