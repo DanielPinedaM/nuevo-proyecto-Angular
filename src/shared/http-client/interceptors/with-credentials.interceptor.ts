@@ -16,11 +16,10 @@ const URLS_WITHOUT_CREDENTIALS: readonly string[] = [
  *
  * Todas las demas peticiones si envian la cookie HttpOnly (withCredentials: true) */
 export const withCredentialsInterceptor: HttpInterceptorFn = (req, next) => {
-  // ¿la URL pertenece al array de rutas de autenticacion (sin cookie)?
-  const isAuthEndpoint: boolean = URLS_WITHOUT_CREDENTIALS.includes(req.url);
+  // ¿la URL esta en URLS_WITHOUT_CREDENTIALS? -> NO enviar la cookie HttpOnly
+  const isWithoutCredentials: boolean = URLS_WITHOUT_CREDENTIALS.includes(req.url);
 
-  // ¿debe enviarse la cookie HttpOnly? -> NO en endpoints que estan en URLS_WITHOUT_CREDENTIALS
-  if (isAuthEndpoint) return next(req.clone({ withCredentials: false }));
+  if (isWithoutCredentials) return next(req.clone({ withCredentials: false }));
 
   return next(req.clone({ withCredentials: true }));
 };
