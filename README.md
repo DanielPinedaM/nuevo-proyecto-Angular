@@ -25,6 +25,40 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 * Luxon 3
 * Material Symbols Icons
 
+# Skill vs MCP — Context7
+
+Comparativa basada en preguntas y respuestas sobre las dos formas de usar Context7 en Claude Code.
+
+## Tabla Comparativa General
+
+| Aspecto | Skill | MCP |
+|---|---|---|
+| ¿Puede conectarse a documentación? | Sí | Sí |
+| Funcionalidad final | Misma documentación actualizada | Misma documentación actualizada |
+| Cuándo se carga | Solo cuando hay match con su descripción (relevancia) | Siempre — tools declaradas en cada turno de la conversación |
+| Disponibilidad | Disponible, pero pasivo hasta que se dispara | Siempre disponible activamente (tools visibles todo el tiempo) |
+| Costo fijo por turno (sin usarlo) | Ninguno | Sí — definiciones de las tools ocupan contexto aunque no se llamen |
+| Costo al ejecutar la búsqueda real | Tokens del output del comando (similar volumen) | Tokens del tool_result (similar volumen) |
+| Mecanismo de ejecución | Comando CLI vía bash (ej. `ctx7 docs <id> <query>`) | Llamada a tool del servidor (`resolve-library-id`, `get-library-docs`) |
+| ¿Se puede forzar/invocar explícitamente? | Sí — ej. "use context7 to..." | Sí — ej. "usa el MCP de Context7 para..." |
+| Ahorro de tokens relativo | Mayor, especialmente con muchos servidores/tools acumulados | Menor — overhead fijo escala con la cantidad de MCP servers activos |
+
+## Preguntas y Respuestas
+
+| Pregunta | Respuesta |
+|---|---|
+| ¿Ambos pueden conectarse a documentación? | Sí, ambos traen la misma documentación actualizada; solo cambia el mecanismo de acceso. |
+| ¿El skill consume tokens en cada llamada y el MCP no? | No es así. Ambos consumen tokens similares **cuando se ejecuta la búsqueda real** (el contenido de la doc pesa igual). La diferencia está en el costo fijo: MCP paga overhead en cada turno por tener las tools declaradas; el skill no paga nada si no se dispara. |
+| ¿El skill está disponible pero se invoca solo por match del description? | Sí, correcto. Claude Code lo evalúa por relevancia y solo lo ejecuta si el contexto de la pregunta coincide. |
+| ¿El MCP está siempre disponible y eso hace que importe que no se usen las tools? | Sí. Las tools del MCP quedan declaradas en cada turno se usen o no, lo cual genera un costo fijo de contexto independiente del uso real. |
+| Al final, ¿cuándo ambos se invocan consumen tokens parecidos? | Sí. La respuesta con la documentación pesa lo mismo sea por tool_result (MCP) o por output de bash (skill). |
+| ¿El skill ahorra más tokens que el MCP? | Sí, en general — pero la diferencia es marginal con un solo servidor de pocas tools (como Context7). Se vuelve notoria con muchos MCP servers acumulados. |
+| ¿Se puede forzar/invocar explícitamente cada uno? | Sí, ambos. Con MCP, se elige una tool ya disponible ("usa el MCP de Context7"). Con Skill, se fuerza el match explícito ("use context7 to...") aunque normalmente se dispare solo por relevancia. |
+
+## Resumen
+
+La funcionalidad es idéntica (ambos traen la misma documentación); la diferencia real está en **cuándo se carga el costo**: el MCP paga un overhead fijo por turno por tener las tools siempre declaradas, mientras que el skill solo "cuesta" cuando efectivamente se dispara.
+
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
 ## Antes de Empezar
@@ -2235,59 +2269,16 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 ```
 
 # 🔌 Consumo de API
-En este proyecto es **OBLIGATORIO**, sin ninguna excepción, usar el servicio centralizado `GatewayApiService` (`src/shared/services/api/http-client/http-gateway-observable.api.ts`) para realizar cualquier petición HTTP.
 
-Esta obligación aplica a **todos** los métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) y a **todos** los endpoint, sin importar el tipo de servicio que se consuma.
 
-`GatewayApiService` estandariza todas las llamadas a API y devuelve siempre la misma estructura:
-
-```ts
-{
-  success: boolean;
-  status: number;
-  message: string;
-  data: T;
-}
-```
-
-El frontend **NUNCA** consume un endpoint de forma directa:
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { environment } from '@/environments/environment';
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  http = inject(HttpClient);
-
-  getBots() {
-    this.http.get(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.error("Error API", error);
-      },
-    });
-  }
-}
-```
-
-Toda petición tiene que pasa primero por `GatewayApiService`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
 
 ## 🔀 Flujo para Consumir API:
-
-El flujo de comunicación de este frontend es **SIEMPRE** el mismo y nunca se omite el paso por `GatewayApiService`:
+Toda petición tiene que pasa primero por `src\shared\http-client`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
 
 ```txt
 Frontend
     ↓
-GatewayApiService (http-gateway-observable.api.ts)
+httpResource / HttpClient
     ↓
 ┌────────┴────────┐
 ↓                 ↓
@@ -2295,209 +2286,16 @@ Internal APIs     External APIs
 (Servicio interno)（Servicio externo / Third-Party)
 ```
 
-## Reglas de `GatewayApiService`
-1. **PROHIBIDO** meter lógica de negocio **DENTRO** de `GatewayApiService`.
+## Reglas de `src\shared\http-client`
 
-La lógica de negocio **TIENE** que estar en **DONDE SE LLAMA** a `GatewayApiService` (service, component, guard, interceptor, etc).
+## Reglas para Consumir API
 
-`GatewayApiService` es un wrapper de Angular `HttpClient`. Su **ÚNICA** responsabilidad es infraestructura de transporte HTTP, **NUNCA** reglas de negocio o de dominio.
-
-✅ Esto **SI** es responsabilidad de `GatewayApiService` (_lógica de infraestructura/transporte_):
-  * Hacer peticiones HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
-  * Mostrar/ocultar icono de cargando (loader).
-  * Manejo **centralizado** de errores HTTP por status code (401, 403, 404, 5xx). Esto es genérico y aplica a **CUALQUIER** endpoint, **NO** a un caso de negocio específico.
-  * Timeout de peticiones.
-  * Estandarización del formato de respuesta de la API.
-  * Logger de peticiones HTTP exitosas y erróneas.
-  * Construcción de opciones de la peticion HTTP: body, params, headers, responseType
-
-❌ Esto **JAMÁS** debe estar en `GatewayApiService` (_lógica de negocio/dominio_):
-  * Métodos con nombre de dominio específico. Ejemplo: `getUserPermissionsById()`, `findTasksByFilters()`, `createInvoice()`, `cancelOrderById()`, `updateUserProfile()`, `sendPasswordResetEmail()`.
-  * Validaciones de reglas de negocio. Ejemplo: "si el usuario no tiene el rol X, no puede ver Y".
-  * Transformación o filtrado de datos según reglas de dominio. Ejemplo: `users.filter(user => user.active && user.role === 'admin')`.
-  * Decisiones específicas de un flujo de negocio (qué hacer con la respuesta según el contexto de la feature).
-
-Diferencia:
-  * **Lógica de infraestructura/transporte**: "¿cómo viaja la petición?" (timeout, headers, formato, errores HTTP genéricos).
-
-  * **Lógica de negocio/dominio**: "¿qué significa esta petición/respuesta para la aplicación?" (permisos, tareas, facturas, reglas de la feature).
-
-`GatewayApiService` solo responde la primera pregunta. La segunda siempre se resuelve en el servicio que lo consume.
-
-
-3. **NO** usar `fetch` **NI** axios porque Angular recomienda usar `HttpClient` y Observables (RxJS)
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import axios from 'axios';
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  // Usando fetch
-  async getBotsFetch() {
-    try {
-      const response = await fetch("https://api.com/bots");
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error API (fetch)", error);
-    }
-  }
-
-  // Usando axios
-  async getBotsAxios() {
-    try {
-      const response = await axios.get("https://api.com/bots");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error API (axios)", error);
-    }
-  }
-}
-```
-
-* ***NO*** usar `toPromise()` porque es Angular legacy
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  http = inject(HttpClient);
-
-  async getBots() {
-    try {
-      const data = await this.http.get("https://api.com/bots").toPromise();
-
-      console.log(data);
-    } catch (error) {
-      console.error("Error API", error);
-    }
-  }
-}
-```
-
-* **NO** usar `lastValueFrom` para consumir API
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { lastValueFrom } from "rxjs";
-import { environment } from '@/environments/environment';
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  http = inject(GatewayApiService);
-
-  async getBots() {
-    const { success } = await lastValueFrom(
-      this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
-    );
-
-    // ...
-  }
-}
-```
-
-* Al usar `GatewayApiService` usar siempre la inyección de dependencias con `inject`:
-
-```ts
-import { inject } from "@angular/core";
-import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
-
-export class MyComponent {
-  http = inject(GatewayApiService);
-
-  // ...
-}
-```
-
-* **SIEMPRE** desestructurar la respuesta de la API para acceder directamente a sus propiedades (`success`, `status`, `message`, `data`):
-
-```ts
-const { success, status, message, data } = await firstValueFrom(
-  this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
-);
-```
-
-**NUNCA** guardar la respuesta completa en una variable y acceder a sus propiedades con notación de punto (`response.success`, `response.status`, `response.message`, `response.data`):
-
-```ts
-const response = await firstValueFrom(
-  this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
-);
-```
-
-* Al llamar `GatewayApiService` **NUNCA** usar:
-  * `try/catch`
-  * Operador de RxJS `catchError`
-  * Callback `error` del objeto pasado a `subscribe()`
-
-* El manejo de errores se tiene que hacer con `if else` asi:
-
-```ts
-async getBots() {
-  const { success } = await firstValueFrom(
-    this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
-  );
-
-  if (success) {
-    // codigo cuando peticion HTTP es exitosa
-  } else {
-    // codigo cuando peticion HTTP es erronea
-  }
-}
-```
-
-* **NO** propagar los errores de `GatewayApiService` con `throw new Error()` porque `GatewayApiService` ya centraliza el manejo de errores con `catchError`
-
-* Ejemplo correcto SIN propagar error y sin try catch
-
-```ts
-getUser(id: string) {
-  return this.http.get<User>(`/api/users/${id}`); // me olvidé de poner IResponse<T>
-}
-```
-
-```html
-@if (userRes.isLoading()) { <spinner /> }
-@else if (!userRes.value()?.success) { <p>No se pudo cargar</p> }  <!-- chequeás el flag -->
-@else { <p>{{ userRes.value()?.data?.name }}</p> }                 <!-- value() es IResponse<User> → ?.data?.name -->
-```
-
-* La URL se construye concatenando el `environment.api` con el endpoint específico de la petición, lo que permite reutilizar la base de la API en todos los ambientes (local, test, producción).
-
-Segun sea necesario:
-  * usar `firstValueFrom()` para convertir el observable de `GatewayApiService` a promesa (ver _Casos Donde Usar `firstValueFrom()`_)
-
-  * Usar el observable de `GatewayApiService` (ver _Casos Donde Usar Observable_)
-
-## Casos Donde Usar `firstValueFrom()`
-***Definicion:***
-
-*
+## Casos Donde Usar `async/await con firstValueFrom()`
 
 ## Casos Donde Usar Observable
-***Definicion:***
-
 * Debounce para retrasar peticiones HTTP al buscar en OnChange de input
 
 ## Casos Donde Usar `toSignal`
-***Definicion:***
-
 Re-fetch reactivo
 
 
@@ -2511,147 +2309,6 @@ Además, `GatewayApiService` maneja:
 
 ## ¿Como Desactivar el sticky loader icon de GatewayApiService?
 
-
-
-
-***✅ Ejemplo correcto con `http-observable.service.ts` y `firstValueFrom`***
-
-```ts
-/* my-component.component.ts */
-import { Component, inject } from "@angular/core";
-import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
-import { environment } from "@/environments/environment";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  http = inject(GatewayApiService);
-
-  async getBots() {
-    const { success, status, message, data } = await firstValueFrom(
-      // aqui se concatena el environment.api con el endpoint específico de la petición
-      this.http.POST(`${environment.api}AQUI_ESCRIBIR_EL_ENDPOINT`),
-    );
-
-    console.log("¿la peticion HTTP es exitosa o erronea? ", success);
-    console.log("numero de HTTP status", status);
-
-    if (success) {
-      console.log("peticion HTTP exitosa");
-      console.log("mensaje con que responde la API", message);
-      console.log("datos con que responde la API", data);
-    } else {
-      console.error("error al llamar la API");
-    }
-  }
-}
-```
-
-***❌ Forma incorrecta***
-
-❌ Problemas de este enfoque:
-
-
-- No tiene loader global.
-
-- No tiene manejo estandarizado de errores.
-
-- No centraliza validaciones ni logging.
-
-## ⏳ Icono de Loader Global
-
-El icono de carga se oculta y muestra automáticamente desde `http-observable.service` y `loader.service.ts` cuando se realizan peticiones HTTP.
-
-👉 **NO se debe crear estados manuales como `loader = true/false` en los componentes**, ya que el loader es global y centralizado.
-
-***❌ Ejemplo incorrecto***
-
-Crear estados locales de loading en cada componente:
-
-```ts
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  loading: boolean = false;
-
-  getBots() {
-    this.loading = true;
-
-    this.http.get("https://api.com/bots").subscribe({
-      next: (res) => {
-        console.log(res);
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.loading = false;
-      },
-    });
-  }
-}
-```
-
-```HTML
-<!-- my-component.component.html -->
-
-<button (click)="getBots()">
-  Obtener bots
-</button>
-
-@if (loading) {
-  <div>
-    Cargando...
-  </div>
-} @else {
-  <div>
-    Aquí se muestran los bots
-  </div>
-}
-```
-
-❌ Problemas de este enfoque:
-
-- Duplica codigo para mostrar y ocultar icono de cargando en cada componente
-
-- El loader no es global
-
-- Riesgo de olvidar ocultar el icono de cargando
-
-- Cuando hay varias peticiones HTTP en un mismo componente se vuelve muy complejo saber en donde escribir `loader = true/false` para mostrar y ocultar el icono de cargando.
-
-***✅ Ejemplo correcto con `http-observable.service.ts`***
-
-```ts
-/* my-component.component.ts */
-import { Component, inject } from "@angular/core";
-import { GatewayApiService } from "@/shared/services/api/http-client/http-gateway-observable.api";
-import { environment } from "@/environments/environment";
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {
-  http = inject(GatewayApiService);
-
-  async getBots() {
-    const { success, status, message, data } = await firstValueFrom(this.http.POST(`${environment.api}`, optionsApi));
-
-    if (success) {
-      // ...
-    } else {
-      // ...
-    }
-  }
-}
-```
 
 ```txt
 En nuevo proyecto angular
