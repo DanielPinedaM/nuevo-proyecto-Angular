@@ -1,5 +1,5 @@
 import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';

@@ -2,7 +2,7 @@
  * metodos para descargar archivo *
  * ******************************** */
 
-import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
 import GeneralService from '@/shared/services/General.service';
 import LuxonService from '@/shared/services/Luxon.service';
 import { inject, Injectable, Injector } from '@angular/core';

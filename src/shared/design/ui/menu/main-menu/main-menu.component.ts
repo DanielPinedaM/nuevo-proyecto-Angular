@@ -4,7 +4,7 @@ import ToastService from '@/shared/services/Toast.service';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
 import { MenuDesktopComponent } from '@/shared/design/ui/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/shared/design/ui/menu/menu-mobile/menu-mobile.component';
 

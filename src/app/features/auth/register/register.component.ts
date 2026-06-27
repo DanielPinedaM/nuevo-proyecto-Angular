@@ -22,7 +22,7 @@ import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClient } from '@angular/common/http';
-import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
 @Component({

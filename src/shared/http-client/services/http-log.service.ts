@@ -1,5 +1,5 @@
 import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
 import { HttpContextToken, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Service } from '@angular/core';
 

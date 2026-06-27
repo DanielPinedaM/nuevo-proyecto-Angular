@@ -1,7 +1,7 @@
 import { LoaderService } from '@/shared/http-client/loader/services/stores/loader.store';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
 import { HttpLogService } from '@/shared/http-client/services/http-log.service';
-import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
 import ToastService from '@/shared/services/Toast.service';
 import { HttpErrorResponse, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { inject, Injector, runInInjectionContext } from '@angular/core';

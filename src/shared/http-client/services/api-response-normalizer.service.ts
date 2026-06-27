@@ -1,4 +1,4 @@
-import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
 import { Service } from '@angular/core';
 
 /**
