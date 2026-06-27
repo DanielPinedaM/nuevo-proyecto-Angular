@@ -467,6 +467,8 @@ src/
 │           └── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots. Pueden depender de modelos, reglas de negocio y casos de uso específicos de la feature. Su alcance está limitado a bots y no deben utilizarse desde otras features.
 │               └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación
 │
+├── core/
+│
 ├── shared/ → utilidades compartidas (globales), totalmente agnosticas a la logica de negocio/domio que se pueden usar en cualquier parte de la web
 │   ├── guards/
 │   │   └── auth.guard.ts → protección de rutas de todos los componentes que estan despues de loguearse
