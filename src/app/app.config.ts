@@ -1,4 +1,11 @@
+import { routes } from '@/app/app.routes';
+import { errorInterceptor } from '@/shared/http-client/interceptors/error.interceptor';
+import { successInterceptor } from '@/shared/http-client/interceptors/success.interceptor';
+import { timeoutInterceptor } from '@/shared/http-client/interceptors/timeout.interceptor';
+import { withCredentialsInterceptor } from '@/shared/http-client/interceptors/with-credentials.interceptor';
+import { loaderInterceptor } from '@/shared/http-client/loader/interceptors/loader.interceptor';
 import {
+  HttpInterceptorFn,
   provideHttpClient,
   withFetch,
   withInterceptors,
@@ -6,15 +13,9 @@ import {
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
-import { providePrimeNG } from 'primeng/config';
-import { routes } from '@/app/app.routes';
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
-import { withCredentialsInterceptor } from '@/shared/http-client/interceptors/with-credentials.interceptor';
-import { loaderInterceptor } from '@/shared/http-client/loader/interceptors/loader.interceptor';
-import { timeoutInterceptor } from '@/shared/http-client/interceptors/timeout.interceptor';
-import { errorInterceptor } from '@/shared/http-client/interceptors/error.interceptor';
-import { successInterceptor } from '@/shared/http-client/interceptors/success.interceptor';
+import { providePrimeNG } from 'primeng/config';
 
 /**
 Personalizar colores de Prime NG
@@ -37,20 +38,19 @@ const PRIME_NG_PRESET = definePreset(Aura, {
   },
 });
 
+const HTTP_CLIENT_INTERCEPTORS: HttpInterceptorFn[] = [
+  withCredentialsInterceptor,
+  loaderInterceptor,
+  timeoutInterceptor,
+  errorInterceptor,
+  successInterceptor,
+];
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(
-      withFetch(),
-      withInterceptors([
-        withCredentialsInterceptor,
-        loaderInterceptor,
-        timeoutInterceptor,
-        errorInterceptor,
-        successInterceptor,
-      ]),
-    ),
+    provideHttpClient(withFetch(), withInterceptors([...HTTP_CLIENT_INTERCEPTORS])),
     provideHotToastConfig(),
 
     // configuracion de Prime NG
