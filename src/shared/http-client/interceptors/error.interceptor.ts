@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
 /**
-normaliza las respuestas HTTP ERRONEAS al contrato IResponse<T>, delegando la
-validacion/normalizacion en ApiResponseNormalizerService. Contiene acciones de errores
-generales/globales (401/403/404/5xx), NO logica de negocio de features.
-PROHIBIDO propagar el error con throw: el error se "traga" emitiendo una respuesta sintetica. */
+ * normaliza las respuestas HTTP ERRONEAS al contrato IResponse<T>, delegando la
+ * validacion/normalizacion en ApiResponseNormalizerService. Contiene acciones de errores
+ * generales/globales (401/403/404/5xx), NO logica de negocio de features.
+ * PROHIBIDO propagar el error con throw: el error se "traga" emitiendo una respuesta sintetica. */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const injector = inject(Injector);
   const normalizer = inject(ApiResponseNormalizerService);
@@ -50,9 +50,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 };
 
 /**
-manejo global de errores HTTP. Adaptado de gateway-helper.service.ts (sin importar el service).
-Usa inject() directamente (sin recibir router, toast ni loaderStore por parametro); por eso debe
-invocarse dentro de un injection context (runInInjectionContext). */
+ * manejo global de errores HTTP. Adaptado de gateway-helper.service.ts (sin importar el service).
+ * Usa inject() directamente (sin recibir router, toast ni loaderStore por parametro); por eso debe
+ * invocarse dentro de un injection context (runInInjectionContext). */
 function handleGlobalError(status: number, url: string): void {
   const router = inject(Router);
   const toast = inject(ToastService);

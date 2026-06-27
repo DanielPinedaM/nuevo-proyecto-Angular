@@ -2,15 +2,15 @@ import { IResponse } from '@/shared/http-response/data-types/interfaces/http-res
 import { Service } from '@angular/core';
 
 /**
-intermediario que valida y normaliza TODAS las respuestas HTTP al contrato IResponse<T>.
-Se llama tanto en successInterceptor como en errorInterceptor para NO repetir la logica de
-normalizacion entre ambos. SIEMPRE retorna un objeto literal IResponse<T> con las keys
-success, status, message y data. */
+ * intermediario que valida y normaliza TODAS las respuestas HTTP al contrato IResponse<T>.
+ * Se llama tanto en successInterceptor como en errorInterceptor para NO repetir la logica de
+ * normalizacion entre ambos. SIEMPRE retorna un objeto literal IResponse<T> con las keys
+ * success, status, message y data. */
 @Service()
 export class ApiResponseNormalizerService {
   /**
-  Caso 1: la API SI cumple el contrato IResponse<T>  -> se retorna la respuesta tal cual, SIN modificar.
-  Caso 2: la API NO cumple el contrato               -> se envuelve en IResponse<T> (success se deriva del status). */
+   * Caso 1: la API SI cumple el contrato IResponse<T>  -> se retorna la respuesta tal cual, SIN modificar.
+   * Caso 2: la API NO cumple el contrato               -> se envuelve en IResponse<T> (success se deriva del status). */
   normalize<T>(
     rawBody: unknown,
     status: number,
@@ -29,10 +29,10 @@ export class ApiResponseNormalizerService {
   }
 
   /**
-  valida (a) que existan TODAS las keys del contrato
-  y (b) que los tipos de sus values sean correctos.
-
-  En `data` solo se valida que la key exista, porque su tipo es <T>. */
+   * valida (a) que existan TODAS las keys del contrato
+   * y (b) que los tipos de sus values sean correctos.
+   *
+   * En `data` solo se valida que la key exista, porque su tipo es <T>. */
   private isApiContract<T>(value: unknown): value is IResponse<T> {
     if (typeof value !== 'object' || value === null) return false;
 

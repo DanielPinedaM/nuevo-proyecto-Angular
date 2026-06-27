@@ -6,23 +6,25 @@ import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { of, timeout } from 'rxjs';
 
-// 1 minuto
+/**
+ * 1 minuto */
 const TIMEOUT_MS: number = 60000;
 
-// 408 Request Timeout
+/**
+ * 408 Request Timeout */
 const TIMEOUT_STATUS: number = 408;
 
 /**
-aplica un tiempo maximo de expiracion de 1 minuto a cada peticion HTTP. Cuando se cumple
-1 minuto sin respuesta:
-aborta la peticion,
-oculta el loader (estado global),
-imprime el detalle
-y delega los logs en http-log.service.
-
-Implementado con el patron moderno de RxJS
-`timeout({ each, with })`: el `with` emite una respuesta sintetica sin lanzar errores
-(cumple la prohibicion de propagar errores desde los interceptors) */
+ * aplica un tiempo maximo de expiracion de 1 minuto a cada peticion HTTP. Cuando se cumple
+ * 1 minuto sin respuesta:
+ * aborta la peticion,
+ * oculta el loader (estado global),
+ * imprime el detalle
+ * y delega los logs en http-log.service.
+ *
+ * Implementado con el patron moderno de RxJS
+ * `timeout({ each, with })`: el `with` emite una respuesta sintetica sin lanzar errores
+ * (cumple la prohibicion de propagar errores desde los interceptors) */
 export const timeoutInterceptor: HttpInterceptorFn = (req, next) => {
   const loaderStore = inject(LoaderService);
   const normalizer = inject(ApiResponseNormalizerService);

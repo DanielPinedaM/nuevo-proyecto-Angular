@@ -6,9 +6,9 @@ import { inject } from '@angular/core';
 import { map } from 'rxjs';
 
 /**
-normaliza las respuestas HTTP EXITOSAS al contrato IResponse<T>, delegando la
-validacion/normalizacion en ApiResponseNormalizerService
-(no se repite esa logica aqui / Responsabilidad unica) */
+ * normaliza las respuestas HTTP EXITOSAS al contrato IResponse<T>, delegando la
+ * validacion/normalizacion en ApiResponseNormalizerService
+ * (no se repite esa logica aqui / Responsabilidad unica) */
 export const successInterceptor: HttpInterceptorFn = (req, next) => {
   const normalizer = inject(ApiResponseNormalizerService);
   const httpLog = inject(HttpLogService);

@@ -4,15 +4,15 @@ import { HttpContextToken, HttpHeaders, HttpParams, HttpRequest } from '@angular
 import { Service } from '@angular/core';
 
 /**
-token para desactivar los logs en una peticion concreta.
-Por defecto se imprimen logs en todos los ambientes EXCEPTO produccion */
+ * token para desactivar los logs en una peticion concreta.
+ * Por defecto se imprimen logs en todos los ambientes EXCEPTO produccion */
 export const HTTP_LOG_ENABLED: HttpContextToken<boolean> = new HttpContextToken<boolean>(
   () => !environment.production,
 );
 
 /**
-objeto literal (resumido) que se imprime en los logs. `data` y `body` se imprimen RESUMIDOS,
-nunca completos. Los tipos de params, headers y responseType se reutilizan de Angular */
+ * objeto literal (resumido) que se imprime en los logs. `data` y `body` se imprimen RESUMIDOS,
+ * nunca completos. Los tipos de params, headers y responseType se reutilizan de Angular */
 interface IResponseLogger {
   NODE_ENV: string;
 
@@ -30,14 +30,14 @@ interface IResponseLogger {
 }
 
 /**
-logging por consola de las peticiones HTTP. Permite desactivar los logs por peticion mediante
-HttpContext usando el HttpContextToken HTTP_LOG_ENABLED (distinto al token del loader) */
+ * logging por consola de las peticiones HTTP. Permite desactivar los logs por peticion mediante
+ * HttpContext usando el HttpContextToken HTTP_LOG_ENABLED (distinto al token del loader) */
 @Service()
 export class HttpLogService {
   /**
-  transforma la respuesta de la API en el objeto literal
-  que luego imprimen successLogs, errorLogs y timeoutLogs.
-  SOLO retorna el objeto; NO imprime nada por consola */
+   * transforma la respuesta de la API en el objeto literal
+   * que luego imprimen successLogs, errorLogs y timeoutLogs.
+   * SOLO retorna el objeto; NO imprime nada por consola */
   transformResponseToLogger(
     response: IResponse<unknown>,
     req: HttpRequest<unknown>,
@@ -63,7 +63,7 @@ export class HttpLogService {
   }
 
   /**
-  ✅ imprime los logs cuando la peticion es exitosa */
+   * ✅ imprime los logs cuando la peticion es exitosa */
   successLogs(req: HttpRequest<unknown>, response: IResponse<unknown>): void {
     if (!this.canLog(req)) return;
 
@@ -75,7 +75,7 @@ export class HttpLogService {
   }
 
   /**
-  ❌ imprime los logs cuando la peticion da error */
+   * ❌ imprime los logs cuando la peticion da error */
   errorLogs(req: HttpRequest<unknown>, response: IResponse<unknown>): void {
     if (!this.canLog(req)) return;
 
@@ -83,7 +83,7 @@ export class HttpLogService {
   }
 
   /**
-  ⏱️ imprime los logs despues de detener la peticion HTTP por el timeout de 1 minuto */
+   * ⏱️ imprime los logs despues de detener la peticion HTTP por el timeout de 1 minuto */
   timeoutLogs(req: HttpRequest<unknown>, response: IResponse<unknown>): void {
     if (!this.canLog(req)) return;
 
@@ -91,15 +91,15 @@ export class HttpLogService {
   }
 
   /**
-  ¿se debe imprimir el log?
-  NO en produccion, NI cuando la peticion desactivo el token */
+   * ¿se debe imprimir el log?
+   * NO en produccion, NI cuando la peticion desactivo el token */
   private canLog(req: HttpRequest<unknown>): boolean {
     if (environment.production) return false;
     return req.context.get(HTTP_LOG_ENABLED);
   }
 
   /**
-  resume `data` o `body` para NO imprimir el contenido completo */
+   * resume `data` o `body` para NO imprimir el contenido completo */
   private summarize(value: unknown): string | null {
     if (value === null || value === undefined) return null;
 
@@ -127,7 +127,7 @@ export class HttpLogService {
   }
 
   /**
-  ¿la variable es un objeto literal {}? */
+   * ¿la variable es un objeto literal {}? */
   private isLiteralObject(value: unknown): value is Record<string | symbol, unknown> {
     return (
       typeof value === 'object' &&
@@ -138,13 +138,13 @@ export class HttpLogService {
   }
 
   /**
-  numero de keys (longitud) de un objeto literal {} */
+   * numero de keys (longitud) de un objeto literal {} */
   private literalObjectLength(value: Record<string | symbol, unknown>): number {
     return Object.keys(value).length + Object.getOwnPropertySymbols(value).length;
   }
 
   /**
-  ¿la variable es un archivo? */
+   * ¿la variable es un archivo? */
   private isFile(value: unknown): boolean {
     if (!value) return false;
 
