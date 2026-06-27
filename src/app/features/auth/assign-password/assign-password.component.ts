@@ -21,8 +21,8 @@ import GeneralService from '@/shared/services/General.service';
 import DataTypeService from '@/shared/services/DataType.service';
 import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
-import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
-import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { HttpClient } from '@angular/common/http';
+import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
 @Component({
@@ -41,7 +41,7 @@ export class AssignPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoService);
   generalClass = inject(GeneralService);
   dataTypeClass = inject(DataTypeService);
-  http = inject(GatewayApiService);
+  http = inject(HttpClient);
   toast = inject(ToastService);
   router = inject(Router);
   route = inject(ActivatedRoute);
@@ -123,17 +123,15 @@ export class AssignPasswordComponent implements OnInit {
 
     const { password } = this.formAssignPassword.value;
 
-    const optionsApi: IRequestOptions<IBodyAssignPassword> = {
-      body: {
-        id: this.dataTypeClass.convertToNumber(this.idParams)!,
-        password: (await this.cryptoServiceClass.encrypt(
-          password!.trim()
-        )) as string,
-      },
+    const body: IBodyAssignPassword = {
+      id: this.dataTypeClass.convertToNumber(this.idParams)!,
+      password: (await this.cryptoServiceClass.encrypt(
+        password!.trim()
+      )) as string,
     };
 
     const { success, message } = await firstValueFrom(
-      this.http.POST(`${environment.api}`, optionsApi)
+      this.http.post<IResponse<unknown>>(`${environment.api}`, body)
     );
 
     if (success) {

@@ -13,8 +13,8 @@ import CryptoService from '@/shared/services/Crypto.service';
 import { firstValueFrom } from 'rxjs';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
-import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
-import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
+import { HttpClient } from '@angular/common/http';
+import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
 
 export interface IBodyRecoverPassword {
   email: string;
@@ -34,7 +34,7 @@ export interface IBodyRecoverPassword {
 })
 export class RecoverPasswordComponent implements OnInit {
   cryptoServiceClass = inject(CryptoService);
-  http = inject(GatewayApiService);
+  http = inject(HttpClient);
   toast = inject(ToastService);
 
   ngOnInit() {}
@@ -54,14 +54,12 @@ export class RecoverPasswordComponent implements OnInit {
 
     const { email } = this.formRecoverPassword.value;
 
-    const optionsApi: IRequestOptions<IBodyRecoverPassword> = {
-      body: {
-        email: (await this.cryptoServiceClass.encrypt(email!.trim())) as string,
-      },
+    const body: IBodyRecoverPassword = {
+      email: (await this.cryptoServiceClass.encrypt(email!.trim())) as string,
     };
 
     const { success, message } = await firstValueFrom(
-      this.http.POST(`${environment.api}`, optionsApi)
+      this.http.post<IResponse<unknown>>(`${environment.api}`, body)
     );
 
     if (success) {

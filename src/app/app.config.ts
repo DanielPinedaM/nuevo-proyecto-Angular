@@ -1,4 +1,8 @@
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
@@ -6,6 +10,10 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from '@/app/app.routes';
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
+import { loaderInterceptor } from '@/shared/http-client/loader/interceptors/loader.interceptor';
+import { timeoutInterceptor } from '@/shared/http-client/interceptors/timeout.interceptor';
+import { errorInterceptor } from '@/shared/http-client/interceptors/error.interceptor';
+import { successInterceptor } from '@/shared/http-client/interceptors/success.interceptor';
 
 /**
 Personalizar colores de Prime NG
@@ -32,7 +40,15 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        loaderInterceptor,
+        timeoutInterceptor,
+        errorInterceptor,
+        successInterceptor,
+      ]),
+    ),
     provideHotToastConfig(),
 
     // configuracion de Prime NG

@@ -19,8 +19,8 @@ import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
-import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
-import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
+import { HttpClient } from '@angular/common/http';
+import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   storage = inject(SessionStorageService);
   cryptoServiceClass = inject(CryptoService);
   dataTypeClass = inject(DataTypeService);
-  http = inject(GatewayApiService);
+  http = inject(HttpClient);
   toast = inject(ToastService);
   router = inject(Router);
 
@@ -141,15 +141,13 @@ export class LoginComponent implements OnInit {
       password!.trim()
     );
 
-    const optionsApi: IRequestOptions<IBodyLogin> = {
-      body: {
-        email: encryptedEmail,
-        password: encryptedPassword,
-      },
+    const body: IBodyLogin = {
+      email: encryptedEmail,
+      password: encryptedPassword,
     };
 
     const { success, data, message } = await firstValueFrom(
-      this.http.POST(`${environment.api}`, optionsApi)
+      this.http.post<IResponse<Record<string, string>>>(`${environment.api}`, body)
     );
 
     /* EL SIGUIENTE CODIGO DEBERIA ESTAR DESCOMENTADO CUANDO FUNCIONE LA CONEXION A LA API  */

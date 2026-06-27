@@ -21,8 +21,8 @@ import CryptoService from '@/shared/services/Crypto.service';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
-import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
-import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
+import { HttpClient } from '@angular/common/http';
+import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
 @Component({
@@ -41,7 +41,7 @@ import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 export class RegisterComponent implements OnInit {
   cryptoServiceClass = inject(CryptoService);
   generalClass = inject(GeneralService);
-  http = inject(GatewayApiService);
+  http = inject(HttpClient);
   toast = inject(ToastService);
   router = inject(Router);
 
@@ -147,16 +147,14 @@ export class RegisterComponent implements OnInit {
         password!.trim()
       );
 
-    const optionsApi: IRequestOptions<IBodyRegister> = {
-      body: {
-        nameUser: encryptedNameUser as string,
-        email: encryptedEmail as string,
-        password: encryptedPassword as string,
-      },
+    const body: IBodyRegister = {
+      nameUser: encryptedNameUser as string,
+      email: encryptedEmail as string,
+      password: encryptedPassword as string,
     };
 
     const { success, data, message } = await firstValueFrom(
-      this.http.POST(`${environment.api}`, optionsApi)
+      this.http.post<IResponse<unknown>>(`${environment.api}`, body)
     );
 
     if (success) {

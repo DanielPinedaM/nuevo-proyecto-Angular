@@ -1,11 +1,12 @@
+import { environment } from '@/environments/environment';
+import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
+import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
-import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
 
 export const AuthGuard: CanActivateFn = async (route, state) => {
-  const http = inject(GatewayApiService);
+  const http = inject(HttpClient);
   const router = inject(Router);
 
   /**
@@ -22,7 +23,7 @@ export const AuthGuard: CanActivateFn = async (route, state) => {
    * - Ignorar estas recomendaciones y exponer el JWT al código JavaScript del frontend incrementa significativamente el riesgo de robo del token mediante ataques XSS (Cross-Site Scripting)
    * - Descomentar el código de validación ubicado más abajo para activar la protección de rutas. Actualmente se encuentra comentado únicamente para facilitar pruebas y permitir la navegación sin restricciones durante el desarrollo. */
   //const { success, message, status } = await firstValueFrom(
-  //  http.GET(`${environment.api}reemplazar-por-endpoint-de-autenticacion`),
+  //  http.get<IResponse<unknown>>(`${environment.api}reemplazar-por-endpoint-de-autenticacion`),
   //);
 
   //if (!success) {

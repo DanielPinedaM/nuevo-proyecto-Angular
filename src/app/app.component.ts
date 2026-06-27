@@ -1,9 +1,9 @@
 ﻿import { environment } from '@/environments/environment';
-import { FixedLoaderComponent } from '@/shared/design/ui/fixed-loader/fixed-loader.component';
+import { FixedLoaderComponent } from '@/shared/http-client/loader/design/ui/fixed-loader/fixed-loader.component';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
-import { LoaderService } from '@/shared/services/stores/loader.store';
+import { LoaderService } from '@/shared/http-client/loader/services/stores/loader.store';
 import ToastService from '@/shared/services/Toast.service';
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 
@@ -25,33 +25,13 @@ export class AppComponent implements OnInit {
   toast = inject(ToastService);
   bnIdle = inject(BnNgIdleService);
   router = inject(Router);
-  loaderService = inject(LoaderService);
+  private loaderService = inject(LoaderService);
 
-  loader = signal<boolean>(false);
+  // estado global del loader; lectura reactiva (signal) en la plantilla
+  readonly getLoader = this.loaderService.getLoader;
 
   ngOnInit(): void {
-    this.getLoader();
     this.#logOutDueToInactivity();
-  }
-
-  private getLoader(): void {
-    this.loaderService.getLoader().subscribe((loader: boolean) => {
-      if (loader) {
-        const milliseconds = 120000;
-
-        setTimeout(() => {
-          this.loader.set(false);
-
-          console.warn(
-            `⚠️ se oculto el icono de cargando despues de ${
-              milliseconds / 120000
-            } minutos porque una peticion HTTP tardo en responder`,
-          );
-        }, milliseconds);
-      }
-
-      this.loader.set(loader);
-    });
   }
 
   #logOutDueToInactivity(): void {

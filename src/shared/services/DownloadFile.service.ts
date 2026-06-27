@@ -2,21 +2,19 @@
  * metodos para descargar archivo *
  * ******************************** */
 
+import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
 import GeneralService from '@/shared/services/General.service';
-import { saveAs } from 'file-saver';
+import LuxonService from '@/shared/services/Luxon.service';
 import { inject, Injectable, Injector } from '@angular/core';
 import * as ExcelJS from 'exceljs';
-import { IResponse } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
+import { saveAs } from 'file-saver';
 import ToastService from './Toast.service';
-import LuxonService from '@/shared/services/Luxon.service';
-import { LoaderService } from '@/shared/services/stores/loader.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export default class DownloadFileService {
   luxonClass = inject(LuxonService);
-  loaderService = inject(LoaderService);
   toast = inject(ToastService);
   private injector = inject(Injector);
   private _generalClass: GeneralService | null = null;
@@ -29,10 +27,7 @@ export default class DownloadFileService {
 
   /**
   Funcion para descargar archivo */
-  public downloadBlob = (
-    blob: Blob | IResponse,
-    fileName: string | undefined,
-  ): void => {
+  public downloadBlob = (blob: Blob | IResponse, fileName: string | undefined): void => {
     const message = 'Ocurrió un error al descargar archivo';
 
     if (!(blob instanceof Blob)) {
@@ -49,10 +44,7 @@ export default class DownloadFileService {
 
     if (!fileName) {
       this.toast.error(message);
-      console.error(
-        '❌ el nombre del archivo fileName NO puede ser falsy\n',
-        fileName,
-      );
+      console.error('❌ el nombre del archivo fileName NO puede ser falsy\n', fileName);
       return;
     }
 
@@ -70,16 +62,13 @@ export default class DownloadFileService {
     }
 
     const lastDotIndex: number = fileName.lastIndexOf('.');
-    const baseFileName: string =
-      lastDotIndex > -1 ? fileName.slice(0, lastDotIndex) : fileName;
+    const baseFileName: string = lastDotIndex > -1 ? fileName.slice(0, lastDotIndex) : fileName;
     const date: string = this.luxonClass
       .currentDateAndTime()
       .replaceAll(':', '_')
       .replaceAll(' ', '-');
 
-    this.toast.success(
-      `Archivo descargado ${baseFileName}.${extension}`,
-    );
+    this.toast.success(`Archivo descargado ${baseFileName}.${extension}`);
 
     saveAs(blob, `${date}-${baseFileName}.${extension}`);
   };
@@ -94,10 +83,7 @@ export default class DownloadFileService {
       setTimeout(() => URL.revokeObjectURL(fileURL), 5000);
     } else {
       this.toast.error('Al ver archivo');
-      console.error(
-        '❌ error, para poder ver el archivo, tiene q ser tipo blob\n',
-        blob,
-      );
+      console.error('❌ error, para poder ver el archivo, tiene q ser tipo blob\n', blob);
     }
   };
 
@@ -111,10 +97,7 @@ export default class DownloadFileService {
 
     if (!nonNestedArrayOfObjects) {
       this.toast.error(errroMessage);
-      console.error(
-        '❌ el array de objetos NO puede ser falsy\n',
-        nonNestedArrayOfObjects,
-      );
+      console.error('❌ el array de objetos NO puede ser falsy\n', nonNestedArrayOfObjects);
       return;
     }
 
@@ -138,32 +121,22 @@ export default class DownloadFileService {
 
     if (!fileName) {
       this.toast.error(errroMessage);
-      console.error(
-        '❌ el nombre del archivo fileName NO puede ser falsy\n',
-        fileName,
-      );
+      console.error('❌ el nombre del archivo fileName NO puede ser falsy\n', fileName);
       return;
     }
 
     if (!String(fileName).includes('.xlsx')) {
       this.toast.error(errroMessage);
-      console.error(
-        '❌ fileName tiene q contener la extension .xlsx\n',
-        fileName,
-      );
+      console.error('❌ fileName tiene q contener la extension .xlsx\n', fileName);
       return;
     }
-
-    this.loaderService.setLoader(true);
 
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Datos');
     const keys: string[] = Object.keys(nonNestedArrayOfObjects[0]);
 
     // Mayusculas iniciales a los nombres de las columnas del Excel
-    const header: string[] = keys.map((key: string) =>
-      this.generalClass.titleCase(key ?? ''),
-    );
+    const header: string[] = keys.map((key: string) => this.generalClass.titleCase(key ?? ''));
 
     // Agregar encabezados con estilos
     worksheet.addRow(header);
@@ -202,9 +175,6 @@ export default class DownloadFileService {
       .catch((error) => {
         console.error('❌ error al generar el archivo Excel\n', error);
         this.toast.error(errroMessage);
-      })
-      .finally(() => {
-        this.loaderService.setLoader(false);
       });
   };
 }

@@ -3,7 +3,8 @@ import SessionStorageService from '@/shared/services/SessionStorage.service';
 import ToastService from '@/shared/services/Toast.service';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
-import { GatewayApiService } from '@/shared/services/api/http-client/http-gateway-observable.api';
+import { HttpClient } from '@angular/common/http';
+import { IResponse } from '@/shared/http-response/data-types/interfaces/http-response.interface';
 import { MenuDesktopComponent } from '@/shared/design/ui/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/shared/design/ui/menu/menu-mobile/menu-mobile.component';
 
@@ -22,7 +23,7 @@ interface IMenuOptions {
 })
 export class MainMenuComponent implements OnInit {
   storage = inject(SessionStorageService);
-  http = inject(GatewayApiService);
+  http = inject(HttpClient);
   toast = inject(ToastService);
 
   menuOptions = signal<IMenuOptions[]>([]);
@@ -38,7 +39,7 @@ export class MainMenuComponent implements OnInit {
     }
 
     const { success, data } = await firstValueFrom(
-      this.http.POST(`${environment.api}`),
+      this.http.post<IResponse<IMenuOptions[]>>(`${environment.api}`, {}),
     );
 
     if (success) {
