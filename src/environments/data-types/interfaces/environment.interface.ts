@@ -4,11 +4,6 @@ export interface IEnvironment {
   api: string;
 
   auth: {
-    login: string;
-    register: string;
-    recoverPassword: string;
-    assignPassword: string;
-
     user: string;
     password: string;
   };

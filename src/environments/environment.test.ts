@@ -10,11 +10,6 @@ export const environment: IEnvironment = {
   api: API,
 
   auth: {
-    login: `${API}login`,
-    register: `${API}register`,
-    recoverPassword: `${API}recoverPassword`,
-    assignPassword: `${API}assignPassword`,
-
     user: 'AQUI FALTA ESCRIBIR USUARIO PARA INICIAR SESION',
     password: 'AQUI FALTA ESCRIBIR CONTRASEÑA PARA INICIAR SESION',
   },
