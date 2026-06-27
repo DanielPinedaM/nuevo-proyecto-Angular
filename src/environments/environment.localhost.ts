@@ -2,7 +2,7 @@
 
 import { IEnvironment } from '@/environments/data-types/interfaces/environment.interface';
 
-const API = 'http://localhost:3000/api/v1/';
+const API: string = 'http://localhost:3000/api/v1/';
 
 export const environment: IEnvironment = {
   NODE_ENV: 'localhost',

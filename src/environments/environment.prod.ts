@@ -2,7 +2,7 @@
 
 import { IEnvironment } from '@/environments/data-types/interfaces/environment.interface';
 
-const API = 'https://aqui escribir dominio de PRODUCCION';
+const API: string = 'https://aqui escribir dominio de PRODUCCION';
 
 export const environment: IEnvironment = {
   NODE_ENV: 'production',
