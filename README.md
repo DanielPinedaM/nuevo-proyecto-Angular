@@ -450,7 +450,7 @@ src/
 │       │       ├── constants/
 │       │       └── interfaces/
 │       │
-│       └── bots/ → Feature independiente que define la ruta `/bots`. El proyecto utiliza una arquitectura basada en funcionalidades (Feature-Based Architecture).
+│       └── bots/ → Feature independiente que define la ruta `/bots`.
 │           ├── bots.component.html
 │           ├── bots.component.ts
 │           │
@@ -467,7 +467,7 @@ src/
 │           └── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots. Pueden depender de modelos, reglas de negocio y casos de uso específicos de la feature. Su alcance está limitado a bots y no deben utilizarse desde otras features.
 │               └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación
 │
-├── shared/ → utilidades compartidas (globales) que se pueden usar en cualquier parte de la web
+├── shared/ → utilidades compartidas (globales), totalmente agnosticas a la logica de negocio/domio que se pueden usar en cualquier parte de la web
 │   ├── guards/
 │   │   └── auth.guard.ts → protección de rutas de todos los componentes que estan despues de loguearse
 │   │
@@ -476,8 +476,6 @@ src/
 │   │   │   └── main-wrapper/ → contenedor principal de paginas despues de loguearse
 │   │   │
 │   │   └── ui/ → componentes visuales reutilizables que representan partes aisladas de la interfaz, no páginas ni estructuras de navegación completas
-│   │       ├── breadcrumbs/ → Componente con migas de pan
-│   │       ├── fixed-loader/ → icono de cargando
 │   │       └── menu/ → Componente de menú
 │   │
 │   ├── data-types/ → tipos de datos, contratos, constantes y definiciones reutilizables compartidos entre múltiples features de la aplicación. No deben depender de logica de negocio de una feature
@@ -486,14 +484,43 @@ src/
 │   │   └── enums/
 │   │   └── types/
 │   │
-│   └── services/ → servicios reutilizables de alcance global que pueden ser utilizados por múltiples features de la aplicación. Encapsulan lógica transversal, infraestructura, acceso a APIs, utilidades técnicas y gestión de estado compartido. No deben depender de reglas de negocio específicas de una feature.
-│       ├── Crypto.service.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
-│       ├── DataType.service.ts → funciones para tipos de datos de JS, ejemplo normalizar string
-│       ├── DownloadFile.service.ts → funciones para descargar y ver archivos
-│       ├── General.service.ts → funciones globales q se pueden re-utilizar en cualquier parte de la web
-│       ├── Luxon.service.ts → funciones para fechas usando Luxon
-│       ├── SessionStorage.service.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
-│       └── Toast.service.ts → notificaciones tipo toast
+│   ├── services/ → servicios reutilizables de alcance global que pueden ser utilizados por múltiples features de la aplicación. Encapsulan lógica transversal, infraestructura, acceso a APIs, utilidades técnicas y gestión de estado compartido. No deben depender de reglas de negocio específicas de una feature.
+│   │   ├── Crypto.service.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
+│   │   ├── DataType.service.ts → funciones para tipos de datos de JS, ejemplo normalizar string
+│   │   ├── DownloadFile.service.ts → funciones para descargar y ver archivos
+│   │   ├── General.service.ts → funciones globales q se pueden re-utilizar en cualquier parte de la web
+│   │   ├── Luxon.service.ts → funciones para fechas usando Luxon
+│   │   ├── SessionStorage.service.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
+│   │   └── Toast.service.ts → notificaciones tipo toast
+│   │
+│   └── http-client/ → infraestructura centralizada de HTTP: interceptors, normalización de respuestas, logging y loader global
+│       ├── data-types/
+│       │   └── interfaces/
+│       │       └── http-client.interface.ts → contrato IResponse<T>: estructura estándar de respuesta de la API (success, status, message, data)
+│       │
+│       ├── interceptors/
+│       │   ├── error.interceptor.ts → captura errores HTTP, normaliza la respuesta al contrato IResponse<T> y ejecuta acciones globales según el código de estado (401, 403, 404, 5xx)
+│       │   ├── success.interceptor.ts → intercepta respuestas HTTP exitosas y las normaliza al contrato IResponse<T>
+│       │   ├── timeout.interceptor.ts → aplica tiempo máximo de 1 minuto por petición; si se supera, aborta y emite respuesta sintética con status 408
+│       │   └── with-credentials.interceptor.ts → agrega withCredentials a cada petición HTTP; excluye los endpoints de la constante URLS_WITHOUT_CREDENTIALS
+│       │
+│       ├── services/
+│       │   ├── api-response-normalizer.service.ts → valida y normaliza todas las respuestas HTTP al contrato IResponse<T>; usado por success.interceptor, error.interceptor y timeout.interceptor
+│       │   └── http-log.service.ts → logging por consola de peticiones HTTP (exitosas, erróneas y timeout); desactivable por petición con el token HTTP_LOG_ENABLED
+│       │
+│       └── loader/ → módulo que centraliza el icono de carga global (componente, interceptor y estado)
+│           ├── design/
+│           │   └── ui/
+│           │       └── fixed-loader/
+│           │           ├── fixed-loader.component.html → template del icono de carga con position: fixed centrado en pantalla
+│           │           └── fixed-loader.component.ts → componente del icono de carga global
+│           │
+│           ├── interceptors/
+│           │   └── loader.interceptor.ts → controla la visibilidad del loader con un contador de peticiones HTTP activas; desactivable por petición con el token SHOW_LOADER
+│           │
+│           └── services/
+│               └── stores/
+│                   └── loader.store.ts → estado global con signals para mostrar y ocultar el icono de carga
 │
 └── styles/
     └── global/
