@@ -194,6 +194,20 @@ La salida de la terminal debe ser:
 ❯ angular-cli · ✔ connected · 9 tools
 ```
 
+### Ejemplos de ¿Como Usar MCP de Angular?
+
+```txt
+usar ai_tutor del MCP de Angular para explicarme Forms with signals
+```
+
+```txt
+usar get_best_practices del MCP de Angular para refactorizar el componente que esta en la ruta src/***
+```
+
+```txt
+usar search_documentation del MCP de Angular para que en el componente que esta en la ruta src/***, migrar a signals
+```
+
 ### [🔗 Click aqui para ver los comandos del MCP de Angular](https://angular.dev/ai/mcp)
 
 # 🤖 Uso de IA
