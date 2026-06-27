@@ -432,6 +432,7 @@ src/
 │   ├── data-types/
 │   │   └── interfaces/
 │   │       └── environment.interface.ts → Tipos de datos de las variables de entorno
+│   │
 │   ├── environment.localhost.ts → Variables de entorno de local host (desarrollo)
 │   ├── environment.prod.ts → Variables de entorno de producción
 │   └── environment.test.ts → Variables de entorno de pruebas
