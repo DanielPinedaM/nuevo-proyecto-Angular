@@ -1,4 +1,9 @@
-﻿import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+﻿import { environment } from '@/environments/environment';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import CryptoService from '@/shared/services/Crypto.service';
+import ToastService from '@/shared/services/Toast.service';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,15 +11,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { environment } from '@/environments/environment';
 import { RouterModule } from '@angular/router';
-import ToastService from '@/shared/services/Toast.service';
-import CryptoService from '@/shared/services/Crypto.service';
-import { firstValueFrom } from 'rxjs';
-import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
-import { HttpClient } from '@angular/common/http';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
+import { MessageModule } from 'primeng/message';
+import { firstValueFrom } from 'rxjs';
 
 export interface IBodyRecoverPassword {
   email: string;

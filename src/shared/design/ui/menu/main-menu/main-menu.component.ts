@@ -1,12 +1,12 @@
-﻿import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
-import SessionStorageService from '@/shared/services/SessionStorage.service';
-import ToastService from '@/shared/services/Toast.service';
-import { environment } from '@/environments/environment';
-import { firstValueFrom } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
+﻿import { environment } from '@/environments/environment';
 import { MenuDesktopComponent } from '@/shared/design/ui/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/shared/design/ui/menu/menu-mobile/menu-mobile.component';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import SessionStorageService from '@/shared/services/SessionStorage.service';
+import ToastService from '@/shared/services/Toast.service';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 
 interface IMenuOptions {
   text: string;

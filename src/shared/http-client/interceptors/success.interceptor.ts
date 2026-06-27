@@ -1,6 +1,6 @@
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
 import { HttpLogService } from '@/shared/http-client/services/http-log.service';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
 import { HttpEvent, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map } from 'rxjs';

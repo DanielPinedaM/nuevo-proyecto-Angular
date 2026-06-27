@@ -1,4 +1,17 @@
-﻿import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+﻿import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
+import {
+  IBodyRegister,
+  IInputValuePassword,
+  IObjValidatePassword,
+} from '@/app/features/auth/data-types/interfaces/auth.interfaces';
+import { environment } from '@/environments/environment';
+import CONST_REGEX from '@/shared/data-types/constants/regex.const';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import CryptoService from '@/shared/services/Crypto.service';
+import GeneralService from '@/shared/services/General.service';
+import ToastService from '@/shared/services/Toast.service';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,24 +19,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { environment } from '@/environments/environment';
 import { Router, RouterModule } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
-import ToastService from '@/shared/services/Toast.service';
-import {
-  IBodyRegister,
-  IInputValuePassword,
-  IObjValidatePassword,
-} from '@/app/features/auth/data-types/interfaces/auth.interfaces';
-import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
-import GeneralService from '@/shared/services/General.service';
-import CryptoService from '@/shared/services/Crypto.service';
+import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
-import { InputTextModule } from 'primeng/inputtext';
-import { HttpClient } from '@angular/common/http';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
-import CONST_REGEX from '@/shared/data-types/constants/regex.const';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-register',

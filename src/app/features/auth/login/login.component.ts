@@ -1,6 +1,13 @@
-﻿import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+﻿import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
+import { IBodyLogin } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
+import { environment } from '@/environments/environment';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import CryptoService from '@/shared/services/Crypto.service';
+import DataTypeService from '@/shared/services/DataType.service';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
+import ToastService from '@/shared/services/Toast.service';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,19 +15,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { environment } from '@/environments/environment';
-import DataTypeService from '@/shared/services/DataType.service';
-import ToastService from '@/shared/services/Toast.service';
-import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
-import CryptoService from '@/shared/services/Crypto.service';
-import { firstValueFrom } from 'rxjs';
-import { IBodyLogin } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
-import { MessageModule } from 'primeng/message';
-import { PasswordModule } from 'primeng/password';
+import { Router, RouterModule } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
-import { HttpClient } from '@angular/common/http';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
+import { MessageModule } from 'primeng/message';
+import { PasswordModule } from 'primeng/password';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

@@ -1,4 +1,18 @@
-﻿import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+﻿import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
+import {
+  IBodyAssignPassword,
+  IInputValuePassword,
+  IObjValidatePassword,
+} from '@/app/features/auth/data-types/interfaces/auth.interfaces';
+import { environment } from '@/environments/environment';
+import CONST_REGEX from '@/shared/data-types/constants/regex.const';
+import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import CryptoService from '@/shared/services/Crypto.service';
+import DataTypeService from '@/shared/services/DataType.service';
+import GeneralService from '@/shared/services/General.service';
+import ToastService from '@/shared/services/Toast.service';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,23 +21,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import ToastService from '@/shared/services/Toast.service';
-import { environment } from '@/environments/environment';
-import { firstValueFrom } from 'rxjs';
-import {
-  IBodyAssignPassword,
-  IInputValuePassword,
-  IObjValidatePassword,
-} from '@/app/features/auth/data-types/interfaces/auth.interfaces';
-import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
-import CryptoService from '@/shared/services/Crypto.service';
-import GeneralService from '@/shared/services/General.service';
-import DataTypeService from '@/shared/services/DataType.service';
-import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
-import { HttpClient } from '@angular/common/http';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-response.interface';
-import CONST_REGEX from '@/shared/data-types/constants/regex.const';
+import { PasswordModule } from 'primeng/password';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-assign-password',
