@@ -56,14 +56,24 @@ Node.js
 
 * Como excepción a la regla anterior, escribir en español los valores de `path` de las rutas definidas en `src/app/app.routes.ts` (por ejemplo, `iniciar-sesion` o `recuperar-clave`). El nombre del archivo y de la clase del componente asociado permanecen en inglés.
 
-# Reglas Obligatorias para Angular
+# Reglas OBLIGATORIAS para Angular
 Este proyecto usa *Angular 22*.
 
 Para CUALQUIER interacción relacionada con Angular —ya sea responder una pregunta del usuario, explicar un concepto, analizar código existente, generar código nuevo o modificar archivos— usa SIEMPRE las tools search_documentation y get_best_practices del MCP server `angular-cli` ANTES de responder o tocar el código. Esto aplica a todo el proceso: antes de contestarle al usuario, antes de analizar código y antes de escribir o modificar cualquier archivo.
 
 **Razón:** Angular tiene breaking changes frecuentes entre versiones, por lo que mi conocimiento interno puede estar desactualizado respecto a Angular 22. El MCP consulta la documentación oficial y las mejores prácticas vigentes en angular.dev, así que prevalece sobre cualquier conocimiento previo que yo tenga.
 
-## Regla Obligatoria: Usar Angular 22 Moderno, NUNCA Legacy
+## Compatibilidad con zone.js
+Esta PROHIBIDO:
+* Eliminar zone.js del build en `angular.json`
+
+* Eliminar zone.js de los polyfills de build
+
+* Eliminar  zone.js y zone.js/testing de la sección de test
+
+**Razon**: Existen librerías de terceros que dependen de Zone. Sin Zone.js, cualquier callback asíncrono de estas librerías no refrescará la vista automáticamente.
+
+## Usar Angular 22 Moderno, NUNCA Legacy
 * Signal-based reactivity
 
 * Signal Forms
