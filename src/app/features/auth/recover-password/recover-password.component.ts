@@ -3,7 +3,7 @@ import { IResponse } from '@/shared/http-client/data-types/interfaces/http-clien
 import CryptoService from '@/shared/services/Crypto.service';
 import ToastService from '@/shared/services/Toast.service';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -23,7 +23,6 @@ export interface IBodyRecoverPassword {
 @Component({
   selector: 'app-recover-password',
   templateUrl: './recover-password.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     ReactiveFormsModule,

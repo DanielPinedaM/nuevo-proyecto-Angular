@@ -1,7 +1,7 @@
 ﻿import { CommonModule } from '@angular/common';
-import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { Component, inject, input, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
 
 import { TooltipModule } from 'primeng/tooltip';
@@ -19,7 +19,6 @@ interface IMenuOptions {
   selector: 'app-menu-desktop',
   standalone: true,
   templateUrl: './menu-desktop.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, RouterModule, TooltipModule],
 })
 export class MenuDesktopComponent {

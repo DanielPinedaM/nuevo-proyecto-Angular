@@ -1,5 +1,5 @@
 ﻿import { CommonModule } from '@angular/common';
-import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
@@ -17,7 +17,6 @@ interface IMenuOptions {
   selector: 'app-menu-mobile',
   standalone: true,
   templateUrl: './menu-mobile.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, RouterModule],
 })
 export class MenuMobileComponent {

@@ -11,7 +11,7 @@ import CryptoService from '@/shared/services/Crypto.service';
 import GeneralService from '@/shared/services/General.service';
 import ToastService from '@/shared/services/Toast.service';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -28,7 +28,6 @@ import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     ReactiveFormsModule,

@@ -1,9 +1,9 @@
 ﻿import { environment } from '@/environments/environment';
 import { FixedLoaderComponent } from '@/shared/http-client/loader/design/ui/fixed-loader/fixed-loader.component';
-import SessionStorageService from '@/shared/services/SessionStorage.service';
 import { LoaderService } from '@/shared/http-client/loader/services/stores/loader.store';
+import SessionStorageService from '@/shared/services/SessionStorage.service';
 import ToastService from '@/shared/services/Toast.service';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 
@@ -17,7 +17,7 @@ const AUTH_ROUTES: string[] = [
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, FixedLoaderComponent],
-  changeDetection: ChangeDetectionStrategy.Eager,
+
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

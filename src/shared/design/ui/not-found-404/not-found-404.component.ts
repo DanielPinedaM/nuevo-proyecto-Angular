@@ -1,10 +1,9 @@
-import { Component, inject, signal, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-404-not-found',
   templateUrl: './not-found-404.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterLink],
 })
 export class NotFound404Component implements OnInit {

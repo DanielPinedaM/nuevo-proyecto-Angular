@@ -5,7 +5,7 @@ import { IResponse } from '@/shared/http-client/data-types/interfaces/http-clien
 import SessionStorageService from '@/shared/services/SessionStorage.service';
 import ToastService from '@/shared/services/Toast.service';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 interface IMenuOptions {
@@ -18,7 +18,6 @@ interface IMenuOptions {
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MenuDesktopComponent, MenuMobileComponent],
 })
 export class MainMenuComponent implements OnInit {
