@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: Formato obligatorio de los git commits del proyecto (Conventional Commits + Gitmoji con tabla fija de tipos y emojis), regla 1 commit = 1 feature y prohibición de commitear sin que el usuario lo pida explícitamente. Cargar y aplicar SIEMPRE antes de ejecutar cualquier git commit, sin excepción.
+description: Convención obligatoria de git commits (Conventional Commits + Gitmoji, 1 commit = 1 feature). Aplicar siempre antes de cualquier commit.
 when_to_use: Aplicar en TODOS los git commits sin excepción. Triggers — "haz un commit", "hacer commit", "commitear", "crea un commit", "nuevo commit", "git commit", "git push", "registra los cambios", "guarda en git", "commit los cambios", "sube los cambios a git".
 allowed-tools: Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*)
 ---
