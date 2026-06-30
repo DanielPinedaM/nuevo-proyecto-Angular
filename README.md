@@ -2389,7 +2389,17 @@ Usar Angular 22 moderno. **NUNCA** usar Angular legacy:
 
 * Signal Forms
 
-* input y output con signals: `import { input, output } from '@angular/core'`
+* **Signals API**:
+  * `signal()`
+  * `.set()`
+  * `.update()`
+  * `computed()`
+  * `effect()`
+  * `afterRenderEffect()`
+  * `linkedSignal`
+  * `resource()`
+
+* Estado global con signals
 
 * `input()` y `output()` con signals importados desde `import { input, output } from '@angular/core'`
 
@@ -2400,8 +2410,6 @@ Usar Angular 22 moderno. **NUNCA** usar Angular legacy:
 * **Control Flow Directives:** `@for`, `@if`, `@switch`, `@case`, `@default`
 
 * Inyeccion de dependencias con `inject()`
-
-* Inyección de dependencias con `inject()`
 
 * Para servicios singleton usar `@Service()`
 
