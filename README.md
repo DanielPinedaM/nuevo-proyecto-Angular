@@ -3180,3 +3180,23 @@ export class ParentComponent {
   </app-product-children>
 }
 ```
+
+## Servicios singleton
+
+Usar `@Service()` en vez de `@Injectable({providedIn: 'root'})`. `@Service()` es el equivalente moderno y conciso, ya provee la instancia como singleton en root por defecto, sin configuración extra. Reservar `@Injectable` solo para casos avanzados (constructor injection, useClass/useValue/useFactory, scopes distintos a root).
+
+***✅ Ejemplo correcto***
+
+```TS
+import { Service } from '@angular/core';
+
+@Service()
+export class LoaderService { }
+```
+
+***❌ Ejemplo Incorrecto:***
+
+```TS
+@Injectable({providedIn: 'root'})
+export class LoaderService { }
+```
