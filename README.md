@@ -5,11 +5,11 @@
 >
 > **actualizar Prime NG a version 22 para q Prime NG sea compatible con signal forms de Angular 22**
 >
-> **[conectar MCP de documentacion oficial de Angular](https://angular.dev/ai/mcp)**
->
 > **usando MCP de documentacion oficial de Angular migrar todos los formularios a signal forms**
 >
 > **completar la seccion "📝 Formularios"**
+
+
 
 ---
 
