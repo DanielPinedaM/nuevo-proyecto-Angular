@@ -17,7 +17,6 @@ interface IMenuOptions {
 
 @Component({
   selector: 'app-menu-desktop',
-  standalone: true,
   templateUrl: './menu-desktop.component.html',
   imports: [CommonModule, RouterModule, TooltipModule],
 })

@@ -1,13 +1,11 @@
-﻿import { inject, Injectable } from '@angular/core';
+﻿import { inject, Service } from '@angular/core';
 import { enc, mode, pad, AES } from 'crypto-js';
 import DataTypeService from '@/shared/services/DataType.service';
 
 const SECRET_KEY_AUTHENTICATION = 'GestionAlcaldeCO';
 const IV_AUTH = 'encryptionIntVec';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class CryptoService {
   private dataTypeClass = inject(DataTypeService);
 

@@ -5,14 +5,12 @@
 import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import GeneralService from '@/shared/services/General.service';
 import LuxonService from '@/shared/services/Luxon.service';
-import { inject, Injectable, Injector } from '@angular/core';
+import { inject, Injector, Service } from '@angular/core';
 import * as ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import ToastService from './Toast.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class DownloadFileService {
   luxonClass = inject(LuxonService);
   toast = inject(ToastService);

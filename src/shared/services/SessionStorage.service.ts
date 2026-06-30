@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Service } from '@angular/core';
 
 const TOKEN_KEY = "token"
 
@@ -27,9 +27,7 @@ type TSessionStorageListValue =
 
 export type ISessionStorageObject = Record<string, string>;
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class SessionStorageService {
   #errorMessage = (
     functionName: string,

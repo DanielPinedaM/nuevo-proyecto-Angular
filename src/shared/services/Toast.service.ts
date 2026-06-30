@@ -1,4 +1,4 @@
-﻿import { inject, Injectable } from '@angular/core';
+﻿import { inject, Service } from '@angular/core';
 import { HotToastService, ToastPosition } from '@ngxpert/hot-toast';
 import DataTypeService from '@/shared/services/DataType.service';
 
@@ -11,9 +11,7 @@ const TOAST_CONTAINER_STYLE = {
   gap: '5px',
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class ToastService {
   dataTypeClass = inject(DataTypeService);
   toast = inject(HotToastService);

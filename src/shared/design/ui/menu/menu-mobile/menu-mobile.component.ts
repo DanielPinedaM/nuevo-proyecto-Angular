@@ -15,7 +15,6 @@ interface IMenuOptions {
 
 @Component({
   selector: 'app-menu-mobile',
-  standalone: true,
   templateUrl: './menu-mobile.component.html',
   imports: [CommonModule, RouterModule],
 })

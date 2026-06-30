@@ -2,12 +2,10 @@
  * metodos relacionadas con los tipos de datos *
  * ********************************************* */
 
-import { inject, Injectable, Injector } from '@angular/core';
+import { inject, Injector, Service } from '@angular/core';
 import GeneralService from '@/shared/services/General.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class DataTypeService {
   private injector = inject(Injector);
   private _generalClass: GeneralService | null = null;

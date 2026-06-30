@@ -1,6 +1,6 @@
 ﻿import DataTypeService from '@/shared/services/DataType.service';
 import ToastService from '@/shared/services/Toast.service';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Options, titleCase as titleCaseNpm } from 'title-case';
 import {
   MIN_LENGTH_PASSWORD,
@@ -9,9 +9,7 @@ import {
 import { IObjValidatePassword } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class GeneralService {
   dataTypeClass = inject(DataTypeService);
   toast = inject(ToastService);
