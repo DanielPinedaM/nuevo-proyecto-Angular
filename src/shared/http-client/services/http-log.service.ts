@@ -1,7 +1,8 @@
 import { environment } from '@/environments/environment';
 import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { HttpContextToken, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
-import { Service } from '@angular/core';
+import { inject, Service } from '@angular/core';
+import { HttpClientHelpersService } from './http-client-helpers.service';
 
 /**
  * token para desactivar los logs en una peticion concreta.
@@ -34,6 +35,8 @@ interface IResponseLogger {
  * HttpContext usando el HttpContextToken HTTP_LOG_ENABLED (distinto al token del loader) */
 @Service()
 export class HttpLogService {
+  helper = inject(HttpClientHelpersService);
+
   /**
    * transforma la respuesta de la API en el objeto literal
    * que luego imprimen successLogs, errorLogs y timeoutLogs.
@@ -67,7 +70,7 @@ export class HttpLogService {
   successLogs(req: HttpRequest<unknown>, response: IResponse<unknown>): void {
     if (!this.canLog(req)) return;
 
-    if (this.isFile(req.body)) {
+    if (this.helper.isFile(req.body)) {
       console.info('✅ archivo(s) subido(s)');
     }
 
@@ -115,8 +118,8 @@ export class HttpLogService {
         : `array de ${value.length} elementos ➡️ (${value.length}) []`;
     }
 
-    if (this.isLiteralObject(value)) {
-      const length: number = this.literalObjectLength(value);
+    if (this.helper.isLiteralObject(value)) {
+      const length: number = this.helper.literalObjectLength(value);
 
       return length === 0
         ? 'objeto literal vacío ➡️ (0) {}'
@@ -124,35 +127,5 @@ export class HttpLogService {
     }
 
     return String(value);
-  }
-
-  /**
-   * ¿la variable es un objeto literal {}? */
-  private isLiteralObject(value: unknown): value is Record<string | symbol, unknown> {
-    return (
-      typeof value === 'object' &&
-      value !== null &&
-      (Object.getPrototypeOf(value) === Object.prototype ||
-        Object.prototype.toString.call(value) === '[object Object]')
-    );
-  }
-
-  /**
-   * numero de keys (longitud) de un objeto literal {} */
-  private literalObjectLength(value: Record<string | symbol, unknown>): number {
-    return Object.keys(value).length + Object.getOwnPropertySymbols(value).length;
-  }
-
-  /**
-   * ¿la variable es un archivo? */
-  private isFile(value: unknown): boolean {
-    if (!value) return false;
-
-    return (
-      value instanceof FormData ||
-      value instanceof Blob ||
-      value instanceof File ||
-      value instanceof ArrayBuffer
-    );
   }
 }
