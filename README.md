@@ -1047,7 +1047,7 @@ export class MyComponent {
 
 En este proyecto se está utilizando **Tailwind CSS V4**, por lo tanto el archivo `tailwind.config.js` ya no se utiliza y se considera **obsoleto** en esta arquitectura.
 
-La configuración de Tailwind ahora se realiza en el archivo `src/styles/global/tailwind/index-tailwind.css`
+La configuración de Tailwind ahora se realiza en el archivo `src/styles/global/tailwind`
 
 Esto permite centralizar la definición de tokens de diseño (colores, media queries, etc.) sin necesidad de configuración en archivo JavaScript.
 
@@ -1070,7 +1070,7 @@ module.exports = {
 **✅ Correcto - Configurar Tailwind 4 con `.css`**
 
 ```CSS
-/* src/styles/global/tailwind/index-tailwind.css */
+/* src/styles/global/tailwind/theme.css */
 
 @theme {
   --color-primary-color: oklch(62.8% 0.258 29.23); // #FF0000
@@ -1081,7 +1081,7 @@ module.exports = {
 
 [Documentación de variables de Tailwind 4](https://tailwindcss.com/blog/tailwindcss-v4#css-theme-variables)
 
-Las variables con nombres de los colores de **Sass** en `src/styles/global/variable.scss` y **Tailwind** en `src/styles/global/tailwind/index-tailwind.css` deben mantener exactamente el mismo nombre y el mismo valor.
+Las variables con nombres de los colores de **Sass** en `src/styles/global/variable.scss` y **Tailwind** en `src/styles/global/tailwind/theme.css` deben mantener exactamente el mismo nombre y el mismo valor.
 
 Esto garantiza que los colores sean los mismos entre los estilos globales definidos en Sass y los estilos de cada componente definidos con Tailwind.
 
@@ -1099,7 +1099,7 @@ $primary-color: oklch(62.8% 0.258 29.23) ;
 
 ```CSS
 /*
-src/styles/global/tailwind/index-tailwind.css
+src/styles/global/tailwind/theme.css
 
 colores de Tailwind */
 @theme {
@@ -1122,7 +1122,7 @@ $primary-color: oklch(62.8% 0.258 29.23); // color rojo
 
 ```css
 /*
-src/styles/global/tailwind/index-tailwind.css
+src/styles/global/tailwind/theme.css
 
 colores de Tailwind */
 @theme {
