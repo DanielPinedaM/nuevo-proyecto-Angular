@@ -9,8 +9,6 @@
 >
 > **completar la seccion "📝 Formularios"**
 
-
-
 ---
 
 # 🅰️ Stack Frontend del Proyecto
@@ -633,9 +631,10 @@ src/
         │       ├── _mixins.scss → codigo de Sass que se repite en diferentes archivos de src\styles\global\scss\buttons
         │       └── _variants.scss → Variantes visuales (background, outline, ghost, link) que define la apariencia y comportamiento visual según el tipo de botón.
         │
-        └── tailwind/
-            ├── index-tailwind.css → archivo de configuración de Tailwind 4
-            └── preflight.css → Reset CSS basado en Tailwind 4
+        └── tailwind/ → Carpeta para configurar Tailwind 4
+            ├── import.css → importar Tailwind
+            ├── preflight.css → Reset CSS basado en Tailwind
+            └── theme.css → variables de Tailwind
 ```
 
 # Feature Architecture
