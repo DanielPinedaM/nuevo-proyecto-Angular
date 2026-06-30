@@ -11,16 +11,16 @@ Node.js
 
 ## Ejecutar Proyecto
 
-| Comando          | Apunta a ... | Ruta Archivo                                |
-| ---------------- | ------------ | ------------------------------------------- |
+| Comando            | Apunta a ... | Ruta Archivo                                |
+| ------------------ | ------------ | ------------------------------------------- |
 | `pnpm start:local` | local host   | `src/environments/environment.localhost.ts` |
 | `pnpm start:prod`  | producción   | `src/environments/environment.prod.ts`      |
 | `pnpm start:test`  | pruebas      | `src/environments/environment.test.ts`      |
 
 ## Generar build (dist) para Desplegar
 
-| Comando         | Apunta a ... | Ruta Archivo                           |
-| --------------- | ------------ | -------------------------------------- |
+| Comando           | Apunta a ... | Ruta Archivo                           |
+| ----------------- | ------------ | -------------------------------------- |
 | `pnpm build:test` | pruebas      | `src/environments/environment.test.ts` |
 | `pnpm build:prod` | producción   | `src/environments/environment.prod.ts` |
 
