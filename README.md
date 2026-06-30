@@ -2391,11 +2391,19 @@ Usar Angular 22 moderno. **NUNCA** usar Angular legacy:
 
 * input y output con signals: `import { input, output } from '@angular/core'`
 
+* `input()` y `output()` con signals importados desde `import { input, output } from '@angular/core'`
+
 * Standalone Components
 
-* Control Flow Directives: `@for`, `@if`, `@switch`, `@case`, `@default`
+* Function Interceptors
 
-* Inyeccion de dependencias con `inject() `
+* **Control Flow Directives:** `@for`, `@if`, `@switch`, `@case`, `@default`
+
+* Inyeccion de dependencias con `inject()`
+
+* Inyección de dependencias con `inject()`
+
+* Para servicios singleton usar `@Service()`
 
 ## 📝 Formularios
 
