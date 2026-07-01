@@ -151,8 +151,17 @@ La salida de la terminal debe ser:
 ❯ angular-cli · ✔ connected · 9 tools
 ```
 
+```console
+usar search_documentation de angular-cli MCP para citar textualmente la definición de Forms with signals
+```
+
+La salida de la terminal debe incluir:
+
+```console
+Called angular-cli
+```
+
 > [!NOTE]
-> **Nota**
 >
 > **No** debes ejecutar este comando.
 >
