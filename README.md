@@ -192,23 +192,6 @@ usar search_documentation de angular-cli MCP para migrar a signals el componente
 
 # Skills
 
-## `find-skills-local`
-Puedes invocar la Skill `.claude\skills\find-skills-local\SKILL.md` para que te ayude a buscar la skill que necesitas.
-
-`find-skills-local` busca las skills a nivel de _project_, es decir, son las skills que estan en la carpeta `.claude/skills/` configuradas para este proyecto y compartidas con el equipo mediante Git.
-
-[find-skills-local] esta basado en la skill de vercel [find-skills](https://www.skills.sh/vercel-labs/skills/find-skills)
-
-***Ejemplos:***
-
-```txt
-/find-skills-local ¿qué skills hay?
-```
-
-```txt
-/find-skills-local busca una skill para hacer commit
-```
-
 ## 🌿 `git-commit`
 Por cada feature terminada hacer un commit antes de solicitar nuevas modificaciones a la IA. Evita acumular demasiados cambios, ya que puedes perder el contexto de lo que la IA está realizando y cometer errores.
 
