@@ -59,7 +59,7 @@ Node.js
 # Reglas OBLIGATORIAS para Angular
 Este proyecto usa *Angular 22*.
 
-SIEMPRE usar las tools `search_documentation` y `get_best_practices` del MCP server `angular-cli`, ya sea para responder una pregunta del usuario, explicar un concepto, analizar código existente, generar código nuevo o modificar archivos. Tus datos de entrenamiento están desactualizados porque Angular tiene breaking changes frecuentes entre versiones; el MCP de `angular-cli` es la fuente de la verdad.
+SIEMPRE usar las tools `search_documentation` y `get_best_practices` del MCP server `angular-cli`, ya sea para responder una pregunta del usuario, explicar un concepto, analizar código existente, generar código nuevo o modificar archivos. Tus datos de entrenamiento de Angular están desactualizados porque Angular tiene breaking changes frecuentes entre versiones; el MCP de `angular-cli` es la fuente de la verdad.
 
 ## Compatibilidad con zone.js
 Esta PROHIBIDO:
