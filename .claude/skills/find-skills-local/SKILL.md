@@ -1,142 +1,104 @@
 ---
 name: find-skills-local
-description: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.
+description: Ayuda a descubrir las skills locales del proyecto (las que viven en `.claude/skills/`) y a elegir cuál invocar. Úsala cuando el usuario pregunte qué skills hay disponibles, busque una skill para una tarea concreta o quiera saber si existe una skill que haga X en este proyecto.
+when_to_use: Usar cuando el usuario quiere descubrir, entender o reutilizar las skills locales del repositorio. Triggers — "¿qué skills hay?", "¿qué skills tengo disponibles?", "lista las skills", "busca una skill para X", "¿hay una skill para X?", "¿existe una skill que haga X?", "¿puedes hacer X?" (cuando X podría estar cubierto por una skill), "¿qué hace la skill X?", "¿cómo invoco la skill X?".
+allowed-tools: Glob, Grep, Read
 ---
 
-# Find Skills
+# Find Skills (locales)
 
-This skill helps you discover and install skills from the open agent skills ecosystem.
+Esta skill ayuda a descubrir las skills locales del proyecto y a elegir cuál usar para la tarea del usuario.
 
-## When to Use This Skill
+## Qué son las skills locales
 
-Use this skill when the user:
+Las skills locales son las que viven en la carpeta `.claude/skills/` del repositorio. Cada skill es una carpeta con un archivo `SKILL.md` como entrypoint (por ejemplo, `.claude/skills/git-commit/SKILL.md`). También cuentan como skills locales los archivos `.md` sueltos dentro de `.claude/commands/`.
 
-- Asks "how do I do X" where X might be a common task with an existing skill
-- Says "find a skill for X" or "is there a skill for X"
-- Asks "can you do X" where X is a specialized capability
-- Expresses interest in extending agent capabilities
-- Wants to search for tools, templates, or workflows
-- Mentions they wish they had help with a specific domain (design, testing, deployment, etc.)
+Son skills que sirven para **este proyecto** y se comparten con el equipo versionándolas con git (la carpeta `.claude/skills/` se commitea al repositorio). A diferencia de un registro remoto, no se instalan ni se descargan: ya están en el repositorio, listas para invocarse con `/skill-name`.
 
-## What is the Skills CLI?
+## Cuándo Usar Esta Skill
 
-The Skills CLI (`npx skills`) is the package manager for the open agent skills ecosystem. Skills are modular packages that extend agent capabilities with specialized knowledge, workflows, and tools.
+Usar esta skill cuando el usuario:
 
-**Key commands:**
+- Pregunta "¿qué skills hay?" o pide listar las skills disponibles del proyecto
+- Dice "busca una skill para X" o "¿hay una skill para X?"
+- Pregunta "¿puedes hacer X?" cuando X podría estar cubierto por una skill local
+- Quiere saber qué hace una skill del proyecto o cómo invocarla
+- Quiere reutilizar o compartir con el equipo una skill del repositorio
 
-- `npx skills find [query] [--owner <owner>]` - Search for skills interactively or by keyword, optionally scoped to a GitHub owner
-- `npx skills add <package>` - Install a skill from GitHub or other sources
-- `npx skills check` - Check for skill updates
-- `npx skills update` - Update all installed skills
+## Dónde se buscan las skills
 
-**Browse skills at:** https://skills.sh/
+Buscar las skills locales en estas ubicaciones, priorizando siempre la carpeta `.claude/skills/` del proyecto:
 
-## How to Help Users Find Skills
+| Ubicación                 | Ruta                                            | Alcance                                    |
+| ------------------------- | ----------------------------------------------- | ------------------------------------------ |
+| Proyecto (principal)      | `.claude/skills/<skill-name>/SKILL.md`          | Solo este proyecto, compartida por git     |
+| Custom command            | `.claude/commands/<name>.md`                    | Solo este proyecto, compartida por git     |
+| Subdirectorios / monorepo | `<subdir>/.claude/skills/<skill-name>/SKILL.md` | Al trabajar dentro de ese subdirectorio    |
+| Personal                  | `~/.claude/skills/<skill-name>/SKILL.md`        | Todos los proyectos del usuario            |
 
-### Step 1: Understand What They Need
+El foco de esta skill es la carpeta `.claude/skills/` del proyecto: las skills locales que se comparten con el equipo mediante git.
 
-When a user asks for help with something, identify:
+## Cómo Ayudar a Encontrar Skills
 
-1. The domain (e.g., React, testing, design, deployment)
-2. The specific task (e.g., writing tests, creating animations, reviewing PRs)
-3. Whether this is a common enough task that a skill likely exists
+### Paso 1: Entender qué necesita el usuario
 
-### Step 2: Check the Leaderboard First
+Identificar:
 
-Before running a CLI search, check the [skills.sh leaderboard](https://skills.sh/) to see if a well-known skill already exists for the domain. The leaderboard ranks skills by total installs, surfacing the most popular and battle-tested options.
+1. El dominio (por ejemplo: git, testing, Angular, deployment)
+2. La tarea concreta (por ejemplo: crear un commit, escribir tests, generar un componente)
 
-For example, top skills for web development include:
-- `vercel-labs/agent-skills` — React, Next.js, web design (100K+ installs each)
-- `anthropics/skills` — Frontend design, document processing (100K+ installs)
+### Paso 2: Localizar las skills locales
 
-### Step 3: Search for Skills
+Buscar los archivos `SKILL.md` dentro de `.claude/skills/` (incluidas las carpetas padre hasta la raíz del repositorio) y los `.md` de `.claude/commands/`:
 
-If the leaderboard doesn't cover the user's need, run the find command:
+- `Glob` con el patrón `.claude/skills/**/SKILL.md` lista las skills del proyecto (incluidas las anidadas).
+- `Glob` con el patrón `**/.claude/skills/**/SKILL.md` cubre las skills anidadas de un monorepo.
+- `Glob` con el patrón `.claude/commands/*.md` lista los custom commands.
 
-```bash
-npx skills find [query] [--owner <owner>]
-```
+### Paso 3: Leer el frontmatter de cada skill
 
-For example:
+Leer el frontmatter YAML (`name`, `description`, `when_to_use`) de cada `SKILL.md` para saber qué hace la skill y cuándo aplicarla. `description` y `when_to_use` describen el propósito y los triggers de la skill.
 
-- User asks "how do I make my React app faster?" → `npx skills find react performance`
-- User asks "can you help me with PR reviews?" → `npx skills find pr review`
-- User asks "I need to create a changelog" → `npx skills find changelog`
+### Paso 4: Comparar con la necesidad del usuario
 
-### Step 4: Verify Quality Before Recommending
+Emparejar la necesidad del usuario con las skills disponibles según su `description` y `when_to_use`. Priorizar la skill cuyo propósito y triggers coincidan mejor con lo que pidió el usuario.
 
-**Do not recommend a skill based solely on search results.** Always verify:
+### Paso 5: Presentar las opciones al usuario
 
-1. **Install count** — Prefer skills with 1K+ installs. Be cautious with anything under 100.
-2. **Source reputation** — Official sources (`vercel-labs`, `anthropics`, `microsoft`) are more trustworthy than unknown authors.
-3. **GitHub stars** — Check the source repository. A skill from a repo with <100 stars should be treated with skepticism.
+Al encontrar skills relevantes, presentarlas con:
 
-### Step 5: Present Options to the User
+1. El nombre de la skill y qué hace (según su `description`)
+2. El comando para invocarla (`/skill-name`)
+3. La ruta del archivo `SKILL.md`
 
-When you find relevant skills, present them to the user with:
-
-1. The skill name and what it does
-2. The install count and source
-3. The install command they can run
-4. A link to learn more at skills.sh
-
-Example response:
+Ejemplo de respuesta:
 
 ```
-I found a skill that might help! The "react-best-practices" skill provides
-React and Next.js performance optimization guidelines from Vercel Engineering.
-(185K installs)
+Encontré una skill que puede ayudarte. La skill "git-commit" define la
+convención obligatoria de git commits del proyecto.
 
-To install it:
-npx skills add vercel-labs/agent-skills@react-best-practices
+Para invocarla:
+/git-commit
 
-Learn more: https://skills.sh/vercel-labs/agent-skills/react-best-practices
+Archivo: .claude/skills/git-commit/SKILL.md
 ```
 
-### Step 6: Offer to Install
+### Paso 6: Invocar la skill
 
-If the user wants to proceed, you can install the skill for them:
+Si el usuario quiere continuar, invocar la skill con `/skill-name` (o, si es un custom command, con `/name`). Tener en cuenta que las skills con `disable-model-invocation: true` en su frontmatter solo puede lanzarlas el usuario escribiendo `/skill-name`.
 
-```bash
-npx skills add <owner/repo@skill> -g -y
-```
+## Cuándo No Se Encuentra Ninguna Skill
 
-The `-g` flag installs globally (user-level) and `-y` skips confirmation prompts.
+Si no existe ninguna skill local relevante:
 
-## Common Skill Categories
+1. Indicar que no se encontró ninguna skill en `.claude/skills/` para esa tarea
+2. Ofrecer resolver la tarea directamente con las capacidades generales
+3. Sugerir crear una nueva skill local si es una tarea recurrente
 
-When searching, consider these common categories:
-
-| Category        | Example Queries                          |
-| --------------- | ---------------------------------------- |
-| Web Development | react, nextjs, typescript, css, tailwind |
-| Testing         | testing, jest, playwright, e2e           |
-| DevOps          | deploy, docker, kubernetes, ci-cd        |
-| Documentation   | docs, readme, changelog, api-docs        |
-| Code Quality    | review, lint, refactor, best-practices   |
-| Design          | ui, ux, design-system, accessibility     |
-| Productivity    | workflow, automation, git                |
-
-## Tips for Effective Searches
-
-1. **Use specific keywords**: "react testing" is better than just "testing"
-2. **Try alternative terms**: If "deploy" doesn't work, try "deployment" or "ci-cd"
-3. **Check popular sources**: Many skills come from `vercel-labs/agent-skills` or `ComposioHQ/awesome-claude-skills`
-
-## When No Skills Are Found
-
-If no relevant skills exist:
-
-1. Acknowledge that no existing skill was found
-2. Offer to help with the task directly using your general capabilities
-3. Suggest the user could create their own skill with `npx skills init`
-
-Example:
+Para crear una skill local, agregar una carpeta con un `SKILL.md` a `.claude/skills/`:
 
 ```
-I searched for skills related to "xyz" but didn't find any matches.
-I can still help you with this task directly! Would you like me to proceed?
-
-If this is something you do often, you could create your own skill:
-npx skills init my-xyz-skill
+.claude/skills/mi-skill/SKILL.md
 ```
+
+Con el frontmatter mínimo (`name`, `description` y, según la documentación oficial, `when_to_use`) más las instrucciones. Al versionarla con git, la skill queda disponible para todo el equipo.
