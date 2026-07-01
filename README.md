@@ -151,19 +151,19 @@ La salida de la terminal debe ser:
 ❯ angular-cli · ✔ connected · 9 tools
 ```
 
+Ejecutar este prompt:
 ```console
 usar search_documentation de angular-cli MCP para citar textualmente la definición de Forms with signals
 ```
 
 La salida de la terminal debe incluir:
-
 ```console
 Called angular-cli
 ```
 
 > [!NOTE]
 >
-> **No** debes ejecutar este comando.
+> **NO** debes ejecutar este comando.
 >
 > Este comando instala el MCP de `angular-cli` con el `--scope project`. Es decir, configura el MCP para que se ejecute únicamente en este proyecto y pueda compartirse con el resto del equipo mediante Git.
 >
