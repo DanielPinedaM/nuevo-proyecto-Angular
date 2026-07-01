@@ -112,7 +112,7 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.js`
 
-## 👾 En Claude Code Configurar MCP de Documentación Oficial de Angular
+## 👾 Configurar MCP para que Claude Code Acceda a la Documentación Oficial de Angular
 1. Abrir Git Bash
 
 2. Abrir la carpeta del proyecto
@@ -120,32 +120,26 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 cd /ruta/a/tu/proyecto
 ```
 
-3. Instalac MCP
+3. Iniciar claude
 ```console
-claude mcp add angular-cli -- pnpm dlx @angular/cli mcp
+claude
 ```
 
-4. Si el MCP se instalo correctamente, la salida de la terminal debe ser:
-```console
-Added stdio MCP server angular-cli with command: pnpm dlx @angular/cli mcp to local config
-
-File modified: C:\Users\User\.claude.json [project: C:\Users\RUTA_DONDE_ESTA_EL_PROYECTO]
+4. Seleccionar la opcion
+```txt
+2. Use this and all future MCP servers in this project
 ```
 
-5. Para verificar conexión al MCP, ejecutar
+5. En el archivo `.mcp.json` esta la conexion al MCP
 
+6. Para verificar conexión al MCP, ejecutar:
 ```console
-claude mcp list
+!claude mcp list
 ```
 
 La salida de la terminal debe ser:
-
 ```console
 angular-cli: pnpm dlx @angular/cli mcp - ✔ Connected
-```
-
-```console
-claude
 ```
 
 ```console
@@ -153,26 +147,39 @@ claude
 ```
 
 La salida de la terminal debe ser:
-
 ```console
 ❯ angular-cli · ✔ connected · 9 tools
 ```
 
+> [!NOTE]
+> **Nota**
+>
+> **No** debes ejecutar este comando.
+>
+> Este comando instala el MCP de `angular-cli` con el `--scope project`. Es decir, configura el MCP para que se ejecute únicamente en este proyecto y pueda compartirse con el resto del equipo mediante Git.
+>
+> ```bash
+> !claude mcp add angular-cli --scope project -- pnpm dlx @angular/cli mcp
+> ```
+
 ### Ejemplos de ¿Como Usar MCP de Angular?
 
 ```txt
-usar ai_tutor del MCP de Angular para explicarme Forms with signals
+usar ai_tutor de angular-cli MCP para explicarme Forms with signals
 ```
 
 ```txt
-usar get_best_practices del MCP de Angular para refactorizar el componente que esta en la ruta src/***
+usar get_best_practices de angular-cli MCP para refactorizar el componente que esta en la ruta src/***
 ```
 
 ```txt
-usar search_documentation del MCP de Angular para que en el componente que esta en la ruta src/***, migrar a signals
+usar search_documentation de angular-cli MCP para migrar a signals el componente que esta en la ruta src/***
 ```
 
-### [🔗 Click aqui para ver los comandos del MCP de Angular](https://angular.dev/ai/mcp)
+# 🔗 Enlaces - Click Aqui para Ver ...
+* [Comandos del angular-cli MCP](https://angular.dev/ai/mcp)
+
+* [Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
 # 🤖 Uso de IA
 
@@ -192,22 +199,6 @@ Esta sección está diseñada para utilizarse como contexto en herramientas de I
 | Google                   | [Google AI Studio](https://aistudio.google.com/) / [Gemini](https://gemini.google.com/) | [Antigravity 2.0](https://antigravity.google/product/antigravity-2)   | [Antigravity CLI](https://youtu.be/bdEqIchP4x4?si=gRf6iLggXuzy_cq) |
 | Anomaly Innovations      | [`opencode web`](https://opencode.ai/docs/web/)                                         | [Open Code Desktop](https://youtu.be/_SVSv2Y59P0?si=LT2S0z10t1FBxlB6) | [Open Code CLI](https://youtu.be/2gO8WyctqMk?si=aNvHlf23tKfrN-Z3)  |
 
-## 💡 Recomendación
-Usar la IA en el siguiente orden:
-
-1. Chat GPT para mejorar el prompt antes de enviarselo a Claude Code.
-2. Claude Code para editar el código.
-3. Chat GPT para realizar preguntas sobre el código.
-
-## 🧠 Razón
-Como Chat GPT es gratis, se recomienda utilizarlo para mejorar el prompt antes de enviarlo a Claude Code, lo que permite que Claude haga mejores modificaciones en el código. Además Chat GPT, puede usarse para resolver dudas sobre el código sin consumir los tokens de Claude Code.
-
-No significa que no se pueda utilizar la IA del CLI para hacer preguntas. La razón para no hacerlo es ahorrar tokens.
-
-No es obligatorio utilizar el CLI de Claude Code, pero sí es necesario pagar una IA y utilizar un CLI.
-
-La razón por la que es necesario pagar una IA es que este `README.md` es muy extenso y las IAs gratuitas tienen limitaciones.
-
 ## ✏️ Edición de Código
 Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar el CLI para editar el código, ya que el CLI tiene:
 
@@ -222,6 +213,16 @@ Por cada feature terminada hacer un commit antes de solicitar nuevas modificacio
 Trabajar bajo el principio:
 
 > 1 commit = 1 feature
+
+El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits. Ejemplo:
+
+```console
+/git-commit
+```
+
+```console
+hacer commit y push
+```
 
 ## 📋 Contexto para la IA
 Antes de realizar cualquier pregunta sobre este proyecto en una IA, se debe proporcionar este contexto completo para que la IA pueda seguir la arquitectura del proyecto.
@@ -370,7 +371,7 @@ src/
 │           └── services/ → servicios, lógica de negocio y gestión de estado utilizados únicamente por la feature bots. Pueden depender de modelos, reglas de negocio y casos de uso específicos de la feature. Su alcance está limitado a bots y no deben utilizarse desde otras features.
 │               └── stores/ → estados compartidos por los componentes de la feature bots. Su alcance está limitado a esta feature y no debe utilizarse para compartir estado con otras features ni para estado global de toda la aplicación
 │
-├── core/
+├── core/ → INCOMPLETO - me falta definir esta carpeta
 │
 ├── shared/ → utilidades compartidas (globales), totalmente agnosticas a la logica de negocio/domio que se pueden usar en cualquier parte de la web
 │   ├── guards/

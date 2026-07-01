@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "angular-cli": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": [
+        "dlx",
+        "@angular/cli",
+        "mcp"
+      ],
+      "env": {}
+    }
+  }
+}
