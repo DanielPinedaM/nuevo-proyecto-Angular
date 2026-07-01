@@ -185,10 +185,7 @@ usar get_best_practices de angular-cli MCP para refactorizar el componente que e
 usar search_documentation de angular-cli MCP para migrar a signals el componente que esta en la ruta src/***
 ```
 
-# 🔗 Enlaces - Click Aqui para Ver ...
-* [Comandos del angular-cli MCP](https://angular.dev/ai/mcp)
-
-* [Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
+# [🔗 Enlace - Comandos del angular-cli MCP](https://angular.dev/ai/mcp)
 
 # Skills
 
@@ -217,6 +214,8 @@ hacer commit y push
 > # ⚠️ ****IMPORTANTE**** 🚨
 >
 > ****Ignorar esta sección ocasionará que la IA genere código que no respete la arquitectura, estructura ni las convenciones del proyecto, produciendo código inconsistente, desordenado y con malas practicas****
+
+# [🔗 Enlace - Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
 Esta sección está diseñada para utilizarse como contexto en herramientas de IA.
 
