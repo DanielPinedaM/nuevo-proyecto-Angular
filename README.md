@@ -130,7 +130,7 @@ claude
 2. Use this and all future MCP servers in this project
 ```
 
-5. En el archivo `.mcp.json` esta la conexion al MCP
+5. En el archivo `.mcp.json` ya esta configurada la conexion al MCP
 
 6. Para verificar conexión al MCP, ejecutar:
 ```console
