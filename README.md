@@ -199,7 +199,9 @@ Trabajar bajo el principio:
 
 > 1 commit = 1 feature
 
-El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits. Ejemplo:
+El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits. 
+
+***Ejemplos:***
 
 ```console
 /git-commit
