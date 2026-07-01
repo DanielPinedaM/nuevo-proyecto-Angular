@@ -59,9 +59,7 @@ Node.js
 # Reglas OBLIGATORIAS para Angular
 Este proyecto usa *Angular 22*.
 
-Para CUALQUIER interacción relacionada con Angular —ya sea responder una pregunta del usuario, explicar un concepto, analizar código existente, generar código nuevo o modificar archivos— usa SIEMPRE las tools search_documentation y get_best_practices del MCP server `angular-cli` ANTES de responder o tocar el código. Esto aplica a todo el proceso: antes de contestarle al usuario, antes de analizar código y antes de escribir o modificar cualquier archivo.
-
-**Razón:** Angular tiene breaking changes frecuentes entre versiones, por lo que mi conocimiento interno puede estar desactualizado respecto a Angular 22. El MCP consulta la documentación oficial y las mejores prácticas vigentes en angular.dev, así que prevalece sobre cualquier conocimiento previo que yo tenga.
+SIEMPRE usar las tools `search_documentation` y `get_best_practices` del MCP server `angular-cli`, ya sea para responder una pregunta del usuario, explicar un concepto, analizar código existente, generar código nuevo o modificar archivos. Tus datos de entrenamiento están desactualizados porque Angular tiene breaking changes frecuentes entre versiones; el MCP de `angular-cli` es la fuente de la verdad.
 
 ## Compatibilidad con zone.js
 Esta PROHIBIDO:
@@ -69,9 +67,9 @@ Esta PROHIBIDO:
 
 * Eliminar zone.js de los polyfills de build
 
-* Eliminar  zone.js y zone.js/testing de la sección de test
+* Eliminar zone.js y zone.js/testing de la sección de test
 
-**Razon**: Existen librerías de terceros que dependen de Zone. Sin Zone.js, cualquier callback asíncrono de estas librerías no refrescará la vista automáticamente.
+**Razon**: Existen librerías de terceros que dependen de Zone.js. Sin Zone.js, cualquier callback asíncrono de estas librerías no refrescará la vista automáticamente.
 
 ## Usar Angular 22 Moderno, NUNCA Legacy
 * Signal-based reactivity
