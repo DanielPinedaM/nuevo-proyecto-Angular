@@ -163,7 +163,7 @@ Called angular-cli
 
 > [!NOTE]
 >
-> **NO** debes ejecutar este comando.
+> **NO** debes hacer lo siguiente porque ya esta configurado
 >
 > Este comando instala el MCP de `angular-cli` con el `--scope project`. Es decir, configura el MCP para que se ejecute únicamente en este proyecto y pueda compartirse con el resto del equipo mediante Git.
 >
