@@ -14,10 +14,10 @@
 # 🅰️ Stack Frontend del Proyecto
 A continuación, se presenta un resumen de las tecnologías mas importantes del proyecto. No incluye la totalidad de dependencias:
 
-* Node JS 24.18.0
+* Node.js 24.18.0
 * Angular 22
 * TypeScript 6
-* Prime NG 22
+
 * Tailwind CSS 4
 * Sass
 * Luxon 3
@@ -302,7 +302,6 @@ Called angular-cli
 ```
 
 > [!NOTE]
->
 > **NO** debes hacer lo siguiente porque ya esta configurado
 >
 > Este comando instala el MCP de `angular-cli` con el `--scope project`. Es decir, configura el MCP para que se ejecute únicamente en este proyecto y pueda compartirse con el resto del equipo mediante Git.
