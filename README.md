@@ -39,6 +39,11 @@ Para que la configuración funcione, debes tener instalado:
 
 * [fnm](https://github.com/Schniz/fnm)
 
+> [!TIP]
+> # ⚡ **Empieza de Inmediato**
+>
+> Si solo quieres empezar a programar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
+
 ## Instalar `pnpm`
 1. Abrir Git Bash
 
@@ -123,7 +128,14 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 >
 > No te limites a pedirle a la IA *"hazme X"* sin entender cómo funciona la arquitectura del proyecto.
 >
-> Hazle preguntas a la IA sobre `AGENTS.md`, `\.claude\skills\***` y los **"🔗 Enlaces"** hasta comprender cómo funciona el proyecto.
+> Hazle preguntas a la IA sobre:
+>
+> 1. `AGENTS.md`
+> 2. `\.claude\skills\***`
+> 3.
+> 4. Los **"🔗 Enlaces"**
+>
+> hasta comprender cómo funciona el proyecto.
 >
 > Aunque es un texto largo, aprenderás la arquitectura, las buenas prácticas y a detectar cuándo la IA alucina al revisar su código.
 
@@ -161,11 +173,6 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 
 ## Uso Recomendado de Claude Code
 Las configuraciones de MCP, Skills y `AGENTS.md` están listas para usarse con Claude Code. Si utilizas otra IA, deberás configurar sus funcionalidades equivalentes de acuerdo con la forma en que dicha herramienta las implemente.
-
-> [!TIP]
-> # ⚡ **Empieza de Inmediato**
->
-> Si solo quieres empezar a programar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
 
 # [🔗 Enlace - Prompts para Desarrollo Full Stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
