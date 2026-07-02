@@ -123,6 +123,52 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.js`
 
+# ⚙️ Entorno de Ejecución
+Obligatorio el uso de Node.js, prohibido usar alternativas como:
+
+* Bun
+* Deno
+
+# 📦 Manejador de Paquetes
+Obligatorio el uso de `pnpm` y `pnpm-lock.yaml` version `>=11.0.0 <12.0.0`. Esta **BLOQUEADO** el uso de otras alternativas como:
+
+* npm
+* npx
+* package-lock.json
+* yarn
+
+# 🟢 Administrador de Versiones para Node.js
+Obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
+
+* nvm
+* volta
+
+Este proyecto usa Node.js 24.18.0
+
+# 🔗 Alias
+Para todos los comandos de `pnpm` usar el alias `pn`
+
+# 📦 Instalar Paquetes
+
+```console
+pn i
+```
+
+# ▶️ Ejecutar Proyecto
+
+| Comando          | Apunta a ... | Ruta Archivo                                |
+| ---------------- | ------------ | ------------------------------------------- |
+| `pn start:local` | Local host   | `src/environments/environment.localhost.ts` |
+| `pn start:test`  | Pruebas      | `src/environments/environment.test.ts`      |
+| `pn start:prod`  | Producción   | `src/environments/environment.prod.ts`      |
+
+# 🚀 Generar build (dist) para Desplegar
+
+| Comando         | Apunta a ... | Ruta Archivo                           |
+| --------------- | ------------ | -------------------------------------- |
+| `pn build:test` | Pruebas      | `src/environments/environment.test.ts` |
+| `pn build:prod` | Producción   | `src/environments/environment.prod.ts` |
+
 # Arquitectura del Proyecto
 
 > [!TIP]
@@ -324,51 +370,7 @@ Called angular-cli
 
 
 
-# ⚙️ Entorno de Ejecución
-Obligatorio el uso de Node.js, prohibido usar alternativas como:
 
-* Bun
-* Deno
-
-# 📦 Manejador de Paquetes
-Obligatorio el uso de `pnpm` y `pnpm-lock.yaml` version `>=11.0.0 <12.0.0`. Esta **BLOQUEADO** el uso de otras alternativas como:
-
-* npm
-* npx
-* package-lock.json
-* yarn
-
-# 🟢 Administrador de Versiones para Node.js
-Obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
-
-* nvm
-* volta
-
-Este proyecto usa Node.js 24.18.0
-
-# 🔗 Alias
-Para todos los comandos de `pnpm` usar el alias `pn`
-
-# 📦 Instalar Paquetes
-
-```console
-pn i
-```
-
-# ▶️ Ejecutar Proyecto
-
-| Comando          | Apunta a ... | Ruta Archivo                                |
-| ---------------- | ------------ | ------------------------------------------- |
-| `pn start:local` | Local host   | `src/environments/environment.localhost.ts` |
-| `pn start:test`  | Pruebas      | `src/environments/environment.test.ts`      |
-| `pn start:prod`  | Producción   | `src/environments/environment.prod.ts`      |
-
-# 🚀 Generar build (dist) para Desplegar
-
-| Comando         | Apunta a ... | Ruta Archivo                           |
-| --------------- | ------------ | -------------------------------------- |
-| `pn build:test` | Pruebas      | `src/environments/environment.test.ts` |
-| `pn build:prod` | Producción   | `src/environments/environment.prod.ts` |
 
 # 📁 Estructura Base del Proyecto
 La estructura de carpetas definida a continuación **no representa la totalidad completa del proyecto**, representa la **arquitectura base de referencia**.
