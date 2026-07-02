@@ -99,3 +99,14 @@ Esta PROHIBIDO:
 * Inyección de dependencias con `inject()` (no constructor injection)
 
 - **Servicios singleton:** usar `@Service()` en vez de `@Injectable({providedIn: 'root'})`. `@Service()` es el equivalente moderno y conciso, ya provee la instancia como singleton en root por defecto, sin configuración extra. Reservar `@Injectable` solo para casos avanzados (constructor injection, useClass/useValue/useFactory, scopes distintos a root).
+
+## Uso Obligatorio de Prime NG
+* Este proyecto usa Prime NG 22
+
+* **Formularios:** es OBLIGATORIO usar los componentes de Prime NG (`InputText`, `Select`, etc.) para construir formularios. Prohibido usar los elementos nativos de HTML (`<input>`, `<select>`, etc.) como sustituto.
+
+* **Tablas:** es OBLIGATORIO usar el componente `Table` de Prime NG para construir tablas. Prohibido usar el elemento nativo de HTML (`<table>`) como sustituto.
+
+* **Diálogos:** es OBLIGATORIO usar el componente `Dialog` de Prime NG para construir diálogos/modales. Prohibido usar elementos nativos de HTML (`<dialog>`) o implementaciones propias como sustituto.
+
+* **Tooltips:** es OBLIGATORIO usar la directiva `Tooltip` de Prime NG para mostrar tooltips. Prohibido usar el atributo nativo de HTML (`title`) o implementaciones propias como sustituto.
