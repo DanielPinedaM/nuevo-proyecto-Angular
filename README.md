@@ -189,6 +189,13 @@ usar get_best_practices de angular-cli MCP para refactorizar el componente que e
 usar search_documentation de angular-cli MCP para migrar a signals el componente que esta en la ruta src/***
 ```
 
+```txt
+usar search_documentation y get_best_practices de angular-cli MCP para crear un nuevo componente en src/*** que contenga Form with signals usando Prime NG. Con los siguientes campos:
+- nombre: tipo string, minimo 5 caracteres
+
+- celular: tipo number, minimo 10 caracteres
+```
+
 # [🔗 Enlace - Comandos del angular-cli MCP](https://angular.dev/ai/mcp)
 
 # Skills
