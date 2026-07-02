@@ -40,9 +40,11 @@ Para que la configuración funcione, debes tener instalado:
 * [fnm](https://github.com/Schniz/fnm)
 
 > [!TIP]
-> # ⚡ **Empieza de Inmediato**
+> # ⚡ **Empieza de inmediato**
 >
-> Si solo quieres empezar a programar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
+> Si quieres empezar a programar con IA sin perder tiempo configurando herramientas, utiliza **Claude Code**. Este proyecto ya incluye las configuraciones de **MCP**, **Skills** y `AGENTS.md` listas para usar.
+>
+> Si prefieres otra IA, deberás configurar manualmente sus funcionalidades equivalentes según la forma en que esa herramienta las implemente.
 
 ## Instalar `pnpm`
 1. Abrir Git Bash
@@ -131,13 +133,13 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 > Hazle preguntas a la IA sobre:
 >
 > 1. `AGENTS.md`
-> 2. `\.claude\skills\***`
-> 3.
+> 2. `.claude/skills/***`
+> 3. `.claude/rules/***`
 > 4. Los **"🔗 Enlaces"**
 >
-> hasta comprender cómo funciona el proyecto.
+> Hasta comprender cómo funciona el proyecto.
 >
-> Aunque es un texto largo, aprenderás la arquitectura, las buenas prácticas y a detectar cuándo la IA alucina al revisar su código.
+> Aunque es un texto largo, aprenderás la arquitectura, las buenas prácticas y a detectar revisando el código, cuando la IA alucina
 
 # 🤖 Uso de IA
 
@@ -170,9 +172,6 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 * Capacidad para realizar cambios respetando la arquitectura del proyecto.
 
 * Uso de Skills y MCP para reducir las _alucinaciones_ de la IA, permitiéndole a la IA consultar documentación oficial actualizada y seguir buenas prácticas.
-
-## Uso Recomendado de Claude Code
-Las configuraciones de MCP, Skills y `AGENTS.md` están listas para usarse con Claude Code. Si utilizas otra IA, deberás configurar sus funcionalidades equivalentes de acuerdo con la forma en que dicha herramienta las implemente.
 
 # [🔗 Enlace - Prompts para Desarrollo Full Stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
