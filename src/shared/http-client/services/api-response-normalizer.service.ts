@@ -32,15 +32,16 @@ export class ApiResponseNormalizerService {
    * valida (a) que existan TODAS las keys del contrato
    * y (b) que los tipos de sus values sean correctos.
    *
-   * En `data` solo se valida que la key exista, porque su tipo es <T>. */
+   * En `data` solo se valida que la key exista, porque su tipo es <T> */
   private isApiContract<T>(value: unknown): value is IResponse<T> {
     if (typeof value !== 'object' || value === null) return false;
 
     const response = value as Record<string, unknown>;
 
     // (a) que las keys existan
-    const hasAllKeys: boolean =
-      'success' in response && 'status' in response && 'message' in response && 'data' in response;
+    const REQUIRED_KEYS = ['success', 'status', 'message', 'data'] satisfies (keyof IResponse)[];
+
+    const hasAllKeys: boolean = REQUIRED_KEYS.every((key) => key in response);
 
     if (!hasAllKeys) return false;
 
