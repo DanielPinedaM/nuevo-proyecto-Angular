@@ -133,7 +133,7 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 # 🤖 Uso de IA
 
 > [!CAUTION]
-> # ⚠️ ****IMPORTANTE**** 🚨
+> # ⚠️ **IMPORTANTE** 🚨
 >
 > ****Ignorar esta sección ocasionará que la IA genere código que no respeta la arquitectura, estructura ni las convenciones del proyecto, produciendo código legacy, inconsistente, desordenado y con malas practicas****
 
@@ -166,7 +166,7 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 Las configuraciones de MCP, Skills y `AGENTS.md` están listas para usarse con Claude Code. Si utilizas otra IA, deberás configurar sus funcionalidades equivalentes de acuerdo con la forma en que dicha herramienta las implemente.
 
 > [!TIP]
-> # ⚡ **Empieza de inmediato**
+> # ⚡ **Empieza de Inmediato**
 >
 > Si solo quieres empezar a programar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
 
