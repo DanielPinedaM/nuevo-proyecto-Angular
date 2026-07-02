@@ -121,14 +121,11 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 > [!TIP]
 > # 🧠 **Aprende antes de pedir cambios**
 >
-> No te limites a pedirle a la IA *"hazme X"* sin entender cómo funciona la arquitectura del proyecto. Antes, revisa:
+> No te limites a pedirle a la IA *"hazme X"* sin entender cómo funciona la arquitectura del proyecto.
 >
-> * `\.claude\skills`
-> * Los **"🔗 Enlaces"**
+> Hazle preguntas a la IA sobre `AGENTS.md`, `\.claude\skills\***` y los **"🔗 Enlaces"** hasta comprender cómo funciona el proyecto.
 >
-> Luego, hazle preguntas a la IA para que te explique cómo funciona el proyecto.
->
-> Aunque es bastante texto, aprenderás la arquitectura, las buenas prácticas y a detectar cuándo la IA alucina al revisar su código.
+> Aunque es un texto largo, aprenderás la arquitectura, las buenas prácticas y a detectar cuándo la IA alucina al revisar su código.
 
 # 🤖 Uso de IA
 
@@ -154,13 +151,13 @@ Este proyecto esta configurado para usar _IAs de pago y desde la terminal_. **NO
 
 Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 
-* Mayor comprensión del proyecto y de la estructura completa del código (_contexto_).
+* Mayor comprensión del proyecto y de la estructura completa del código (_contexto_ y _tokens_).
 
 * Acceso al sistema operativo (archivos y carpetas) y capacidad para ejecutar comandos.
 
 * Capacidad para realizar cambios respetando la arquitectura del proyecto.
 
-* Uso de skills y MCP, como por ejemplo, para tener informacion actualizada directo desde documentaciones oficiales y poder seguir buenas practicas.
+* Uso de Skills y MCP para reducir las _alucinaciones_ de la IA, permitiéndole a la IA consultar documentación oficial actualizada y seguir buenas prácticas.
 
 ## Uso Recomendado de Claude Code
 Las configuraciones de MCP, Skills y `AGENTS.md` están listas para usarse con Claude Code. Si utilizas otra IA, deberás configurar sus funcionalidades equivalentes de acuerdo con la forma en que dicha herramienta las implemente.
