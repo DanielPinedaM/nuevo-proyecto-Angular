@@ -40,21 +40,53 @@ Node.js
 * La arquitectura, reglas y convenciones definidas en este documento tienen prioridad absoluta. Sin embargo, como no todos los casos posibles están documentados, si un problema no puede resolverse respetando la arquitectura actual o requiere una solución no contemplada en el README, primero debes advertir explícitamente que dicha solución se sale de la arquitectura o convenciones establecidas antes de generar una implementación.
 
 # Reglas de Idioma
-* Responder siempre en español. Es decir, redactar en español todas las explicaciones, respuestas, preguntas, descripciones, análisis, recomendaciones, documentación y mensajes dirigidos al usuario.
 
-* Mantener en español el razonamiento explicativo que se muestra al usuario para justificar una respuesta o decisión.
+## Responder en Español
+Responder en español siempre, excepto lo que esta en "Excepciones, Responder en Ingles"
 
-* El razonamiento explicativo es generado y mostrado únicamente a criterio de la IA cuando sea necesario para justificar o aclarar una respuesta o decisión. Cuando este razonamiento se muestre al usuario, debe estar redactado en español.
+Es decir, redactar en español todas las explicaciones, comentarios de codigo, respuestas, preguntas, descripciones, análisis, recomendaciones, documentación y mensajes dirigidos al usuario. Con la excepcion de lo siguiente que tiene que estar en ingles:
 
-* No traducir términos técnicos de uso común en desarrollo de software (por ejemplo: middleware, service, controller, repository, signal, interceptor, provider, endpoint, payload).
+## Excepciones, Responder en Ingles
+* Términos técnicos de uso común en desarrollo de software: middleware, service, controller, repository, signal, interceptor, provider, endpoint, payload, patrones de diseño, etc.
 
-* No traducir nombres de frameworks, librerías, paquetes, APIs ni patrones de diseño.
+* Nombres de frameworks, librerías, paquetes, APIs
 
-* Mantener el código, identificadores, nombres de archivos, clases, interfaces, métodos, funciones y variables en inglés.
+* Código fuente (todo, **excepto los comentarios de codigo**): Identificadores, nombres de archivos y carpetas, clases, interface, enum, métodos, funciones, parámetros, variables, ruta base del controlador de Nest, ruta de endpoint de Nest
 
-* Escribir el código en inglés, salvo las excepciones indicadas más abajo.
+## Excepciones dentro de las Excepciones, esto debe estar en Español
+Aunque la sección anterior indica que los "nombres de archivos y carpetas" van en inglés, existen dos casos puntuales que quedan **excluidos de esa excepción** y por lo tanto deben estar en español:
 
-* Como excepción a la regla anterior, escribir en español los valores de `path` de las rutas definidas en `src/app/app.routes.ts` (por ejemplo, `iniciar-sesion` o `recuperar-clave`). El nombre del archivo y de la clase del componente asociado permanecen en inglés.
+1. Los `value` de `path` definidos en `src/app/app.routes.ts`
+2. Las carpetas dentro de `src/app/features/<feature>` que representen una ruta y que estén asociadas a un enrutado en `src/app/app.routes.ts`
+
+### Explicación
+Cada carpeta dentro de `<feature>` que represente una ruta, y que esté asociada a un enrutado en `src/app/app.routes.ts`, tiene que estar en español.
+
+### Ejemplo
+Al definir las rutas en `src/app/app.routes.ts`:
+
+```typescript
+export const routes: Routes = [
+  {
+    path: '',
+    component: MainAuthComponent,
+    children: [
+      {
+        path: 'iniciar-sesion', // <- value de path, en español
+        component: LoginComponent,
+      },
+    ],
+  },
+];
+```
+
+Los `value` de `path` son rutas de navegación (URLs). Es decir:
+
+1. Dentro de `src/app/features/<feature>` existen carpetas que representan rutas y que están en español.
+2. Esas carpetas están asociadas a su respectivo `path` en `src/app/app.routes.ts`.
+3. Los `value` de `path` van en español.
+
+Por ejemplo, si existe la carpeta `src/app/features/auth/recuperar-clave/` asociada a `path: 'recuperar-clave'`, tanto el nombre de la carpeta como el `value` del `path` van en español. El resto del código fuente dentro de esa carpeta (nombres de archivos `.ts`, clases, componentes, métodos, variables, etc.) sigue las reglas generales de la sección "Excepciones, Responder en Ingles" y se mantiene en inglés.
 
 # Reglas OBLIGATORIAS para Angular
 Este proyecto usa *Angular 22*.
