@@ -177,18 +177,22 @@ Called angular-cli
 
 ### Ejemplos de ¿Como Usar MCP de Angular?
 
+**Iniciar tutorial paso a paso:**
 ```txt
 usar ai_tutor de angular-cli MCP para explicarme Forms with signals
 ```
 
+**Refactorizar:**
 ```txt
 usar get_best_practices de angular-cli MCP para refactorizar el componente que esta en la ruta src/***
 ```
 
+**Migrar a Signals:**
 ```txt
 usar search_documentation de angular-cli MCP para migrar a signals el componente que esta en la ruta src/***
 ```
 
+**Crear una nueva feature:**
 ```txt
 usar search_documentation y get_best_practices de angular-cli MCP para crear un nuevo componente en src/*** que contenga Form with signals usando Prime NG. Con los siguientes campos:
 - nombre: tipo string, minimo 5 caracteres
