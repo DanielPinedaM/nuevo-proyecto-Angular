@@ -119,7 +119,7 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 # Arquitectura del Proyecto
 
 > [!TIP]
-> # **Aprende antes de pedir cambios**
+> # 🧠 **Aprende antes de pedir cambios**
 >
 > No te limites a pedirle a la IA *"hazme X"* sin entender cómo funciona la arquitectura del proyecto. Antes, revisa:
 >
