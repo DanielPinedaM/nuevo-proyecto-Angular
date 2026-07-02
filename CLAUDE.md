@@ -103,7 +103,7 @@ Esta PROHIBIDO:
 ## Uso OBLIGATORIO de Prime NG
 Este proyecto usa Prime NG 22
 
-Para los siguientes componentes/directivas, NO está permitido usar su equivalente en HTML nativo; es OBLIGATORIO usar Prime NG. Para cualquier otro caso no listado aquí, el uso de Prime NG es opciona:
+Para los siguientes componentes/directivas, NO está permitido usar su equivalente en HTML nativo; es OBLIGATORIO usar Prime NG. Para cualquier otro caso no listado aquí, el uso de Prime NG es opcional:
 *  **Formularios:** `InputText`, `Select`, `Checkbox`, `RadioButton`, `DatePicker`, `AutoComplete`, `Textarea` etc.
 
 * **Tablas:** `Table`, `TreeTable` y `Paginator`
