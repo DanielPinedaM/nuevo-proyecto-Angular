@@ -12,7 +12,7 @@
 ---
 
 # 🅰️ Stack Frontend del Proyecto
-A continuación, se presenta un resumen de las tecnologías principales del proyecto. No incluye la totalidad de dependencias:
+A continuación, se presenta un resumen de las tecnologías mas importantes del proyecto. No incluye la totalidad de dependencias:
 
 * Node JS 24.18.0
 * Angular 22
@@ -119,17 +119,16 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 # Arquitectura del Proyecto
 
 > [!TIP]
-> Consejo
-
-No solo le pidas a la IA hasme X sin entender como funciona la arquitectura, mejor lee lo que hay en 
-* \.claude\skills
-
-* Los "🔗 Enlaces"
-
-y le haces preguntas a la IA para que te explique
-
-Es un texto largo, pero vas aprender mucho de arquitectura, buenas practicas y ademas vas a poder entender como revisar el codigo el codigo que genera la IA
-
+> # **Aprende antes de pedir cambios**
+>
+> No te limites a pedirle a la IA *"hazme X"* sin entender cómo funciona la arquitectura del proyecto. Antes, revisa:
+>
+> * `\.claude\skills`
+> * Los **"🔗 Enlaces"**
+>
+> Luego, hazle preguntas a la IA para que te explique cómo funciona el proyecto.
+>
+> Aunque es bastante texto, aprenderás la arquitectura, las buenas prácticas y a detectar cuándo la IA alucina al revisar su código.
 
 # 🤖 Uso de IA
 
@@ -164,9 +163,10 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 * Uso de skills y MCP, como por ejemplo, para tener informacion actualizada directo desde documentaciones oficiales y poder seguir buenas practicas.
 
 ## Uso Recomendado de Claude Code
-Las configuraciones de MCP, Skills y AGENTS.md están listas para usarse con Claude Code. Si utilizas otra IA, deberás configurar sus funcionalidades equivalentes de acuerdo con la forma en que dicha herramienta las implemente.
+Las configuraciones de MCP, Skills y `AGENTS.md` están listas para usarse con Claude Code. Si utilizas otra IA, deberás configurar sus funcionalidades equivalentes de acuerdo con la forma en que dicha herramienta las implemente.
 
 > [!TIP]
+> # ⚡ **Empieza de inmediato**
 >
 > Si solo quieres empezar a programar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
 
@@ -186,8 +186,8 @@ Ayuda mucho en tareas grandes y medianas: Migraciones, nuevas features, solucion
 # Configurar Angular para que Funcione con IA
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
-# AGENTS.md
-Contiene instrucciones que la IA tiene en cuenta para responderte y editar codigo
+# `AGENTS.md`
+Contiene instrucciones que se inyectan SIEMPRE en cada promt, para que la IA respete arquitectura del proyecto.
 
 # Skills
 
