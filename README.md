@@ -185,7 +185,7 @@ pn i
 >
 > Hasta comprender cómo funciona el proyecto.
 >
-> Aunque es un texto largo, aprenderás la arquitectura, las buenas prácticas y a detectar revisando el código, cuando la IA alucina
+> Aunque es un texto largo, aprenderás la arquitectura, buenas prácticas y a detectar revisando el código, cuando la IA alucina
 
 # 🤖 Uso de IA
 
@@ -261,7 +261,7 @@ hacer commit y push
 
 # MCP
 
-## 👾 Configurar MCP para que Claude Code Acceda a la Documentación Oficial de Angular
+## Configurar MCP para que Claude Code Acceda a la Documentación Oficial de Angular
 1. Abrir Git Bash
 
 2. Abrir la carpeta del proyecto
