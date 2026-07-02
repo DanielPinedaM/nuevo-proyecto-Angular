@@ -116,6 +116,117 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.js`
 
+# 🤖 Uso de IA
+
+> [!WARNING]
+> # ⚠️ ****IMPORTANTE**** 🚨
+>
+> ****Ignorar esta sección ocasionará que la IA genere código que no respeta la arquitectura, estructura ni las convenciones del proyecto, produciendo código legacy, inconsistente, desordenado y con malas practicas****
+
+# [🔗 Enlace - Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
+
+## Principales IA para Desarrollo de Software
+
+| Empresa ↓ \ Plataforma → | Web                                                                                     | Desktop                                                               | Terminal / Bash / CLI                                              |
+| ------------------------ | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Anthropic                | [Claude Web](https://claude.ai/)                                                        | [Claude Desktop](https://youtu.be/DYwZy7VNKws?si=cXTPumpZ3Jr9rNn9)    | [Claude Code](https://youtu.be/Bf7hfpItrDk?si=wjUIcIgtDX_Loyey)    |
+| Open AI                  | [Chat GPT](https://chatgpt.com/)                                                        | [GPT Codex Desktop](https://youtu.be/bgx8ownl3O4?si=TzbOntfYIBVN1PGU) | [Codex](https://youtu.be/Ub-K1n4YYsg?si=EoIXGCzEa4ZxyRqA)          |
+| Google                   | [Google AI Studio](https://aistudio.google.com/) / [Gemini](https://gemini.google.com/) | [Antigravity 2.0](https://antigravity.google/product/antigravity-2)   | [Antigravity CLI](https://youtu.be/bdEqIchP4x4?si=gRf6iLggXuzy_cq) |
+| Anomaly Innovations      | [`opencode web`](https://opencode.ai/docs/web/)                                         | [Open Code Desktop](https://youtu.be/_SVSv2Y59P0?si=LT2S0z10t1FBxlB6) | [Open Code CLI](https://youtu.be/2gO8WyctqMk?si=aNvHlf23tKfrN-Z3)  |
+
+## ✏️ Edición de Código
+Este proyecto esta configurado para usar _IAs de pago y desde la terminal_. **NO** sirve si usas IAs gratis o desde una pagina web, porque estan limitadas.
+
+**Razones:**
+* Si copias y pegas codigo desde plataforma web al proyecto, es probable que cometas errores
+
+Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
+
+* Mayor comprensión del proyecto y de la estructura completa del código (_contexto_).
+
+* Acceso al sistema operativo (archivos y carpetas) y capacidad para ejecutar comandos.
+
+* Capacidad para realizar cambios respetando la arquitectura del proyecto.
+
+* Uso de skills y MCP, como por ejemplo, para tener informacion actualizada directo desde documentaciones oficiales y poder seguir buenas practicas.
+
+## Uso Recomendado de Claude Code
+Las configuraciones de MCP, Skills y AGENTS.md están listas para usarse con Claude Code. Si utilizas otra IA, deberás configurar sus funcionalidades equivalentes de acuerdo con la forma en que dicha herramienta las implemente.
+
+> [!TIP]
+> **💡 Recomendación**
+>
+> Si solo quieres empezar a desarrollar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
+
+# Configurar Angular para que Funcione con IA
+Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
+
+# AGENTS.md
+Contiene instrucciones que la IA tiene en cuenta para responderte y editar codigo
+
+# Skills
+
+## 🌿 `git-commit`
+Por cada feature terminada hacer un commit antes de solicitar nuevas modificaciones a la IA. Evita acumular demasiados cambios, ya que puedes perder el contexto de lo que la IA está realizando y cometer errores.
+
+Trabajar bajo el principio:
+
+> 1 commit = 1 feature
+
+El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits.
+
+***Ejemplos:***
+
+```console
+/git-commit
+```
+
+```console
+hacer commit y push
+```
+
+
+## Diferencia Entre Angular MCP y X
+X es para UI
+
+angular-cli es para conecptos de angular
+
+## Ejemplos de ¿Como usar IA en este Proyecto?
+**Iniciar tutorial paso a paso:**
+```txt
+usar ai_tutor de angular-cli MCP para explicarme Forms with signals
+```
+
+**Refactorizar:**
+```txt
+usar get_best_practices de angular-cli MCP para refactorizar el componente que esta en la ruta src/***
+```
+
+**Migrar a Signals:**
+```txt
+usar search_documentation de angular-cli MCP para migrar a signals el componente que esta en la ruta src/***
+```
+
+**Crear una nueva feature:**
+```txt
+usar search_documentation y get_best_practices de angular-cli MCP para crear un nuevo componente en src/*** que contenga Form with signals usando Prime NG. Con los siguientes campos:
+- nombre: tipo string, minimo 5 caracteres
+
+- celular: tipo number, minimo 10 caracteres
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 👾 Configurar MCP para que Claude Code Acceda a la Documentación Oficial de Angular
 1. Abrir Git Bash
 
@@ -177,81 +288,14 @@ Called angular-cli
 
 ### Ejemplos de ¿Como Usar MCP de Angular?
 
-**Iniciar tutorial paso a paso:**
-```txt
-usar ai_tutor de angular-cli MCP para explicarme Forms with signals
-```
 
-**Refactorizar:**
-```txt
-usar get_best_practices de angular-cli MCP para refactorizar el componente que esta en la ruta src/***
-```
-
-**Migrar a Signals:**
-```txt
-usar search_documentation de angular-cli MCP para migrar a signals el componente que esta en la ruta src/***
-```
-
-**Crear una nueva feature:**
-```txt
-usar search_documentation y get_best_practices de angular-cli MCP para crear un nuevo componente en src/*** que contenga Form with signals usando Prime NG. Con los siguientes campos:
-- nombre: tipo string, minimo 5 caracteres
-
-- celular: tipo number, minimo 10 caracteres
-```
 
 # [🔗 Enlace - Comandos del angular-cli MCP](https://angular.dev/ai/mcp)
 
-# Skills
 
-## 🌿 `git-commit`
-Por cada feature terminada hacer un commit antes de solicitar nuevas modificaciones a la IA. Evita acumular demasiados cambios, ya que puedes perder el contexto de lo que la IA está realizando y cometer errores.
 
-Trabajar bajo el principio:
 
-> 1 commit = 1 feature
 
-El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits.
-
-***Ejemplos:***
-
-```console
-/git-commit
-```
-
-```console
-hacer commit y push
-```
-
-# 🤖 Uso de IA
-
-> [!WARNING]
-> # ⚠️ ****IMPORTANTE**** 🚨
->
-> ****Ignorar esta sección ocasionará que la IA genere código que no respete la arquitectura, estructura ni las convenciones del proyecto, produciendo código inconsistente, desordenado y con malas practicas****
-
-# [🔗 Enlace - Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
-
-Esta sección está diseñada para utilizarse como contexto en herramientas de IA.
-
-## Principales IA para Desarrollo de Software
-
-| Empresa ↓ \ Plataforma → | Web                                                                                     | Desktop                                                               | Terminal / Bash / CLI                                              |
-| ------------------------ | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Anthropic                | [Claude Web](https://claude.ai/)                                                        | [Claude Desktop](https://youtu.be/DYwZy7VNKws?si=cXTPumpZ3Jr9rNn9)    | [Claude Code](https://youtu.be/Bf7hfpItrDk?si=wjUIcIgtDX_Loyey)    |
-| Open AI                  | [Chat GPT](https://chatgpt.com/)                                                        | [GPT Codex Desktop](https://youtu.be/bgx8ownl3O4?si=TzbOntfYIBVN1PGU) | [Codex](https://youtu.be/Ub-K1n4YYsg?si=EoIXGCzEa4ZxyRqA)          |
-| Google                   | [Google AI Studio](https://aistudio.google.com/) / [Gemini](https://gemini.google.com/) | [Antigravity 2.0](https://antigravity.google/product/antigravity-2)   | [Antigravity CLI](https://youtu.be/bdEqIchP4x4?si=gRf6iLggXuzy_cq) |
-| Anomaly Innovations      | [`opencode web`](https://opencode.ai/docs/web/)                                         | [Open Code Desktop](https://youtu.be/_SVSv2Y59P0?si=LT2S0z10t1FBxlB6) | [Open Code CLI](https://youtu.be/2gO8WyctqMk?si=aNvHlf23tKfrN-Z3)  |
-
-## ✏️ Edición de Código
-Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar el CLI para editar el código, ya que el CLI tiene:
-
-* Mayor contexto del proyecto.
-* Conocimiento de la estructura completa del código.
-* Acceso al sistema operativo (archivos y carpetas).
-* Capacidad para realizar cambios respetando la arquitectura del proyecto.
-
-# 📋 Contexto para la IA
 
 # ⚙️ Entorno de Ejecución
 Obligatorio el uso de Node.js, prohibido usar alternativas como:
