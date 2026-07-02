@@ -145,7 +145,7 @@ Obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
 
 Este proyecto usa Node.js 24.18.0
 
-# 🔗 Alias
+# 🏷️ Alias
 Para todos los comandos de `pnpm` usar el alias `pn`
 
 # 📦 Instalar Paquetes
@@ -232,7 +232,7 @@ Sirve para:
 
 Ayuda mucho en tareas grandes y medianas: Migraciones, nuevas features, solucionar bugs ...
 
-# Configurar Angular para que Funcione con IA
+# 🅰️ Configurar Angular para que Funcione con IA
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
 # `AGENTS.md`
@@ -259,47 +259,7 @@ El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits.
 hacer commit y push
 ```
 
-
-## Diferencia Entre Angular MCP y X
-X es para UI
-
-angular-cli es para conecptos de angular
-
-## Ejemplos de ¿Como usar IA en este Proyecto?
-**Iniciar tutorial paso a paso:**
-```txt
-usar ai_tutor de angular-cli MCP para explicarme Forms with signals
-```
-
-**Refactorizar:**
-```txt
-usar get_best_practices de angular-cli MCP para refactorizar el componente que esta en la ruta src/***
-```
-
-**Migrar a Signals:**
-```txt
-usar search_documentation de angular-cli MCP para migrar a signals el componente que esta en la ruta src/***
-```
-
-**Crear una nueva feature:**
-```txt
-usar search_documentation y get_best_practices de angular-cli MCP para crear un nuevo componente en src/*** que contenga Form with signals usando Prime NG. Con los siguientes campos:
-- nombre: tipo string, minimo 5 caracteres
-
-- celular: tipo number, minimo 10 caracteres
-```
-
-
-
-
-
-
-
-
-
-
-
-
+# MCP
 
 ## 👾 Configurar MCP para que Claude Code Acceda a la Documentación Oficial de Angular
 1. Abrir Git Bash
@@ -359,18 +319,37 @@ Called angular-cli
 > !claude mcp add angular-cli --scope project -- pnpm dlx @angular/cli mcp
 > ```
 
-### Ejemplos de ¿Como Usar MCP de Angular?
-
-
-
 # [🔗 Enlace - Comandos del angular-cli MCP](https://angular.dev/ai/mcp)
 
 
+## Diferencia Entre Angular MCP y X
+X es para UI
 
+angular-cli es para conecptos de angular
 
+## Ejemplos de ¿Como usar IA en este Proyecto?
+**Iniciar tutorial paso a paso:**
+```txt
+usar ai_tutor de angular-cli MCP para explicarme Forms with signals
+```
 
+**Refactorizar:**
+```txt
+usar get_best_practices de angular-cli MCP para refactorizar el componente que esta en la ruta src/***
+```
 
+**Migrar a Signals:**
+```txt
+usar search_documentation de angular-cli MCP para migrar a signals el componente que esta en la ruta src/***
+```
 
+**Crear una nueva feature:**
+```txt
+usar search_documentation y get_best_practices de angular-cli MCP para crear un nuevo componente en src/*** que contenga Form with signals usando Prime NG. Con los siguientes campos:
+- nombre: tipo string, minimo 5 caracteres
+
+- celular: tipo number, minimo 10 caracteres
+```
 
 # 📁 Estructura Base del Proyecto
 La estructura de carpetas definida a continuación **no representa la totalidad completa del proyecto**, representa la **arquitectura base de referencia**.
