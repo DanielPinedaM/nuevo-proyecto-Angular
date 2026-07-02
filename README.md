@@ -164,7 +164,7 @@ Las configuraciones de MCP, Skills y AGENTS.md están listas para usarse con Cla
 
 > [!TIP]
 >
-> 💡 Si solo quieres empezar a desarrollar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
+> Si solo quieres empezar a programar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
 
 # [🔗 Enlace - Prompts para Desarrollo Full Stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
