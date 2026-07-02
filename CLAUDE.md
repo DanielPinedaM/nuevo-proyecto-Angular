@@ -100,7 +100,7 @@ Esta PROHIBIDO:
 
 - **Servicios singleton:** usar `@Service()` en vez de `@Injectable({providedIn: 'root'})`. `@Service()` es el equivalente moderno y conciso, ya provee la instancia como singleton en root por defecto, sin configuración extra. Reservar `@Injectable` solo para casos avanzados (constructor injection, useClass/useValue/useFactory, scopes distintos a root).
 
-## Uso OBLIGATORIO de Prime NG
+## Uso de Prime NG
 Este proyecto usa Prime NG 22
 
 Para los siguientes componentes/directivas, NO está permitido usar su equivalente en HTML nativo; es OBLIGATORIO usar Prime NG. Para cualquier otro caso no listado aquí, el uso de Prime NG es opcional:
