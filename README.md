@@ -25,7 +25,7 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
-## Antes de Empezar
+## 🛠️ Antes de Empezar
 Para que la configuración funcione, debes tener instalado:
 * [VS Code](https://code.visualstudio.com/) o cualquier editor basado en VS Code ([Antigravity](https://antigravity.google/product), [Cursor](https://cursor.com/get-started), Windsurf, etc.)
 
@@ -122,10 +122,14 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 > Consejo
 
 No solo le pidas a la IA hasme X sin entender como funciona la arquitectura, mejor lee lo que hay en 
+* \.claude\skills
+
+* Los "🔗 Enlaces"
 
 y le haces preguntas a la IA para que te explique
 
-Es un texto largo, pero vas aprender mucho de arquitectura, buenas practicas y de como esta construido este proyecto
+Es un texto largo, pero vas aprender mucho de arquitectura, buenas practicas y ademas vas a poder entender como revisar el codigo el codigo que genera la IA
+
 
 # 🤖 Uso de IA
 
