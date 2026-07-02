@@ -116,14 +116,23 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.js`
 
+# Arquitectura del Proyecto
+
+> [!TIP]
+> Consejo
+
+No solo le pidas a la IA hasme X sin entender como funciona la arquitectura, mejor lee lo que hay en 
+
+y le haces preguntas a la IA para que te explique
+
+Es un texto largo, pero vas aprender mucho de arquitectura, buenas practicas y de como esta construido este proyecto
+
 # 🤖 Uso de IA
 
-> [!WARNING]
+> [!CAUTION]
 > # ⚠️ ****IMPORTANTE**** 🚨
 >
 > ****Ignorar esta sección ocasionará que la IA genere código que no respeta la arquitectura, estructura ni las convenciones del proyecto, produciendo código legacy, inconsistente, desordenado y con malas practicas****
-
-# [🔗 Enlace - Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
 ## Principales IA para Desarrollo de Software
 
@@ -154,9 +163,21 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 Las configuraciones de MCP, Skills y AGENTS.md están listas para usarse con Claude Code. Si utilizas otra IA, deberás configurar sus funcionalidades equivalentes de acuerdo con la forma en que dicha herramienta las implemente.
 
 > [!TIP]
-> **💡 Recomendación**
 >
-> Si solo quieres empezar a desarrollar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
+> 💡 Si solo quieres empezar a desarrollar con IA sin perder tiempo configurando herramientas, instala **Claude Code**. Este proyecto ya incluye todas las configuraciones necesarias para usarlo.
+
+# [🔗 Enlace - Prompts para Desarrollo Full Stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
+
+Sirve para:
+1. Transformar ideas/notas en planes de ejecución solidos paso a paso que la IA puede ejecutar. Ocasiona que la IA haga mejor los cambios en codigo.
+
+2) Corregir errores ("bugs") en las ideas.
+
+3) Crear y ejecutar sub-agentes automáticamente.
+
+4) Analizar repositorios enormes sin "bloquear" la ejecución de la IA
+
+Ayuda mucho en tareas grandes y medianas: Migraciones, nuevas features, solucionar bugs ...
 
 # Configurar Angular para que Funcione con IA
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
