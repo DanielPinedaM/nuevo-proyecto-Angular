@@ -1,0 +1,29 @@
+/* #region ⚠️ NO modificar esta sección - configurar estilos de Tailwind 4 y spartan ui 🚨
+https://tailwindcss.com/docs/preflight */
+
+/* Orden de capas explícito: determina la prioridad en cascada (de menor a mayor). */
+@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, spartanNgBase, spartanNgRoot, TailwindUtilities;
+
+/* custom properties por defecto de Tailwind (--color-*, --spacing-*, --font-*, --breakpoint-*, etc) */
+@import 'tailwindcss/theme.css' layer(TailwindBaseTheme);
+
+/* custom properties propias del proyecto que sobrescriben/extienden las de BaseTheme */
+@import './tailwind/theme.css' layer(TailwindCustomTheme);
+
+/* Reset CSS */
+@import './tailwind/preflight.css' layer(TailwindPreflight);
+
+/* estilos base de spartan ng */
+@import '@spartan-ng/brain/hlm-tailwind-preset.css' layer(spartanNgBase);
+
+/* colores de componentes de spartan ng */
+@import './spartan-ng/root.css' layer(spartanNgRoot);
+
+/* Clases utilitarias generadas por Tailwind (flex, grid, p-4, text-red-500, etc) */
+@import 'tailwindcss/utilities.css' layer(TailwindUtilities);
+
+/* configurar tema oscuro en Tailwind y spartan ng
+https://tailwindcss.com/docs/dark-mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* #endregion */

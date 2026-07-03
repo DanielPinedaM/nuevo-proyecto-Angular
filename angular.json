@@ -57,7 +57,7 @@
               }
             ],
             "styles": [
-              "src/styles/global/tailwind/import.css",
+              "src/styles/global/css/theme/main.css",
               "src/styles/global/scss/main.scss"
             ],
             "scripts": []
@@ -147,7 +147,7 @@
               }
             ],
             "styles": [
-              "src/styles/global/tailwind/import.css",
+              "src/styles/global/css/theme/main.css",
               "src/styles/global/scss/main.scss"
             ],
             "scripts": []

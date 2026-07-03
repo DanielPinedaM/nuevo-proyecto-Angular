@@ -11,17 +11,24 @@
 
 ---
 
-# 🅰️ Stack Frontend del Proyecto
-A continuación, se presenta un resumen de las tecnologías mas importantes del proyecto. No incluye la totalidad de dependencias:
+# 🅰️ Stack Frontend del Proyecto: Tecnologías principales y justificación
+A continuación se resumen las principales tecnologías del proyecto y el motivo por el que se utilizan. No se incluyen todas las dependencias.
 
 * Node.js 24.18.0
-* Angular 22
-* TypeScript 6
 
-* Tailwind CSS 4
-* Sass
-* Luxon 3
-* Material Symbols Icons
+* [**Angular 22:**](https://angular.dev/) Framework opinionado, excelente para proyectos complejos y grandes, desde la version 17 hasta 22 ha tenido cambios importantes como los signals (reactividad) y nuevas directivas `@for`, `@if`, `@switch`, `@case`.
+
+* **TypeScript 6:** Evita tener que adivinar los tipos de datos de variables, funciones y objetos.
+
+* **Luxon 3:** Corrige los errores de `new Date()` de JavaScript y y tiene una API muy completa para manejo de fechas.
+
+* [**Tailwind CSS 4:** ](https://tailwindcss.com/) Usa clases utilitarias para aplicar estilos, evitando la mayoría de los problemas de especificidad, herencia y cascada de CSS.
+
+* **Sass:** Añade funcionalidades que CSS no tiene.
+
+* [**Spartan UI:**](https://spartan.ng/components) Tiene una lista de componentes UI muy completa, con integración nativa con Tailwind y soporte para Signal Forms. Además, al no ser totalmente headless, sus estilos son fáciles de personalizar sin recurrir a hacks de CSS como `::ng-deep` o `!important`.
+
+* [**Material Symbols Icons:**](https://fonts.google.com/icons) Contiene iconos para todo, lo iconos se pueden personalizar con Tailwind
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
@@ -345,7 +352,7 @@ usar search_documentation de angular-cli MCP para migrar a signals el componente
 
 **Crear una nueva feature:**
 ```txt
-usar search_documentation y get_best_practices de angular-cli MCP para crear un nuevo componente en src/*** que contenga Form with signals usando Prime NG. Con los siguientes campos:
+usar search_documentation y get_best_practices de angular-cli MCP para crear un nuevo componente en src/*** que contenga Form with signals usando spartan ui. Con los siguientes campos:
 - nombre: tipo string, minimo 5 caracteres
 
 - celular: tipo number, minimo 10 caracteres
@@ -466,9 +473,6 @@ src/
         │   ├── main.scss → con @use importa estilos .scss globales de toda la pagina web, NO debe contener estilos directos
         │   ├── _scroll-bar.scss → estilos globales de barra de scroll
         │   ├── _variables.scss → variables globales de Sass
-        │   │
-        │   ├── prime-ng/ → sobrescribir estilos de Prime NG
-        │   │   └── index-prime-ng.scss → con @use importa estilos .scss para Prime NG, NO debe contener estilos directos
         │   │
         │   └── buttons/ → estilos globales de botones organizados en archivos .scss composables que permiten combinar variantes, tamaños, estados y temas
         │       ├── index-buttons.scss → con @use importa estilos .scss para los botones, NO debe contener estilos directos
