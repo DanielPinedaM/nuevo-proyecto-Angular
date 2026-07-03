@@ -261,7 +261,7 @@ hacer commit y push
 
 # MCP
 
-## Configurar MCP para que Claude Code Acceda a la Documentación Oficial de Angular
+## angular-cli MCP para que Claude Code Acceda a la Documentación Oficial de Angular
 1. Abrir Git Bash
 
 2. Abrir la carpeta del proyecto
@@ -327,7 +327,7 @@ X es para UI
 
 angular-cli es para conecptos de angular
 
-## Ejemplos de ¿Como usar IA en este Proyecto?
+## Ejemplos de ¿Como Usar IA en este Proyecto?
 **Iniciar tutorial paso a paso:**
 ```txt
 usar ai_tutor de angular-cli MCP para explicarme Forms with signals
