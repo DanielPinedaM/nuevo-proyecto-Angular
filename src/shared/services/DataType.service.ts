@@ -2,8 +2,8 @@
  * metodos relacionadas con los tipos de datos *
  * ********************************************* */
 
-import { inject, Injector, Service } from '@angular/core';
 import GeneralService from '@/shared/services/General.service';
+import { inject, Injector, Service } from '@angular/core';
 
 @Service()
 export default class DataTypeService {
@@ -155,19 +155,6 @@ export default class DataTypeService {
       return false;
     }
   };
-
-  /**
-  ¿la variable es un archivo? */
-  isFile(variable: Blob | FormData | any): boolean {
-    if (!variable) return false;
-
-    return (
-      variable instanceof FormData ||
-      variable instanceof Blob ||
-      variable instanceof File ||
-      variable instanceof ArrayBuffer
-    );
-  }
 
   /**
   ¿la variable es un objeto literal? */
