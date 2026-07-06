@@ -1,0 +1,1 @@
+// Maneja status 403: vuelve atrás en el historial, notifica "acceso denegado"
