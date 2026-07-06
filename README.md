@@ -434,7 +434,6 @@ src/
 │   │   ├── Crypto.service.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
 │   │   ├── DataType.service.ts → funciones para tipos de datos de JS, ejemplo normalizar string
 │   │   ├── DownloadFile.service.ts → funciones para descargar y ver archivos
-│   │   ├── General.service.ts → funciones globales q se pueden re-utilizar en cualquier parte de la web
 │   │   ├── Luxon.service.ts → funciones para fechas usando Luxon
 │   │   ├── SessionStorage.service.ts → manejo de `sessionStorage`, codifica y decodifica en Base64 y realiza conversión automática de tipos de datos (string, number, boolean, null, undefined, array y object) al guardar y recuperar la información.
 │   │   └── Toast.service.ts → notificaciones tipo toast
