@@ -1,7 +1,7 @@
+import { ErrorHandlerHelperService } from '@/shared/http-client/response/error-handling/services/error-handler-helper.service';
 import ToastService from '@/shared/services/Toast.service';
 import { inject, Service } from '@angular/core';
 import { Router } from '@angular/router';
-import { ErrorHandlerHelperService } from '../error-handler-helper.service';
 
 /**
  * maneja el status 401 (unauthenticated): el usuario no está autenticado o la sesión expiró.

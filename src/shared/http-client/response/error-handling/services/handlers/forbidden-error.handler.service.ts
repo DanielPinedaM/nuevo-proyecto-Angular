@@ -1,6 +1,6 @@
+import { ErrorHandlerHelperService } from '@/shared/http-client/response/error-handling/services/error-handler-helper.service';
 import ToastService from '@/shared/services/Toast.service';
 import { inject, Service } from '@angular/core';
-import { ErrorHandlerHelperService } from '../error-handler-helper.service';
 
 /**
  * maneja el status 403 (forbidden): el usuario está autenticado pero no tiene permisos.
