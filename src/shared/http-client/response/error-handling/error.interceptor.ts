@@ -1,4 +1,4 @@
-/* 
+/*
 # Interceptor HTTP:
 normaliza el error a IResponse<T>,
 loguea con HttpLogService,
@@ -8,4 +8,3 @@ REGLA OBLIGAGTORIA:
 el error se "traga", NUNCA propagar el error, usar (of(...))
 
 */
-
