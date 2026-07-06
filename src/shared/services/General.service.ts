@@ -1,13 +1,12 @@
-﻿import DataTypeService from '@/shared/services/DataType.service';
-import ToastService from '@/shared/services/Toast.service';
-import { inject, Service } from '@angular/core';
-import { Options, titleCase as titleCaseNpm } from 'title-case';
-import {
+﻿import {
   MIN_LENGTH_PASSWORD,
   SECURE_PASSWORD_ERROR_MESSAGE,
 } from '@/app/features/auth/data-types/constants/auth.const';
 import { IObjValidatePassword } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
+import DataTypeService from '@/shared/services/DataType.service';
+import ToastService from '@/shared/services/Toast.service';
+import { inject, Service } from '@angular/core';
 
 @Service()
 export default class GeneralService {
@@ -22,10 +21,7 @@ export default class GeneralService {
   valida que...
   1) coincidan 2 inputs de contraseñas
   2) la contraseña sea segura */
-  validatePasswords = (
-    password: string,
-    confirmPassword: string,
-  ): IObjValidatePassword => {
+  validatePasswords = (password: string, confirmPassword: string): IObjValidatePassword => {
     const objValidatePassword: IObjValidatePassword = {
       error: true,
       message: '',
@@ -85,8 +81,7 @@ export default class GeneralService {
 
     // confirmar contraseña - validar numero caracteres
     if (confirmPassword.length < MIN_LENGTH_PASSWORD) {
-      objValidatePassword.message =
-        'Confirmar contraseña' + ' ' + containMinimum;
+      objValidatePassword.message = 'Confirmar contraseña' + ' ' + containMinimum;
       return objValidatePassword;
     }
 
@@ -110,143 +105,13 @@ export default class GeneralService {
   };
 
   /**
-  prime NG - calcular paginador y numero de filas q se muestran en <table>
-  el algoritmo funciona mejor si rows es multiplo de 3, pero puede ser cualquier numero */
-  rowsPerPageOptions = (length = 0, rows = 0): number[] => {
-    if (typeof length !== 'number') {
-      console.error(
-        'para calcular el numero de filas del paginador de prime NG la el parametro de la longitud length del array debe ser tipo number',
-        typeof length,
-      );
-      return [];
-    }
-
-    if (length === 0) return [];
-    if (rows === 0) return [];
-
-    // longitud de la data <= numero inicial de filas q se muestran
-    if (length <= rows) return [];
-
-    let opciones: number[] = [];
-
-    // length SI es multiplo de 3
-    if (length % 3 === 0) {
-      opciones = [rows, length / 3, (length / 3) * 2, length];
-
-      // length NO es multiplo de 3
-    } else {
-      // redondear hacia abajo (longitud de la data / 3)
-      const third = Math.floor(length / 3);
-
-      // numero inicial de filas q se muestran
-      opciones.push(rows);
-      opciones.push(third);
-      opciones.push(third * 2);
-      // longitud de la data
-      opciones.push(length);
-    }
-
-    // numero paginas cumple estas condiciones:
-    // 1) >= numero inicial de filas q se muestran
-    // 2) <= longitud de la data q se muestra en la tabla
-    // 3) ...new Set todos los numeros de pagina tienen q ser unicos
-    // 4) ordenar ascendente (de menor a mayor)
-    return [
-      ...new Set(
-        opciones.filter((option: number) => option >= rows && option <= length),
-      ),
-    ].sort((a, b) => a - b);
-  };
-
-  /**
-  recortar un string a un tamaño de caracteres máximo,
-  agregando "..." si excede la longitud especificada */
-  truncateString = (string: string | any, maxLength: number): string | any => {
-    if (typeof string === 'string' && string.length > maxLength) {
-      return string.slice(0, maxLength) + '...';
-    }
-
-    return string;
-  };
-
-  /**
-  hacer q los string tengan mayuscula inicial */
-  titleCase = (string: string, options?: Partial<Options>): string | any => {
-    if (!this.dataTypeClass.isString(string)) return string;
-    if (String(string).trim() === '') return '';
-
-    const smallWords: string[] = [
-      'a',
-      'ante',
-      'bajo',
-      'cabe',
-      'con',
-      'contra',
-      'de',
-      'es',
-      'desde',
-      'durante',
-      'en',
-      'entre',
-      'hacia',
-      'hasta',
-      'mediante',
-      'para',
-      'por',
-      'segun',
-      'según',
-      'sin',
-      'so',
-      'sobre',
-      'tras',
-      'y',
-      'e',
-      'ni',
-      'o',
-      'u',
-      'el',
-      'la',
-      'los',
-      'las',
-      'un',
-      'una',
-      'uno',
-      'unos',
-      'unas',
-      'del',
-      'al',
-    ];
-
-    const titleCaseOptions: Options = {
-      locale: 'es-CO',
-      sentenceCase: false,
-      smallWords: new Set(smallWords),
-    };
-
-    const finalOptions: Options = { ...titleCaseOptions, ...options };
-
-    return titleCaseNpm(string, finalOptions);
-  };
-
-  /**
-  Separar array por comas
-  Ejemplo: [1, 2, 3] devuelve 1, 2 y 3 */
-  listFormat = (array: any[]): string => {
-    const arrayString: string[] = array.map((item) => String(item));
-    return new Intl.ListFormat('es').format(arrayString);
-  };
-
-  /**
   copiar texto en portapapeles */
   public copyText = (text: string): void => {
     const errorMessage = 'No se pudo copiar el texto';
 
     if (!this.dataTypeClass.isString(text)) {
       this.toast.error(errorMessage);
-      console.error(
-        '❌ error, text NO es tipo string\ntypeof text ',
-        typeof text,
-      );
+      console.error('❌ error, text NO es tipo string\ntypeof text ', typeof text);
       return;
     }
 
@@ -269,38 +134,5 @@ export default class GeneralService {
     document.body.removeChild(selBox);
 
     this.toast.success('Texto copiado');
-  };
-
-  /**
-  obtener elemento de un array de forma aleatoria */
-  getRandomItem = <T>(array: T[]): T | null => {
-    if (!Array.isArray(array)) {
-      console.error(
-        '❌ error - getRandomItem - se requiere q sea tipo \narray ',
-        array,
-        '\n¿es array? ',
-        Array.isArray(array),
-      );
-      return null;
-    }
-
-    const max: number = array.length;
-
-    if (max === 0) {
-      console.error(
-        '❌ error - getRandomItem - el array ',
-        array,
-        'no puede estar vacío \nmax',
-        max,
-      );
-      return null;
-    }
-
-    const randomArray = new Uint32Array(1);
-    crypto.getRandomValues(randomArray);
-
-    const index: number = randomArray[0] % max;
-
-    return array[index];
   };
 }
