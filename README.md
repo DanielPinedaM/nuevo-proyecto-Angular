@@ -445,10 +445,28 @@ src/
 │       │       └── http-client.interface.ts → contrato IResponse<T>: estructura estándar de respuesta de la API (success, status, message, data)
 │       │
 │       ├── interceptors/
-│       │   ├── error.interceptor.ts → captura errores HTTP, normaliza la respuesta al contrato IResponse<T> y ejecuta acciones globales según el código de estado (401, 403, 404, 5xx)
-│       │   ├── success.interceptor.ts → intercepta respuestas HTTP exitosas y las normaliza al contrato IResponse<T>
+│       │   ├── headers/ → interceptors que asignan headers HTTP de forma dinámica y agnóstica al dominio (no dependen de la lógica de negocio de ninguna feature)
+│       │   │   ├── accept.interceptor.ts → asigna dinámicamente el header Accept en cada petición HTTP
+│       │   │   └── content-type.interceptor.ts → asigna dinámicamente el header Content-Type en cada petición HTTP
+│       │   │
 │       │   ├── timeout.interceptor.ts → aplica tiempo máximo de 1 minuto por petición; si se supera, aborta y emite respuesta sintética con status 408
 │       │   └── with-credentials.interceptor.ts → agrega withCredentials a cada petición HTTP; excluye los endpoints de la constante URLS_WITHOUT_CREDENTIALS
+│       │
+│       ├── response/ → normalización y manejo de respuestas HTTP (éxito y error) al contrato IResponse<T>
+│       │   ├── success.interceptor.ts → intercepta respuestas HTTP exitosas y las normaliza al contrato IResponse<T>
+│       │   │
+│       │   └── error-handling/ → manejo de respuestas HTTP erróneas, separado por responsabilidad única (SRP)
+│       │       ├── error.interceptor.ts → captura errores HTTP, delega el manejo global, normaliza al contrato IResponse<T>, loguea y "se traga" el error (nunca lo propaga con throw)
+│       │       │
+│       │       └── services/
+│       │           ├── global-error-handler.service.ts → orquestador: según el código de estado delega en el handler correspondiente (401, 403, 404, 5xx)
+│       │           ├── error-handler-helper.service.ts → helpers de navegación compartidos entre los handlers (pathnameIsLogin, redirectToLogin, returnToBrowserHistory)
+│       │           │
+│       │           └── handlers/ → cada handler resuelve un único tipo de error HTTP (responsabilidad única)
+│       │               ├── unauthenticated-error.handler.service.ts → status 401: redirige a /iniciar-sesion, oculta el loader y notifica con Toast
+│       │               ├── forbidden-error.handler.service.ts → status 403: vuelve atrás en el historial y notifica "acceso denegado"
+│       │               ├── not-found-error.handler.service.ts → status 404: loguea en consola y notifica un error genérico
+│       │               └── server-error.handler.service.ts → status >= 500: loguea en consola y notifica un error genérico
 │       │
 │       ├── services/
 │       │   ├── api-response-normalizer.service.ts → valida y normaliza todas las respuestas HTTP al contrato IResponse<T>; usado por success.interceptor, error.interceptor y timeout.interceptor
