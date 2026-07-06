@@ -1,5 +1,4 @@
 import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
-import { LoaderService } from '@/shared/http-client/loader/services/stores/loader.store';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
 import { HttpLogService } from '@/shared/http-client/services/http-log.service';
 import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
@@ -18,7 +17,6 @@ const TIMEOUT_STATUS: number = 408;
  * aplica un tiempo maximo de expiracion de 1 minuto a cada peticion HTTP. Cuando se cumple
  * 1 minuto sin respuesta:
  * aborta la peticion,
- * oculta el loader (estado global),
  * imprime el detalle
  * y delega los logs en http-log.service.
  *
@@ -26,7 +24,6 @@ const TIMEOUT_STATUS: number = 408;
  * `timeout({ each, with })`: el `with` emite una respuesta sintetica sin lanzar errores
  * (cumple la prohibicion de propagar errores desde los interceptors) */
 export const timeoutInterceptor: HttpInterceptorFn = (req, next) => {
-  const loaderStore = inject(LoaderService);
   const normalizer = inject(ApiResponseNormalizerService);
   const httpLog = inject(HttpLogService);
 
@@ -35,15 +32,12 @@ export const timeoutInterceptor: HttpInterceptorFn = (req, next) => {
       each: TIMEOUT_MS,
       with: () => {
         // 1) abortar la peticion: timeout cancela la suscripcion al source y aborta el fetch
-        // 2) ocultar el icono de loader mediante el estado global (signals)
-        loaderStore.hideLoader();
-
-        // 3) mensaje de timeout
+        // 2) mensaje de timeout
         console.error(
           'Se ha detenido la peticion HTTP porque ha demorado mas de un minuto en responder',
         );
 
-        // 4) logs del timeout
+        // 3) logs del timeout
         const normalized: IResponse<unknown> = normalizer.normalize(
           null,
           TIMEOUT_STATUS,
