@@ -26,9 +26,7 @@ export class ErrorHandlerHelperService {
   }
 
   /**
-   * vuelve a la página anterior del historial; si no hay historial previo, redirige al login.
-   * window.history.length se mantiene: ni Location ni PlatformLocation exponen el conteo del
-   * historial, y esta prohibido inyectar window para resolverlo */
+   * vuelve a la página anterior del historial; si no hay historial previo, redirige al login */
   returnToBrowserHistory(): void {
     if (window.history.length > 1) {
       this.location.back();
