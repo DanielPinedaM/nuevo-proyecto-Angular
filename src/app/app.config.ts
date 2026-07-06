@@ -1,8 +1,8 @@
 import { routes } from '@/app/app.routes';
 import { errorInterceptor } from '@/shared/http-client/response/error.interceptor';
 import { successInterceptor } from '@/shared/http-client/response/success.interceptor';
-import { timeoutInterceptor } from '@/shared/http-client/timeout.interceptor';
-import { withCredentialsInterceptor } from '@/shared/http-client/with-credentials.interceptor';
+import { timeoutInterceptor } from '@/shared/http-client/interceptors/timeout.interceptor';
+import { withCredentialsInterceptor } from '@/shared/http-client/interceptors/with-credentials.interceptor';
 import { loaderInterceptor } from '@/shared/http-client/loader/interceptors/loader.interceptor';
 import {
   HttpInterceptorFn,
