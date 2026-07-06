@@ -24,7 +24,7 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * [**Tailwind CSS 4:** ](https://tailwindcss.com/) Usa clases utilitarias para aplicar estilos, evitando la mayoría de los problemas de especificidad, herencia y cascada de CSS.
 
-* **Sass:** Añade funcionalidades que CSS no tiene.
+* **CSS:** `@layer` resuelve problemas de especificidad y cascada al controlar el orden de prioridad entre las capas, reduciendo la necesidad de usar !important. Además, CSS ha alcanzado un alto nivel de madurez e incorpora características que antes solo existían en Sass, como CSS Nesting.
 
 * [**Spartan ng:**](https://spartan.ng/components) Tiene una lista de componentes UI muy completa, con integración nativa con Tailwind y soporte para Signal Forms. Además, al no ser totalmente headless, sus estilos son fáciles de personalizar sin recurrir a hacks de CSS como `::ng-deep` o `!important`.
 
