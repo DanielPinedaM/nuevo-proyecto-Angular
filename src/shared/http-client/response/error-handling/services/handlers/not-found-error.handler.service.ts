@@ -12,7 +12,7 @@ export class NotFoundErrorHandlerService {
    * ejecuta las acciones globales para el status 404 */
   handle(url: string): void {
     console.error('❌ [not-found-error.handler.service.ts] error: ', {
-      status: 'Error 404: not found',
+      status: 'Error 404: Not Found',
       detail: `endpoint no encontrado, la URL solicitada "${url}" NO existe en el servidor`,
       action: "Mostrar toast 'Ha ocurrido un error...'",
       url: url,

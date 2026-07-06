@@ -12,7 +12,7 @@ export class ServerErrorHandlerService {
    * ejecuta las acciones globales para los status >= 500 */
   handle(url: string): void {
     console.error('❌ [server-error.handler.service.ts] error: ', {
-      status: 'Error 403: Forbidden',
+      status: 'Error >= 500: Internal Server Error',
       detail: `error en el servidor en la URL ${url}`,
       action: "Mostrar toast 'Ha ocurrido un error...'",
       url: url,
