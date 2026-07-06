@@ -1,7 +1,10 @@
 import { routes } from '@/app/app.routes';
+import { acceptInterceptor } from '@/shared/http-client/interceptors/headers/accept.interceptor';
+import { contentTypeInterceptor } from '@/shared/http-client/interceptors/headers/content-type.interceptor';
 import { timeoutInterceptor } from '@/shared/http-client/interceptors/timeout.interceptor';
 import { withCredentialsInterceptor } from '@/shared/http-client/interceptors/with-credentials.interceptor';
 import { loaderInterceptor } from '@/shared/http-client/loader/interceptors/loader.interceptor';
+import { errorInterceptor } from '@/shared/http-client/response/error-handling/error.interceptor';
 import { successInterceptor } from '@/shared/http-client/response/success.interceptor';
 import {
   HttpInterceptorFn,
@@ -37,13 +40,20 @@ const PRIME_NG_PRESET = definePreset(Aura, {
   },
 });
 
+// #region ⚠️ PROHIBIDO cambiar el orden de esta constante porque puedes generar bugs en consumo de APIs 🚨
 const HTTP_CLIENT_INTERCEPTORS: HttpInterceptorFn[] = [
+  // GRUPO 1: preparan la REQUEST (solo next(req.clone))
   withCredentialsInterceptor,
+  acceptInterceptor,
+  contentTypeInterceptor,
+
+  // GRUPO 2: manejan la RESPONSE (.pipe con operadores)
   loaderInterceptor,
   timeoutInterceptor,
-
+  errorInterceptor,
   successInterceptor,
 ];
+// #endregion
 
 export const appConfig: ApplicationConfig = {
   providers: [
