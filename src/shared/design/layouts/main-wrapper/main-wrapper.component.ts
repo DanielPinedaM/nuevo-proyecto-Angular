@@ -8,7 +8,5 @@ import { RouterOutlet } from '@angular/router';
   imports: [MainMenuComponent, RouterOutlet],
 })
 export class MainWrapperComponent implements OnInit {
-  constructor() {}
-
   ngOnInit() {}
 }
