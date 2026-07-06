@@ -16,7 +16,7 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * Node.js 24.18.0
 
-* [**Angular 22:**](https://angular.dev/) Framework opinionado, excelente para proyectos complejos y grandes, desde la version 17 hasta 22 ha tenido cambios importantes como los signals (reactividad) y nuevas directivas `@for`, `@if`, `@switch`, `@case`.
+* [**Angular 22:**](https://angular.dev/) Framework opinionado, excelente para proyectos grandes, aplicaciones complejas y formularios complejos. Desde la versión 17 hasta la 22 ha incorporado cambios importantes, como los Signals (reactividad) y las nuevas directivas de control de flujo `@for`, `@if`, `@switch`, `@case`.
 
 * **TypeScript 6:** Evita tener que adivinar los tipos de datos de variables, funciones y objetos.
 
@@ -459,13 +459,14 @@ src/
 │       │       ├── error.interceptor.ts → captura errores HTTP, delega el manejo global, normaliza al contrato IResponse<T>, loguea y "se traga" el error (nunca lo propaga con throw)
 │       │       │
 │       │       └── services/
-│       │           ├── global-error-handler.service.ts → orquestador: según el código de estado delega en el handler correspondiente (401, 403, 404, 5xx)
+│       │           ├── global-error-handler.service.ts → orquestador: según el código de estado delega en el handler correspondiente (401, 403, 404, 429, 5xx)
 │       │           ├── error-handler-helper.service.ts → helpers de navegación compartidos entre los handlers (pathnameIsLogin, redirectToLogin, returnToBrowserHistory)
 │       │           │
 │       │           └── handlers/ → cada handler resuelve un único tipo de error HTTP (responsabilidad única)
 │       │               ├── unauthenticated-error.handler.service.ts → status 401: redirige a /iniciar-sesion, oculta el loader y notifica con Toast
 │       │               ├── forbidden-error.handler.service.ts → status 403: vuelve atrás en el historial y notifica "acceso denegado"
 │       │               ├── not-found-error.handler.service.ts → status 404: loguea en consola y notifica un error genérico
+│       │               ├── too-many-requests-error.handler.service.ts → status 429: loguea en consola y notifica que se espere antes de reintentar
 │       │               └── server-error.handler.service.ts → status >= 500: loguea en consola y notifica un error genérico
 │       │
 │       ├── services/
