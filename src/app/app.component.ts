@@ -31,10 +31,10 @@ export class AppComponent implements OnInit {
   readonly getLoader = this.loaderService.getLoader;
 
   ngOnInit(): void {
-    this.#logOutDueToInactivity();
+    this.logOutDueToInactivity();
   }
 
-  #logOutDueToInactivity(): void {
+  private logOutDueToInactivity(): void {
     if (!environment.production) return;
 
     this.bnIdle.startWatching(300).subscribe((isTimedOut: boolean) => {

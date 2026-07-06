@@ -29,7 +29,7 @@ export type ISessionStorageObject = Record<string, string>;
 
 @Service()
 export default class SessionStorageService {
-  #errorMessage = (
+  private errorMessage = (
     functionName: string,
     property: any,
     value?: TSessionStorageValue
@@ -59,7 +59,7 @@ export default class SessionStorageService {
     }
   };
 
-  #isValidString = (property: string): boolean => {
+  private isValidString = (property: string): boolean => {
     if (typeof property !== 'string' || property?.trim() === '') {
       return false;
     }
@@ -69,7 +69,7 @@ export default class SessionStorageService {
 
   /**
   convertir a JSON.stringify() SI ES POSIBLE */
-  #convertToStringify = (value: TSessionStorageValue): TSessionStorageValue => {
+  private convertToStringify = (value: TSessionStorageValue): TSessionStorageValue => {
     // solamente se puede hacer JSON.stringify() de un
     // 1) array []
     if (Array.isArray(value)) return JSON.stringify(value);
@@ -137,8 +137,8 @@ export default class SessionStorageService {
   /**
   sessionStorage - listar un solo valor de una propiedad en especifico */
   listValue = (property: string): string | any[] | any => {
-    if (!this.#isValidString(property)) {
-      this.#errorMessage('sessionStorageListValue', property);
+    if (!this.isValidString(property)) {
+      this.errorMessage('sessionStorageListValue', property);
       return '';
     }
 
@@ -173,8 +173,8 @@ export default class SessionStorageService {
   true:  la propiedad SI existe  en sessionStorage
   false: la propuedad NO existe  en sessionStorage */
   search = (property: string): boolean => {
-    if (!this.#isValidString(property)) {
-      this.#errorMessage('sessionStorageSearch', property);
+    if (!this.isValidString(property)) {
+      this.errorMessage('sessionStorageSearch', property);
       return false;
     }
 
@@ -193,8 +193,8 @@ export default class SessionStorageService {
 sessionStorage - guardar una nueva propiedad: valor
 "cuando NO existe lo creo" */
   save = (property: string, value: TSessionStorageValue): boolean => {
-    if (!this.#isValidString(property)) {
-      this.#errorMessage('sessionStorageSave', property, value);
+    if (!this.isValidString(property)) {
+      this.errorMessage('sessionStorageSave', property, value);
       return false;
     }
 
@@ -202,7 +202,7 @@ sessionStorage - guardar una nueva propiedad: valor
 
     if (search) return false;
 
-    const stringValue: TSessionStorageValue = this.#convertToStringify(value);
+    const stringValue: TSessionStorageValue = this.convertToStringify(value);
     // NO convertir el token a Base 64
     if (property === TOKEN_KEY) {
       sessionStorage.setItem(btoa(property), stringValue as string);
@@ -216,8 +216,8 @@ sessionStorage - guardar una nueva propiedad: valor
   sessionStorage - actualizar (sobrescribir) el valor de una propiedad SI existe
   "cuando SI existe lo actualizo" */
   update = (property: string, value: TSessionStorageValue): boolean => {
-    if (!this.#isValidString(property)) {
-      this.#errorMessage('sessionStorageUpdate', property, value);
+    if (!this.isValidString(property)) {
+      this.errorMessage('sessionStorageUpdate', property, value);
       return false;
     }
 
@@ -226,7 +226,7 @@ sessionStorage - guardar una nueva propiedad: valor
     // NO se puede actualizar el valor de una propiedad q no existe
     if (!search) return false;
 
-    const stringValue: TSessionStorageValue = this.#convertToStringify(value);
+    const stringValue: TSessionStorageValue = this.convertToStringify(value);
     // NO convertir el token a Base 64
     if (property === TOKEN_KEY) {
       sessionStorage.setItem(btoa(property), stringValue as string);
@@ -245,12 +245,12 @@ sessionStorage - guardar una nueva propiedad: valor
   sessionStorageSaveAndUpdate() combina lo q hace sessionStorageSave() y sessionStorageUpdate()
   sessionStorageSaveAndUpdate() = sessionStorageSave() + sessionStorageUpdate() */
   saveAndUpdate = (property: string, value: TSessionStorageValue): boolean => {
-    if (!this.#isValidString(property)) {
-      this.#errorMessage('sessionStorageSaveAndUpdate', property, value);
+    if (!this.isValidString(property)) {
+      this.errorMessage('sessionStorageSaveAndUpdate', property, value);
       return false;
     }
 
-    const stringValue: TSessionStorageValue = this.#convertToStringify(value);
+    const stringValue: TSessionStorageValue = this.convertToStringify(value);
 
     // NO convertir el token a Base 64
     if (property === TOKEN_KEY) {
@@ -318,7 +318,7 @@ sessionStorage - guardar una nueva propiedad: valor
         typeof property !== 'string' || property?.trim() === ''
     );
     if (anElementIsNotString) {
-      this.#errorMessage('sessionStorageDeleteExcept', properties);
+      this.errorMessage('sessionStorageDeleteExcept', properties);
       return false;
     }
 
@@ -342,8 +342,8 @@ sessionStorage - guardar una nueva propiedad: valor
   /**
   sessionStorage - eliminar UNA SOLA propiedad: valor en ESPECIFICO */
   deleteSpecific = (property: string): boolean => {
-    if (!this.#isValidString(property)) {
-      this.#errorMessage('sessionStorageDeleteSpecific', property);
+    if (!this.isValidString(property)) {
+      this.errorMessage('sessionStorageDeleteSpecific', property);
       return false;
     }
 
