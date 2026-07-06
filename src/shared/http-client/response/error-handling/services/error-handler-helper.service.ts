@@ -1,9 +1,9 @@
 import { Service } from '@angular/core';
 
 /**
- * helpers de navegación compartidos entre los handlers de error (pathnameIsLogin,
- * redirectToLogin, returnToBrowserHistory). NO contiene lógica de negocio: solo
- * utilidades de redirección e historial del navegador. */
+ * helpers de navegación compartidos entre los handlers de error.
+ * NO contiene lógica de negocio: 
+ * solo utilidades de redirección e historial del navegador. */
 @Service()
 export class ErrorHandlerHelperService {
   /**
