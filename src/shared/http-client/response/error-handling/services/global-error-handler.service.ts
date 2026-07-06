@@ -1,17 +1,20 @@
+import { ForbiddenErrorHandlerService } from '@/shared/http-client/response/error-handling/services/handlers/forbidden-error.handler.service';
+import { NotFoundErrorHandlerService } from '@/shared/http-client/response/error-handling/services/handlers/not-found-error.handler.service';
+import { ServerErrorHandlerService } from '@/shared/http-client/response/error-handling/services/handlers/server-error.handler.service';
+import { TooManyRequestsErrorHandlerService } from '@/shared/http-client/response/error-handling/services/handlers/too-many-requests-error.handler.service';
+import { UnauthenticatedErrorHandlerService } from '@/shared/http-client/response/error-handling/services/handlers/unauthenticated-error.handler.service';
 import { inject, Service } from '@angular/core';
-import { ForbiddenErrorHandlerService } from './handlers/forbidden-error.handler.service';
-import { NotFoundErrorHandlerService } from './handlers/not-found-error.handler.service';
-import { ServerErrorHandlerService } from './handlers/server-error.handler.service';
-import { UnauthenticatedErrorHandlerService } from './handlers/unauthenticated-error.handler.service';
 
 /**
- * orquestador de errores HTTP globales (401/403/404/5xx), NO lógica de negocio de features.
+ * orquestador de errores HTTP globales (401/403/404/429/5xx),
+ * NO contiene lógica de negocio de features.
  * Según el status recibido, delega en el handler correspondiente. */
 @Service()
 export class GlobalErrorHandlerService {
   private readonly unauthenticated = inject(UnauthenticatedErrorHandlerService);
   private readonly forbidden = inject(ForbiddenErrorHandlerService);
   private readonly notFound = inject(NotFoundErrorHandlerService);
+  private readonly tooManyRequests = inject(TooManyRequestsErrorHandlerService);
   private readonly serverError = inject(ServerErrorHandlerService);
 
   /**
@@ -35,6 +38,7 @@ export class GlobalErrorHandlerService {
       401: (url: string) => this.unauthenticated.handle(url),
       403: (url: string) => this.forbidden.handle(url),
       404: (url: string) => this.notFound.handle(url),
+      429: (url: string) => this.tooManyRequests.handle(url),
       500: (url: string) => this.serverError.handle(url),
     };
 
