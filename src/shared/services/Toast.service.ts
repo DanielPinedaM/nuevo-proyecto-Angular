@@ -1,6 +1,6 @@
-﻿import { inject, Service } from '@angular/core';
+﻿import DataTypeService from '@/shared/services/DataType.service';
+import { inject, Service } from '@angular/core';
 import { HotToastService, ToastPosition } from '@ngxpert/hot-toast';
-import DataTypeService from '@/shared/services/DataType.service';
 
 const TOAST_CONTAINER_STYLE = {
   padding: '3px 6px',
@@ -31,14 +31,14 @@ export default class ToastService {
   success(message: string): void {
     if (!this.dataTypeClass.isString(message)) {
       console.error(
-        '❌ Toast.utils.ts - ngxpert/hot-toast necesita el mensaje tipo string',
+        '❌ [Toast.service.ts] ngxpert/hot-toast necesita el mensaje tipo string',
       );
       return;
     }
 
     if (String(message).trim() === '') {
       console.error(
-        "❌ Toast.utils.ts - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
+        "❌ [Toast.service.ts] ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
       );
       return;
     }
@@ -58,14 +58,14 @@ export default class ToastService {
   error(message: string): void {
     if (!this.dataTypeClass.isString(message)) {
       console.error(
-        '❌ Toast.utils.ts - ngxpert/hot-toast necesita el mensaje tipo string',
+        '❌ [Toast.service.ts] ngxpert/hot-toast necesita el mensaje tipo string',
       );
       return;
     }
 
     if (String(message).trim() === '') {
       console.error(
-        "❌  Toast.utils.ts - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
+        "❌ [Toast.service.ts] ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
       );
       return;
     }
@@ -85,14 +85,14 @@ export default class ToastService {
   info(message: string): void {
     if (!this.dataTypeClass.isString(message)) {
       console.error(
-        '❌  Toast.utils.ts - ngxpert/hot-toast necesita el mensaje tipo string',
+        '❌ [Toast.service.ts] ngxpert/hot-toast necesita el mensaje tipo string',
       );
       return;
     }
 
     if (String(message).trim() === '') {
       console.error(
-        "❌  Toast.utils.ts - el mensaje no puede ser un string vacio ''",
+        "❌ [Toast.service.ts] el mensaje no puede ser un string vacio ''",
       );
       return;
     }
@@ -112,14 +112,14 @@ export default class ToastService {
   warning(message: string): void {
     if (!this.dataTypeClass.isString(message)) {
       console.error(
-        '❌  Toast.utils.ts - ngxpert/hot-toast necesita el mensaje tipo string',
+        '❌ [Toast.service.ts] ngxpert/hot-toast necesita el mensaje tipo string',
       );
       return;
     }
 
     if (String(message).trim() === '') {
       console.error(
-        "❌ Toast.utils.ts - ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
+        "❌ [Toast.service.ts] ngxpert/hot-toast - el mensaje no puede ser un string vacio ''",
       );
       return;
     }

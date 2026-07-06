@@ -34,7 +34,7 @@ export const timeoutInterceptor: HttpInterceptorFn = (req, next) => {
         // 1) abortar la peticion: timeout cancela la suscripcion al source y aborta el fetch
         // 2) mensaje de timeout
         console.error(
-          'Se ha detenido la peticion HTTP porque ha demorado mas de un minuto en responder',
+          '❌ [timeout.interceptor.ts] Se ha detenido la peticion HTTP porque ha demorado mas de un minuto en responder',
         );
 
         // 3) logs del timeout

@@ -11,7 +11,12 @@ export class ServerErrorHandlerService {
   /**
    * ejecuta las acciones globales para los status >= 500 */
   handle(url: string): void {
-    console.error(`❌ server-error.handler.service.ts - error en el servidor en la URL ${url}`);
+    console.error('❌ [server-error.handler.service.ts] error: ', {
+      status: 'Error 403: Forbidden',
+      detail: `error en el servidor en la URL ${url}`,
+      action: "Mostrar toast 'Ha ocurrido un error...'",
+      url: url,
+    });
 
     this.toast.error(
       'Ha ocurrido un error, intentalo de nuevo mas tarde, estamos trabajando para solucionarlo',

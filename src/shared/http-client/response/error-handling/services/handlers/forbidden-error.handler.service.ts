@@ -13,13 +13,12 @@ export class ForbiddenErrorHandlerService {
   /**
    * ejecuta las acciones globales para el status 403 */
   handle(url: string): void {
-    console.error(
-      '❌ forbidden-error.handler.service.ts - Error 403: Forbidden',
-      '\nDetalle: El usuario está autenticado pero no tiene permisos para acceder al recurso',
-      "\nAcción: Mostrar un mensaje de 'acceso denegado' y re-dirigir a la pagina anterior del historial",
-      '\nURL solicitada:',
-      url,
-    );
+    console.error('❌ [forbidden-error.handler.service.ts] error: ', {
+      status: 'Error 403: Forbidden',
+      detail: 'El usuario está autenticado pero no tiene permisos para acceder al recurso',
+      action: "Mostrar toast 'acceso denegado' y re-dirigir a la pagina anterior del historial",
+      url: url,
+    });
 
     // devolverme a la web anterior en el historial cuando el status sea 403
     this.helper.returnToBrowserHistory();

@@ -11,10 +11,15 @@ export class NotFoundErrorHandlerService {
   /**
    * ejecuta las acciones globales para el status 404 */
   handle(url: string): void {
-    console.error(
-      `❌ not-found-error.handler.service.ts - error 404: Not Found - endpoint no encontrado, la URL solicitada "${url}" NO existe en el servidor`,
-    );
+    console.error('❌ [not-found-error.handler.service.ts] error: ', {
+      status: 'Error 404: not found',
+      detail: `endpoint no encontrado, la URL solicitada "${url}" NO existe en el servidor`,
+      action: "Mostrar toast 'Ha ocurrido un error...'",
+      url: url,
+    });
 
-    this.toast.error('Ha ocurrido un error, por favor comuniquese con el administrador del sistema');
+    this.toast.error(
+      'Ha ocurrido un error, por favor comuniquese con el administrador del sistema',
+    );
   }
 }

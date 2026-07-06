@@ -15,15 +15,13 @@ export class UnauthenticatedErrorHandlerService {
   /**
    * ejecuta las acciones globales para el status 401 */
   handle(url: string): void {
-    console.error(
-      '❌ unauthenticated-error.handler.service.ts - Error 401: unauthenticated',
-      '\nDetalle: El usuario no está autenticado o la sesión ha expirado',
-      '\nAcción: Re-dirigir al usuario a la página de inicio de sesión',
-      '\nURL solicitada: ',
-      url,
-    );
+    console.error('❌ [unauthenticated-error.handler.service.ts] error: ', {
+      status: 'Error 401: unauthenticated',
+      detail: 'El usuario no está autenticado o la sesión ha expirado',
+      action: "Mostrar toast 'inicie sesión para continuar' y re-dirigir al usuario a la página de inicio de sesión ",
+      url: url,
+    });
 
-    // re-dirigir a /iniciar-sesion cuando el status de la respuesta sea 401
     this.router.navigate(['/iniciar-sesion']);
 
     if (!this.helper.pathnameIsLogin()) {
