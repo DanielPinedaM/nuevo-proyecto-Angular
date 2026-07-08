@@ -18,21 +18,26 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * Node.js 24.18.0
 
-* [**Angular 22:**](https://angular.dev/) Framework opinionado, excelente para proyectos grandes, aplicaciones complejas y formularios complejos. Desde la versión 17 hasta la 22 ha incorporado cambios importantes, como los Signals (reactividad) y las nuevas directivas de control de flujo `@for`, `@if`, `@switch`, `@case`.
+* [**Angular 22:**](https://cursos.devtalles.com/courses/angular-moderno) Framework opinionado, excelente para proyectos grandes, aplicaciones complejas y formularios complejos. Desde la versión 17 hasta la 22 ha incorporado cambios importantes, como los Signals (reactividad) y las nuevas directivas de control de flujo `@for`, `@if`, `@switch`, `@case`.
 
-* **TypeScript 6:** Evita tener que adivinar los tipos de datos de variables, funciones y objetos.
+* [**TypeScript 6:**](https://youtu.be/fUgxxhI_bvc?si=rRY7NTzsONRSwyNN) Evita tener que adivinar los tipos de datos de variables, funciones y objetos.
 
 * **Luxon 3:** Corrige los errores de `new Date()` de JavaScript y y tiene una API muy completa para manejo de fechas.
 
-* [**Tailwind CSS 4:** ](https://tailwindcss.com/) Usa clases utilitarias para aplicar estilos, evitando la mayoría de los problemas de especificidad, herencia y cascada de CSS.
+* [**Tailwind CSS 4:** ](https://youtu.be/R5EXap3vNDA?si=9TV4hucexfUBXgGk) Usa clases utilitarias para aplicar estilos, evitando la mayoría de los problemas de especificidad, herencia y cascada de CSS.
 
-* [**CSS:**](https://developer.mozilla.org/en-US/docs/Web/CSS) `@layer` resuelve problemas de _especificidad_ y _cascada_ al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar `!important`. Además, CSS ha alcanzado un alto nivel de madurez e incorpora features que antes solo existían en Sass, como _CSS Nesting_.
+* [**CSS:**](https://youtu.be/K3xmRF8ab1o?si=w1Ox_P5e2R934Xby) `@layer` resuelve problemas de _especificidad_ y _cascada_ al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar `!important`. Además, CSS ha alcanzado un alto nivel de madurez e incorpora features que antes solo existían en Sass, como _CSS Nesting_.
 
 * [**Spartan ng:**](https://spartan.ng/components) Tiene una lista de componentes UI muy completa, con integración nativa con Tailwind y soporte para Signal Forms. Además, al no ser totalmente headless, sus estilos son fáciles de personalizar sin recurrir a hacks de CSS como `::ng-deep` o `!important`.
 
 * [**Zod:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite usar la misma sintaxis de validación en frontend y backend. En **frontend** valida formularios y datos de entrada, con excelente integración con **Forms with signals**; en **backend** valida requests (body, query y params) y garantiza la integridad de los datos antes de procesarlos.
 
 * [**Material Symbols Icons:**](https://fonts.google.com/icons) Contiene iconos para todo, lo iconos se pueden personalizar con Tailwind
+
+> [!TIP]
+> # 🎥 **Aprende**
+>
+> Puedes hacer clic en el nombre de cada tecnología para ver cursos y aprenderlas
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
