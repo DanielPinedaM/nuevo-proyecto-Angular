@@ -1397,23 +1397,21 @@ La arquitectura está diseñada para proyectos grandes y escalables, separando r
 
 **❌ Incorrecto:**
 
-Usar los [botones de Prime NG](https://primeng.org/button):
+Usar los [botones de spartan ng](https://spartan.ng/components/button):
 
-* `p-button`
+* Import `HlmButtonImports`
 
-* Atributo `pButton`
-
-* Directivas auxiliares `pButtonLabel` y `pButtonIcon`
+* Directiva `hlmBtn`
 
 ```TS
 /* my-component.component.ts */
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-my-component',
   templateUrl: './my-component.component.html',
-  imports: [ButtonModule],
+  imports: [HlmButtonImports],
 })
 
 export class MyComponent {}
@@ -1422,15 +1420,15 @@ export class MyComponent {}
 ```HTML
 <!-- my-component.component.html -->
 
-<p-button label="Guardar" />
+<button hlmBtn>Guardar</button>
 
-<button pButton>
-    <i class="pi pi-check" pButtonIcon></i>
-    <span pButtonLabel>Guardar</span>
+<button hlmBtn>
+    <span class="material-symbols-outlined">check</span>
+    <span>Guardar</span>
 </button>
 ```
 
-La razón es que los [botones de Prime NG](https://primeng.org/button) agregan estilos por defecto que alteran los estilos globales de `index-buttons.scss`
+La razón es que los [botones de spartan ng](https://spartan.ng/components/button) agregan estilos por defecto que alteran los estilos globales de `index-buttons.scss`
 
 **✅ Correcto:**
 
