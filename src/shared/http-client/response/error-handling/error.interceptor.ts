@@ -34,14 +34,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       httpLog.errorLogs(req, normalized);
 
       /**
-       * REGLA OBLIGATORIA:
        * esto NO es un bug, es intencional para estandarizar respuesta de APIs.
        *
-       * El error se "traga", NUNCA se propaga con throw; se emite una
-       * respuesta sintetica envuelta en ApiResponse<T> mediante of(...)
-       * el error NO se propaga al consumidor: se emite una respuesta sintetica envuelta en ApiResponse<T>
+       * El error se "traga", NUNCA se propaga con throw ni llega al consumidor;
+       * en su lugar, se emite una respuesta sintetica envuelta en ApiResponse<T>
+       * mediante of(...)
        * esto significa que
-       * 1) las peticiones HTTP erroneas NUNCA van a entrar al catch
+       * 1) Las peticiones HTTP erroneas NUNCA van a entrar al catch
        *
        * 2) NO tienes que escribir try/catch para consumir API
        *
