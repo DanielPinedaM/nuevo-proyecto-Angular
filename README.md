@@ -1082,7 +1082,7 @@ Cuando se utilicen colores mediante valores arbitrarios de Tailwind, el color ta
 ```ts
 /* my-component.component.ts */
 import { Component, signal } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { HlmTableImports } from '@spartan-ng/helm/table';
 
 interface Product {
   id: number;
@@ -1097,7 +1097,7 @@ const PRODUCTS: Product\[] = \[
 
 @Component({
   selector: 'app-my-component',
-  imports: [TableModule],
+  imports: [HlmTableImports],
   templateUrl: './my-component.component.html',
 })
 export class MyComponent {
@@ -1108,23 +1108,27 @@ export class MyComponent {
 ```HTML
 <!-- my-component.component.html -->
 
-<p-table [value]="products()">
-    <ng-template #header>
-        <tr>
-            <th>Identificacion</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-        </tr>
-    </ng-template>
+<div hlmTableContainer>
+    <table hlmTable>
+        <thead hlmTableHeader>
+            <tr hlmTableRow>
+                <th hlmTableHead>Identificacion</th>
+                <th hlmTableHead>Nombre</th>
+                <th hlmTableHead>Precio</th>
+            </tr>
+        </thead>
 
-    <ng-template #body let-product>
-        <tr>
-            <td>{{ product.id }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.price }}</td>
-        </tr>
-    </ng-template>
-</p-table>
+        <tbody hlmTableBody>
+            @for (product of products(); track product.id) {
+                <tr hlmTableRow>
+                    <td hlmTableCell>{{ product.id }}</td>
+                    <td hlmTableCell>{{ product.name }}</td>
+                    <td hlmTableCell>{{ product.price }}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 ```
 
 ```scss
