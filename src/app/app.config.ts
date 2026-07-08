@@ -6,6 +6,7 @@ import { withCredentialsInterceptor } from '@/shared/http-client/interceptors/wi
 import { loaderInterceptor } from '@/shared/http-client/loader/interceptors/loader.interceptor';
 import { errorInterceptor } from '@/shared/http-client/response/error-handling/error.interceptor';
 import { successInterceptor } from '@/shared/http-client/response/success.interceptor';
+import { TitleCasePipe } from '@angular/common';
 import {
   HttpInterceptorFn,
   provideHttpClient,
@@ -61,6 +62,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withFetch(), withInterceptors([...HTTP_CLIENT_INTERCEPTORS])),
     provideHotToastConfig(),
+    TitleCasePipe,
 
     // configuracion de Prime NG
     providePrimeNG({

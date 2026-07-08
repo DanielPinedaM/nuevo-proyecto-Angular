@@ -3,11 +3,13 @@
  * ********************************************* */
 
 import GeneralService from '@/shared/services/General.service';
+import { TitleCasePipe } from '@angular/common';
 import { inject, Injector, Service } from '@angular/core';
 
 @Service()
 export default class DataTypeService {
   private injector = inject(Injector);
+  private titleCasePipe = inject(TitleCasePipe);
   private _generalClass: GeneralService | null = null;
   get generalClass(): GeneralService {
     if (!this._generalClass) {
@@ -291,7 +293,7 @@ export default class DataTypeService {
     }
 
     if (caseTransform === 'titleCase') {
-      newString = this.generalClass.titleCase(newString); // mayusculas iniciales
+      newString = this.titleCasePipe.transform(newString); // mayusculas iniciales
     } else if (caseTransform === 'lowerCase') {
       newString = newString.toLocaleLowerCase('es-ES'); // convertir a minuscula
     } else if (caseTransform === 'upperCase') {
