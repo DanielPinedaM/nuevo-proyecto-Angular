@@ -41,9 +41,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
        * mediante of(...)
        *
        * esto significa que:
-       * 1) Las peticiones HTTP erroneas NUNCA van a entrar al catch
+       * 1) Las peticiones HTTP erroneas NUNCA llegaran al bloque catch
        *
-       * 2) NO tienes que escribir try/catch para consumir API
+       * 2) NO necesitas envolver el consumo de la API en un try/catch
        *
        * SOLUCION: validar con response.success
        *
