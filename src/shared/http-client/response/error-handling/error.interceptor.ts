@@ -37,15 +37,14 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
        * esto NO es un bug, es intencional para estandarizar respuesta de APIs.
        *
        * El error se "traga", NUNCA se propaga con throw ni llega al consumidor;
-       * en su lugar, se emite una respuesta sintetica envuelta en ApiResponse<T>
-       * mediante of(...)
+       * en su lugar, se emite una respuesta sintetica envuelta en ApiResponse<T> mediante of(...)
        *
-       * esto significa que:
+       * Esto significa que:
        * 1) Las peticiones HTTP erroneas NUNCA llegaran al bloque catch
        *
        * 2) NO necesitas envolver el consumo de la API en un try/catch
        *
-       * SOLUCION: validar con response.success
+       * SOLUCION: validar con response.success cuando la peticion HTTP es exitosa y erronea
        *
        * Ejemplo basico de consumo de API con async/await y firstValueFrom:
        *
