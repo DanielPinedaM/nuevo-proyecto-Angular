@@ -18,21 +18,21 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * Node.js 24.18.0
 
-* [**Angular 22:**](https://cursos.devtalles.com/courses/angular-moderno) Framework opinionado, excelente para proyectos grandes, aplicaciones complejas y formularios complejos. Desde la versión 17 hasta la 22 ha incorporado cambios importantes, como los Signals (reactividad) y las nuevas directivas de control de flujo `@for`, `@if`, `@switch`, `@case`.
+* [**Angular 22:**](https://cursos.devtalles.com/courses/angular-moderno) _Framework opinionado_, excelente para proyectos grandes, aplicaciones complejas y formularios complejos. Desde la versión 17 hasta la 22 ha incorporado cambios importantes, como los _Signals_ (_reactividad_) y las nuevas _directivas de control_ de flujo _`@for`_, _`@if`_, _`@switch`_, _`@case`_.
 
-* [**TypeScript 6:**](https://youtu.be/fUgxxhI_bvc?si=rRY7NTzsONRSwyNN) Evita tener que adivinar los tipos de datos de variables, funciones y objetos.
+* [**TypeScript 6:**](https://youtu.be/fUgxxhI_bvc?si=rRY7NTzsONRSwyNN) Evita tener que adivinar los _tipos de datos_ de variables, funciones y objetos.
 
-* [**Luxon 3:**](https://moment.github.io/luxon/) Corrige los errores de `new Date()` de JavaScript y y tiene una API muy completa para manejo de fechas.
+* [**Luxon 3:**](https://moment.github.io/luxon/) Corrige los errores de _`new Date()`_ de JavaScript y y tiene una API muy completa para manejo de fechas.
 
-* [**Tailwind CSS 4:** ](https://youtu.be/R5EXap3vNDA?si=9TV4hucexfUBXgGk) Usa clases utilitarias para aplicar estilos, evitando la mayoría de los problemas de especificidad, herencia y cascada de CSS.
+* [**CSS:**](https://youtu.be/K3xmRF8ab1o?si=w1Ox_P5e2R934Xby) _`@layer`_ resuelve problemas de _especificidad_ y _cascada_ al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar _`!important`_. Además, CSS ha alcanzado un alto nivel de madurez e incorpora _CSS Nesting_, equivalente al _anidamiento de Sass_, y _Custom Properties_, equivalentes a las _variables de Sass_. En este proyecto se usa en _estilso globales_
 
-* [**CSS:**](https://youtu.be/K3xmRF8ab1o?si=w1Ox_P5e2R934Xby) `@layer` resuelve problemas de _especificidad_ y _cascada_ al controlar el orden de prioridad entre las _capas_, reduciendo la necesidad de usar `!important`. Además, CSS ha alcanzado un alto nivel de madurez e incorpora features que antes solo existían en Sass, como _CSS Nesting_.
+* [**Tailwind CSS 4:** ](https://youtu.be/R5EXap3vNDA?si=9TV4hucexfUBXgGk) Usa _clases utilitarias_ para aplicar estilos, evitando la mayoría de los problemas de _especificidad_, _herencia_ y _cascada_ de CSS. En este proyecto se usa en _estilos de los componentes_
 
-* [**Spartan ng:**](https://spartan.ng/components) Tiene una lista de componentes UI muy completa, con integración nativa con Tailwind y soporte para Signal Forms. Además, al no ser totalmente headless, sus estilos son fáciles de personalizar sin recurrir a hacks de CSS como `::ng-deep` o `!important`.
+* [**Spartan ng:**](https://spartan.ng/components) Tiene una lista de _componentes UI_ muy completa, con integración nativa con _Tailwind_ y soporte para _Signal Forms_. Además, al no ser totalmente _headless_, sus estilos son fáciles de personalizar sin recurrir a _hacks de CSS_ como _`::ng-deep`_ o _`!important`_.
 
-* [**Zod:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite utilizar la misma sintaxis de código y reutilizar los mismos **esquemas de validación** en frontend y backend. Además, se integra con **TypeScript**, ofrece validación de tipos en **tiempo de compilación** y validación de datos en **tiempo de ejecución (runtime)**. En **frontend** valida formularios y datos de entrada, con excelente integración con **React Hook Form** (React) y **Forms with Signals** (Angular). En **backend** valida `body`, `query` y `params` de las solicitudes, garantizando la integridad de los datos antes de procesarlos.
+* [**Zod:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite utilizar la misma sintaxis de código y reutilizar los mismos _esquemas de validación_ en frontend y backend. Además, se integra con _TypeScript_, ofrece validación de tipos en _tiempo de compilación_ y validación de datos en _tiempo de ejecución (runtime)_. En _frontend_ valida _formularios_ y _datos de entrada_, con excelente integración con _React Hook Form_ (_React_) y _Forms with Signals_ (_Angular_). En _backend_ valida _`body`_, _`query`_ y _`params`_ de las _solicitudes http_, garantizando la integridad de los datos antes de procesarlos.
 
-* [**Material Symbols Icons:**](https://fonts.google.com/icons) Contiene iconos para todo, lo iconos se pueden personalizar con Tailwind
+* [**Material Symbols Icons:**](https://fonts.google.com/icons) Contiene iconos para todo. Sus estilos se pueden personalizar con _Tailwind_
 
 > [!TIP]
 > # 🎥 **Aprende**
