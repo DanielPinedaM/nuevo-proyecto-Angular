@@ -49,7 +49,7 @@ Para que la configuración funcione, debes tener instalado:
 
 * [Node.js](https://nodejs.org/)
 
-* [Claude Code](https://cursos.devtalles.com/courses/claude-code-guia-completa)
+* [Claude Code](https://youtu.be/Bf7hfpItrDk?si=5pW919OUbtSqJlyP)
 
 * [pnpm](https://pnpm.io/installation)
 
