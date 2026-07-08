@@ -30,6 +30,8 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * [**Spartan ng:**](https://spartan.ng/components) Tiene una lista de componentes UI muy completa, con integración nativa con Tailwind y soporte para Signal Forms. Además, al no ser totalmente headless, sus estilos son fáciles de personalizar sin recurrir a hacks de CSS como `::ng-deep` o `!important`.
 
+* [Zod:](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite usar la misma sintaxis de validación en frontend y backend. En **frontend** valida formularios y datos de entrada; en **backend** valida requests (body, query, params), configura esquemas para APIs y garantiza la integridad de los datos antes de procesarlos.
+
 * [**Material Symbols Icons:**](https://fonts.google.com/icons) Contiene iconos para todo, lo iconos se pueden personalizar con Tailwind
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
