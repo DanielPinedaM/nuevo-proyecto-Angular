@@ -22,7 +22,7 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * [**TypeScript 6:**](https://youtu.be/fUgxxhI_bvc?si=rRY7NTzsONRSwyNN) Evita tener que adivinar los tipos de datos de variables, funciones y objetos.
 
-* **Luxon 3:** Corrige los errores de `new Date()` de JavaScript y y tiene una API muy completa para manejo de fechas.
+* [**Luxon 3:**](https://moment.github.io/luxon/) Corrige los errores de `new Date()` de JavaScript y y tiene una API muy completa para manejo de fechas.
 
 * [**Tailwind CSS 4:** ](https://youtu.be/R5EXap3vNDA?si=9TV4hucexfUBXgGk) Usa clases utilitarias para aplicar estilos, evitando la mayoría de los problemas de especificidad, herencia y cascada de CSS.
 
