@@ -1,5 +1,5 @@
 ﻿import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import CryptoService from '@/shared/services/Crypto.service';
 import ToastService from '@/shared/services/Toast.service';
 import { HttpClient } from '@angular/common/http';
@@ -58,7 +58,7 @@ export class RecoverPasswordComponent implements OnInit {
     };
 
     const { success, message } = await firstValueFrom(
-      this.http.post<IResponse<unknown>>(`${environment.api}`, body)
+      this.http.post<ApiResponse<unknown>>(`${environment.api}`, body)
     );
 
     if (success) {

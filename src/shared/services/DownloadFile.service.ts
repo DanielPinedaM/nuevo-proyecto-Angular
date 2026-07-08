@@ -2,7 +2,6 @@
  * metodos para descargar archivo *
  * ******************************** */
 
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import GeneralService from '@/shared/services/General.service';
 import LuxonService from '@/shared/services/Luxon.service';
 import { inject, Injector, Service } from '@angular/core';
@@ -25,7 +24,7 @@ export default class DownloadFileService {
 
   /**
   Funcion para descargar archivo */
-  public downloadBlob = (blob: Blob | IResponse, fileName: string | undefined): void => {
+  public downloadBlob = (blob: Blob, fileName: string | undefined): void => {
     const message = 'Ocurrió un error al descargar archivo';
 
     if (!(blob instanceof Blob)) {
@@ -73,7 +72,7 @@ export default class DownloadFileService {
 
   /**
   Funcion para ver archivo */
-  public viewBlob = (blob: Blob | IResponse): void => {
+  public viewBlob = (blob: Blob): void => {
     if (blob instanceof Blob) {
       const fileURL = URL.createObjectURL(blob);
       window.open(fileURL, '_blank');

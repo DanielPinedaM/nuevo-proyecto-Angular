@@ -6,7 +6,7 @@ import {
 } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import { environment } from '@/environments/environment';
 import CONST_REGEX from '@/shared/data-types/constants/regex.const';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import CryptoService from '@/shared/services/Crypto.service';
 import DataTypeService from '@/shared/services/DataType.service';
 import GeneralService from '@/shared/services/General.service';
@@ -130,7 +130,7 @@ export class AssignPasswordComponent implements OnInit {
     };
 
     const { success, message } = await firstValueFrom(
-      this.http.post<IResponse<unknown>>(`${environment.api}`, body)
+      this.http.post<ApiResponse<unknown>>(`${environment.api}`, body)
     );
 
     if (success) {

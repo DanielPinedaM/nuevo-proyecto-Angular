@@ -1,4 +1,4 @@
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { GlobalErrorHandlerService } from '@/shared/http-client/response/error-handling/services/global-error-handler.service';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
 import { HttpLogService } from '@/shared/http-client/services/http-log.service';
@@ -7,10 +7,10 @@ import { inject } from '@angular/core';
 import { catchError, of } from 'rxjs';
 
 /**
- * normaliza las respuestas HTTP ERRONEAS al contrato IResponse<T>, delegando la
+ * normaliza las respuestas HTTP ERRONEAS al contrato ApiResponse<T>, delegando la
  * validacion/normalizacion en ApiResponseNormalizerService y el manejo global de
- * errores (401/403/404/5xx) en GlobalErrorHandlerService. NO contiene logica de
- * negocio de features */
+ * errores (401/403/404/5xx) en GlobalErrorHandlerService.
+ * NO contiene logica de negocio de features */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const globalErrorHandler = inject(GlobalErrorHandlerService);
   const normalizer = inject(ApiResponseNormalizerService);
@@ -25,7 +25,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       globalErrorHandler.handle(status, req.url);
 
       // normalizacion delegada al intermediario (mismo contrato que el exito)
-      const normalized: IResponse<unknown> = normalizer.normalize(
+      const normalized: ApiResponse<unknown> = normalizer.normalize(
         error.error,
         status ?? 500,
         error?.message ?? 'no se pudo capturar el mensaje de error de la API',
@@ -38,8 +38,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
        * esto NO es un bug, es intencional para estandarizar respuesta de APIs.
        *
        * El error se "traga", NUNCA se propaga con throw; se emite una
-       * respuesta sintetica envuelta en IResponse<T> mediante of(...)
-       * el error NO se propaga al consumidor: se emite una respuesta sintetica envuelta en IResponse<T>
+       * respuesta sintetica envuelta en ApiResponse<T> mediante of(...)
+       * el error NO se propaga al consumidor: se emite una respuesta sintetica envuelta en ApiResponse<T>
        * esto significa que
        * 1) las peticiones HTTP erroneas NUNCA van a entrar al catch
        *
@@ -50,8 +50,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
        * Ejemplo basico de consumo con async/await + firstValueFrom:
        *
        *   async getBots(): Promise<void> {
-       *     const { success, data }: IResponse<Bot[]> = await firstValueFrom(
-       *       this.http.get<IResponse<Bot[]>>(`${environment.api}bots`),
+       *     const { success, data } = await firstValueFrom(
+       *       this.http.get<ApiResponse<Bot[]>>(`${environment.api}bots`),
        *     );
        *
        *     // success === false -> el interceptor ya notifico el error globalmente

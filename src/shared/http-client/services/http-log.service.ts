@@ -1,5 +1,5 @@
 import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { HttpContextToken, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { HttpClientHelpersService } from './http-client-helpers.service';
@@ -42,7 +42,7 @@ export class HttpLogService {
    * que luego imprimen successLogs, errorLogs y timeoutLogs.
    * SOLO retorna el objeto; NO imprime nada por consola */
   transformResponseToLogger(
-    response: IResponse<unknown>,
+    response: ApiResponse<unknown>,
     req: HttpRequest<unknown>,
   ): IResponseLogger {
     const { success, status, message, data } = response;
@@ -67,7 +67,7 @@ export class HttpLogService {
 
   /**
    * ✅ imprime los logs cuando la peticion es exitosa */
-  successLogs(req: HttpRequest<unknown>, response: IResponse<unknown>): void {
+  successLogs(req: HttpRequest<unknown>, response: ApiResponse<unknown>): void {
     if (!this.canLog(req)) return;
 
     if (this.helper.isFile(req.body)) {
@@ -79,7 +79,7 @@ export class HttpLogService {
 
   /**
    * ❌ imprime los logs cuando la peticion da error */
-  errorLogs(req: HttpRequest<unknown>, response: IResponse<unknown>): void {
+  errorLogs(req: HttpRequest<unknown>, response: ApiResponse<unknown>): void {
     if (!this.canLog(req)) return;
 
     console.error('❌ ', this.transformResponseToLogger(response, req));
@@ -87,7 +87,7 @@ export class HttpLogService {
 
   /**
    * ⏱️ imprime los logs despues de detener la peticion HTTP por el timeout de 1 minuto */
-  timeoutLogs(req: HttpRequest<unknown>, response: IResponse<unknown>): void {
+  timeoutLogs(req: HttpRequest<unknown>, response: ApiResponse<unknown>): void {
     if (!this.canLog(req)) return;
 
     console.error('⏱️ timeout error: ', this.transformResponseToLogger(response, req));

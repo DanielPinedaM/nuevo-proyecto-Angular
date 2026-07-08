@@ -1,4 +1,4 @@
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
 import { HttpLogService } from '@/shared/http-client/services/http-log.service';
 import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
@@ -38,7 +38,7 @@ export const timeoutInterceptor: HttpInterceptorFn = (req, next) => {
         );
 
         // 3) logs del timeout
-        const normalized: IResponse<unknown> = normalizer.normalize(
+        const normalized: ApiResponse<unknown> = normalizer.normalize(
           null,
           TIMEOUT_STATUS,
           'Request Timeout - La petición HTTP superó el tiempo máximo de 1 minuto',
@@ -46,7 +46,7 @@ export const timeoutInterceptor: HttpInterceptorFn = (req, next) => {
 
         httpLog.timeoutLogs(req, normalized);
 
-        // respuesta sintetica envuelta en IResponse<T> (el error no se propaga al consumidor)
+        // respuesta sintetica envuelta en ApiResponse<T> (el error no se propaga al consumidor)
         return of(
           new HttpResponse({
             body: normalized,

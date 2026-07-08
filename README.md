@@ -441,7 +441,7 @@ src/
 │   └── http-client/ → infraestructura centralizada de HTTP: interceptors, normalización de respuestas, logging y loader global
 │       ├── data-types/
 │       │   └── interfaces/
-│       │       └── http-client.interface.ts → contrato IResponse<T>: estructura estándar de respuesta de la API (success, status, message, data)
+│       │       └── http-client.interface.ts → contrato ApiResponse<T>: estructura estándar de respuesta de la API (success, status, message, data)
 │       │
 │       ├── interceptors/
 │       │   ├── headers/ → interceptors que asignan headers HTTP de forma dinámica y agnóstica al dominio (no dependen de la lógica de negocio de ninguna feature)
@@ -451,11 +451,11 @@ src/
 │       │   ├── timeout.interceptor.ts → aplica tiempo máximo de 1 minuto por petición; si se supera, aborta y emite respuesta sintética con status 408
 │       │   └── with-credentials.interceptor.ts → agrega withCredentials a cada petición HTTP; excluye los endpoints de la constante URLS_WITHOUT_CREDENTIALS
 │       │
-│       ├── response/ → normalización y manejo de respuestas HTTP (éxito y error) al contrato IResponse<T>
-│       │   ├── success.interceptor.ts → intercepta respuestas HTTP exitosas y las normaliza al contrato IResponse<T>
+│       ├── response/ → normalización y manejo de respuestas HTTP (éxito y error) al contrato ApiResponse<T>
+│       │   ├── success.interceptor.ts → intercepta respuestas HTTP exitosas y las normaliza al contrato ApiResponse<T>
 │       │   │
 │       │   └── error-handling/ → manejo de respuestas HTTP erróneas, separado por responsabilidad única (SRP)
-│       │       ├── error.interceptor.ts → captura errores HTTP, delega el manejo global, normaliza al contrato IResponse<T>, loguea y "se traga" el error (nunca lo propaga con throw)
+│       │       ├── error.interceptor.ts → captura errores HTTP, delega el manejo global, normaliza al contrato ApiResponse<T>, loguea y "se traga" el error (nunca lo propaga con throw)
 │       │       │
 │       │       └── services/
 │       │           ├── global-error-handler.service.ts → orquestador: según el código de estado delega en el handler correspondiente (401, 403, 404, 429, 5xx)
@@ -469,7 +469,7 @@ src/
 │       │               └── server-error.handler.service.ts → status >= 500: loguea en consola y notifica un error genérico
 │       │
 │       ├── services/
-│       │   ├── api-response-normalizer.service.ts → valida y normaliza todas las respuestas HTTP al contrato IResponse<T>; usado por success.interceptor, error.interceptor y timeout.interceptor
+│       │   ├── api-response-normalizer.service.ts → valida y normaliza todas las respuestas HTTP al contrato ApiResponse<T>; usado por success.interceptor, error.interceptor y timeout.interceptor
 │       │   └── http-log.service.ts → logging por consola de peticiones HTTP (exitosas, erróneas y timeout); desactivable por petición con el token HTTP_LOG_ENABLED
 │       │
 │       └── loader/ → módulo que centraliza el icono de carga global (componente, interceptor y estado)

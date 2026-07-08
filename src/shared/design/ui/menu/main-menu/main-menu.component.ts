@@ -1,7 +1,7 @@
 ﻿import { environment } from '@/environments/environment';
 import { MenuDesktopComponent } from '@/shared/design/ui/menu/menu-desktop/menu-desktop.component';
 import { MenuMobileComponent } from '@/shared/design/ui/menu/menu-mobile/menu-mobile.component';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
 import ToastService from '@/shared/services/Toast.service';
 import { HttpClient } from '@angular/common/http';
@@ -38,7 +38,7 @@ export class MainMenuComponent implements OnInit {
     }
 
     const { success, data } = await firstValueFrom(
-      this.http.post<IResponse<IMenuOptions[]>>(`${environment.api}`, {}),
+      this.http.post<ApiResponse<IMenuOptions[]>>(`${environment.api}`, {}),
     );
 
     if (success) {

@@ -1,4 +1,4 @@
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
 import { HttpLogService } from '@/shared/http-client/services/http-log.service';
 import { HttpEvent, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
@@ -6,7 +6,7 @@ import { inject } from '@angular/core';
 import { map } from 'rxjs';
 
 /**
- * normaliza las respuestas HTTP EXITOSAS al contrato IResponse<T>, delegando la
+ * normaliza las respuestas HTTP EXITOSAS al contrato ApiResponse<T>, delegando la
  * validacion/normalizacion en ApiResponseNormalizerService
  * (no se repite esa logica aqui / Responsabilidad unica) */
 export const successInterceptor: HttpInterceptorFn = (req, next) => {
@@ -16,11 +16,11 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     map((event: HttpEvent<unknown>) => {
       if (event instanceof HttpResponse) {
-        const normalized: IResponse<unknown> = normalizer.normalize(event.body, event.status);
+        const normalized: ApiResponse<unknown> = normalizer.normalize(event.body, event.status);
 
         httpLog.successLogs(req, normalized);
 
-        // se reemplaza el body por la respuesta ya envuelta en IResponse<T>
+        // se reemplaza el body por la respuesta ya envuelta en ApiResponse<T>
         return event.clone({ body: normalized });
       }
 

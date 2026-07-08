@@ -1,7 +1,7 @@
 ﻿import { MIN_LENGTH_PASSWORD } from '@/app/features/auth/data-types/constants/auth.const';
 import { IBodyLogin } from '@/app/features/auth/data-types/interfaces/auth.interfaces';
 import { environment } from '@/environments/environment';
-import { IResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import CryptoService from '@/shared/services/Crypto.service';
 import DataTypeService from '@/shared/services/DataType.service';
 import SessionStorageService from '@/shared/services/SessionStorage.service';
@@ -146,7 +146,7 @@ export class LoginComponent implements OnInit {
     };
 
     const { success, data, message } = await firstValueFrom(
-      this.http.post<IResponse<Record<string, string>>>(`${environment.api}`, body)
+      this.http.post<ApiResponse<Record<string, string>>>(`${environment.api}`, body)
     );
 
     /* EL SIGUIENTE CODIGO DEBERIA ESTAR DESCOMENTADO CUANDO FUNCIONE LA CONEXION A LA API  */
