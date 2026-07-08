@@ -40,7 +40,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
        * en su lugar, se emite una respuesta sintetica envuelta en ApiResponse<T>
        * mediante of(...)
        *
-       * esto significa que
+       * esto significa que:
        * 1) Las peticiones HTTP erroneas NUNCA van a entrar al catch
        *
        * 2) NO tienes que escribir try/catch para consumir API
