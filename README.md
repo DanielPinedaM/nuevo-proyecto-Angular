@@ -9,6 +9,8 @@
 >
 > **completar la seccion "📝 Formularios"**
 
+![logo-angular](./docs/readme-md/img/logo-angular.png)
+
 ---
 
 # 🅰️ Stack Frontend del Proyecto
