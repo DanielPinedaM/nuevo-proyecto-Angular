@@ -39,6 +39,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
        * El error se "traga", NUNCA se propaga con throw ni llega al consumidor;
        * en su lugar, se emite una respuesta sintetica envuelta en ApiResponse<T>
        * mediante of(...)
+       *
        * esto significa que
        * 1) Las peticiones HTTP erroneas NUNCA van a entrar al catch
        *
@@ -46,7 +47,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
        *
        * SOLUCION: validar con response.success
        *
-       * Ejemplo basico de consumo con async/await + firstValueFrom:
+       * Ejemplo basico de consumo de API con async/await y firstValueFrom:
+       *
+       *   import { environment } from '@/environments/environment';
        *
        *   async getBots(): Promise<void> {
        *     const { success, data } = await firstValueFrom(
