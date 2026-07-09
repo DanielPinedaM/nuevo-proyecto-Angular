@@ -37,6 +37,7 @@
     "@primeng/themes": "^21.0.4",
     "@spartan-ng/brain": "^1.0.4",
     "@tailwindcss/postcss": "^4.3.1",
+    "@tanstack/angular-table": "^8.21.4",
     "@types/luxon": "^3.7.2",
     "chart.js": "^4.5.1",
     "class-variance-authority": "^0.7.0",
