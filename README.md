@@ -159,9 +159,9 @@ Para todos los comandos de `pnpm` usar el alias `pn`
 pn i
 ```
 
-# ▶️ Ejecutar Proyecto
+# ▶️ Scripts de desarrollo
 
-| Comando          | Apunta a ... | Ruta Archivo                                |
+| Comando          | Entorno      | Archivo de configuración                    |
 | ---------------- | ------------ | ------------------------------------------- |
 | `pn start:local` | Local host   | `src/environments/environment.localhost.ts` |
 | `pn start:test`  | Pruebas      | `src/environments/environment.test.ts`      |
@@ -169,7 +169,7 @@ pn i
 
 # 🚀 Generar build (dist) para Desplegar
 
-| Comando         | Apunta a ... | Ruta Archivo                           |
+| Comando         | Entorno      | Archivo de configuración               |
 | --------------- | ------------ | -------------------------------------- |
 | `pn build:test` | Pruebas      | `src/environments/environment.test.ts` |
 | `pn build:prod` | Producción   | `src/environments/environment.prod.ts` |
