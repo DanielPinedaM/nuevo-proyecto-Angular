@@ -423,7 +423,11 @@ src/
 │   │       ├── menu/ → Componente de menú
 │   │       └── spartan-ng/ → componentes helm de Spartan NG (`@spartan-ng/*`), la capa con estilos Tailwind construida sobre `@spartan-ng/brain/*`
 │   │           ├── overlay/ → componentes que se superponen al contenido (alert-dialog, dialog, drawer, dropdown-menu, popover, sheet, sonner, tooltip)
-│   │           ├── form/ → controles de formulario y sus dependencias (checkbox, combobox, date-picker, input, label, radio-group, select, switch, textarea, button, calendar, input-group)
+│   │           ├── form/ → controles de formulario y sus dependencias, agrupados por el tipo de interacción
+│   │           │   ├── action/ → dispara una acción, no captura un valor del formulario (button)
+│   │           │   ├── date/ → selección de fechas (calendar, date-picker)
+│   │           │   ├── selection/ → elegir entre opciones predefinidas (checkbox, combobox, radio-group, select, switch)
+│   │           │   └── text/ → entrada de texto libre y su etiqueta (input, input-group, label, textarea)
 │   │           ├── navigation/ → componentes de navegación (accordion, pagination, tabs)
 │   │           ├── data-display/ → componentes de presentación de datos (carousel, data-table)
 │   │           └── utils/ → NO es un componente: expone la función `hlm()` para combinar clases de Tailwind, usada por todas las categorías
@@ -1013,7 +1017,7 @@ Los selectores de cada componente están declarados en su código fuente.
 | Date Picker | `@spartan-ng/date-picker` |
 | carousel | `@spartan-ng/carousel` |
 | checkbox | `@spartan-ng/checkbox` |
-| Data Table (con @tanstack/angular-table, paginación y sorting) | `@spartan-ng/data-table` + `@tanstack/angular-table` |
+| Data Table (con `@tanstack/angular-table`, paginación y sorting) | `@spartan-ng/data-table` + `@tanstack/angular-table` |
 | Dialog | `@spartan-ng/dialog` |
 | Drawer | `@spartan-ng/drawer` |
 | dropdown-menu | `@spartan-ng/dropdown-menu` |
