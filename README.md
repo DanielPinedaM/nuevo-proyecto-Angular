@@ -2194,7 +2194,7 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 </button>
 ```
 
-# Uso de spartan ng
+## Uso de spartan ng
 Los componentes de spartan ng estan instalados en `src\shared\design\ui\spartan-ng`
 
 Cuando sea necesario utilizar un componente de interfaz (UI), seguir el siguiente orden de prioridad:
