@@ -2216,28 +2216,31 @@ Solo se permite el patrón "Data Table" de Spartan, construido sobre las directi
 * Prohibido usar cualquier librería de UI externa (Angular Material, PrimeNG, NG-ZORRO, etc.).
 
 ### Componentes permitidos
-* accordion
-* Alert Dialog
-* Combobox
-* Date Picker
-* carousel
-* checkbox
-* Data Table (con @tanstack/angular-table, paginación y sorting)
-* Dialog
-* Drawer
-* dropdown-menu
-* input
-* label
-* pagination
-* popover
-* Radio Group
-* Select
-* Sheet
-* Sonner (Toast)
-* Switch
-* Tabs
-* textarea
-* tooltip
+Cada ítem indica la carpeta real instalada, el path de import (alias definido en `tsconfig.json`, según `importAlias` de `components.json`) y los selectores tal como están declarados en el código fuente.
+
+* accordion → carpeta: `src\shared\design\ui\spartan-ng\accordion` | import: `@spartan-ng/helm/accordion` | selector(es): `hlm-accordion`, `[hlmAccordion]`, `hlm-accordion-item`, `[hlmAccordionItem]`, `hlm-accordion-trigger`, `hlm-accordion-content`
+* Alert Dialog → carpeta: `src\shared\design\ui\spartan-ng\alert-dialog` | import: `@spartan-ng/helm/alert-dialog` | selector(es): `hlm-alert-dialog`, `button[hlmAlertDialogTrigger]`, `button[hlmAlertDialogTriggerFor]`, `hlm-alert-dialog-content`, `[hlmAlertDialogHeader]`, `[hlmAlertDialogTitle]`, `[hlmAlertDialogDescription]`, `[hlmAlertDialogFooter]`, `button[hlmAlertDialogAction]`, `button[hlmAlertDialogCancel]`
+* Combobox → carpeta: `src\shared\design\ui\spartan-ng\combobox` | import: `@spartan-ng/helm/combobox` | selector(es): `hlm-combobox`, `[hlmCombobox]`, `hlm-combobox-trigger`, `hlm-combobox-content`, `hlm-combobox-input`, `hlm-combobox-item`, `hlm-combobox-empty`, `[hlmComboboxList]`, `hlm-combobox-value`
+* Date Picker → carpeta: `src\shared\design\ui\spartan-ng\date-picker` | import: `@spartan-ng/helm/date-picker` | selector(es): `hlm-date-picker`, `hlm-date-picker-input`, `hlm-date-picker-trigger`, `hlm-date-picker-multi`, `hlm-date-range-picker`, `[hlmDatePickerAnchor]`
+* carousel → carpeta: `src\shared\design\ui\spartan-ng\carousel` | import: `@spartan-ng/helm/carousel` | selector(es): `hlm-carousel`, `hlm-carousel-content`, `[hlmCarouselContent]`, `hlm-carousel-item`, `[hlmCarouselItem]`, `button[hlmCarouselPrevious]`, `button[hlmCarouselNext]`, `hlm-carousel-slide-display`
+* checkbox → carpeta: `src\shared\design\ui\spartan-ng\checkbox` | import: `@spartan-ng/helm/checkbox` | selector(es): `hlm-checkbox`
+* Data Table (con @tanstack/angular-table, paginación y sorting) → carpeta: `src\shared\design\ui\spartan-ng\table` | import: `@spartan-ng/helm/table` | selector(es): `table[hlmTable]`, `div[hlmTableContainer]`, `thead[hlmTHead]`, `tbody[hlmTBody]`, `tfoot[hlmTFoot]`, `tr[hlmTr]`, `th[hlmTh]`, `td[hlmTd]`, `caption[hlmCaption]`
+  * ⚠️ La carpeta `table` solo aporta las directivas de estilo. `@tanstack/angular-table` **no está instalado** en el proyecto (no aparece en `package.json` ni en `node_modules`), por lo que la paginación y el sorting de este ítem todavía no tienen soporte real en el código.
+* Dialog → carpeta: `src\shared\design\ui\spartan-ng\dialog` | import: `@spartan-ng/helm/dialog` | selector(es): `hlm-dialog`, `button[hlmDialogTrigger]`, `button[hlmDialogTriggerFor]`, `hlm-dialog-content`, `[hlmDialogHeader]`, `[hlmDialogTitle]`, `[hlmDialogDescription]`, `[hlmDialogFooter]`, `button[hlmDialogClose]`
+* Drawer → carpeta: `src\shared\design\ui\spartan-ng\drawer` | import: `@spartan-ng/helm/drawer` | selector(es): `hlm-drawer`, `button[hlmDrawerTrigger]`, `hlm-drawer-content`, `[hlmDrawerHeader]`, `[hlmDrawerTitle]`, `[hlmDrawerDescription]`, `[hlmDrawerFooter]`, `button[hlmDrawerClose]`
+* dropdown-menu → carpeta: `src\shared\design\ui\spartan-ng\dropdown-menu` | import: `@spartan-ng/helm/dropdown-menu` | selector(es): `hlm-dropdown-menu`, `[hlmDropdownMenu]`, `[hlmDropdownMenuTrigger]`, `[hlmDropdownMenuItem]`, `[hlmDropdownMenuLabel]`, `[hlmDropdownMenuSeparator]`, `[hlmDropdownMenuGroup]`, `[hlmDropdownMenuSub]`, `[hlmDropdownMenuSubTrigger]`
+* input → carpeta: `src\shared\design\ui\spartan-ng\input` | import: `@spartan-ng/helm/input` | selector(es): `[hlmInput]`
+* label → carpeta: `src\shared\design\ui\spartan-ng\label` | import: `@spartan-ng/helm/label` | selector(es): `[hlmLabel]`
+* pagination → carpeta: `src\shared\design\ui\spartan-ng\pagination` | import: `@spartan-ng/helm/pagination` | selector(es): `hlm-pagination`, `[hlmPagination]`, `ul[hlmPaginationContent]`, `li[hlmPaginationItem]`, `[hlmPaginationLink]`, `hlm-pagination-previous`, `hlm-pagination-next`, `hlm-pagination-ellipsis`, `hlm-numbered-pagination`, `hlm-numbered-pagination-query-params`
+* popover → carpeta: `src\shared\design\ui\spartan-ng\popover` | import: `@spartan-ng/helm/popover` | selector(es): `hlm-popover`, `[hlmPopover]`, `button[hlmPopoverTrigger]`, `button[hlmPopoverTriggerFor]`, `hlm-popover-content`, `[hlmPopoverHeader]`, `[hlmPopoverTitle]`, `[hlmPopoverDescription]`
+* Radio Group → carpeta: `src\shared\design\ui\spartan-ng\radio-group` | import: `@spartan-ng/helm/radio-group` | selector(es): `hlm-radio-group`, `[hlmRadioGroup]`, `hlm-radio`, `hlm-radio-indicator`
+* Select → carpeta: `src\shared\design\ui\spartan-ng\select` | import: `@spartan-ng/helm/select` | selector(es): `hlm-select`, `[hlmSelect]`, `hlm-select-trigger`, `hlm-select-content`, `hlm-select-item`, `hlm-select-value`, `hlm-select-placeholder`, `hlm-select-group`, `hlm-select-label`, `hlm-select-multiple`
+* Sheet → carpeta: `src\shared\design\ui\spartan-ng\sheet` | import: `@spartan-ng/helm/sheet` | selector(es): `hlm-sheet`, `button[hlmSheetTrigger]`, `hlm-sheet-content`, `[hlmSheetHeader]`, `[hlmSheetTitle]`, `[hlmSheetDescription]`, `[hlmSheetFooter]`, `button[hlmSheetClose]`
+* Sonner (Toast) → carpeta: `src\shared\design\ui\spartan-ng\sonner` | import: `@spartan-ng/helm/sonner` | selector(es): `hlm-toaster`
+* Switch → carpeta: `src\shared\design\ui\spartan-ng\switch` | import: `@spartan-ng/helm/switch` | selector(es): `hlm-switch`, `[hlmSwitchThumb]`, `brn-switch-thumb[hlm]`
+* Tabs → carpeta: `src\shared\design\ui\spartan-ng\tabs` | import: `@spartan-ng/helm/tabs` | selector(es): `hlm-tabs`, `[hlmTabs]`, `hlm-tabs-list`, `[hlmTabsList]`, `[hlmTabsTrigger]`, `[hlmTabsContent]`, `ng-template[hlmTabsContentLazy]`, `hlm-paginated-tabs-list`
+* textarea → carpeta: `src\shared\design\ui\spartan-ng\textarea` | import: `@spartan-ng/helm/textarea` | selector(es): `[hlmTextarea]`
+* tooltip → carpeta: `src\shared\design\ui\spartan-ng\tooltip` | import: `@spartan-ng/helm/tooltip` | selector(es): `[hlmTooltip]`
 
 # 🔌 Consumo de API
 
