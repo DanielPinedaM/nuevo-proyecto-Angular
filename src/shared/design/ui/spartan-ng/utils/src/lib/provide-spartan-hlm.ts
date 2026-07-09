@@ -14,7 +14,7 @@ import { type EnvironmentProviders, makeEnvironmentProviders } from '@angular/co
  * @example
  * ```ts
  * // app.config.ts
- * import { provideSpartanHlm } from '@spartan-ng/helm/utils';
+ * import { provideSpartanHlm } from '@spartan-ng/utils';
  *
  * export const appConfig: ApplicationConfig = {
  *   providers: [
