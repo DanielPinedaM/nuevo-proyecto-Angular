@@ -420,7 +420,8 @@ src/
 │   │   │   └── main-wrapper/ → contenedor principal de paginas despues de loguearse
 │   │   │
 │   │   └── ui/ → componentes visuales reutilizables que representan partes aisladas de la interfaz, no páginas ni estructuras de navegación completas
-│   │       └── menu/ → Componente de menú
+│   │       ├── menu/ → Componente de menú
+│   │       └── spartan-ng/ → componentes helm de Spartan NG (`@spartan-ng/helm/*`), la capa con estilos Tailwind construida sobre `@spartan-ng/brain/*`; cada carpeta es un componente de la librería (dialog, select, table, etc.) con sus directivas/componentes `hlm-*`
 │   │
 │   ├── data-types/ → tipos de datos, contratos, constantes y definiciones reutilizables compartidos entre múltiples features de la aplicación. No deben depender de logica de negocio de una feature
 │   │   ├── constants/
@@ -1393,71 +1394,6 @@ Está guía de estilos para botones está basada en:
 
 - [Tailwind 4 padding](https://tailwindcss.com/docs/padding)
 
-La arquitectura está diseñada para proyectos grandes y escalables, separando responsabilidades.
-
-**❌ Incorrecto:**
-
-Usar los [botones de spartan ng](https://spartan.ng/components/button):
-
-* Import `HlmButtonImports`
-
-* Directiva `hlmBtn`
-
-```TS
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-  imports: [HlmButtonImports],
-})
-
-export class MyComponent {}
-```
-
-```HTML
-<!-- my-component.component.html -->
-
-<button hlmBtn>Guardar</button>
-
-<button hlmBtn>
-    <span class="material-symbols-outlined">check</span>
-    <span>Guardar</span>
-</button>
-```
-
-La razón es que los [botones de spartan ng](https://spartan.ng/components/button) agregan estilos por defecto que alteran los estilos globales de `index-buttons.scss`
-
-**✅ Correcto:**
-
-Usar etiqueta `button` nativa de HTML:
-
-```TS
-/* my-component.component.ts */
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-})
-export class MyComponent {}
-```
-
-```HTML
-<!-- my-component.component.html -->
-
-<button class="btn btn-primary btn-background">
-  Primary
-</button>
-
-<button class="btn btn-secondary btn-background">
-  <span class="material-symbols-outlined">arrow_forward</span>
-  <span>Secondary</span>
-</button>
-```
-
 **❌ Incorrecto:**
 
 Usar etiquetas `<img>` para iconos porque las imágenes no se integran correctamente con la arquitectura CSS de los botones y dificultan aplicar estilos dinámicos como:
@@ -2194,26 +2130,99 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 </button>
 ```
 
-## Uso de spartan ng
-Los componentes de spartan ng estan instalados en `src\shared\design\ui\spartan-ng`
+## Componentes de interfaz (UI): uso y maquetación
+Los componentes de Spartan NG están instalados en `src\shared\design\ui\spartan-ng`.
 
-En los formularios, es obligatorio utilizar los componentes de spartan ng para todos los controles disponibles.
+Spartan NG tiene dos capas:
+* **`@spartan-ng/brain/*` (brain):** primitivas accesibles y sin estilo, instaladas vía npm. Aportan atributos ARIA, navegación por teclado y gestión del foco. Es el equivalente en Angular a Radix UI de React.
 
-Cuando sea necesario utilizar un componente de interfaz (UI), seguir el siguiente orden de prioridad:
+* **`@spartan-ng/helm/*` (helm):** las versiones con estilo (Tailwind) construidas sobre brain. Son los componentes que se usan directamente en las plantillas (`hlm-...`, `hlmBtn`, `hlmInput`, etc.).
 
-1. Utilizar un componente de spartan ng incluido en la siguiente lista. Queda prohibido instalar componentes nuevos o utilizar su equivalente en HTML nativo.
+Esta regla aplica a **cualquier componente visual del proyecto** (formularios, cards, badges, tooltips, layouts, etc.), no solo a formularios.
 
-2. Si el componente requerido no existe en esta lista, maquetarlo con Tailwind.
+### Orden de decisión
+Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el primer caso que aplique:
 
-Componentes permitidos:
+1. **¿El componente está en "Componentes permitidos"?**
+   Usar el componente helm de Spartan de la lista. Está prohibido usar su equivalente nativo de HTML.
+   Ejemplo: existe la etiqueta nativa `<dialog>` de HTML, pero como `Dialog` está en la lista, se debe usar el `Dialog` de Spartan (`<hlm-dialog>` + sus directivas).
 
+2. **¿El componente es un botón?**
+   Usar **SIEMPRE** el componente de `src\shared\design\ui\buttons`. Está prohibido usar el botón de Spartan (directiva `hlmBtn` de `@spartan-ng/helm/button`) y está prohibido usar la etiqueta `<button>` nativa de HTML. Esta regla aplica en todos los casos, incluidos los botones internos de componentes compuestos (ver "Botones dentro de componentes compuestos").
+
+3. **¿El componente NO está en la lista y NO es un botón?**
+   Maquetar con Tailwind. En este caso sí se usan elementos HTML nativos (`<div>`, `<span>`, etc.) como base del maquetado.
+   Ejemplo: `Card` no está en la lista, se maqueta con Tailwind sobre `<div>`.
+
+4. **Alcance de la prohibición de HTML nativo (aplica a los casos 1, 2 y 3):**
+   El HTML nativo solo está prohibido en dos situaciones:
+   - (a) Cuando existe un equivalente en "Componentes permitidos": usar Spartan, no el nativo.
+   - (b) La etiqueta `<button>` nativa: usar siempre `src\shared\design\ui\buttons`.
+   En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
+
+### Refuerzo para formularios
+Además de lo anterior, en formularios es **obligatorio** usar los componentes de Spartan de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
+
+Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con los formularios de Angular (forms with signals) para el manejo de estado y validación. No es obligatorio envolver el formulario en un componente específico de Spartan.
+
+### Botones dentro de componentes compuestos
+Varios componentes de la lista (Alert Dialog, Dialog, Drawer, Sheet, dropdown-menu, Date Picker) usan botones internos: triggers que abren el overlay, acciones y botones de cierre. En Spartan NG esto **no** se hace con un patrón `asChild`: se aplica una **directiva de Spartan directamente sobre un elemento `<button>`** (por ejemplo `hlmDialogTrigger`, `hlmDialogClose`).
+
+Esto encaja de forma natural con el sistema de botones definido en `src\shared\design\ui\buttons`: la directiva de Spartan (comportamiento/accesibilidad) y el botón (`src\shared\design\ui\buttons`, estilos y variantes) conviven en el **mismo** `<button>`. En **todos** los escenarios se usa `src\shared\design\ui\buttons`, nunca la directiva `hlmBtn`:
+
+* Trigger que abre el modal / drawer / menú → `<button [tuBoton] hlmDialogTrigger>` (o la directiva de trigger que corresponda: `hlmSheetTrigger`, `brnDialogTriggerFor`, etc.).
+
+* Botones de acción internos (footer del Dialog, cerrar, confirmar/cancelar del Alert Dialog, etc.) → `src\shared\design\ui\buttons` sobre el mismo `<button>` que lleva la directiva de acción/cierre (`hlmDialogClose`, etc.).
+
+* Botones sueltos que no llevan directiva de Spartan → `src\shared\design\ui\buttons`.
+
+Ejemplo (Dialog):
+
+```html
+<hlm-dialog>
+  <!-- Trigger: comportamiento de Spartan + estilos de tu botón en el mismo <button> -->
+  <button hlmDialogTrigger tuBoton variant="primary">Abrir</button>
+
+  <hlm-dialog-content *hlmDialogPortal="let ctx">
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle>Título</h3>
+    </hlm-dialog-header>
+
+    <hlm-dialog-footer>
+      <!-- Cerrar/cancelar: directiva de cierre de Spartan + tu botón -->
+      <button hlmDialogClose tuBoton variant="secondary">Cancelar</button>
+      <button tuBoton variant="primary" type="submit">Guardar</button>
+    </hlm-dialog-footer>
+  </hlm-dialog-content>
+</hlm-dialog>
+```
+
+Nota: `tuBoton` representa el selector real de tu componente/directiva en `src\shared\design\ui\buttons`. Ese componente ya reenvía correctamente los atributos y el foco (equivalente a `forwardRef`/spread de props), por lo que es compatible con las directivas de comportamiento de Spartan.
+
+### Dependencias internas de los componentes permitidos
+Si un componente de "Componentes permitidos" depende de otros componentes de Spartan para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Ejemplos:
+
+- `Combobox` se apoya en `Command` + `popover` → permitido.
+- `Date Picker` se apoya en `Calendar` + `popover` → permitido.
+
+Única excepción: los botones internos, que siempre se resuelven con `src\shared\design\ui\buttons` (nunca la directiva `hlmBtn`).
+
+### Data Table
+Solo se permite el patrón "Data Table" de Spartan, construido sobre las directivas `Table` (`hlmTable`, `hlmTr`, `hlmTh`, `hlmTd`, etc.) + **`@tanstack/angular-table`**, incluyendo paginación y sorting. Es decir, se usa el conjunto completo Data Table (Table + TanStack + paginación + sorting), no una tabla estática suelta. No esta permitiro usar la etiqueta `<table>` nativa de HTML
+
+### Prohibiciones
+* Prohibido instalar componentes nuevos de Spartan (vía su CLI, por ejemplo: `pnpm ng g @spartan-ng/cli:ui <componente>` o `nx g @spartan-ng/cli:ui <componente>`) distintos a los de "Componentes permitidos".
+
+* Prohibido usar cualquier librería de UI externa (Angular Material, PrimeNG, NG-ZORRO, etc.).
+
+### Componentes permitidos
 * accordion
 * Alert Dialog
 * Combobox
 * Date Picker
 * carousel
 * checkbox
-* Data Table
+* Data Table (con @tanstack/angular-table, paginación y sorting)
 * Dialog
 * Drawer
 * dropdown-menu
@@ -2231,8 +2240,6 @@ Componentes permitidos:
 * tooltip
 
 # 🔌 Consumo de API
-
-
 
 ## 🔀 Flujo para Consumir API:
 Toda petición tiene que pasa primero por `src\shared\http-client`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
