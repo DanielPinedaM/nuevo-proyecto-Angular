@@ -914,6 +914,135 @@ export class MyComponent {
 
 # 💅 Maquetación
 
+## Componentes de interfaz (UI): uso y maquetación
+Los componentes de Spartan NG están instalados en `src\shared\design\ui\spartan-ng`.
+
+Spartan NG tiene dos capas:
+* **`@spartan-ng/brain/*` (brain):** primitivas accesibles y sin estilo, instaladas vía npm. Aportan atributos ARIA, navegación por teclado y gestión del foco. Es el equivalente en Angular a Radix UI de React.
+
+* **`@spartan-ng/helm/*` (helm):** las versiones con estilo (Tailwind) construidas sobre brain. Son los componentes que se usan directamente en las plantillas (`hlm-...`, `hlmBtn`, `hlmInput`, etc.).
+
+Esta regla aplica a **cualquier componente visual del proyecto** (formularios, cards, badges, tooltips, layouts, etc.), no solo a formularios.
+
+### Orden de decisión
+Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el primer caso que aplique:
+
+1. **¿El componente está en "Componentes permitidos"?**
+   Usar el componente helm de Spartan de la lista. Está prohibido usar su equivalente nativo de HTML.
+   Ejemplo: existe la etiqueta nativa `<dialog>` de HTML, pero como `Dialog` está en la lista, se debe usar el `Dialog` de Spartan (`<hlm-dialog>` + sus directivas).
+
+2. **¿El componente es un botón?**
+   Usar **SIEMPRE** el componente de `src\shared\design\ui\buttons`. Está prohibido usar el botón de Spartan (directiva `hlmBtn` de `@spartan-ng/helm/button`) y está prohibido usar la etiqueta `<button>` nativa de HTML. Esta regla aplica en todos los casos, incluidos los botones internos de componentes compuestos (ver "Botones dentro de componentes compuestos").
+
+3. **¿El componente NO está en la lista y NO es un botón?**
+   Maquetar con Tailwind. En este caso sí se usan elementos HTML nativos (`<div>`, `<span>`, etc.) como base del maquetado.
+   Ejemplo: `Card` no está en la lista, se maqueta con Tailwind sobre `<div>`.
+
+4. **Alcance de la prohibición de HTML nativo (aplica a los casos 1, 2 y 3):**
+   El HTML nativo solo está prohibido en dos situaciones:
+   - (a) Cuando existe un equivalente en "Componentes permitidos": usar Spartan, no el nativo.
+   - (b) La etiqueta `<button>` nativa: usar siempre `src\shared\design\ui\buttons`.
+   En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
+
+### Refuerzo para formularios
+Además de lo anterior, en formularios es **obligatorio** usar los componentes de Spartan de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
+
+Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con los formularios de Angular (forms with signals) para el manejo de estado y validación. No es obligatorio envolver el formulario en un componente específico de Spartan.
+
+### Botones dentro de componentes compuestos
+Varios componentes de la lista (Alert Dialog, Dialog, Drawer, Sheet, dropdown-menu, Date Picker) usan botones internos: triggers que abren el overlay, acciones y botones de cierre. En Spartan NG esto **no** se hace con un patrón `asChild`: se aplica una **directiva de Spartan directamente sobre un elemento `<button>`** (por ejemplo `hlmDialogTrigger`, `hlmDialogClose`).
+
+Esto encaja de forma natural con el sistema de botones definido en `src\shared\design\ui\buttons`: la directiva de Spartan (comportamiento/accesibilidad) y el botón (`src\shared\design\ui\buttons`, estilos y variantes) conviven en el **mismo** `<button>`. En **todos** los escenarios se usa `src\shared\design\ui\buttons`, nunca la directiva `hlmBtn`:
+
+* Trigger que abre el modal / drawer / menú → `<button [tuBoton] hlmDialogTrigger>` (o la directiva de trigger que corresponda: `hlmSheetTrigger`, `brnDialogTriggerFor`, etc.).
+
+* Botones de acción internos (footer del Dialog, cerrar, confirmar/cancelar del Alert Dialog, etc.) → `src\shared\design\ui\buttons` sobre el mismo `<button>` que lleva la directiva de acción/cierre (`hlmDialogClose`, etc.).
+
+* Botones sueltos que no llevan directiva de Spartan → `src\shared\design\ui\buttons`.
+
+Ejemplo (Dialog):
+
+```html
+<hlm-dialog>
+  <!-- Trigger: comportamiento de Spartan + estilos de tu botón en el mismo <button> -->
+  <button hlmDialogTrigger tuBoton variant="primary">Abrir</button>
+
+  <hlm-dialog-content *hlmDialogPortal="let ctx">
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle>Título</h3>
+    </hlm-dialog-header>
+
+    <hlm-dialog-footer>
+      <!-- Cerrar/cancelar: directiva de cierre de Spartan + tu botón -->
+      <button hlmDialogClose tuBoton variant="secondary">Cancelar</button>
+      <button tuBoton variant="primary" type="submit">Guardar</button>
+    </hlm-dialog-footer>
+  </hlm-dialog-content>
+</hlm-dialog>
+```
+
+Nota: `tuBoton` representa el selector real de tu componente/directiva en `src\shared\design\ui\buttons`. Ese componente ya reenvía correctamente los atributos y el foco (equivalente a `forwardRef`/spread de props), por lo que es compatible con las directivas de comportamiento de Spartan.
+
+### Dependencias internas de los componentes permitidos
+Si un componente de "Componentes permitidos" depende de otros componentes de Spartan para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Ejemplos:
+
+- `Combobox` se apoya en `Command` + `popover` → permitido.
+- `Date Picker` se apoya en `Calendar` + `popover` → permitido.
+
+Única excepción: los botones internos, que siempre se resuelven con `src\shared\design\ui\buttons` (nunca la directiva `hlmBtn`).
+
+### Data Table
+Solo se permite el patrón "Data Table" de Spartan, construido sobre las directivas `Table` (`hlmTable`, `hlmTr`, `hlmTh`, `hlmTd`, etc.) + **`@tanstack/angular-table`**, incluyendo paginación y sorting. Es decir, se usa el conjunto completo Data Table (Table + TanStack + paginación + sorting), no una tabla estática suelta. No esta permitiro usar la etiqueta `<table>` nativa de HTML
+
+`@tanstack/angular-table` está instalado como dependencia del proyecto. Su API real, verificada en el código del paquete, es:
+
+* `createAngularTable()`: crea la instancia de la tabla a partir de una función que devuelve las `TableOptions`.
+* `FlexRenderDirective` (selector `[flexRender]`), también exportada con el alias `FlexRender`, junto a `flexRenderComponent()` y `injectFlexRenderContext()`: renderizan headers y celdas.
+* `getCoreRowModel()`, `getSortedRowModel()`, `getPaginationRowModel()` y `getFilteredRowModel()`: re-exportados desde `@tanstack/table-core`. `getSortedRowModel()` habilita el sorting y `getPaginationRowModel()` la paginación.
+
+Todo se importa desde `@tanstack/angular-table`, que hace `export * from '@tanstack/table-core'`.
+
+### Prohibiciones
+* Prohibido instalar componentes nuevos de Spartan (vía su CLI, por ejemplo: `pnpm ng g @spartan-ng/cli:ui <componente>` o `nx g @spartan-ng/cli:ui <componente>`) distintos a los de "Componentes permitidos".
+
+* Prohibido usar cualquier librería de UI externa (Angular Material, PrimeNG, NG-ZORRO, etc.).
+
+### Componentes permitidos
+Cada fila indica la carpeta real instalada, el path de import (alias definido en `tsconfig.json`, según `importAlias` de `components.json`) y los selectores tal como están declarados en el código fuente.
+
+| Nombre legible | carpeta | import | selector(es) |
+| -------------- | ------- | ------ | ------------ |
+| accordion | `src\shared\design\ui\spartan-ng\accordion` | `@spartan-ng/helm/accordion` | `hlm-accordion`, `[hlmAccordion]`, `hlm-accordion-item`, `[hlmAccordionItem]`, `hlm-accordion-trigger`, `hlm-accordion-content` |
+| Alert Dialog | `src\shared\design\ui\spartan-ng\alert-dialog` | `@spartan-ng/helm/alert-dialog` | `hlm-alert-dialog`, `button[hlmAlertDialogTrigger]`, `button[hlmAlertDialogTriggerFor]`, `hlm-alert-dialog-content`, `[hlmAlertDialogContent]`, `hlm-alert-dialog-header`, `[hlmAlertDialogHeader]`, `[hlmAlertDialogTitle]`, `[hlmAlertDialogDescription]`, `hlm-alert-dialog-footer`, `[hlmAlertDialogFooter]`, `hlm-alert-dialog-media`, `[hlmAlertDialogMedia]`, `hlm-alert-dialog-overlay`, `[hlmAlertDialogOverlay]`, `[hlmAlertDialogPortal]`, `button[hlmAlertDialogAction]`, `button[hlmAlertDialogCancel]` |
+| Combobox | `src\shared\design\ui\spartan-ng\combobox` | `@spartan-ng/helm/combobox` | `hlm-combobox`, `[hlmCombobox]`, `hlm-combobox-trigger`, `hlm-combobox-content`, `[hlmComboboxContent]`, `hlm-combobox-input`, `hlm-combobox-item`, `[hlmComboboxList]`, `hlm-combobox-empty`, `[hlmComboboxEmpty]`, `[hlmComboboxGroup]`, `[hlmComboboxLabel]`, `hlm-combobox-value`, `[hlmComboboxValue]`, `[hlmComboboxValues]`, `[hlmComboboxValueTemplate]`, `hlm-combobox-multiple`, `[hlmComboboxMultiple]`, `hlm-combobox-placeholder`, `[hlmComboboxPlaceholder]`, `hlm-combobox-status`, `[hlmComboboxStatus]`, `[hlmComboboxSeparator]`, `[hlmComboboxPortal]`, `hlm-combobox-chip`, `hlm-combobox-chips`, `[hlmComboboxChips]`, `input[hlmComboboxChipInput]`, `button[hlmComboboxChipRemove]` |
+| Date Picker | `src\shared\design\ui\spartan-ng\date-picker` | `@spartan-ng/helm/date-picker` | `hlm-date-picker`, `hlm-date-picker-input`, `hlm-date-picker-trigger`, `hlm-date-picker-multi`, `hlm-date-range-picker`, `[hlmDatePickerAnchor]` |
+| carousel | `src\shared\design\ui\spartan-ng\carousel` | `@spartan-ng/helm/carousel` | `hlm-carousel`, `hlm-carousel-content`, `[hlmCarouselContent]`, `hlm-carousel-item`, `[hlmCarouselItem]`, `button[hlmCarouselPrevious]`, `button[hlm-carousel-previous]`, `button[hlmCarouselNext]`, `button[hlm-carousel-next]`, `hlm-carousel-slide-display` |
+| checkbox | `src\shared\design\ui\spartan-ng\checkbox` | `@spartan-ng/helm/checkbox` | `hlm-checkbox` |
+| Data Table (con @tanstack/angular-table, paginación y sorting) | `src\shared\design\ui\spartan-ng\table` | `@spartan-ng/helm/table` + `@tanstack/angular-table` | `table[hlmTable]`, `div[hlmTableContainer]`, `thead[hlmTHead]`, `tbody[hlmTBody]`, `tfoot[hlmTFoot]`, `tr[hlmTr]`, `th[hlmTh]`, `td[hlmTd]`, `caption[hlmCaption]`, `[flexRender]` |
+| Dialog | `src\shared\design\ui\spartan-ng\dialog` | `@spartan-ng/helm/dialog` | `hlm-dialog`, `button[hlmDialogTrigger]`, `button[hlmDialogTriggerFor]`, `hlm-dialog-content`, `hlm-dialog-header`, `[hlmDialogHeader]`, `[hlmDialogTitle]`, `[hlmDialogDescription]`, `hlm-dialog-footer`, `[hlmDialogFooter]`, `hlm-dialog-overlay`, `[hlmDialogOverlay]`, `[hlmDialogPortal]`, `button[hlmDialogClose]` |
+| Drawer | `src\shared\design\ui\spartan-ng\drawer` | `@spartan-ng/helm/drawer` | `hlm-drawer`, `button[hlmDrawerTrigger]`, `hlm-drawer-content`, `hlm-drawer-header`, `[hlmDrawerHeader]`, `[hlmDrawerTitle]`, `[hlmDrawerDescription]`, `hlm-drawer-footer`, `[hlmDrawerFooter]`, `hlm-drawer-overlay`, `[hlmDrawerOverlay]`, `[hlmDrawerPortal]`, `button[hlmDrawerClose]` |
+| dropdown-menu | `src\shared\design\ui\spartan-ng\dropdown-menu` | `@spartan-ng/helm/dropdown-menu` | `hlm-dropdown-menu`, `[hlmDropdownMenu]`, `[hlmDropdownMenuTrigger]`, `hlm-dropdown-menu-item`, `[hlmDropdownMenuItem]`, `hlm-dropdown-menu-label`, `[hlmDropdownMenuLabel]`, `hlm-dropdown-menu-separator`, `[hlmDropdownMenuSeparator]`, `hlm-dropdown-menu-group`, `[hlmDropdownMenuGroup]`, `hlm-dropdown-menu-shortcut`, `[hlmDropdownMenuShortcut]`, `hlm-dropdown-menu-sub`, `[hlmDropdownMenuSub]`, `[hlmDropdownMenuSubTrigger]`, `[hlmDropdownMenuCheckbox]`, `[hlmDropdownMenuCheckboxItem]`, `hlm-dropdown-menu-checkbox-indicator`, `[hlmDropdownMenuRadio]`, `hlm-dropdown-menu-radio-indicator`, `hlm-dropdown-menu-item-sub-indicator`, `[hlmDropdownMenuFocusOnHover]` |
+| input | `src\shared\design\ui\spartan-ng\input` | `@spartan-ng/helm/input` | `[hlmInput]` |
+| label | `src\shared\design\ui\spartan-ng\label` | `@spartan-ng/helm/label` | `[hlmLabel]` |
+| pagination | `src\shared\design\ui\spartan-ng\pagination` | `@spartan-ng/helm/pagination` | `hlm-pagination`, `[hlmPagination]`, `ul[hlmPaginationContent]`, `li[hlmPaginationItem]`, `[hlmPaginationLink]`, `hlm-pagination-previous`, `hlm-pagination-next`, `hlm-pagination-ellipsis`, `hlm-numbered-pagination`, `hlm-numbered-pagination-query-params` |
+| popover | `src\shared\design\ui\spartan-ng\popover` | `@spartan-ng/helm/popover` | `hlm-popover`, `[hlmPopover]`, `button[hlmPopoverTrigger]`, `button[hlmPopoverTriggerFor]`, `hlm-popover-content`, `[hlmPopoverContent]`, `hlm-popover-header`, `[hlmPopoverHeader]`, `[hlmPopoverTitle]`, `[hlmPopoverDescription]`, `[hlmPopoverPortal]` |
+| Radio Group | `src\shared\design\ui\spartan-ng\radio-group` | `@spartan-ng/helm/radio-group` | `hlm-radio-group`, `[hlmRadioGroup]`, `hlm-radio`, `hlm-radio-indicator` |
+| Select | `src\shared\design\ui\spartan-ng\select` | `@spartan-ng/helm/select` | `hlm-select`, `[hlmSelect]`, `hlm-select-trigger`, `hlm-select-content`, `hlm-select-item`, `hlm-select-value`, `[hlmSelectValue]`, `[hlmSelectValues]`, `[hlmSelectValueTemplate]`, `hlm-select-values-content`, `[hlmSelectValuesContent]`, `hlm-select-placeholder`, `[hlmSelectPlaceholder]`, `hlm-select-group`, `[hlmSelectGroup]`, `hlm-select-label`, `[hlmSelectLabel]`, `hlm-select-multiple`, `[hlmSelectMultiple]`, `hlm-select-separator`, `[hlmSelectSeparator]`, `[hlmSelectPortal]`, `hlm-select-scroll-up`, `hlm-select-scroll-down` |
+| Sheet | `src\shared\design\ui\spartan-ng\sheet` | `@spartan-ng/helm/sheet` | `hlm-sheet`, `button[hlmSheetTrigger]`, `hlm-sheet-content`, `hlm-sheet-header`, `[hlmSheetHeader]`, `[hlmSheetTitle]`, `[hlmSheetDescription]`, `hlm-sheet-footer`, `[hlmSheetFooter]`, `hlm-sheet-overlay`, `[hlmSheetOverlay]`, `[hlmSheetPortal]`, `button[hlmSheetClose]` |
+| Sonner (Toast) | `src\shared\design\ui\spartan-ng\sonner` | `@spartan-ng/helm/sonner` | `hlm-toaster` |
+| Switch | `src\shared\design\ui\spartan-ng\switch` | `@spartan-ng/helm/switch` | `hlm-switch`, `[hlmSwitchThumb]`, `brn-switch-thumb[hlm]` |
+| Tabs | `src\shared\design\ui\spartan-ng\tabs` | `@spartan-ng/helm/tabs` | `hlm-tabs`, `[hlmTabs]`, `hlm-tabs-list`, `[hlmTabsList]`, `[hlmTabsTrigger]`, `[hlmTabsContent]`, `ng-template[hlmTabsContentLazy]`, `hlm-paginated-tabs-list` |
+| textarea | `src\shared\design\ui\spartan-ng\textarea` | `@spartan-ng/helm/textarea` | `[hlmTextarea]` |
+| tooltip | `src\shared\design\ui\spartan-ng\tooltip` | `@spartan-ng/helm/tooltip` | `[hlmTooltip]` |
+
+Notas sobre la tabla:
+
+* Los selectores que aparecen con `button[...]`, `input[...]`, `ul[...]`, `li[...]`, `table[...]`, `tr[...]`, etc. solo funcionan aplicados sobre esa etiqueta HTML. Por ejemplo, `hlmDialogTrigger` únicamente aplica sobre un `<button>`.
+* Las directivas de la carpeta `table` exponen además alias equivalentes con nombre largo: `hlmTableCaption`, `hlmTableBody`, `hlmTableCell`, `hlmTableFooter`, `hlmTableHead`, `hlmTableHeader`, `hlmTableRow`.
+* `[flexRender]` (`FlexRenderDirective`) proviene de `@tanstack/angular-table`, no de la carpeta `table`.
+* La carpeta `dropdown-menu` incluye además `[hlmDropdownMenuCheckboxCdk]` y `[hlmDropdownMenuRadioCdk]`, variantes que extienden `CdkMenuItemCheckbox` y `CdkMenuItemRadio`. Están exportadas pero no forman parte del arreglo `HlmDropdownMenuImports`, por lo que hay que importarlas de forma explícita.
+* Cada carpeta expone un arreglo con todas sus directivas (`HlmDialogImports`, `HlmSelectImports`, etc.) que puede usarse en `imports` del componente. La excepción de nombre es `sonner`, cuyo arreglo se llama `HlmToasterImports`.
+
 ## 🧱 Configuración de Tailwind 4
 
 [Igual que como se muestra en la documentacion](https://tailwindcss.com/blog/tailwindcss-v4#css-first-configuration)
@@ -2129,118 +2258,6 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
   <span class="material-symbols-outlined">arrow_forward</span>
 </button>
 ```
-
-## Componentes de interfaz (UI): uso y maquetación
-Los componentes de Spartan NG están instalados en `src\shared\design\ui\spartan-ng`.
-
-Spartan NG tiene dos capas:
-* **`@spartan-ng/brain/*` (brain):** primitivas accesibles y sin estilo, instaladas vía npm. Aportan atributos ARIA, navegación por teclado y gestión del foco. Es el equivalente en Angular a Radix UI de React.
-
-* **`@spartan-ng/helm/*` (helm):** las versiones con estilo (Tailwind) construidas sobre brain. Son los componentes que se usan directamente en las plantillas (`hlm-...`, `hlmBtn`, `hlmInput`, etc.).
-
-Esta regla aplica a **cualquier componente visual del proyecto** (formularios, cards, badges, tooltips, layouts, etc.), no solo a formularios.
-
-### Orden de decisión
-Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el primer caso que aplique:
-
-1. **¿El componente está en "Componentes permitidos"?**
-   Usar el componente helm de Spartan de la lista. Está prohibido usar su equivalente nativo de HTML.
-   Ejemplo: existe la etiqueta nativa `<dialog>` de HTML, pero como `Dialog` está en la lista, se debe usar el `Dialog` de Spartan (`<hlm-dialog>` + sus directivas).
-
-2. **¿El componente es un botón?**
-   Usar **SIEMPRE** el componente de `src\shared\design\ui\buttons`. Está prohibido usar el botón de Spartan (directiva `hlmBtn` de `@spartan-ng/helm/button`) y está prohibido usar la etiqueta `<button>` nativa de HTML. Esta regla aplica en todos los casos, incluidos los botones internos de componentes compuestos (ver "Botones dentro de componentes compuestos").
-
-3. **¿El componente NO está en la lista y NO es un botón?**
-   Maquetar con Tailwind. En este caso sí se usan elementos HTML nativos (`<div>`, `<span>`, etc.) como base del maquetado.
-   Ejemplo: `Card` no está en la lista, se maqueta con Tailwind sobre `<div>`.
-
-4. **Alcance de la prohibición de HTML nativo (aplica a los casos 1, 2 y 3):**
-   El HTML nativo solo está prohibido en dos situaciones:
-   - (a) Cuando existe un equivalente en "Componentes permitidos": usar Spartan, no el nativo.
-   - (b) La etiqueta `<button>` nativa: usar siempre `src\shared\design\ui\buttons`.
-   En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
-
-### Refuerzo para formularios
-Además de lo anterior, en formularios es **obligatorio** usar los componentes de Spartan de "Componentes permitidos" para todos los controles disponibles (checkbox, input, label, Radio Group, Select, Switch, textarea, etc.). No se permite ningún control de formulario en HTML nativo cuando existe su equivalente en la lista.
-
-Para el formulario en sí, sí se permite usar la etiqueta nativa `<form>` de HTML junto con los formularios de Angular (forms with signals) para el manejo de estado y validación. No es obligatorio envolver el formulario en un componente específico de Spartan.
-
-### Botones dentro de componentes compuestos
-Varios componentes de la lista (Alert Dialog, Dialog, Drawer, Sheet, dropdown-menu, Date Picker) usan botones internos: triggers que abren el overlay, acciones y botones de cierre. En Spartan NG esto **no** se hace con un patrón `asChild`: se aplica una **directiva de Spartan directamente sobre un elemento `<button>`** (por ejemplo `hlmDialogTrigger`, `hlmDialogClose`).
-
-Esto encaja de forma natural con el sistema de botones definido en `src\shared\design\ui\buttons`: la directiva de Spartan (comportamiento/accesibilidad) y el botón (`src\shared\design\ui\buttons`, estilos y variantes) conviven en el **mismo** `<button>`. En **todos** los escenarios se usa `src\shared\design\ui\buttons`, nunca la directiva `hlmBtn`:
-
-* Trigger que abre el modal / drawer / menú → `<button [tuBoton] hlmDialogTrigger>` (o la directiva de trigger que corresponda: `hlmSheetTrigger`, `brnDialogTriggerFor`, etc.).
-
-* Botones de acción internos (footer del Dialog, cerrar, confirmar/cancelar del Alert Dialog, etc.) → `src\shared\design\ui\buttons` sobre el mismo `<button>` que lleva la directiva de acción/cierre (`hlmDialogClose`, etc.).
-
-* Botones sueltos que no llevan directiva de Spartan → `src\shared\design\ui\buttons`.
-
-Ejemplo (Dialog):
-
-```html
-<hlm-dialog>
-  <!-- Trigger: comportamiento de Spartan + estilos de tu botón en el mismo <button> -->
-  <button hlmDialogTrigger tuBoton variant="primary">Abrir</button>
-
-  <hlm-dialog-content *hlmDialogPortal="let ctx">
-    <hlm-dialog-header>
-      <h3 hlmDialogTitle>Título</h3>
-    </hlm-dialog-header>
-
-    <hlm-dialog-footer>
-      <!-- Cerrar/cancelar: directiva de cierre de Spartan + tu botón -->
-      <button hlmDialogClose tuBoton variant="secondary">Cancelar</button>
-      <button tuBoton variant="primary" type="submit">Guardar</button>
-    </hlm-dialog-footer>
-  </hlm-dialog-content>
-</hlm-dialog>
-```
-
-Nota: `tuBoton` representa el selector real de tu componente/directiva en `src\shared\design\ui\buttons`. Ese componente ya reenvía correctamente los atributos y el foco (equivalente a `forwardRef`/spread de props), por lo que es compatible con las directivas de comportamiento de Spartan.
-
-### Dependencias internas de los componentes permitidos
-Si un componente de "Componentes permitidos" depende de otros componentes de Spartan para funcionar, esas dependencias sí se pueden usar aunque no estén listadas explícitamente. Ejemplos:
-
-- `Combobox` se apoya en `Command` + `popover` → permitido.
-- `Date Picker` se apoya en `Calendar` + `popover` → permitido.
-
-Única excepción: los botones internos, que siempre se resuelven con `src\shared\design\ui\buttons` (nunca la directiva `hlmBtn`).
-
-### Data Table
-Solo se permite el patrón "Data Table" de Spartan, construido sobre las directivas `Table` (`hlmTable`, `hlmTr`, `hlmTh`, `hlmTd`, etc.) + **`@tanstack/angular-table`**, incluyendo paginación y sorting. Es decir, se usa el conjunto completo Data Table (Table + TanStack + paginación + sorting), no una tabla estática suelta. No esta permitiro usar la etiqueta `<table>` nativa de HTML
-
-### Prohibiciones
-* Prohibido instalar componentes nuevos de Spartan (vía su CLI, por ejemplo: `pnpm ng g @spartan-ng/cli:ui <componente>` o `nx g @spartan-ng/cli:ui <componente>`) distintos a los de "Componentes permitidos".
-
-* Prohibido usar cualquier librería de UI externa (Angular Material, PrimeNG, NG-ZORRO, etc.).
-
-### Componentes permitidos
-Cada ítem indica la carpeta real instalada, el path de import (alias definido en `tsconfig.json`, según `importAlias` de `components.json`) y los selectores tal como están declarados en el código fuente.
-
-* accordion → carpeta: `src\shared\design\ui\spartan-ng\accordion` | import: `@spartan-ng/helm/accordion` | selector(es): `hlm-accordion`, `[hlmAccordion]`, `hlm-accordion-item`, `[hlmAccordionItem]`, `hlm-accordion-trigger`, `hlm-accordion-content`
-* Alert Dialog → carpeta: `src\shared\design\ui\spartan-ng\alert-dialog` | import: `@spartan-ng/helm/alert-dialog` | selector(es): `hlm-alert-dialog`, `button[hlmAlertDialogTrigger]`, `button[hlmAlertDialogTriggerFor]`, `hlm-alert-dialog-content`, `[hlmAlertDialogHeader]`, `[hlmAlertDialogTitle]`, `[hlmAlertDialogDescription]`, `[hlmAlertDialogFooter]`, `button[hlmAlertDialogAction]`, `button[hlmAlertDialogCancel]`
-* Combobox → carpeta: `src\shared\design\ui\spartan-ng\combobox` | import: `@spartan-ng/helm/combobox` | selector(es): `hlm-combobox`, `[hlmCombobox]`, `hlm-combobox-trigger`, `hlm-combobox-content`, `hlm-combobox-input`, `hlm-combobox-item`, `hlm-combobox-empty`, `[hlmComboboxList]`, `hlm-combobox-value`
-* Date Picker → carpeta: `src\shared\design\ui\spartan-ng\date-picker` | import: `@spartan-ng/helm/date-picker` | selector(es): `hlm-date-picker`, `hlm-date-picker-input`, `hlm-date-picker-trigger`, `hlm-date-picker-multi`, `hlm-date-range-picker`, `[hlmDatePickerAnchor]`
-* carousel → carpeta: `src\shared\design\ui\spartan-ng\carousel` | import: `@spartan-ng/helm/carousel` | selector(es): `hlm-carousel`, `hlm-carousel-content`, `[hlmCarouselContent]`, `hlm-carousel-item`, `[hlmCarouselItem]`, `button[hlmCarouselPrevious]`, `button[hlmCarouselNext]`, `hlm-carousel-slide-display`
-* checkbox → carpeta: `src\shared\design\ui\spartan-ng\checkbox` | import: `@spartan-ng/helm/checkbox` | selector(es): `hlm-checkbox`
-* Data Table (con @tanstack/angular-table, paginación y sorting) → carpeta: `src\shared\design\ui\spartan-ng\table` | import: `@spartan-ng/helm/table` | selector(es): `table[hlmTable]`, `div[hlmTableContainer]`, `thead[hlmTHead]`, `tbody[hlmTBody]`, `tfoot[hlmTFoot]`, `tr[hlmTr]`, `th[hlmTh]`, `td[hlmTd]`, `caption[hlmCaption]`
-  * ⚠️ La carpeta `table` solo aporta las directivas de estilo. `@tanstack/angular-table` **no está instalado** en el proyecto (no aparece en `package.json` ni en `node_modules`), por lo que la paginación y el sorting de este ítem todavía no tienen soporte real en el código.
-* Dialog → carpeta: `src\shared\design\ui\spartan-ng\dialog` | import: `@spartan-ng/helm/dialog` | selector(es): `hlm-dialog`, `button[hlmDialogTrigger]`, `button[hlmDialogTriggerFor]`, `hlm-dialog-content`, `[hlmDialogHeader]`, `[hlmDialogTitle]`, `[hlmDialogDescription]`, `[hlmDialogFooter]`, `button[hlmDialogClose]`
-* Drawer → carpeta: `src\shared\design\ui\spartan-ng\drawer` | import: `@spartan-ng/helm/drawer` | selector(es): `hlm-drawer`, `button[hlmDrawerTrigger]`, `hlm-drawer-content`, `[hlmDrawerHeader]`, `[hlmDrawerTitle]`, `[hlmDrawerDescription]`, `[hlmDrawerFooter]`, `button[hlmDrawerClose]`
-* dropdown-menu → carpeta: `src\shared\design\ui\spartan-ng\dropdown-menu` | import: `@spartan-ng/helm/dropdown-menu` | selector(es): `hlm-dropdown-menu`, `[hlmDropdownMenu]`, `[hlmDropdownMenuTrigger]`, `[hlmDropdownMenuItem]`, `[hlmDropdownMenuLabel]`, `[hlmDropdownMenuSeparator]`, `[hlmDropdownMenuGroup]`, `[hlmDropdownMenuSub]`, `[hlmDropdownMenuSubTrigger]`
-* input → carpeta: `src\shared\design\ui\spartan-ng\input` | import: `@spartan-ng/helm/input` | selector(es): `[hlmInput]`
-* label → carpeta: `src\shared\design\ui\spartan-ng\label` | import: `@spartan-ng/helm/label` | selector(es): `[hlmLabel]`
-* pagination → carpeta: `src\shared\design\ui\spartan-ng\pagination` | import: `@spartan-ng/helm/pagination` | selector(es): `hlm-pagination`, `[hlmPagination]`, `ul[hlmPaginationContent]`, `li[hlmPaginationItem]`, `[hlmPaginationLink]`, `hlm-pagination-previous`, `hlm-pagination-next`, `hlm-pagination-ellipsis`, `hlm-numbered-pagination`, `hlm-numbered-pagination-query-params`
-* popover → carpeta: `src\shared\design\ui\spartan-ng\popover` | import: `@spartan-ng/helm/popover` | selector(es): `hlm-popover`, `[hlmPopover]`, `button[hlmPopoverTrigger]`, `button[hlmPopoverTriggerFor]`, `hlm-popover-content`, `[hlmPopoverHeader]`, `[hlmPopoverTitle]`, `[hlmPopoverDescription]`
-* Radio Group → carpeta: `src\shared\design\ui\spartan-ng\radio-group` | import: `@spartan-ng/helm/radio-group` | selector(es): `hlm-radio-group`, `[hlmRadioGroup]`, `hlm-radio`, `hlm-radio-indicator`
-* Select → carpeta: `src\shared\design\ui\spartan-ng\select` | import: `@spartan-ng/helm/select` | selector(es): `hlm-select`, `[hlmSelect]`, `hlm-select-trigger`, `hlm-select-content`, `hlm-select-item`, `hlm-select-value`, `hlm-select-placeholder`, `hlm-select-group`, `hlm-select-label`, `hlm-select-multiple`
-* Sheet → carpeta: `src\shared\design\ui\spartan-ng\sheet` | import: `@spartan-ng/helm/sheet` | selector(es): `hlm-sheet`, `button[hlmSheetTrigger]`, `hlm-sheet-content`, `[hlmSheetHeader]`, `[hlmSheetTitle]`, `[hlmSheetDescription]`, `[hlmSheetFooter]`, `button[hlmSheetClose]`
-* Sonner (Toast) → carpeta: `src\shared\design\ui\spartan-ng\sonner` | import: `@spartan-ng/helm/sonner` | selector(es): `hlm-toaster`
-* Switch → carpeta: `src\shared\design\ui\spartan-ng\switch` | import: `@spartan-ng/helm/switch` | selector(es): `hlm-switch`, `[hlmSwitchThumb]`, `brn-switch-thumb[hlm]`
-* Tabs → carpeta: `src\shared\design\ui\spartan-ng\tabs` | import: `@spartan-ng/helm/tabs` | selector(es): `hlm-tabs`, `[hlmTabs]`, `hlm-tabs-list`, `[hlmTabsList]`, `[hlmTabsTrigger]`, `[hlmTabsContent]`, `ng-template[hlmTabsContentLazy]`, `hlm-paginated-tabs-list`
-* textarea → carpeta: `src\shared\design\ui\spartan-ng\textarea` | import: `@spartan-ng/helm/textarea` | selector(es): `[hlmTextarea]`
-* tooltip → carpeta: `src\shared\design\ui\spartan-ng\tooltip` | import: `@spartan-ng/helm/tooltip` | selector(es): `[hlmTooltip]`
 
 # 🔌 Consumo de API
 
