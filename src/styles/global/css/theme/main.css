@@ -2,7 +2,7 @@
 https://tailwindcss.com/docs/preflight */
 
 /* Orden de capas explícito: determina la prioridad en cascada (de menor a mayor). */
-@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, /* spartanNgBase, */ spartanNgRoot, TailwindUtilities;
+@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, spartanNgRoot, TailwindUtilities;
 
 /* custom properties por defecto de Tailwind (--color-*, --spacing-*, --font-*, --breakpoint-*, etc) */
 @import 'tailwindcss/theme.css' layer(TailwindBaseTheme);
@@ -13,10 +13,11 @@ https://tailwindcss.com/docs/preflight */
 /* Reset CSS */
 @import './tailwind/preflight.css' layer(TailwindPreflight);
 
-/* estilos base de spartan ng */
-/* @import '@spartan-ng/brain/hlm-tailwind-preset.css' layer(spartanNgBase); */
+/* estilos base de spartan ng
+sin layer() a propósito: el archivo trae reglas @utility que Tailwind 4 exige en nivel superior (no pueden anidarse en un @layer) */
+@import '@spartan-ng/brain/hlm-tailwind-preset.css';
 
-/* colores de componentes de spartan ng */
+/* custom properties con colores de componentes de spartan ng */
 @import './spartan-ng/root.css' layer(spartanNgRoot);
 
 /* Clases utilitarias generadas por Tailwind (flex, grid, p-4, text-red-500, etc) */
