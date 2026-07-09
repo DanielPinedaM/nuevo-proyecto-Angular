@@ -8,7 +8,7 @@ import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/button';
 
 import { classes } from '@spartan-ng/utils';
-import { HlmDialogClose } from './hlm-dialog-close';
+import { HlmDialogClose } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-close';
 
 type HlmDialogContentContext = {
 	$component?: ComponentType<unknown>;

@@ -2,7 +2,7 @@ import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItem } from '@angular/cdk/menu';
 import { booleanAttribute, Directive, HOST_TAG_NAME, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/utils';
-import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover';
+import { HlmDropdownMenuFocusOnHover } from '@/shared/design/ui/spartan-ng/overlay/dropdown-menu/src/lib/hlm-dropdown-menu-focus-on-hover';
 
 @Directive({
 	selector: '[hlmDropdownMenuItem],hlm-dropdown-menu-item',

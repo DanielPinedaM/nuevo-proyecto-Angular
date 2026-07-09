@@ -8,9 +8,9 @@ import {
 	HlmTh,
 	HlmTHead,
 	HlmTr,
-} from './lib/hlm-table';
+} from '@/shared/design/ui/spartan-ng/data-display/data-table/src/lib/hlm-table';
 
-export * from './lib/hlm-table';
+export * from '@/shared/design/ui/spartan-ng/data-display/data-table/src/lib/hlm-table';
 
 export const HlmTableImports = [
 	HlmCaption,

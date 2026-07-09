@@ -1,25 +1,25 @@
-import { HlmDialog } from './lib/hlm-dialog';
-import { HlmDialogClose } from './lib/hlm-dialog-close';
-import { HlmDialogContent } from './lib/hlm-dialog-content';
-import { HlmDialogDescription } from './lib/hlm-dialog-description';
-import { HlmDialogFooter } from './lib/hlm-dialog-footer';
-import { HlmDialogHeader } from './lib/hlm-dialog-header';
-import { HlmDialogOverlay } from './lib/hlm-dialog-overlay';
-import { HlmDialogPortal } from './lib/hlm-dialog-portal';
-import { HlmDialogTitle } from './lib/hlm-dialog-title';
-import { HlmDialogTrigger } from './lib/hlm-dialog-trigger';
+import { HlmDialog } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog';
+import { HlmDialogClose } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-close';
+import { HlmDialogContent } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-content';
+import { HlmDialogDescription } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-description';
+import { HlmDialogFooter } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-footer';
+import { HlmDialogHeader } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-header';
+import { HlmDialogOverlay } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-overlay';
+import { HlmDialogPortal } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-portal';
+import { HlmDialogTitle } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-title';
+import { HlmDialogTrigger } from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-trigger';
 
-export * from './lib/hlm-dialog';
-export * from './lib/hlm-dialog-close';
-export * from './lib/hlm-dialog-content';
-export * from './lib/hlm-dialog-description';
-export * from './lib/hlm-dialog-footer';
-export * from './lib/hlm-dialog-header';
-export * from './lib/hlm-dialog-overlay';
-export * from './lib/hlm-dialog-portal';
-export * from './lib/hlm-dialog-title';
-export * from './lib/hlm-dialog-trigger';
-export * from './lib/hlm-dialog.service';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-close';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-content';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-description';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-footer';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-header';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-overlay';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-portal';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-title';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog-trigger';
+export * from '@/shared/design/ui/spartan-ng/overlay/dialog/src/lib/hlm-dialog.service';
 
 export const HlmDialogImports = [
 	HlmDialog,

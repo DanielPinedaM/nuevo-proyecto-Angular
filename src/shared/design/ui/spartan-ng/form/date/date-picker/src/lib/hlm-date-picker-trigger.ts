@@ -7,8 +7,8 @@ import { ButtonVariants, HlmButtonImports } from '@spartan-ng/button';
 import { HlmPopoverTrigger } from '@spartan-ng/popover';
 import { hlm } from '@spartan-ng/utils';
 import { ClassValue } from 'clsx';
-import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
-import { injectHlmDatePicker } from './hlm-date-picker.token';
+import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-picker-trigger.token';
+import { injectHlmDatePicker } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-picker.token';
 
 @Component({
 	selector: 'hlm-date-picker-trigger',

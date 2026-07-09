@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import { BrnDialog, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 import { BrnSheet } from '@spartan-ng/brain/sheet';
-import { HlmSheetOverlay } from './hlm-sheet-overlay';
+import { HlmSheetOverlay } from '@/shared/design/ui/spartan-ng/overlay/sheet/src/lib/hlm-sheet-overlay';
 
 @Component({
 	selector: 'hlm-sheet',

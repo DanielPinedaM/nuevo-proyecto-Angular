@@ -6,7 +6,7 @@ import { lucideChevronLeft } from '@ng-icons/lucide';
 import type { ButtonVariants } from '@spartan-ng/button';
 import { hlm } from '@spartan-ng/utils';
 import type { ClassValue } from 'clsx';
-import { HlmPaginationLink } from './hlm-pagination-link';
+import { HlmPaginationLink } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-pagination-link';
 
 @Component({
 	selector: 'hlm-pagination-previous',

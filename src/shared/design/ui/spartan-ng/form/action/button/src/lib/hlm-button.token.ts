@@ -1,5 +1,5 @@
 import { InjectionToken, type ValueProvider, inject } from '@angular/core';
-import type { ButtonVariants } from './hlm-button';
+import type { ButtonVariants } from '@/shared/design/ui/spartan-ng/form/action/button/src/lib/hlm-button';
 
 export interface BrnButtonConfig {
 	variant: ButtonVariants['variant'];

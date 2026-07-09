@@ -4,7 +4,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { BrnComboboxChip } from '@spartan-ng/brain/combobox';
 import { classes } from '@spartan-ng/utils';
-import { HlmComboboxChipRemove } from './hlm-combobox-chip-remove';
+import { HlmComboboxChipRemove } from '@/shared/design/ui/spartan-ng/form/selection/combobox/src/lib/hlm-combobox-chip-remove';
 
 @Component({
 	selector: 'hlm-combobox-chip',

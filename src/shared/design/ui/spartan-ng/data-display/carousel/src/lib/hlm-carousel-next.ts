@@ -3,7 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight } from '@ng-icons/lucide';
 import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/button';
 import { hlm } from '@spartan-ng/utils';
-import { HlmCarousel } from './hlm-carousel';
+import { HlmCarousel } from '@/shared/design/ui/spartan-ng/data-display/carousel/src/lib/hlm-carousel';
 
 @Component({
 	selector: 'button[hlm-carousel-next], button[hlmCarouselNext]',

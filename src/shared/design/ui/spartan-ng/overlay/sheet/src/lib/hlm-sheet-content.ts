@@ -16,7 +16,7 @@ import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-
 import { HlmButton } from '@spartan-ng/button';
 
 import { classes } from '@spartan-ng/utils';
-import { HlmSheetClose } from './hlm-sheet-close';
+import { HlmSheetClose } from '@/shared/design/ui/spartan-ng/overlay/sheet/src/lib/hlm-sheet-close';
 
 @Component({
 	selector: 'hlm-sheet-content',

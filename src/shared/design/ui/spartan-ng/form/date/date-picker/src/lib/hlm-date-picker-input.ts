@@ -13,8 +13,8 @@ import {
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/input-group';
-import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
-import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picker.token';
+import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-picker-trigger.token';
+import { injectHlmDatePicker, injectHlmDatePickerConfig } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-picker.token';
 
 @Component({
 	selector: 'hlm-date-picker-input',

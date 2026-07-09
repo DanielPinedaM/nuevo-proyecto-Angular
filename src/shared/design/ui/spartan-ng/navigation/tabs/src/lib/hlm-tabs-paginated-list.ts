@@ -16,7 +16,7 @@ import { buttonVariants } from '@spartan-ng/button';
 import { classes, hlm } from '@spartan-ng/utils';
 import type { ClassValue } from 'clsx';
 import type { Observable } from 'rxjs';
-import { listVariants } from './hlm-tabs-list';
+import { listVariants } from '@/shared/design/ui/spartan-ng/navigation/tabs/src/lib/hlm-tabs-list';
 
 @Component({
 	selector: 'hlm-paginated-tabs-list',

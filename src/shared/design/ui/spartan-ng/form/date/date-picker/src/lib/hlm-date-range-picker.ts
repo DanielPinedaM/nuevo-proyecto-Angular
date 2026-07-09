@@ -20,9 +20,9 @@ import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendarRange } from '@spartan-ng/calendar';
 import { HlmPopoverImports } from '@spartan-ng/popover';
-import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
-import { HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
-import { injectHlmDateRangePickerConfig } from './hlm-date-range-picker.token';
+import { HlmDatePickerTriggerToken } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-picker-trigger.token';
+import { HlmDatePickerBase, provideHlmDatePicker } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-picker.token';
+import { injectHlmDateRangePickerConfig } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-range-picker.token';
 
 export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,

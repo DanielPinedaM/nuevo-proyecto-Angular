@@ -1,6 +1,6 @@
 import { Directive, inject } from '@angular/core';
 import { classes } from '@spartan-ng/utils';
-import { HlmCarousel } from './hlm-carousel';
+import { HlmCarousel } from '@/shared/design/ui/spartan-ng/data-display/carousel/src/lib/hlm-carousel';
 
 @Directive({
 	selector: '[hlmCarouselItem],hlm-carousel-item',

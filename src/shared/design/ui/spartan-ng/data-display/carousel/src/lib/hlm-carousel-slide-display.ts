@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import type { ClassValue } from 'clsx';
-import { HlmCarousel } from './hlm-carousel';
+import { HlmCarousel } from '@/shared/design/ui/spartan-ng/data-display/carousel/src/lib/hlm-carousel';
 
 @Component({
 	selector: 'hlm-carousel-slide-display',

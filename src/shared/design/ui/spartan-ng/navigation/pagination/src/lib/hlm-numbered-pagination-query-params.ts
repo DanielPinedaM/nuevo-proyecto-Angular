@@ -11,14 +11,14 @@ import {
 } from '@angular/core';
 import { HlmSelectImports } from '@spartan-ng/select';
 import { classes } from '@spartan-ng/utils';
-import { createPageArray, outOfBoundCorrection } from './hlm-numbered-pagination';
-import { HlmPagination } from './hlm-pagination';
-import { HlmPaginationContent } from './hlm-pagination-content';
-import { HlmPaginationEllipsis } from './hlm-pagination-ellipsis';
-import { HlmPaginationItem } from './hlm-pagination-item';
-import { HlmPaginationLink } from './hlm-pagination-link';
-import { HlmPaginationNext } from './hlm-pagination-next';
-import { HlmPaginationPrevious } from './hlm-pagination-previous';
+import { createPageArray, outOfBoundCorrection } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-numbered-pagination';
+import { HlmPagination } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-pagination';
+import { HlmPaginationContent } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-pagination-content';
+import { HlmPaginationEllipsis } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-pagination-ellipsis';
+import { HlmPaginationItem } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-pagination-item';
+import { HlmPaginationLink } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-pagination-link';
+import { HlmPaginationNext } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-pagination-next';
+import { HlmPaginationPrevious } from '@/shared/design/ui/spartan-ng/navigation/pagination/src/lib/hlm-pagination-previous';
 
 @Component({
 	selector: 'hlm-numbered-pagination-query-params',

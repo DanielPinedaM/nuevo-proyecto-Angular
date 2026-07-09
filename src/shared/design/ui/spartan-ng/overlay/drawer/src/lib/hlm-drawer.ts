@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import { BrnDialog, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 import { BrnDrawer } from '@spartan-ng/brain/drawer';
-import { HlmDrawerOverlay } from './hlm-drawer-overlay';
+import { HlmDrawerOverlay } from '@/shared/design/ui/spartan-ng/overlay/drawer/src/lib/hlm-drawer-overlay';
 
 @Component({
 	selector: 'hlm-drawer',
