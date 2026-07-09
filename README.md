@@ -428,12 +428,6 @@ src/
 │   │           ├── data-display/ → componentes de presentación de datos (carousel, data-table)
 │   │           └── utils/ → NO es un componente: expone la función `hlm()` para combinar clases de Tailwind, usada por todas las categorías
 │   │
-│   ├── data-types/ → tipos de datos, contratos, constantes y definiciones reutilizables compartidos entre múltiples features de la aplicación. No deben depender de logica de negocio de una feature
-│   │   ├── constants/
-│   │   ├── interface/
-│   │   └── enums/
-│   │   └── types/
-│   │
 │   ├── services/ → servicios reutilizables de alcance global que pueden ser utilizados por múltiples features de la aplicación. Encapsulan lógica transversal, infraestructura, acceso a APIs, utilidades técnicas y gestión de estado compartido. No deben depender de reglas de negocio específicas de una feature.
 │   │   ├── Crypto.service.ts → Encriptar y desencriptar texto y objeto literal usando crypto-js
 │   │   ├── DataType.service.ts → funciones para tipos de datos de JS, ejemplo normalizar string
@@ -1030,38 +1024,40 @@ Todo se importa desde `@tanstack/angular-table`, que hace `export * from '@tanst
 ### Componentes permitidos
 Los componentes están agrupados en cuatro categorías dentro de `src\shared\design\ui\spartan-ng`: `overlay`, `form`, `navigation` y `data-display`.
 
-Cada fila indica la carpeta real instalada, el path de import (alias definido en `tsconfig.json`, según `importAlias` de `components.json`) y los selectores tal como están declarados en el código fuente. El alias de import es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import sigue siendo plano (`@spartan-ng/<componente>`).
+Cada fila indica la carpeta real instalada y el path de import (alias definido en `tsconfig.json`, según `importAlias` de `components.json`). El alias de import es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import sigue siendo plano (`@spartan-ng/<componente>`).
 
-| Nombre legible | carpeta | import | selector(es) |
-| -------------- | ------- | ------ | ------------ |
-| accordion | `src\shared\design\ui\spartan-ng\navigation\accordion` | `@spartan-ng/accordion` | `hlm-accordion`, `[hlmAccordion]`, `hlm-accordion-item`, `[hlmAccordionItem]`, `hlm-accordion-trigger`, `hlm-accordion-content` |
-| Alert Dialog | `src\shared\design\ui\spartan-ng\overlay\alert-dialog` | `@spartan-ng/alert-dialog` | `hlm-alert-dialog`, `button[hlmAlertDialogTrigger]`, `button[hlmAlertDialogTriggerFor]`, `hlm-alert-dialog-content`, `[hlmAlertDialogContent]`, `hlm-alert-dialog-header`, `[hlmAlertDialogHeader]`, `[hlmAlertDialogTitle]`, `[hlmAlertDialogDescription]`, `hlm-alert-dialog-footer`, `[hlmAlertDialogFooter]`, `hlm-alert-dialog-media`, `[hlmAlertDialogMedia]`, `hlm-alert-dialog-overlay`, `[hlmAlertDialogOverlay]`, `[hlmAlertDialogPortal]`, `button[hlmAlertDialogAction]`, `button[hlmAlertDialogCancel]` |
-| Combobox | `src\shared\design\ui\spartan-ng\form\combobox` | `@spartan-ng/combobox` | `hlm-combobox`, `[hlmCombobox]`, `hlm-combobox-trigger`, `hlm-combobox-content`, `[hlmComboboxContent]`, `hlm-combobox-input`, `hlm-combobox-item`, `[hlmComboboxList]`, `hlm-combobox-empty`, `[hlmComboboxEmpty]`, `[hlmComboboxGroup]`, `[hlmComboboxLabel]`, `hlm-combobox-value`, `[hlmComboboxValue]`, `[hlmComboboxValues]`, `[hlmComboboxValueTemplate]`, `hlm-combobox-multiple`, `[hlmComboboxMultiple]`, `hlm-combobox-placeholder`, `[hlmComboboxPlaceholder]`, `hlm-combobox-status`, `[hlmComboboxStatus]`, `[hlmComboboxSeparator]`, `[hlmComboboxPortal]`, `hlm-combobox-chip`, `hlm-combobox-chips`, `[hlmComboboxChips]`, `input[hlmComboboxChipInput]`, `button[hlmComboboxChipRemove]` |
-| Date Picker | `src\shared\design\ui\spartan-ng\form\date-picker` | `@spartan-ng/date-picker` | `hlm-date-picker`, `hlm-date-picker-input`, `hlm-date-picker-trigger`, `hlm-date-picker-multi`, `hlm-date-range-picker`, `[hlmDatePickerAnchor]` |
-| carousel | `src\shared\design\ui\spartan-ng\data-display\carousel` | `@spartan-ng/carousel` | `hlm-carousel`, `hlm-carousel-content`, `[hlmCarouselContent]`, `hlm-carousel-item`, `[hlmCarouselItem]`, `button[hlmCarouselPrevious]`, `button[hlm-carousel-previous]`, `button[hlmCarouselNext]`, `button[hlm-carousel-next]`, `hlm-carousel-slide-display` |
-| checkbox | `src\shared\design\ui\spartan-ng\form\checkbox` | `@spartan-ng/checkbox` | `hlm-checkbox` |
-| Data Table (con @tanstack/angular-table, paginación y sorting) | `src\shared\design\ui\spartan-ng\data-display\data-table` | `@spartan-ng/data-table` + `@tanstack/angular-table` | `table[hlmTable]`, `div[hlmTableContainer]`, `thead[hlmTHead]`, `tbody[hlmTBody]`, `tfoot[hlmTFoot]`, `tr[hlmTr]`, `th[hlmTh]`, `td[hlmTd]`, `caption[hlmCaption]`, `[flexRender]` |
-| Dialog | `src\shared\design\ui\spartan-ng\overlay\dialog` | `@spartan-ng/dialog` | `hlm-dialog`, `button[hlmDialogTrigger]`, `button[hlmDialogTriggerFor]`, `hlm-dialog-content`, `hlm-dialog-header`, `[hlmDialogHeader]`, `[hlmDialogTitle]`, `[hlmDialogDescription]`, `hlm-dialog-footer`, `[hlmDialogFooter]`, `hlm-dialog-overlay`, `[hlmDialogOverlay]`, `[hlmDialogPortal]`, `button[hlmDialogClose]` |
-| Drawer | `src\shared\design\ui\spartan-ng\overlay\drawer` | `@spartan-ng/drawer` | `hlm-drawer`, `button[hlmDrawerTrigger]`, `hlm-drawer-content`, `hlm-drawer-header`, `[hlmDrawerHeader]`, `[hlmDrawerTitle]`, `[hlmDrawerDescription]`, `hlm-drawer-footer`, `[hlmDrawerFooter]`, `hlm-drawer-overlay`, `[hlmDrawerOverlay]`, `[hlmDrawerPortal]`, `button[hlmDrawerClose]` |
-| dropdown-menu | `src\shared\design\ui\spartan-ng\overlay\dropdown-menu` | `@spartan-ng/dropdown-menu` | `hlm-dropdown-menu`, `[hlmDropdownMenu]`, `[hlmDropdownMenuTrigger]`, `hlm-dropdown-menu-item`, `[hlmDropdownMenuItem]`, `hlm-dropdown-menu-label`, `[hlmDropdownMenuLabel]`, `hlm-dropdown-menu-separator`, `[hlmDropdownMenuSeparator]`, `hlm-dropdown-menu-group`, `[hlmDropdownMenuGroup]`, `hlm-dropdown-menu-shortcut`, `[hlmDropdownMenuShortcut]`, `hlm-dropdown-menu-sub`, `[hlmDropdownMenuSub]`, `[hlmDropdownMenuSubTrigger]`, `[hlmDropdownMenuCheckbox]`, `[hlmDropdownMenuCheckboxItem]`, `hlm-dropdown-menu-checkbox-indicator`, `[hlmDropdownMenuRadio]`, `hlm-dropdown-menu-radio-indicator`, `hlm-dropdown-menu-item-sub-indicator`, `[hlmDropdownMenuFocusOnHover]` |
-| input | `src\shared\design\ui\spartan-ng\form\input` | `@spartan-ng/input` | `[hlmInput]` |
-| label | `src\shared\design\ui\spartan-ng\form\label` | `@spartan-ng/label` | `[hlmLabel]` |
-| pagination | `src\shared\design\ui\spartan-ng\navigation\pagination` | `@spartan-ng/pagination` | `hlm-pagination`, `[hlmPagination]`, `ul[hlmPaginationContent]`, `li[hlmPaginationItem]`, `[hlmPaginationLink]`, `hlm-pagination-previous`, `hlm-pagination-next`, `hlm-pagination-ellipsis`, `hlm-numbered-pagination`, `hlm-numbered-pagination-query-params` |
-| popover | `src\shared\design\ui\spartan-ng\overlay\popover` | `@spartan-ng/popover` | `hlm-popover`, `[hlmPopover]`, `button[hlmPopoverTrigger]`, `button[hlmPopoverTriggerFor]`, `hlm-popover-content`, `[hlmPopoverContent]`, `hlm-popover-header`, `[hlmPopoverHeader]`, `[hlmPopoverTitle]`, `[hlmPopoverDescription]`, `[hlmPopoverPortal]` |
-| Radio Group | `src\shared\design\ui\spartan-ng\form\radio-group` | `@spartan-ng/radio-group` | `hlm-radio-group`, `[hlmRadioGroup]`, `hlm-radio`, `hlm-radio-indicator` |
-| Select | `src\shared\design\ui\spartan-ng\form\select` | `@spartan-ng/select` | `hlm-select`, `[hlmSelect]`, `hlm-select-trigger`, `hlm-select-content`, `hlm-select-item`, `hlm-select-value`, `[hlmSelectValue]`, `[hlmSelectValues]`, `[hlmSelectValueTemplate]`, `hlm-select-values-content`, `[hlmSelectValuesContent]`, `hlm-select-placeholder`, `[hlmSelectPlaceholder]`, `hlm-select-group`, `[hlmSelectGroup]`, `hlm-select-label`, `[hlmSelectLabel]`, `hlm-select-multiple`, `[hlmSelectMultiple]`, `hlm-select-separator`, `[hlmSelectSeparator]`, `[hlmSelectPortal]`, `hlm-select-scroll-up`, `hlm-select-scroll-down` |
-| Sheet | `src\shared\design\ui\spartan-ng\overlay\sheet` | `@spartan-ng/sheet` | `hlm-sheet`, `button[hlmSheetTrigger]`, `hlm-sheet-content`, `hlm-sheet-header`, `[hlmSheetHeader]`, `[hlmSheetTitle]`, `[hlmSheetDescription]`, `hlm-sheet-footer`, `[hlmSheetFooter]`, `hlm-sheet-overlay`, `[hlmSheetOverlay]`, `[hlmSheetPortal]`, `button[hlmSheetClose]` |
-| Sonner (Toast) | `src\shared\design\ui\spartan-ng\overlay\sonner` | `@spartan-ng/sonner` | `hlm-toaster` |
-| Switch | `src\shared\design\ui\spartan-ng\form\switch` | `@spartan-ng/switch` | `hlm-switch`, `[hlmSwitchThumb]`, `brn-switch-thumb[hlm]` |
-| Tabs | `src\shared\design\ui\spartan-ng\navigation\tabs` | `@spartan-ng/tabs` | `hlm-tabs`, `[hlmTabs]`, `hlm-tabs-list`, `[hlmTabsList]`, `[hlmTabsTrigger]`, `[hlmTabsContent]`, `ng-template[hlmTabsContentLazy]`, `hlm-paginated-tabs-list` |
-| textarea | `src\shared\design\ui\spartan-ng\form\textarea` | `@spartan-ng/textarea` | `[hlmTextarea]` |
-| tooltip | `src\shared\design\ui\spartan-ng\overlay\tooltip` | `@spartan-ng/tooltip` | `[hlmTooltip]` |
+Los selectores de cada componente están declarados en su código fuente, dentro de la carpeta indicada.
 
-Notas sobre la tabla:
+| Nombre legible | carpeta | import alias |
+| -------------- | ------- | ------ |
+| accordion | `src\shared\design\ui\spartan-ng\navigation\accordion` | `@spartan-ng/accordion` |
+| Alert Dialog | `src\shared\design\ui\spartan-ng\overlay\alert-dialog` | `@spartan-ng/alert-dialog` |
+| Combobox | `src\shared\design\ui\spartan-ng\form\combobox` | `@spartan-ng/combobox` |
+| Date Picker | `src\shared\design\ui\spartan-ng\form\date-picker` | `@spartan-ng/date-picker` |
+| carousel | `src\shared\design\ui\spartan-ng\data-display\carousel` | `@spartan-ng/carousel` |
+| checkbox | `src\shared\design\ui\spartan-ng\form\checkbox` | `@spartan-ng/checkbox` |
+| Data Table (con @tanstack/angular-table, paginación y sorting) | `src\shared\design\ui\spartan-ng\data-display\data-table` | `@spartan-ng/data-table` + `@tanstack/angular-table` |
+| Dialog | `src\shared\design\ui\spartan-ng\overlay\dialog` | `@spartan-ng/dialog` |
+| Drawer | `src\shared\design\ui\spartan-ng\overlay\drawer` | `@spartan-ng/drawer` |
+| dropdown-menu | `src\shared\design\ui\spartan-ng\overlay\dropdown-menu` | `@spartan-ng/dropdown-menu` |
+| input | `src\shared\design\ui\spartan-ng\form\input` | `@spartan-ng/input` |
+| label | `src\shared\design\ui\spartan-ng\form\label` | `@spartan-ng/label` |
+| pagination | `src\shared\design\ui\spartan-ng\navigation\pagination` | `@spartan-ng/pagination` |
+| popover | `src\shared\design\ui\spartan-ng\overlay\popover` | `@spartan-ng/popover` |
+| Radio Group | `src\shared\design\ui\spartan-ng\form\radio-group` | `@spartan-ng/radio-group` |
+| Select | `src\shared\design\ui\spartan-ng\form\select` | `@spartan-ng/select` |
+| Sheet | `src\shared\design\ui\spartan-ng\overlay\sheet` | `@spartan-ng/sheet` |
+| Sonner (Toast) | `src\shared\design\ui\spartan-ng\overlay\sonner` | `@spartan-ng/sonner` |
+| Switch | `src\shared\design\ui\spartan-ng\form\switch` | `@spartan-ng/switch` |
+| Tabs | `src\shared\design\ui\spartan-ng\navigation\tabs` | `@spartan-ng/tabs` |
+| textarea | `src\shared\design\ui\spartan-ng\form\textarea` | `@spartan-ng/textarea` |
+| tooltip | `src\shared\design\ui\spartan-ng\overlay\tooltip` | `@spartan-ng/tooltip` |
 
-* Los selectores que aparecen con `button[...]`, `input[...]`, `ul[...]`, `li[...]`, `table[...]`, `tr[...]`, etc. solo funcionan aplicados sobre esa etiqueta HTML. Por ejemplo, `hlmDialogTrigger` únicamente aplica sobre un `<button>`.
-* Las directivas de la carpeta `table` exponen además alias equivalentes con nombre largo: `hlmTableCaption`, `hlmTableBody`, `hlmTableCell`, `hlmTableFooter`, `hlmTableHead`, `hlmTableHeader`, `hlmTableRow`.
-* `[flexRender]` (`FlexRenderDirective`) proviene de `@tanstack/angular-table`, no de la carpeta `table`.
+Notas sobre los componentes:
+
+* Algunos selectores están restringidos a una etiqueta HTML concreta (`button[...]`, `input[...]`, `ul[...]`, `li[...]`, `table[...]`, `tr[...]`, etc.) y solo funcionan aplicados sobre ella. Por ejemplo, `hlmDialogTrigger` únicamente aplica sobre un `<button>`.
+* Las directivas de la carpeta `data-table` exponen además alias equivalentes con nombre largo: `hlmTableCaption`, `hlmTableBody`, `hlmTableCell`, `hlmTableFooter`, `hlmTableHead`, `hlmTableHeader`, `hlmTableRow`.
+* `[flexRender]` (`FlexRenderDirective`) proviene de `@tanstack/angular-table`, no de la carpeta `data-table`.
 * La carpeta `dropdown-menu` incluye además `[hlmDropdownMenuCheckboxCdk]` y `[hlmDropdownMenuRadioCdk]`, variantes que extienden `CdkMenuItemCheckbox` y `CdkMenuItemRadio`. Están exportadas pero no forman parte del arreglo `HlmDropdownMenuImports`, por lo que hay que importarlas de forma explícita.
 * Cada carpeta expone un arreglo con todas sus directivas (`HlmDialogImports`, `HlmSelectImports`, etc.) que puede usarse en `imports` del componente. La excepción de nombre es `sonner`, cuyo arreglo se llama `HlmToasterImports`.
 
