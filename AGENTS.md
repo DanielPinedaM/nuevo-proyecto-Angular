@@ -127,15 +127,3 @@ Esta PROHIBIDO:
 * Inyección de dependencias con `inject()` (no constructor injection)
 
 - **Servicios singleton:** usar `@Service()` en vez de `@Injectable({providedIn: 'root'})`. `@Service()` es el equivalente moderno y conciso, ya provee la instancia como singleton en root por defecto, sin configuración extra. Reservar `@Injectable` solo para casos avanzados (constructor injection, useClass/useValue/useFactory, scopes distintos a root).
-
-## Uso de Prime NG
-Este proyecto usa Prime NG 22
-
-Para los siguientes componentes/directivas, NO está permitido usar su equivalente en HTML nativo; es OBLIGATORIO usar Prime NG. Para cualquier otro caso no listado aquí, el uso de Prime NG es opcional:
-*  **Formularios:** `InputText`, `InputNumber`, `Select`, `Checkbox`, `RadioButton`, `DatePicker`, `AutoComplete`, `Textarea` etc.
-
-* **Tablas:** `Table`, `TreeTable` y `Paginator`
-
-* **Ventana Modal:** `Dialog`
-
-* **Tooltips:** `Tooltip`
