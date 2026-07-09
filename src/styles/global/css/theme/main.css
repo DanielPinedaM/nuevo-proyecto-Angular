@@ -2,7 +2,7 @@
 https://tailwindcss.com/docs/preflight */
 
 /* Orden de capas explícito: determina la prioridad en cascada (de menor a mayor). */
-@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, spartanNgBase, spartanNgRoot, TailwindUtilities;
+@layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, /* spartanNgBase, */ spartanNgRoot, TailwindUtilities;
 
 /* custom properties por defecto de Tailwind (--color-*, --spacing-*, --font-*, --breakpoint-*, etc) */
 @import 'tailwindcss/theme.css' layer(TailwindBaseTheme);
@@ -14,7 +14,7 @@ https://tailwindcss.com/docs/preflight */
 @import './tailwind/preflight.css' layer(TailwindPreflight);
 
 /* estilos base de spartan ng */
-@import '@spartan-ng/brain/hlm-tailwind-preset.css' layer(spartanNgBase);
+/* @import '@spartan-ng/brain/hlm-tailwind-preset.css' layer(spartanNgBase); */
 
 /* colores de componentes de spartan ng */
 @import './spartan-ng/root.css' layer(spartanNgRoot);
