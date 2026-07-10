@@ -1006,12 +1006,12 @@ Los selectores de cada componente están declarados en su código fuente.
 | -------------- | ------------ |
 | accordion | `@spartan-ng/accordion` |
 | Alert Dialog | `@spartan-ng/alert-dialog` |
-| Combobox | `@spartan-ng/combobox` |
-| Date Picker | `@spartan-ng/date-picker` |
 | calendar | `@spartan-ng/calendar` |
 | carousel | `@spartan-ng/carousel` |
 | checkbox | `@spartan-ng/checkbox` |
+| Combobox | `@spartan-ng/combobox` |
 | Data Table (con `@tanstack/angular-table`, paginación y sorting) | `@spartan-ng/data-table` + `@tanstack/angular-table` |
+| Date Picker | `@spartan-ng/date-picker` |
 | Dialog | `@spartan-ng/dialog` |
 | Drawer | `@spartan-ng/drawer` |
 | dropdown-menu | `@spartan-ng/dropdown-menu` |
