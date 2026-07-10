@@ -18,7 +18,8 @@ import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
-import { provideNativeDateAdapter } from '@spartan-ng/brain/date-time';
+import { provideDateAdapter } from '@spartan-ng/brain/date-time';
+import { BrnLuxonDateAdapter } from '@spartan-ng/brain/date-time-luxon';
 import { provideSpartanHlm } from '@spartan-ng/utils';
 import { providePrimeNG } from 'primeng/config';
 
@@ -44,7 +45,22 @@ const PRIME_NG_PRESET = definePreset(Aura, {
 });
 
 // #region componentes de spartan ng
-const SPARTAN_NG = [provideSpartanHlm(), provideNativeDateAdapter()];
+const SPARTAN_NG = [
+  provideSpartanHlm(),
+
+  /**
+   * Configurar spartan ng
+   * para que los componentes de fecha
+   * usen DateTime de Luxon y NO new Date() de JavaScript
+   *
+   * 🚨 PROHIBIDO: ⚠️
+   * 1. Eliminar esta línea: sin proveedor para BrnDateAdapterToken, esos componentes
+   * lanzan NullInjectorError en runtime.
+   *
+   * 2. agregar otro provider de fecha
+   * (provideNativeDateAdapter, provideUtcDateAdapter, provideDateAdapter(BrnJalaliDateAdapter), etc) */
+  provideDateAdapter(BrnLuxonDateAdapter),
+];
 // #endregion
 
 // #region ⚠️ PROHIBIDO cambiar el orden de esta constante porque puedes generar bugs en consumo de APIs 🚨

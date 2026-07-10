@@ -17,7 +17,7 @@ A continuación se resumen las principales tecnologías del proyecto y el motivo
 
 * [**Tailwind CSS 4:** ](https://youtu.be/R5EXap3vNDA?si=9TV4hucexfUBXgGk) Usa _clases utilitarias_ para aplicar estilos, evitando la mayoría de los problemas de _especificidad_, _herencia_ y _cascada_ de CSS. En este proyecto se usa en _estilos de los componentes_.
 
-* [**Spartan ng:**](https://spartan.ng/components) Tiene una lista de _componentes UI_ muy completa, con integración nativa con _Tailwind_ y soporte para _Signal Forms_. Además, al no ser totalmente _headless_, tiene estilos por defecto que son fáciles de personalizar sin recurrir a _hacks de CSS_ como _`::ng-deep`_ o _`!important`_.
+* [**Spartan ng:**](https://spartan.ng/components) Tiene una lista de _componentes UI_ muy completa, con integración nativa para estilos de _Tailwind_, _Signal Forms_ de Angular moderno, y _Luxon_ para fechas. Además, al no ser totalmente _headless_, tiene estilos por defecto que son fáciles de personalizar sin recurrir a _hacks de CSS_ como _`::ng-deep`_ o _`!important`_.
 
 * [**Zod 4:**](https://youtu.be/bUzGfrjg66M?si=PqQtfsXKDVA0HnuP) Permite utilizar la misma _sintaxis de código_ y reutilizar los mismos _esquemas de validación_ en frontend y backend. Además, se integra con _TypeScript_, ofrece validación de tipos en _tiempo de compilación_ y validación de datos en _tiempo de ejecución (runtime)_. En _frontend_ valida _formularios_ y _datos de entrada_, con excelente integración con _React Hook Form_ (_React_) y _Forms with Signals_ (_Angular_). En _backend_ valida _`body`_, _`query`_ y _`params`_ de las _solicitudes http_, garantizando la integridad de los datos antes de procesarlos.
 
