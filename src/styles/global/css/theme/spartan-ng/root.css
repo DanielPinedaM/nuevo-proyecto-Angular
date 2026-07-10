@@ -2,16 +2,8 @@
 https://spartan.ng/documentation/theming */
 
 :root {
-  /* Tipografía */
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
   /* Radio de bordes (border-radius) */
   --radius: 0.625rem;
-
-  /* Fondo y texto base */
-  --background: oklch(1 0 0);
 
   /* Superficies elevadas: cards y popovers */
   --card: oklch(1 0 0);
@@ -47,9 +39,6 @@ https://spartan.ng/documentation/theming */
 }
 
 :root.dark {
-  /* Fondo y texto base */
-  --background: oklch(0.145 0 0);
-
   /* Superficies elevadas: cards y popovers */
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -87,5 +76,4 @@ https://spartan.ng/documentation/theming */
   * {
     @apply border-border outline-ring/50;
   }
-
 }
