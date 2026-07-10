@@ -51,11 +51,13 @@ const SPARTAN_NG = [
   /**
    * Configurar spartan ng
    * para que los componentes de fecha
+   * (hlm-calendar, hlm-calendar-multi, hlm-calendar-range, hlm-date-picker)
    * usen DateTime de Luxon y NO new Date() de JavaScript
    *
    * 🚨 PROHIBIDO: ⚠️
-   * 1. Eliminar esta línea: sin proveedor para BrnDateAdapterToken, esos componentes
-   * lanzan NullInjectorError en runtime.
+   * 1. Eliminar esta línea:
+   * sin proveedor para BrnDateAdapterToken,
+   * esos componentes lanzan NullInjectorError en runtime.
    *
    * 2. agregar otro provider de fecha
    * (provideNativeDateAdapter, provideUtcDateAdapter, provideDateAdapter(BrnJalaliDateAdapter), etc) */
