@@ -13,12 +13,12 @@ https://tailwindcss.com/docs/preflight */
 /* Reset CSS */
 @import './tailwind/preflight.css' layer(TailwindPreflight);
 
+/* custom properties con colores de componentes de spartan ng */
+@import './spartan-ng/root.css' layer(spartanNgRoot);
+
 /* estilos base de spartan ng
 sin layer() a propósito: el archivo trae reglas @utility que Tailwind 4 exige en nivel superior (no pueden anidarse en un @layer) */
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
-
-/* custom properties con colores de componentes de spartan ng */
-@import './spartan-ng/root.css' layer(spartanNgRoot);
 
 /* Clases utilitarias generadas por Tailwind (flex, grid, p-4, text-red-500, etc) */
 @import 'tailwindcss/utilities.css' layer(TailwindUtilities);
