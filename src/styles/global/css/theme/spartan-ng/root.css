@@ -12,7 +12,6 @@ https://spartan.ng/documentation/theming */
 
   /* Fondo y texto base */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
 
   /* Superficies elevadas: cards y popovers */
   --card: oklch(1 0 0);
@@ -50,7 +49,6 @@ https://spartan.ng/documentation/theming */
 :root.dark {
   /* Fondo y texto base */
   --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
 
   /* Superficies elevadas: cards y popovers */
   --card: oklch(0.205 0 0);
@@ -89,7 +87,5 @@ https://spartan.ng/documentation/theming */
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
 }
