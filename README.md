@@ -943,8 +943,9 @@ Para construir cualquier elemento de UI, evaluar en este orden y detenerse en el
 
 4. **Alcance de la prohibición de HTML nativo (aplica a los casos 1, 2 y 3):**
    El HTML nativo solo está prohibido en dos situaciones:
-   - (a) Cuando existe un equivalente en "Componentes permitidos": usar Spartan, no el nativo.
-   - (b) La etiqueta `<button>` nativa: usar siempre `src\shared\design\ui\buttons`.
+   * (a) Cuando existe un equivalente en "Componentes permitidos": usar Spartan, no el nativo.
+
+   * (b) La etiqueta `<button>` nativa: usar siempre `src\shared\design\ui\buttons`.
    En cualquier otro caso (componentes que no están en la lista), el HTML nativo es la base esperada para maquetar con Tailwind.
 
 ### Refuerzo para formularios
@@ -988,14 +989,6 @@ Nota: `tuBoton` representa el selector real de tu componente/directiva en `src\s
 
 ### Data Table
 Solo se permite el patrón "Data Table" de Spartan, construido sobre las directivas `Table` (`hlmTable`, `hlmTr`, `hlmTh`, `hlmTd`, etc.) + **`@tanstack/angular-table`**, incluyendo paginación y sorting. Es decir, se usa el conjunto completo Data Table (Table + TanStack + paginación + sorting), no una tabla estática suelta. No esta permitiro usar la etiqueta `<table>` nativa de HTML
-
-`@tanstack/angular-table` está instalado como dependencia del proyecto. Su API real, verificada en el código del paquete, es:
-
-* `createAngularTable()`: crea la instancia de la tabla a partir de una función que devuelve las `TableOptions`.
-* `FlexRenderDirective` (selector `[flexRender]`), también exportada con el alias `FlexRender`, junto a `flexRenderComponent()` y `injectFlexRenderContext()`: renderizan headers y celdas.
-* `getCoreRowModel()`, `getSortedRowModel()`, `getPaginationRowModel()` y `getFilteredRowModel()`: re-exportados desde `@tanstack/table-core`. `getSortedRowModel()` habilita el sorting y `getPaginationRowModel()` la paginación.
-
-Todo se importa desde `@tanstack/angular-table`, que hace `export * from '@tanstack/table-core'`.
 
 ### Prohibiciones
 * Prohibido instalar componentes nuevos de Spartan (vía su CLI, por ejemplo: `pnpm ng g @spartan-ng/cli:ui <componente>` o `nx g @spartan-ng/cli:ui <componente>`) distintos a los de "Componentes permitidos".
