@@ -18,6 +18,8 @@ import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
+import { provideNativeDateAdapter } from '@spartan-ng/brain/date-time';
+import { provideSpartanHlm } from '@spartan-ng/utils';
 import { providePrimeNG } from 'primeng/config';
 
 /**
@@ -41,6 +43,10 @@ const PRIME_NG_PRESET = definePreset(Aura, {
   },
 });
 
+// #region componentes de spartan ng
+const SPARTAN_NG = [provideSpartanHlm(), provideNativeDateAdapter()];
+// #endregion
+
 // #region ⚠️ PROHIBIDO cambiar el orden de esta constante porque puedes generar bugs en consumo de APIs 🚨
 const HTTP_CLIENT_INTERCEPTORS: HttpInterceptorFn[] = [
   // GRUPO 1: preparan la REQUEST (solo next(req.clone))
@@ -63,6 +69,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([...HTTP_CLIENT_INTERCEPTORS])),
     provideHotToastConfig(),
     TitleCasePipe,
+
+    ...SPARTAN_NG,
 
     // configuracion de Prime NG
     providePrimeNG({
