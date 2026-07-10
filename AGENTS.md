@@ -102,7 +102,7 @@ Esta PROHIBIDO:
 ## Usar Angular 22 Moderno, NUNCA Legacy
 * Signal-based reactivity
 
-* Signal Forms
+* OBLIGATORIO utilizar Signal Forms junto con los componentes UI de formularios de Spartan NG. Prohibido utilizar formularios basados en ngModel (Template-driven Forms) o Reactive Forms (FormGroup, incluyendo Typed Reactive Forms).
 
 * **Signals API**:
   * `signal()`
