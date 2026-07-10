@@ -15,7 +15,9 @@
 @import './tailwind/theme.css' layer(TailwindCustomTheme);
 
 /**
- * Reset CSS */
+ * Reset CSS
+ * basado en Tailwind 4
+ * https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/preflight.css */
 @import './tailwind/preflight.css' layer(TailwindPreflight);
 
 /**
