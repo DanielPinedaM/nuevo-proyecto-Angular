@@ -3,7 +3,7 @@
  * https://tailwindcss.com/docs/preflight */
 
 /**
- * Orden de capas explícito: determina la prioridad en cascada (de menor a mayor). */
+ * Orden de capas explícito: determina la prioridad en cascada (de menor a mayor) */
 @layer TailwindBaseTheme, TailwindCustomTheme, TailwindPreflight, spartanNgRoot, TailwindUtilities;
 
 /**
@@ -27,7 +27,7 @@
  * Sin layer() a propósito: este archivo define @custom-variant, @utility y @property
  * de nivel superior, que Tailwind/CSS exigen fuera de cualquier @layer (error de build
  * si quedan anidados). Los bloques @theme que también contiene solo definen @keyframes,
- * no custom properties de color/radio, por lo que no compiten con spartanNgRoot.  */
+ * no custom properties de color/radio, por lo que no compiten con spartanNgRoot */
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 
 /**
