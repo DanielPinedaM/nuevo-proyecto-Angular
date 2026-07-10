@@ -16,8 +16,12 @@ https://tailwindcss.com/docs/preflight */
 /* custom properties con colores de componentes de spartan ng */
 @import './spartan-ng/root.css' layer(spartanNgRoot);
 
-/* estilos base de spartan ng
-sin layer() a propósito: el archivo trae reglas @utility que Tailwind 4 exige en nivel superior (no pueden anidarse en un @layer) */
+
+/* Estilos base de spartan ng
+   Sin layer() a propósito: este archivo define varios @custom-variant de nivel superior,
+   que Tailwind rechaza con error de build si quedan anidados dentro de un @layer.
+   También define un bloque @theme; aunque ese sí es válido anidado, se deja sin layer()
+   para que sus custom properties no queden sujetas al orden de cascada de las capas */
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 
 /* Clases utilitarias generadas por Tailwind (flex, grid, p-4, text-red-500, etc) */
