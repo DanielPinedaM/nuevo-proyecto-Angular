@@ -1,6 +1,6 @@
-@use "./_tokens.scss" as token;
-@use "./_mixins.scss" as mixin;
-@use "./../variable.scss" as variable;
+@use './_tokens.scss' as token;
+@use './_mixins.scss' as mixin;
+@use './../variable.scss' as variable;
 
 /* ***********************
 * Base                   *
@@ -94,7 +94,7 @@
 
   // botón activado
   &:enabled,
-  &[role="button"]:not([aria-disabled="true"]) {
+  &[role='button']:not([aria-disabled='true']) {
     cursor: pointer;
   }
 
