@@ -65,7 +65,7 @@
       "@spartan-ng/dropdown-menu": ["./src/shared/design/ui/spartan-ng/overlay/dropdown-menu/src/index.ts"],
       "@spartan-ng/popover": ["./src/shared/design/ui/spartan-ng/overlay/popover/src/index.ts"],
       "@spartan-ng/sheet": ["./src/shared/design/ui/spartan-ng/overlay/sheet/src/index.ts"],
-      "@spartan-ng/sonner": ["./src/shared/design/ui/spartan-ng/overlay/sonner/src/index.ts"],
+      "@spartan-ng/toast": ["./src/shared/design/ui/spartan-ng/overlay/toast/src/index.ts"],
       "@spartan-ng/tooltip": ["./src/shared/design/ui/spartan-ng/overlay/tooltip/src/index.ts"],
 
       /* utils */
