@@ -1027,14 +1027,6 @@ Cada fila indica el alias de import. El alias es independiente de la carpeta: au
 | Textarea                                                         | `@spartan-ng/textarea`                               |
 | Tooltip                                                          | `@spartan-ng/tooltip`                                |
 
-Notas sobre los componentes:
-
-* Algunos selectores están restringidos a una etiqueta HTML concreta (`button[...]`, `input[...]`, `ul[...]`, `li[...]`, `table[...]`, `tr[...]`, etc.) y solo funcionan aplicados sobre ella. Por ejemplo, `hlmDialogTrigger` únicamente aplica sobre un `<button>`.
-* Las directivas de la carpeta `data-table` exponen además alias equivalentes con nombre largo: `hlmTableCaption`, `hlmTableBody`, `hlmTableCell`, `hlmTableFooter`, `hlmTableHead`, `hlmTableHeader`, `hlmTableRow`.
-* `[flexRender]` (`FlexRenderDirective`) proviene de `@tanstack/angular-table`, no de la carpeta `data-table`.
-* La carpeta `dropdown-menu` incluye además `[hlmDropdownMenuCheckboxCdk]` y `[hlmDropdownMenuRadioCdk]`, variantes que extienden `CdkMenuItemCheckbox` y `CdkMenuItemRadio`. Están exportadas pero no forman parte del arreglo `HlmDropdownMenuImports`, por lo que hay que importarlas de forma explícita.
-* Cada carpeta expone un arreglo con todas sus directivas (`HlmDialogImports`, `HlmSelectImports`, etc.) que puede usarse en `imports` del componente. La excepción de nombre es `sonner`, cuyo arreglo se llama `HlmToasterImports`.
-
 ## 🧱 Configuración de Tailwind 4
 
 [Igual que como se muestra en la documentacion](https://tailwindcss.com/blog/tailwindcss-v4#css-first-configuration)
