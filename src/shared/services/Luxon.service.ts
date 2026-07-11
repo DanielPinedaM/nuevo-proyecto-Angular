@@ -1,15 +1,14 @@
 import { Service } from '@angular/core';
 import { DateTime } from 'luxon';
 
+const ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
 @Service()
 export default class LuxonService {
   /**
   convierte cualquier fecha (string, Date o DateTime) al formato personalizado indicado,
   siempre retornando un DateTime de luxon (o null si la fecha es inválida) */
-  formatDate = (
-    rawDate: string | Date | DateTime,
-    format: string = "yyyy-MM-dd'T'HH:mm:ss'Z'",
-  ): DateTime | null => {
+  formatDate = (rawDate: string | Date | DateTime, format: string = ISO_8601): DateTime | null => {
     let convertedDateTime: DateTime;
 
     if (rawDate instanceof DateTime) {
@@ -34,8 +33,16 @@ export default class LuxonService {
   };
 
   /**
-  fecha y hora actual con formato de fecha y hora personalizada */
-  currentDateAndTime = (format = 'd-LLL-yyyy hh:mm:ss a'): string => {
-    return DateTime.now().setLocale('es').toFormat(format).replace(/\.$/, '');
+  fecha y hora actual con formato de fecha y hora personalizada;
+  si el formato incluye una 'Z' literal,
+  la fecha se convierte a UTC antes de formatear para que esa 'Z' refleje el offset real */
+  currentDateAndTime = (format: string = ISO_8601): string => {
+    let now: DateTime = DateTime.now();
+
+    if (format.includes("'Z'")) {
+      now = now.toUTC();
+    }
+
+    return now.setLocale('es').toFormat(format).replace(/\.$/, '');
   };
 }
