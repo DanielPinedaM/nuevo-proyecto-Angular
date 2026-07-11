@@ -20,7 +20,7 @@ export default class LuxonService {
 
   /**
   formato de fecha y/o hora con formato personalizado */
-  formatDate = (date: FormatDateValue, format: string = 'd-LLL-yyyy'): FormatDateValue => {
+  formatDate = (date: FormatDateValue, format: string = "yyyy-MM-dd'T'HH:mm:ss'Z'"): FormatDateValue => {
     let dateTime: DateTime;
 
     if (date instanceof DateTime) {
@@ -35,7 +35,7 @@ export default class LuxonService {
 
     if (!dateTime.isValid) return date;
 
-    return this.replaceAmPm(dateTime.setLocale('es').toFormat(format));
+    return this.replaceAmPm(dateTime.toUTC().setLocale('es').toFormat(format));
   };
 
   /**
