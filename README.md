@@ -998,36 +998,34 @@ Solo se permite el patrón "Data Table" de Spartan, construido sobre las directi
 ### Componentes permitidos
 Los componentes están agrupados en cuatro categorías dentro de `src\shared\design\ui\spartan-ng`: `overlay`, `form`, `navigation` y `data-display`.
 
-Cada fila indica el alias de import, definido en `tsconfig.json` según el `importAlias` de `components.json`. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@spartan-ng/<componente>`).
-
-Los selectores de cada componente están declarados en su código fuente.
+Cada fila indica el alias de import. El alias es independiente de la carpeta: aunque los componentes estén anidados por categoría, el import siempre es plano (`@spartan-ng/<componente>`).
 
 | Nombre legible | import alias |
 | -------------- | ------------ |
-| accordion | `@spartan-ng/accordion` |
+| Accordion | `@spartan-ng/accordion` |
 | Alert Dialog | `@spartan-ng/alert-dialog` |
-| calendar | `@spartan-ng/calendar` |
-| carousel | `@spartan-ng/carousel` |
-| checkbox | `@spartan-ng/checkbox` |
+| Calendar | `@spartan-ng/calendar` |
+| Carousel | `@spartan-ng/carousel` |
+| Checkbox | `@spartan-ng/checkbox` |
 | Combobox | `@spartan-ng/combobox` |
 | Data Table (con `@tanstack/angular-table`, paginación y sorting) | `@spartan-ng/data-table` + `@tanstack/angular-table` |
 | Date Picker | `@spartan-ng/date-picker` |
 | Dialog | `@spartan-ng/dialog` |
 | Drawer | `@spartan-ng/drawer` |
-| dropdown-menu | `@spartan-ng/dropdown-menu` |
-| input | `@spartan-ng/input` |
-| input-group | `@spartan-ng/input-group` |
-| label | `@spartan-ng/label` |
-| pagination | `@spartan-ng/pagination` |
-| popover | `@spartan-ng/popover` |
+| Dropdown Menu | `@spartan-ng/dropdown-menu` |
+| Input | `@spartan-ng/input` |
+| Input Group | `@spartan-ng/input-group` |
+| Label | `@spartan-ng/label` |
+| Pagination | `@spartan-ng/pagination` |
+| Popover | `@spartan-ng/popover` |
 | Radio Group | `@spartan-ng/radio-group` |
 | Select | `@spartan-ng/select` |
 | Sheet | `@spartan-ng/sheet` |
 | Sonner (Toast) | `@spartan-ng/sonner` |
 | Switch | `@spartan-ng/switch` |
 | Tabs | `@spartan-ng/tabs` |
-| textarea | `@spartan-ng/textarea` |
-| tooltip | `@spartan-ng/tooltip` |
+| Textarea | `@spartan-ng/textarea` |
+| Tooltip | `@spartan-ng/tooltip` |
 
 Notas sobre los componentes:
 
