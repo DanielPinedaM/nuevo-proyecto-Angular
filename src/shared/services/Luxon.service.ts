@@ -1,6 +1,7 @@
 ﻿import { Service } from '@angular/core';
 import { DateTime } from 'luxon';
-import { Nullable } from 'primeng/ts-helpers';
+
+type FormatDateValue = string | Date | DateTime;
 
 @Service()
 export default class LuxonService {
@@ -19,10 +20,7 @@ export default class LuxonService {
 
   /**
   formato de fecha y/o hora con formato personalizado */
-  formatDate = (
-    date: Date | string | Nullable<Date> | DateTime,
-    format = 'd-LLL-yyyy'
-  ): string | any => {
+  formatDate = (date: FormatDateValue, format: string = 'd-LLL-yyyy'): FormatDateValue => {
     let dateTime: DateTime;
 
     if (date instanceof DateTime) {
@@ -43,10 +41,7 @@ export default class LuxonService {
   /**
   fecha y hora actual con formato de fecha y hora personalizada */
   currentDateAndTime = (format = 'd-LLL-yyyy hh:mm:ss a'): string => {
-    const finalDate: string = DateTime.now()
-      .setLocale('es')
-      .toFormat(format)
-      .replace(/\.$/, '');
+    const finalDate: string = DateTime.now().setLocale('es').toFormat(format).replace(/\.$/, '');
 
     return this.replaceAmPm(finalDate);
   };
