@@ -1,4 +1,8 @@
-import { API_RESPONSE_KEYS, REQUIRED_KEYS } from '@/shared/http-client/data-types/constants/http-client.const';
+import {
+  API_RESPONSE_KEYS,
+  FALLBACK_MESSAGE,
+  REQUIRED_KEYS,
+} from '@/shared/http-client/data-types/constants/http-client.const';
 import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { Service } from '@angular/core';
 
@@ -15,7 +19,7 @@ export class ApiResponseNormalizerService {
   normalize<T>(
     rawBody: unknown,
     status: number,
-    fallbackMessage = 'no se pudo capturar el mensaje de error de la API',
+    fallbackMessage = FALLBACK_MESSAGE,
   ): ApiResponse<T> {
     // Caso 1
     if (this.isApiContract<T>(rawBody)) return rawBody;
@@ -24,7 +28,9 @@ export class ApiResponseNormalizerService {
     return {
       success: this.isSuccessStatus(status),
       status,
-      message: this.hasStringMessage(rawBody) ? rawBody[API_RESPONSE_KEYS.message] : fallbackMessage,
+      message: this.hasStringMessage(rawBody)
+        ? rawBody[API_RESPONSE_KEYS.message]
+        : fallbackMessage,
       data: (rawBody ?? null) as T,
     };
   }

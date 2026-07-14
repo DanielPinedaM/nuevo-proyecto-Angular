@@ -17,3 +17,5 @@ export const REQUIRED_KEYS = [
   'message',
   'data',
 ] satisfies (keyof ApiResponse)[];
+
+export const FALLBACK_MESSAGE: string = 'no se pudo capturar el mensaje de error de la API';
