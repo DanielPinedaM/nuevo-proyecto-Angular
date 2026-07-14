@@ -25,18 +25,19 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      const status: number = httpClientHelpers.getRealHttpStatus(
-        error?.error?.[API_RESPONSE_KEYS.status],
-        error.status,
-      );
+      const apiStatus: unknown = error?.error?.[API_RESPONSE_KEYS.status];
+
+      const httpStatus: number = error.status;
+
+      const realStatus: number = httpClientHelpers.getRealHttpStatus(apiStatus, httpStatus);
 
       // acciones globales de error (401/403/404/5xx) delegadas al orquestador
-      globalErrorHandler.handle(status, req.url);
+      globalErrorHandler.handle(realStatus, req.url);
 
       // normalizacion delegada al intermediario (mismo contrato que el exito)
       const normalized: ApiResponse<unknown> = normalizer.normalize(
         error.error,
-        status ?? 500,
+        realStatus,
         error?.message ?? FALLBACK_MESSAGE,
       );
 
@@ -73,7 +74,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       return of(
         new HttpResponse({
           body: normalized,
-          status: status ?? 500,
+          status: realStatus,
           url: req.url,
         }),
       );

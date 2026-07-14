@@ -20,14 +20,16 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
     map((event: HttpEvent<unknown>) => {
       if (!(event instanceof HttpResponse)) return event;
 
-      const status: number = httpClientHelpers.getRealHttpStatus(
-        httpClientHelpers.isLiteralObject(event.body)
-          ? event.body?.[API_RESPONSE_KEYS.status]
-          : undefined,
-        event.status,
-      );
+      // status declarado en el body, SOLO si el backend respondio un objeto literal {}
+      const apiStatus: unknown = httpClientHelpers.isLiteralObject(event.body)
+        ? event.body?.[API_RESPONSE_KEYS.status]
+        : undefined;
 
-      const normalized: ApiResponse<unknown> = normalizer.normalize(event.body, status);
+      const httpStatus: number = event.status;
+
+      const realStatus: number = httpClientHelpers.getRealHttpStatus(apiStatus, httpStatus);
+
+      const normalized: ApiResponse<unknown> = normalizer.normalize(event.body, realStatus);
 
       httpLog.successLogs(req, normalized);
 
