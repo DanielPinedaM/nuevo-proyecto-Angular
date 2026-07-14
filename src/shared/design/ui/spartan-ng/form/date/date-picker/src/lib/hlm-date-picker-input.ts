@@ -92,10 +92,10 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	public readonly openOnClick = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Accessible label for the clear button. */
-	public readonly clearAriaLabel = input<string>('Clear date');
+	public readonly clearAriaLabel = input<string>('Limpiar fecha');
 
 	/** Accessible label for the calendar trigger button. */
-	public readonly calendarAriaLabel = input<string>('Open calendar');
+	public readonly calendarAriaLabel = input<string>('Abrir calendario');
 
 	/** @internal Id used by the trigger contract for labeling. */
 	public readonly triggerId = this.inputId;

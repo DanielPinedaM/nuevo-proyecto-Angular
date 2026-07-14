@@ -7,42 +7,14 @@ import { loaderInterceptor } from '@/shared/http-client/loader/interceptors/load
 import { errorInterceptor } from '@/shared/http-client/response/error-handling/error.interceptor';
 import { successInterceptor } from '@/shared/http-client/response/success.interceptor';
 import { TitleCasePipe } from '@angular/common';
-import {
-  HttpInterceptorFn,
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
-} from '@angular/common/http';
+import { HttpInterceptorFn, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
-import { definePreset } from '@primeng/themes';
-import Aura from '@primeng/themes/aura';
+import { provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { provideDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnLuxonDateAdapter } from '@spartan-ng/brain/date-time-luxon';
 import { provideSpartanHlm } from '@spartan-ng/utils';
-import { providePrimeNG } from 'primeng/config';
-
-/**
-Personalizar colores de Prime NG
-https://primeng.org/theming#definepreset */
-const PRIME_NG_PRESET = definePreset(Aura, {
-  semantic: {
-    primary: {
-      50: '{Sky.50}',
-      100: '{Sky.100}',
-      200: '{Sky.200}',
-      300: '{Sky.300}',
-      400: '{Sky.400}',
-      500: '{Sky.500}',
-      600: '{Sky.600}',
-      700: '{Sky.700}',
-      800: '{Sky.800}',
-      900: '{Sky.900}',
-      950: '{Sky.950}',
-    },
-  },
-});
 
 // #region componentes de spartan ng
 const SPARTAN_NG = [
@@ -62,6 +34,39 @@ const SPARTAN_NG = [
    * 2. agregar otro provider de fecha
    * (provideNativeDateAdapter, provideUtcDateAdapter, provideDateAdapter(BrnJalaliDateAdapter), etc) */
   provideDateAdapter(BrnLuxonDateAdapter),
+
+  /**
+   * Traducir a español el calendario de spartan ng */
+  provideBrnCalendarI18n({
+    formatWeekdayName: (index) => {
+      const weekdays = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'];
+      return weekdays[index];
+    },
+    months: () => [
+      'Ene',
+      'Feb',
+      'Mar',
+      'Abr',
+      'May',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dic',
+    ],
+    formatHeader: (month, year) =>
+      new Date(year, month).toLocaleDateString('es', { month: 'long', year: 'numeric' }),
+    formatMonth: (month) => new Date(2000, month).toLocaleDateString('es', { month: 'short' }),
+    formatYear: (year) => new Date(year, 0).toLocaleDateString('es', { year: 'numeric' }),
+    labelPrevious: () => 'Ir al mes anterior',
+    labelNext: () => 'Ir al mes siguiente',
+    labelWeekday: (index) => {
+      const weekdays = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+      return weekdays[index];
+    },
+  }),
 ];
 // #endregion
 
@@ -84,24 +89,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withFetch(), withInterceptors([...HTTP_CLIENT_INTERCEPTORS])),
+    provideHttpClient(withInterceptors([...HTTP_CLIENT_INTERCEPTORS])),
     provideHotToastConfig(),
     TitleCasePipe,
 
     ...SPARTAN_NG,
-
-    // configuracion de Prime NG
-    providePrimeNG({
-      theme: {
-        preset: PRIME_NG_PRESET,
-
-        options: {
-          cssLayer: {
-            name: 'primeng',
-            order: 'tailwind, primeng',
-          },
-        },
-      },
-    }),
   ],
 };
