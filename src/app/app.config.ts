@@ -1,4 +1,5 @@
 import { routes } from '@/app/app.routes';
+import { BrnLuxonDateAdapterNormalized } from '@/shared/design/ui/spartan-ng/form/date/brn-luxon-date-adapter-normalized';
 import { acceptInterceptor } from '@/shared/http-client/interceptors/headers/accept.interceptor';
 import { contentTypeInterceptor } from '@/shared/http-client/interceptors/headers/content-type.interceptor';
 import { timeoutInterceptor } from '@/shared/http-client/interceptors/timeout.interceptor';
@@ -13,7 +14,6 @@ import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { provideDateAdapter } from '@spartan-ng/brain/date-time';
-import { BrnLuxonDateAdapter } from '@spartan-ng/brain/date-time-luxon';
 import { provideSpartanHlm } from '@spartan-ng/utils';
 
 // #region componentes de spartan ng
@@ -33,7 +33,7 @@ const SPARTAN_NG = [
    *
    * 2. agregar otro provider de fecha
    * (provideNativeDateAdapter, provideUtcDateAdapter, provideDateAdapter(BrnJalaliDateAdapter), etc) */
-  provideDateAdapter(BrnLuxonDateAdapter),
+  provideDateAdapter(BrnLuxonDateAdapterNormalized),
 
   /**
    * Traducir a español el calendario de spartan ng */
