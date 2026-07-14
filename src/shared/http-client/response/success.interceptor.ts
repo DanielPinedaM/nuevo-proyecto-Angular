@@ -18,23 +18,21 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     map((event: HttpEvent<unknown>) => {
-      if (event instanceof HttpResponse) {
-        const status: number = httpClientHelpers.getRealHttpStatus(
-          httpClientHelpers.isLiteralObject(event.body)
-            ? event.body[API_RESPONSE_KEYS.status]
-            : undefined,
-          event.status,
-        );
+      if (!(event instanceof HttpResponse)) return event;
 
-        const normalized: ApiResponse<unknown> = normalizer.normalize(event.body, status);
+      const status: number = httpClientHelpers.getRealHttpStatus(
+        httpClientHelpers.isLiteralObject(event.body)
+          ? event.body[API_RESPONSE_KEYS.status]
+          : undefined,
+        event.status,
+      );
 
-        httpLog.successLogs(req, normalized);
+      const normalized: ApiResponse<unknown> = normalizer.normalize(event.body, status);
 
-        // se reemplaza el body por la respuesta ya envuelta en ApiResponse<T>
-        return event.clone({ body: normalized });
-      }
+      httpLog.successLogs(req, normalized);
 
-      return event;
+      // se reemplaza el body por la respuesta ya envuelta en ApiResponse<T>
+      return event.clone({ body: normalized });
     }),
   );
 };
