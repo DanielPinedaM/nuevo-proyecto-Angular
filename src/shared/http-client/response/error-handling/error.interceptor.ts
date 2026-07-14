@@ -25,7 +25,14 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      const apiStatus: unknown = error?.error?.[API_RESPONSE_KEYS.status];
+      // error.error es any, se pasa a unknown para FORZAR tipado estricto
+      // aqui SI hay conversion (any -> unknown), a diferencia de success.interceptor
+      const errorBody: unknown = error.error;
+
+      // status declarado en el body, SOLO si el backend respondio un objeto literal {}
+      const apiStatus: unknown = httpClientHelpers.isLiteralObject(errorBody)
+        ? errorBody?.[API_RESPONSE_KEYS.status]
+        : undefined;
 
       const httpStatus: number = error.status;
 
@@ -34,9 +41,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       // acciones globales de error (401/403/404/5xx) delegadas al orquestador
       globalErrorHandler.handle(realStatus, req.url);
 
-      // normalizacion delegada al intermediario (mismo contrato que el exito)
+      // normalizacion delegada al intermediario (mismo contrato que el success.interceptor)
       const normalized: ApiResponse<unknown> = normalizer.normalize(
-        error.error,
+        errorBody,
         realStatus,
         error?.message ?? FALLBACK_MESSAGE,
       );
