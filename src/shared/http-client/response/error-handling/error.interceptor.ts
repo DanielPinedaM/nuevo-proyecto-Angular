@@ -3,6 +3,7 @@ import {
   FALLBACK_MESSAGE,
 } from '@/shared/http-client/data-types/constants/http-client.const';
 import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+import { ErrorHandlerHelperService } from '@/shared/http-client/response/error-handling/services/error-handler-helper.service';
 import { GlobalErrorHandlerService } from '@/shared/http-client/response/error-handling/services/global-error-handler.service';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
 import { HttpLogService } from '@/shared/http-client/services/http-log.service';
@@ -16,16 +17,17 @@ import { catchError, of } from 'rxjs';
  * errores (401/403/404/5xx) en GlobalErrorHandlerService.
  * NO contiene logica de negocio de features */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const errorHandlerHelper = inject(ErrorHandlerHelperService);
   const globalErrorHandler = inject(GlobalErrorHandlerService);
   const normalizer = inject(ApiResponseNormalizerService);
   const httpLog = inject(HttpLogService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      const status: number =
-        typeof error?.error?.[API_RESPONSE_KEYS.status] === 'number'
-          ? error.error[API_RESPONSE_KEYS.status]
-          : error.status;
+      const status: number = errorHandlerHelper.getRealHttpStatus(
+        error?.error?.[API_RESPONSE_KEYS.status],
+        error.status,
+      );
 
       // acciones globales de error (401/403/404/5xx) delegadas al orquestador
       globalErrorHandler.handle(status, req.url);
