@@ -1,3 +1,4 @@
+import { API_RESPONSE_KEYS, REQUIRED_KEYS } from '@/shared/http-client/data-types/constants/http-client.const';
 import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { Service } from '@angular/core';
 
@@ -23,7 +24,7 @@ export class ApiResponseNormalizerService {
     return {
       success: this.isSuccessStatus(status),
       status,
-      message: this.hasStringMessage(rawBody) ? rawBody.message : fallbackMessage,
+      message: this.hasStringMessage(rawBody) ? rawBody[API_RESPONSE_KEYS.message] : fallbackMessage,
       data: (rawBody ?? null) as T,
     };
   }
@@ -36,20 +37,18 @@ export class ApiResponseNormalizerService {
   private isApiContract<T>(value: unknown): value is ApiResponse<T> {
     if (typeof value !== 'object' || value === null) return false;
 
-    const response = value as Record<string, unknown>;
+    const response = value as Record<keyof ApiResponse, unknown>;
 
     // (a) que las keys existan
-    const REQUIRED_KEYS = ['success', 'status', 'message', 'data'] satisfies (keyof ApiResponse)[];
-
     const hasAllKeys: boolean = REQUIRED_KEYS.every((key) => key in response);
 
     if (!hasAllKeys) return false;
 
     // (b) que los tipos de datos de los values sean correctos (data NO se valida porque es tipo <T>)
     return (
-      typeof response['success'] === 'boolean' &&
-      typeof response['status'] === 'number' &&
-      typeof response['message'] === 'string'
+      typeof response?.[API_RESPONSE_KEYS.success] === 'boolean' &&
+      typeof response?.[API_RESPONSE_KEYS.status] === 'number' &&
+      typeof response?.[API_RESPONSE_KEYS.message] === 'string'
     );
   }
 
@@ -57,12 +56,12 @@ export class ApiResponseNormalizerService {
     return status >= 200 && status < 300;
   }
 
-  private hasStringMessage(value: unknown): value is { message: string } {
+  private hasStringMessage(value: unknown): value is Pick<ApiResponse, 'message'> {
     return (
       typeof value === 'object' &&
       value !== null &&
-      'message' in value &&
-      typeof (value as { message: unknown }).message === 'string'
+      API_RESPONSE_KEYS.message in value &&
+      typeof (value as Pick<ApiResponse, 'message'>)[API_RESPONSE_KEYS.message] === 'string'
     );
   }
 }
