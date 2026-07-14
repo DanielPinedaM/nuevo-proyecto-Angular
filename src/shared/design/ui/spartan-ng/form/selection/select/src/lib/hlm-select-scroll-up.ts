@@ -1,21 +1,17 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronUp } from '@ng-icons/lucide';
 import { BrnSelectScrollUp } from '@spartan-ng/brain/select';
 import { classes } from '@spartan-ng/utils';
 
 @Component({
 	selector: 'hlm-select-scroll-up',
-	imports: [NgIcon],
-	providers: [provideIcons({ lucideChevronUp })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnSelectScrollUp],
 	template: `
-		<ng-icon name="lucideChevronUp" />
+		<span class="material-symbols-outlined">keyboard_arrow_up</span>
 	`,
 })
 export class HlmSelectScrollUp {
 	constructor() {
-		classes(() => 'bg-popover z-10 flex cursor-default items-center justify-center py-1 [&_ng-icon:not([class*=\'text-\'])]:text-[length:--spacing(4)] sticky top-0 w-full data-hidden:hidden');
+		classes(() => 'bg-popover z-10 flex cursor-default items-center justify-center py-1 [&_.material-symbols-outlined:not([class*=\'text-\'])]:text-[length:--spacing(4)] sticky top-0 w-full data-hidden:hidden');
 	}
 }

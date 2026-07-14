@@ -1,7 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnComboboxAnchor, BrnComboboxPopoverTrigger, BrnComboboxTrigger } from '@spartan-ng/brain/combobox';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { ButtonVariants, HlmButton } from '@spartan-ng/button';
@@ -11,14 +9,12 @@ import type { ClassValue } from 'clsx';
 @Component({
 	selector: 'hlm-combobox-trigger',
 	imports: [
-		NgIcon,
 		HlmButton,
 		BrnComboboxAnchor,
 		BrnComboboxTrigger,
 		BrnComboboxPopoverTrigger,
 		BrnFieldControlDescribedBy,
 	],
-	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
@@ -34,7 +30,7 @@ import type { ClassValue } from 'clsx';
 			[forceInvalid]="forceInvalid()"
 		>
 			<ng-content />
-			<ng-icon name="lucideChevronDown" class="text-muted-foreground text-[length:--spacing(4)]" />
+			<span class="material-symbols-outlined text-muted-foreground text-[length:--spacing(4)]">keyboard_arrow_down</span>
 		</button>
 	`,
 })

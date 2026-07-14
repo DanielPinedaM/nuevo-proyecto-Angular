@@ -10,16 +10,14 @@ import {
     input,
     linkedSignal,
 } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/input-group';
 import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-picker-trigger.token';
 import { injectHlmDatePicker, injectHlmDatePickerConfig } from '@/shared/design/ui/spartan-ng/form/date/date-picker/src/lib/hlm-date-picker.token';
 
 @Component({
 	selector: 'hlm-date-picker-input',
-	imports: [HlmInputGroupImports, NgIcon],
-	providers: [provideIcons({ lucideCalendar, lucideX }), provideHlmDatePickerTrigger(HlmDatePickerInput)],
+	imports: [HlmInputGroupImports],
+	providers: [provideHlmDatePickerTrigger(HlmDatePickerInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [HlmInputGroup],
 	template: `
@@ -46,7 +44,7 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from '@/shared/design/
 					(click)="_clear()"
 					[disabled]="_disabled()"
 				>
-					<ng-icon name="lucideX" />
+					<span class="material-symbols-outlined">close</span>
 				</button>
 			}
 			<button
@@ -56,7 +54,7 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from '@/shared/design/
 				(click)="_popover().open()"
 				[disabled]="_disabled()"
 			>
-				<ng-icon name="lucideCalendar" />
+				<span class="material-symbols-outlined">calendar_month</span>
 			</button>
 		</hlm-input-group-addon>
 	`,

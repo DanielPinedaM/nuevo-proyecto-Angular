@@ -1,7 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import { BrnCalendarImports, BrnCalendarRange, injectBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { buttonVariants, HlmButtonImports } from '@spartan-ng/button';
@@ -10,8 +8,7 @@ import { classes, hlm } from '@spartan-ng/utils';
 
 @Component({
 	selector: 'hlm-calendar-range',
-	imports: [BrnCalendarImports, NgIcon, HlmSelectImports, NgTemplateOutlet, HlmButtonImports],
-	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
+	imports: [BrnCalendarImports, HlmSelectImports, NgTemplateOutlet, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
@@ -71,7 +68,7 @@ import { classes, hlm } from '@spartan-ng/utils';
 					hlmBtn
 					class="order-first size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
 				>
-					<ng-icon name="lucideChevronLeft" class="rtl:rotate-180" />
+					<span class="material-symbols-outlined rtl:rotate-180">chevron_left</span>
 				</button>
 
 				@switch (captionLayout()) {
@@ -98,7 +95,7 @@ import { classes, hlm } from '@spartan-ng/utils';
 					variant="ghost"
 					class="order-last size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
 				>
-					<ng-icon name="lucideChevronRight" class="rtl:rotate-180" />
+					<span class="material-symbols-outlined rtl:rotate-180">chevron_right</span>
 				</button>
 			</div>
 
@@ -174,7 +171,7 @@ export class HlmCalendarRange<T> {
 		'data-[highlighted]:before:bg-destructive',
 	);
 
-	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>ng-icon]:ms-1';
+	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>.material-symbols-outlined]:ms-1';
 
 	constructor() {
 		classes(

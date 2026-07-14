@@ -1,7 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnFieldControl, BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { ButtonVariants, HlmButtonImports } from '@spartan-ng/button';
 import { HlmPopoverTrigger } from '@spartan-ng/popover';
@@ -12,8 +10,8 @@ import { injectHlmDatePicker } from '@/shared/design/ui/spartan-ng/form/date/dat
 
 @Component({
 	selector: 'hlm-date-picker-trigger',
-	imports: [HlmButtonImports, HlmPopoverTrigger, NgIcon, BrnFieldControlDescribedBy],
-	providers: [provideIcons({ lucideChevronDown }), provideHlmDatePickerTrigger(HlmDatePickerTrigger)],
+	imports: [HlmButtonImports, HlmPopoverTrigger, BrnFieldControlDescribedBy],
+	providers: [provideHlmDatePickerTrigger(HlmDatePickerTrigger)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { 'data-slot': 'date-picker-trigger' },
 	template: `
@@ -43,7 +41,7 @@ import { injectHlmDatePicker } from '@/shared/design/ui/spartan-ng/form/date/dat
 			</span>
 
 			@if (showTrigger()) {
-				<ng-icon name="lucideChevronDown" />
+				<span class="material-symbols-outlined">keyboard_arrow_down</span>
 			}
 		</button>
 	`,

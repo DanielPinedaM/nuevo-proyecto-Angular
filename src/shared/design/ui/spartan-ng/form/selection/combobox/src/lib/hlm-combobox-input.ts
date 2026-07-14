@@ -1,15 +1,12 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown, lucideX } from '@ng-icons/lucide';
 import { BrnComboboxAnchor, BrnComboboxImports, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/input-group';
 import { classes } from '@spartan-ng/utils';
 
 @Component({
 	selector: 'hlm-combobox-input',
-	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, BrnComboboxPopoverTrigger],
-	providers: [provideIcons({ lucideChevronDown, lucideX })],
+	imports: [HlmInputGroupImports, BrnComboboxImports, BrnComboboxPopoverTrigger],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnComboboxAnchor, HlmInputGroup],
 	template: `
@@ -36,7 +33,7 @@ import { classes } from '@spartan-ng/utils';
 					variant="ghost"
 					class="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
 				>
-					<ng-icon name="lucideChevronDown" />
+					<span class="material-symbols-outlined">keyboard_arrow_down</span>
 				</button>
 			}
 
@@ -49,7 +46,7 @@ import { classes } from '@spartan-ng/utils';
 					size="icon-xs"
 					variant="ghost"
 				>
-					<ng-icon name="lucideX" />
+					<span class="material-symbols-outlined">close</span>
 				</button>
 			}
 		</hlm-input-group-addon>

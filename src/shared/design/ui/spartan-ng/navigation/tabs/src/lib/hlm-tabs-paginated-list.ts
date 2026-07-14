@@ -9,8 +9,6 @@ import {
     viewChild,
 } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import { type BrnPaginatedTabHeaderItem, BrnTabsPaginatedList, BrnTabsTrigger } from '@spartan-ng/brain/tabs';
 import { buttonVariants } from '@spartan-ng/button';
 import { classes, hlm } from '@spartan-ng/utils';
@@ -20,8 +18,7 @@ import { listVariants } from '@/shared/design/ui/spartan-ng/navigation/tabs/src/
 
 @Component({
 	selector: 'hlm-paginated-tabs-list',
-	imports: [CdkObserveContent, NgIcon],
-	providers: [provideIcons({ lucideChevronRight, lucideChevronLeft })],
+	imports: [CdkObserveContent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'tabs-paginated-list',
@@ -39,7 +36,7 @@ import { listVariants } from '@/shared/design/ui/spartan-ng/navigation/tabs/src/
 			(mousedown)="_handlePaginatorPress('before', $event)"
 			(touchend)="_stopInterval()"
 		>
-			<ng-icon name="lucideChevronLeft" />
+			<span class="material-symbols-outlined">chevron_left</span>
 		</button>
 
 		<div #tabListContainer class="z-[1] flex grow overflow-hidden" (keydown)="_handleKeydown($event)">
@@ -62,7 +59,7 @@ import { listVariants } from '@/shared/design/ui/spartan-ng/navigation/tabs/src/
 			(mousedown)="_handlePaginatorPress('after', $event)"
 			(touchend)="_stopInterval()"
 		>
-			<ng-icon name="lucideChevronRight" />
+			<span class="material-symbols-outlined">chevron_right</span>
 		</button>
 	`,
 })

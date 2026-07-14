@@ -1,15 +1,12 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideX } from '@ng-icons/lucide';
 import { BrnComboboxChip } from '@spartan-ng/brain/combobox';
 import { classes } from '@spartan-ng/utils';
 import { HlmComboboxChipRemove } from '@/shared/design/ui/spartan-ng/form/selection/combobox/src/lib/hlm-combobox-chip-remove';
 
 @Component({
 	selector: 'hlm-combobox-chip',
-	imports: [NgIcon, HlmComboboxChipRemove],
-	providers: [provideIcons({ lucideX })],
+	imports: [HlmComboboxChipRemove],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnComboboxChip, inputs: ['value'] }],
 	host: { 'data-slot': 'combobox-chip' },
@@ -18,7 +15,7 @@ import { HlmComboboxChipRemove } from '@/shared/design/ui/spartan-ng/form/select
 
 		@if (showRemove()) {
 			<button hlmComboboxChipRemove>
-				<ng-icon name="lucideX" />
+				<span class="material-symbols-outlined">close</span>
 			</button>
 		}
 	`,

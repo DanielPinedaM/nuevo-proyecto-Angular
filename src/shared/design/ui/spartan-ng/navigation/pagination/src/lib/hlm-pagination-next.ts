@@ -1,8 +1,6 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import type { RouterLink } from '@angular/router';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronRight } from '@ng-icons/lucide';
 import type { ButtonVariants } from '@spartan-ng/button';
 import { hlm } from '@spartan-ng/utils';
 import type { ClassValue } from 'clsx';
@@ -10,8 +8,7 @@ import { HlmPaginationLink } from '@/shared/design/ui/spartan-ng/navigation/pagi
 
 @Component({
 	selector: 'hlm-pagination-next',
-	imports: [HlmPaginationLink, NgIcon],
-	providers: [provideIcons({ lucideChevronRight })],
+	imports: [HlmPaginationLink],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a
@@ -24,7 +21,7 @@ import { HlmPaginationLink } from '@/shared/design/ui/spartan-ng/navigation/pagi
 			[attr.aria-label]="ariaLabel()"
 		>
 			<span [class]="_labelClass()">{{ text() }}</span>
-			<ng-icon name="lucideChevronRight" class="rtl:rotate-180" />
+			<span class="material-symbols-outlined rtl:rotate-180">chevron_right</span>
 		</a>
 	`,
 })

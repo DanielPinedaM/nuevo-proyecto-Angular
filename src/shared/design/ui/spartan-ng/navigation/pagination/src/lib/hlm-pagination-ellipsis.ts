@@ -1,16 +1,12 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideEllipsis } from '@ng-icons/lucide';
 import { classes } from '@spartan-ng/utils';
 
 @Component({
 	selector: 'hlm-pagination-ellipsis',
-	imports: [NgIcon],
-	providers: [provideIcons({ lucideEllipsis })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { 'data-slot': 'pagination-ellipsis' },
 	template: `
-		<ng-icon name="lucideEllipsis" />
+		<span class="material-symbols-outlined">more_horiz</span>
 		<span class="sr-only">{{ srOnlyText() }}</span>
 	`,
 })
@@ -19,6 +15,6 @@ export class HlmPaginationEllipsis {
 	public readonly srOnlyText = input<string>('More pages');
 
 	constructor() {
-		classes(() => 'size-8 [&_ng-icon:not([class*=\'text-\'])]:text-[length:--spacing(4)] flex items-center justify-center');
+		classes(() => 'size-8 [&_.material-symbols-outlined:not([class*=\'text-\'])]:text-[length:--spacing(4)] flex items-center justify-center');
 	}
 }

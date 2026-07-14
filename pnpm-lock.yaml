@@ -231,12 +231,6 @@ importers:
       '@angular/router':
         specifier: ^22.0.2
         version: 22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
-      '@ng-icons/core':
-        specifier: '>=32.0.0 <34.0.0'
-        version: 33.4.0(@angular-devkit/schematics@22.0.4(chokidar@5.0.0))(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(@schematics/angular@22.0.4(chokidar@5.0.0))(rxjs@7.8.2)
-      '@ng-icons/lucide':
-        specifier: '>=32.0.0 <34.0.0'
-        version: 33.4.0
       '@ngneat/overview':
         specifier: ^8.1.0
         version: 8.1.0(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))
@@ -2144,18 +2138,6 @@ packages:
 
   '@napi-rs/wasm-runtime@1.0.7':
     resolution: {integrity: sha512-SeDnOO0Tk7Okiq6DbXmmBODgOAb9dp9gjlphokTUxmt8U3liIP1ZsozBahH69j/RJv+Rfs6IwUKHTgQYJ/HBAw==}
-
-  '@ng-icons/core@33.4.0':
-    resolution: {integrity: sha512-UGAs6q67mdS87qJE3u3iXVjnaKxxB8ALxCWvxQz+vDaE/3o9OpgCPrL4ZZIwPOYjBER0YUPctJNy6ng1C24FEA==}
-    peerDependencies:
-      '@angular-devkit/schematics': '>=21.0.0'
-      '@angular/common': '>=21.0.0'
-      '@angular/core': '>=21.0.0'
-      '@schematics/angular': '>=21.0.0'
-      rxjs: ^6.5.3 || ^7.4.0
-
-  '@ng-icons/lucide@33.4.0':
-    resolution: {integrity: sha512-fOztOy5T+Y07fru7nWq27PC96B35Y2DeJY357ZeKBr5R1yUJhxqQXPRcxOf+wrTJes8I20sKBqfWhHH1eiL9JQ==}
 
   '@ngneat/overview@8.1.0':
     resolution: {integrity: sha512-AX1Q8g7gH8S571TIYVGQ/qORF6MkbPR0RvlYu9OoRg/awOmJWKUO5s6+w9hKlAHt9CTPwXgoNwh3gRXAJAF+Mg==}
@@ -8540,19 +8522,6 @@ snapshots:
       '@emnapi/runtime': 1.11.2
       '@tybys/wasm-util': 0.10.3
     optional: true
-
-  '@ng-icons/core@33.4.0(@angular-devkit/schematics@22.0.4(chokidar@5.0.0))(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(@schematics/angular@22.0.4(chokidar@5.0.0))(rxjs@7.8.2)':
-    dependencies:
-      '@angular-devkit/schematics': 22.0.4(chokidar@5.0.0)
-      '@angular/common': 22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
-      '@angular/core': 22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2)
-      '@schematics/angular': 22.0.4(chokidar@5.0.0)
-      rxjs: 7.8.2
-      tslib: 2.8.1
-
-  '@ng-icons/lucide@33.4.0':
-    dependencies:
-      tslib: 2.8.1
 
   '@ngneat/overview@8.1.0(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)(zone.js@0.16.2))':
     dependencies:
