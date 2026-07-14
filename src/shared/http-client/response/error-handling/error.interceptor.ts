@@ -3,9 +3,9 @@ import {
   FALLBACK_MESSAGE,
 } from '@/shared/http-client/data-types/constants/http-client.const';
 import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
-import { ErrorHandlerHelperService } from '@/shared/http-client/response/error-handling/services/error-handler-helper.service';
 import { GlobalErrorHandlerService } from '@/shared/http-client/response/error-handling/services/global-error-handler.service';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
+import { HttpClientHelpersService } from '@/shared/http-client/services/http-client-helpers.service';
 import { HttpLogService } from '@/shared/http-client/services/http-log.service';
 import { HttpErrorResponse, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
@@ -13,18 +13,19 @@ import { catchError, of } from 'rxjs';
 
 /**
  * normaliza las respuestas HTTP ERRONEAS al contrato ApiResponse<T>, delegando la
- * validacion/normalizacion en ApiResponseNormalizerService y el manejo global de
- * errores (401/403/404/5xx) en GlobalErrorHandlerService.
+ * validacion/normalizacion en ApiResponseNormalizerService, el manejo global de
+ * errores (401/403/404/5xx) en GlobalErrorHandlerService y la validacion del
+ * http status real en HttpClientHelpersService.getRealHttpStatus.
  * NO contiene logica de negocio de features */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const errorHandlerHelper = inject(ErrorHandlerHelperService);
+  const httpClientHelpers = inject(HttpClientHelpersService);
   const globalErrorHandler = inject(GlobalErrorHandlerService);
   const normalizer = inject(ApiResponseNormalizerService);
   const httpLog = inject(HttpLogService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      const status: number = errorHandlerHelper.getRealHttpStatus(
+      const status: number = httpClientHelpers.getRealHttpStatus(
         error?.error?.[API_RESPONSE_KEYS.status],
         error.status,
       );

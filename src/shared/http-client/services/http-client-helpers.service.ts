@@ -22,6 +22,29 @@ export class HttpClientHelpersService {
   }
 
   /**
+   * devuelve el http status real de una respuesta HTTP (exitosa o fallida).
+   *
+   * - `apiStatus`: status declarado en el body de la respuesta, accedido con
+   *   `API_RESPONSE_KEYS.status`; solo existe si el backend devolvió un JSON que sigue el
+   *   contrato `ApiResponse<T>`. Se usa ÚNICAMENTE para advertir en consola cuando no
+   *   coincide con `httpStatus`, NUNCA se retorna.
+   *
+   * - `httpStatus`: propiedad propia y tipada `status: number` de `HttpResponse` /
+   *   `HttpErrorResponse`, que refleja el código HTTP REAL de la respuesta (200, 404, 500,
+   *   etc.), capturado directamente por `HttpClient`. NO pertenece al contrato
+   *   `ApiResponse<T>`. SIEMPRE es el valor de retorno. */
+  getRealHttpStatus(apiStatus: unknown, httpStatus: number): number {
+    if (typeof apiStatus === 'number' && apiStatus !== httpStatus) {
+      console.error('❌ error de backend (NO de frontend): el status declarado en el body de la API (apiStatus) no coincide con el http status real de la respuesta (httpStatus)', {
+        apiStatus,
+        httpStatus,
+      });
+    }
+
+    return httpStatus;
+  }
+
+  /**
    * ¿la variable es un archivo? */
   isFile(value: unknown): boolean {
     if (!value) return false;
