@@ -22,7 +22,7 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
 
       const status: number = httpClientHelpers.getRealHttpStatus(
         httpClientHelpers.isLiteralObject(event.body)
-          ? event.body[API_RESPONSE_KEYS.status]
+          ? event.body?.[API_RESPONSE_KEYS.status]
           : undefined,
         event.status,
       );
