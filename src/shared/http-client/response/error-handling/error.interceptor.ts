@@ -55,7 +55,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       httpLog.errorLogs(req, normalized);
 
       /**
-       * esto NO es un bug, es intencional para estandarizar respuesta de APIs.
+       * esto NO es un bug, es una desicion de arquitectura, intencional para estandarizar respuesta de APIs.
        *
        * El error se "traga", NUNCA se propaga con throw ni llega al consumidor;
        * en su lugar, se emite una respuesta sintetica envuelta en ApiResponse<T> mediante of(...)
