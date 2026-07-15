@@ -47,7 +47,7 @@ export class ApiResponseNormalizerService {
      * Flujo del message:
      * 1. Ambos interceptores (success.interceptor y error.interceptor) le entregan el body crudo al normalizer.
      *
-     * 2. El normalizer intenta extraer API_RESPONSE_KEYS.message del body — esto pasa igual en exito y en error.
+     * 2. El normalizer intenta extraer API_RESPONSE_KEYS.message del body — esto pasa igual en success.interceptor y en error.interceptor.
      *
      * 3. Si el body NO trae la key message, o la trae pero su value no es un string:
      *  en el error.interceptor usa error.message, propiedad propia y tipada (message: string) de la
