@@ -2173,7 +2173,7 @@ Internal APIs     External APIs
 ```
 
 ## Reglas de `src\shared\http-client`
-1. **PROHIBIDO** meter logica de negocio/dominio dentro de cualquier archivo que esta dentro de `src\shared\http-client`, todo este codigo tiene que ser agnostico.
+1. **PROHIBIDO** escribir logica de negocio/dominio en cualquier archivo de `src\shared\http-client`: todo su codigo tiene que ser agnostico al negocio, es decir, limitarse a responsabilidades transversales de HTTP (interceptores, normalizacion del contrato `ApiResponse<T>`, manejo global de errores, loader, logs) y funcionar igual en cualquier proyecto sin conocer las features que lo consumen.
 
 ## Reglas OBLIGATORIAS para Consumir API
 1. **PROHIBIDO** usar cualquier otro metodo para consumir APIs que no sea HttpClient como fetch o axios directo
