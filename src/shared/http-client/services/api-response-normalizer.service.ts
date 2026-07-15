@@ -26,11 +26,13 @@ export class ApiResponseNormalizerService {
    * message string. error.interceptor pasa error.message (mensaje generado por Angular que
    * vive FUERA del body y que normalize no puede deducir); success.interceptor no lo pasa
    * porque en el exito no existe fuente de mensaje externa al body, y aplica el default
-   * FALLBACK_MESSAGE */
+   * FALLBACK_MESSAGE(status): el texto estandar del codigo HTTP
+   * (200 -> OK, 404 -> Not Found, etc.),
+   * o un mensaje generico si el status no esta mapeado */
   normalize<T>(
     rawBody: unknown,
     status: number,
-    fallbackMessage = FALLBACK_MESSAGE,
+    fallbackMessage = FALLBACK_MESSAGE(status),
   ): ApiResponse<T> {
     /**
      Caso 1:
@@ -52,7 +54,8 @@ export class ApiResponseNormalizerService {
      *  clase HttpErrorResponse de @angular/common/http, cuyo texto lo genera HttpClient al fallar
      *  la peticion (NO viene del backend ni del body);
      *
-     *  en el success.interceptor usa el default FALLBACK_MESSAGE */
+     *  en el success.interceptor usa el default FALLBACK_MESSAGE(status), que devuelve el texto
+     *  estandar del codigo HTTP, o un mensaje generico si el status no esta mapeado */
     const messageFromBodyOrFallback: string = this.hasStringMessage(rawBody)
       ? rawBody[API_RESPONSE_KEYS.message]
       : fallbackMessage;

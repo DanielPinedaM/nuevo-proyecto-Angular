@@ -42,7 +42,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       globalErrorHandler.handle(realStatus, req.url);
 
       // acceder al mensaje de error de Angular
-      const errorMessage: string = error?.message ?? FALLBACK_MESSAGE;
+      const errorMessage: string = error?.message ?? FALLBACK_MESSAGE(realStatus);
 
       // normalizacion delegada al intermediario (mismo contrato que el success.interceptor)
       const normalized: ApiResponse<unknown> = normalizer.normalize(
