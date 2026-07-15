@@ -2200,6 +2200,26 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
    this.http.get<ApiResponse<T>>(url, { context: new HttpContext().set(SHOW_LOADER, false) });
    ```
 
+6. **OBLIGATORIO** desestructurar las keys del contrato `ApiResponse<T>` (`success`, `status`, `message`, `data`) al consumir la respuesta. Esta **PROHIBIDO** acceder directamente a las keys sin desestructurar: `response.success`, `response.status`, `response.message` y `response.data`.
+
+**correcto: desestructurar las keys que se necesiten**
+```ts
+const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
+
+if (!success) return;
+
+this.bots.set(data);
+```
+
+**incorrecto: acceder con la notacion de punto sin desestructurar**
+```ts
+const response = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
+
+if (!response.success) return;
+
+this.bots.set(response.data);
+```
+
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
 ## Casos Donde Usar Observable
