@@ -2233,6 +2233,10 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 
 9. **OBLIGATORIO** construir la URL de toda peticion HTTP concatenando `environment.api` + el endpoint. `environment.api` es la URL base de la API segun el entorno de ejecucion (por ejemplo `'http://localhost:3000/api/v1/'`), asi el mismo codigo funciona en localhost, pruebas y produccion sin modificar nada. Esta **PROHIBIDO** quemar (hardcodear) la URL base en la peticion.
 
+10. **PROHIBIDO** usar `async/await` con `lastValueFrom()` de RxJS: la unica forma permitida de convertir el Observable de `HttpClient` en Promise es `firstValueFrom()`. Razon: `firstValueFrom()` resuelve apenas llega la PRIMERA emision, mientras que `lastValueFrom()` solo resuelve cuando el Observable se COMPLETA; aplicado a un stream que nunca se completa, la Promise queda colgada para siempre y el `await` bloquea ese flujo indefinidamente. En una peticion HTTP ambos se comportan igual (HttpClient emite un unico valor y completa), por eso se estandariza `firstValueFrom()` como unico patron.
+
+11. **PROHIBIDO** usar `toPromise()` para consumir APIs: esta deprecado desde RxJS 7 y eliminado en RxJS 8, por lo que es codigo legacy que rompera al actualizar la libreria. Ademas su comportamiento es ambiguo: resuelve con el ULTIMO valor solo cuando el Observable se completa y resuelve con `undefined` si se completa sin emitir, lo que obliga a tipar el resultado como `T | undefined`. El reemplazo oficial y unico permitido en este proyecto es `firstValueFrom()` (ver regla 10).
+
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
 ## Casos Donde Usar Observable
