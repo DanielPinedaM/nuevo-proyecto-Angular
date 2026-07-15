@@ -16,15 +16,6 @@ export class ApiResponseNormalizerService {
   /**
    * valida y normaliza el body crudo de CUALQUIER respuesta HTTP (exitosa o erronea) al contrato ApiResponse<T>.
    *
-   * Flujo del message:
-   * 1. Ambos interceptores (success.interceptor y error.interceptor) le entregan el body crudo al normalizer.
-   *
-   * 2. El normalizer intenta extraer API_RESPONSE_KEYS.message del body — esto pasa igual en exito y en error.
-   *
-   * 3. Si el body no lo trae:
-   *  en el error.interceptor usa el error.message de Angular;
-   *  en el success.interceptor usa el default FALLBACK_MESSAGE.
-   *
    * @param rawBody body crudo de la respuesta: event.body en success.interceptor,
    * error.error en error.interceptor
    *
@@ -49,12 +40,27 @@ export class ApiResponseNormalizerService {
     /*
     Caso 2:
     la API NO cumple el contrato                  -> se envuelve en ApiResponse<T> (success se deriva del status). */
+
+    /*
+     * Flujo del message:
+     * 1. Ambos interceptores (success.interceptor y error.interceptor) le entregan el body crudo al normalizer.
+     *
+     * 2. El normalizer intenta extraer API_RESPONSE_KEYS.message del body — esto pasa igual en exito y en error.
+     *
+     * 3. Si el body NO trae la key message, o la trae pero su value no es un string:
+     *  en el error.interceptor usa error.message, propiedad propia y tipada (message: string) de la
+     *  clase HttpErrorResponse de @angular/common/http, cuyo texto lo genera HttpClient al fallar
+     *  la peticion (NO viene del backend ni del body);
+     *
+     *  en el success.interceptor usa el default FALLBACK_MESSAGE */
+    const messageFromBodyOrFallback: string = this.hasStringMessage(rawBody)
+      ? rawBody[API_RESPONSE_KEYS.message]
+      : fallbackMessage;
+
     return {
       success: this.isSuccessStatus(status),
       status,
-      message: this.hasStringMessage(rawBody)
-        ? rawBody[API_RESPONSE_KEYS.message]
-        : fallbackMessage,
+      message: messageFromBodyOrFallback,
       data: (rawBody ?? null) as T,
     };
   }
