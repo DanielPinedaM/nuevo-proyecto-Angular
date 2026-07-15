@@ -32,16 +32,16 @@ export class ApiResponseNormalizerService {
     status: number,
     fallbackMessage = FALLBACK_MESSAGE,
   ): ApiResponse<T> {
-    /*
+    /**
      Caso 1:
      la API SI cumple el contrato ApiResponse<T>  -> se retorna la respuesta tal cual, SIN modificar. */
     if (this.isApiContract<T>(rawBody)) return rawBody;
 
-    /*
+    /**
     Caso 2:
     la API NO cumple el contrato                  -> se envuelve en ApiResponse<T> */
 
-    /*
+    /**
      * Flujo del message:
      * 1. Ambos interceptores (success.interceptor y error.interceptor) le entregan el body crudo al normalizer.
      *
