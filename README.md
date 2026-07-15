@@ -2204,40 +2204,40 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 
 **correcto: desestructurar las keys que se necesiten**
 ```ts
-const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
+const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Task[]>>(url));
 
 if (!success) return;
 
-this.bots.set(data);
+this.tasks.set(data);
 ```
 
 **incorrecto: acceder con la notacion de punto sin desestructurar**
 ```ts
-const response = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
+const response = await firstValueFrom(this.http.get<ApiResponse<Task[]>>(url));
 
 if (!response.success) return;
 
-this.bots.set(response.data);
+this.tasks.set(response.data);
 ```
 
 7. **OBLIGATORIO** usar early return pattern al validar la key `success` de las peticiones HTTP: validar primero el caso fallido y salir de inmediato con `if (!success) return;`, para que la logica principal quede en el nivel raiz de la funcion, sin anidacion.
 
 **correcto: early return, la logica principal queda sin anidacion**
 ```ts
-const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
+const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Task[]>>(url));
 
 if (!success) return;
 
-this.bots.set(data);
+this.tasks.set(data);
 ```
 
 **incorrecto: anidar la logica principal dentro del if**
 ```ts
-const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
+const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Task[]>>(url));
 
 if (success) {
    if (data.length) {
-      this.bots.set(data);
+      this.tasks.set(data);
     }
 }
 ```
