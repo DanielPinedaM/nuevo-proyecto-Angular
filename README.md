@@ -2158,9 +2158,9 @@ Internal APIs     External APIs
 ## Reglas para Consumir API
 * **PROHIBIDO** usar cualquier otro metodo que no sea HttpClient como fetch o axios directo
 
-* **PROHIBIDO** usar `try/catch` y sus equivalentes de Angular/RxJS: `catchError()` de RxJS, el callback `error` de `subscribe({ next, error })`, `.catch()` de Promises con `firstValueFrom()`
+* **PROHIBIDO** usar `try/catch` y sus equivalentes de Angular/RxJS: `catchError()` de RxJS, el callback `error` de `subscribe({ next, error })`, `.catch()` de Promises con `firstValueFrom()`. Esto NO es un bug, es una desicion de arquitectura, intencional para estandarizar respuesta de APIs.
 
-*
+* **SIEMPRE** todas las peticiones HTTP exitosas y erroneas tienen que validarse con `response.success`
 
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
