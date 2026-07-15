@@ -2197,15 +2197,31 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
    **Caso muy especial (extremadamente raro):** se permite desactivar el icono de cargando **EXCLUSIVAMENTE** en peticiones HTTP donde, por experiencia de usuario, sea totalmente necesario **NO** bloquear la UI (pantalla) con el `position: fixed` del componente `fixed-loader`. Para ese unico caso, pasar el token `SHOW_LOADER` (exportado por `loader.interceptor.ts`, por defecto `true`) en `false` en esa peticion concreta:
 
    ```ts
-   this.http.get<ApiResponse<T>>(url, { context: new HttpContext().set(SHOW_LOADER, false) });
+   import { environment } from '@/environments/environment';
+
+   async getTasks(): Promise<void> {
+     const { success, data } = await firstValueFrom(
+       this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`, {
+         context: new HttpContext().set(SHOW_LOADER, false),
+       }),
+     );
+
+     if (!success) return;
+
+     this.tasks.set(data);
+   }
    ```
 
 6. **OBLIGATORIO** desestructurar las keys del contrato `ApiResponse<T>` (`success`, `status`, `message`, `data`) al consumir la respuesta. Esta **PROHIBIDO** acceder directamente a las keys sin desestructurar: `response.success`, `response.status`, `response.message` y `response.data`.
 
 **correcto: desestructurar las keys que se necesiten**
 ```ts
+import { environment } from '@/environments/environment';
+
 async getTasks(): Promise<void> {
-  const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Task[]>>(url));
+  const { success, data } = await firstValueFrom(
+    this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`),
+  );
 
   if (!success) return;
 
@@ -2215,8 +2231,12 @@ async getTasks(): Promise<void> {
 
 **incorrecto: acceder con la notacion de punto sin desestructurar**
 ```ts
+import { environment } from '@/environments/environment';
+
 async getTasks(): Promise<void> {
-  const response = await firstValueFrom(this.http.get<ApiResponse<Task[]>>(url));
+  const response = await firstValueFrom(
+    this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`),
+  );
 
   if (!response.success) return;
 
@@ -2228,8 +2248,12 @@ async getTasks(): Promise<void> {
 
 **correcto: early return, la logica principal queda sin anidacion**
 ```ts
+import { environment } from '@/environments/environment';
+
 async getTasks(): Promise<void> {
-  const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Task[]>>(url));
+  const { success, data } = await firstValueFrom(
+    this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`),
+  );
 
   if (!success) return;
 
@@ -2239,8 +2263,12 @@ async getTasks(): Promise<void> {
 
 **incorrecto: anidar la logica principal dentro del if**
 ```ts
+import { environment } from '@/environments/environment';
+
 async getTasks(): Promise<void> {
-  const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Task[]>>(url));
+  const { success, data } = await firstValueFrom(
+    this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`),
+  );
 
   if (success) {
     if (data.length) {
