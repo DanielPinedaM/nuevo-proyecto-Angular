@@ -2156,6 +2156,11 @@ Internal APIs     External APIs
 ## Reglas de `src\shared\http-client`
 
 ## Reglas para Consumir API
+* **PROHIBIDO** usar cualquier otro metodo que no sea HttpClient como fetch o axios directo
+
+* **PROHIBIDO** usar `try/catch` y sus equivalentes de Angular/RxJS: `catchError()` de RxJS, el callback `error` de `subscribe({ next, error })`, `.catch()` de Promises con `firstValueFrom()`
+
+*
 
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
