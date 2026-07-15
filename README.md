@@ -2236,7 +2236,9 @@ this.bots.set(data);
 const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
 
 if (success) {
-  this.bots.set(data);
+   if (data.length) {
+      this.bots.set(data);
+    }
 }
 ```
 
