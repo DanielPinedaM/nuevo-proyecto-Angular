@@ -2220,7 +2220,25 @@ if (!response.success) return;
 this.bots.set(response.data);
 ```
 
-7. 
+7. **OBLIGATORIO** usar early return pattern al validar la key `success` de las peticiones HTTP: validar primero el caso fallido y salir de inmediato con `if (!success) return;`, para que la logica principal quede en el nivel raiz de la funcion, sin anidacion.
+
+**correcto: early return, la logica principal queda sin anidacion**
+```ts
+const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
+
+if (!success) return;
+
+this.bots.set(data);
+```
+
+**incorrecto: anidar la logica principal dentro del if**
+```ts
+const { success, data } = await firstValueFrom(this.http.get<ApiResponse<Bot[]>>(url));
+
+if (success) {
+  this.bots.set(data);
+}
+```
 
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
