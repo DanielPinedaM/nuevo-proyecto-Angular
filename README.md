@@ -2293,17 +2293,7 @@ async getTasks(): Promise<void> {
 ## Casos Donde Usar `toSignal`
 Re-fetch reactivo
 
-
-Además, `GatewayApiService` maneja:
-
-* icono de loader global
-* timeout
-* logging
-* logger
-* validaciones de seguridad (guards)
-
-## ¿Como Desactivar el sticky loader icon de GatewayApiService?
-
+# INCOMPLETO - VERIFICAR Q EN "CONSUMO DE API" HAYA ESCRITO LO Q ESTA EN SIGUIENTE TEXTO
 
 ```txt
 En nuevo proyecto angular
@@ -2338,6 +2328,15 @@ Observable no espera , es asíncrono , es como si pasara derecho , y cuando se r
 first value from usa await por lo q espera antes de continuar con la siguiente linea de código
 
 Observable sirve para hacer debounce
+
+
+Además, `GatewayApiService` maneja:
+
+* icono de loader global
+* timeout
+* logging
+* logger
+* validaciones de seguridad (guards)
 ```
 
 # ❌ Angular Legacy VS ✅ Angular Moderno
