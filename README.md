@@ -2165,12 +2165,18 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 | --------- | -------------------- | --------- |
 | 2xx con body que cumple el contrato | `success.interceptor` → normalizer (Caso 1) | El body pasa tal cual |
 | 2xx con body fuera del contrato (array plano, string, objeto cualquiera, `null` de un 204) | `success.interceptor` → normalizer (Caso 2) | Se envuelve: `success: true`, `data` = body crudo, message del body o `FALLBACK_MESSAGE(status)` |
-| 4xx/5xx con o sin contrato | `error.interceptor` | Se envuelve, el error se "traga" y sale como respuesta sintética; además dispara los handlers globales (401/403/404/429/5xx) |
-| Error de red / servidor caído (`status 0`, body `ProgressEvent`) | `error.interceptor` | `success: false`, message = `error.message` de Angular; el handler global no actúa (status 0 se ignora a propósito) |
-| JSON malformado del backend | `error.interceptor` (Angular lo reporta como error de parsing) | Envuelto con el message de parsing de Angular |
+
 | Petición que tarda >1 minuto | `timeout.interceptor` | Respuesta sintética 408 envuelta |
 | Backend que "miente" (status del body ≠ status HTTP real) | `getRealHttpStatus` en ambos interceptores | Siempre gana el status real de `HttpClient` + `console.error` de alerta |
 | Cualquier petición HTTP en curso (exitosa, errónea o con timeout) | `loader.interceptor` | No toca el body: estandariza el icono de carga global (`fixed-loader`). Un CONTADOR de peticiones activas muestra el loader mientras sea > 0 y `finalize()` lo oculta solo cuando llega a 0, incluso si la respuesta falló; se desactiva por petición con el token `SHOW_LOADER` en `false` |
+
+## Manejo Global de Errores (`src\shared\http-client\response\error-handling`)
+
+| Escenario | Quién lo estandariza | Resultado |
+| --------- | -------------------- | --------- |
+| 4xx/5xx con o sin contrato | `error.interceptor` | Se envuelve, el error se "traga" y sale como respuesta sintética; además dispara los handlers globales (401/403/404/429/5xx) |
+| Error de red / servidor caído (`status 0`, body `ProgressEvent`) | `error.interceptor` | `success: false`, message = `error.message` de Angular; el handler global no actúa (status 0 se ignora a propósito) |
+| JSON malformado del backend | `error.interceptor` (Angular lo reporta como error de parsing) | Envuelto con el message de parsing de Angular |
 
 ## Reglas de `src\shared\http-client`
 1. **PROHIBIDO** escribir logica de negocio/dominio en cualquier archivo de `src\shared\http-client`: todo su codigo tiene que ser agnostico al negocio, es decir, limitarse a responsabilidades transversales de HTTP (interceptores, normalizacion del contrato `ApiResponse<T>`, manejo global de errores, loader, logs) y funcionar igual en cualquier proyecto sin conocer las features que lo consumen.
