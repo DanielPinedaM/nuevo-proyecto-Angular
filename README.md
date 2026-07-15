@@ -2176,6 +2176,7 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 | 4xx/5xx con o sin contrato | `error.interceptor` | Se envuelve, el error se "traga" y sale como respuesta sintética; además dispara los handlers globales (401/403/404/429/5xx) |
 | Error de red / servidor caído (`status 0`, body `ProgressEvent`) | `error.interceptor` | `success: false`, message = `error.message` de Angular; el handler global no actúa (status 0 se ignora a propósito) |
 | JSON malformado del backend | `error.interceptor` (Angular lo reporta como error de parsing) | Envuelto con el message de parsing de Angular |
+| Acciones globales según el status de error (401/403/404/429/5xx) | `global-error-handler.service.ts` (orquestador, invocado por `error.interceptor`) | Redirige cada status a su handler dedicado: 401 → `unauthenticated`, 403 → `forbidden`, 404 → `not-found`, 429 → `too-many-requests` y cualquier status >= 500 se normaliza al bucket 500 → `server-error`. Si el status no está mapeado (o es 0) no ejecuta ninguna acción (noop) |
 
 ## Reglas de `src\shared\http-client`
 1. **PROHIBIDO** escribir logica de negocio/dominio en cualquier archivo de `src\shared\http-client`: todo su codigo tiene que ser agnostico al negocio, es decir, limitarse a responsabilidades transversales de HTTP (interceptores, normalizacion del contrato `ApiResponse<T>`, manejo global de errores, loader, logs) y funcionar igual en cualquier proyecto sin conocer las features que lo consumen.
