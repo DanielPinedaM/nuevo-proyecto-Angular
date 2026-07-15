@@ -39,7 +39,7 @@ export class ApiResponseNormalizerService {
 
     /*
     Caso 2:
-    la API NO cumple el contrato                  -> se envuelve en ApiResponse<T> (success se deriva del status). */
+    la API NO cumple el contrato                  -> se envuelve en ApiResponse<T> */
 
     /*
      * Flujo del message:
@@ -58,7 +58,7 @@ export class ApiResponseNormalizerService {
       : fallbackMessage;
 
     return {
-      success: this.isSuccessStatus(status),
+      success: this.isSuccessStatus(status), // success se deriva del status
       status,
       message: messageFromBodyOrFallback,
       data: (rawBody ?? null) as T,
