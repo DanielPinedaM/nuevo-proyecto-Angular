@@ -14,17 +14,32 @@ import { Service } from '@angular/core';
 @Service()
 export class ApiResponseNormalizerService {
   /**
-   * Caso 1: la API SI cumple el contrato ApiResponse<T>  -> se retorna la respuesta tal cual, SIN modificar.
-   * Caso 2: la API NO cumple el contrato                 -> se envuelve en ApiResponse<T> (success se deriva del status). */
+   * valida y normaliza el body crudo de CUALQUIER respuesta HTTP (exitosa o erronea) al contrato ApiResponse<T>.
+   *
+   * @param rawBody body crudo de la respuesta: event.body en success.interceptor,
+   * error.error en error.interceptor
+   *
+   * @param status http status real de la respuesta, capturado por HttpClient
+   *
+   * @param fallbackMessage NO es "el message que se quiere usar" (eso lo decide normalize
+   * mirando el body con hasStringMessage), es el 'plan B' SOLO para cuando el body no trae
+   * message string. error.interceptor pasa error.message (mensaje generado por Angular que
+   * vive FUERA del body y que normalize no puede deducir); success.interceptor no lo pasa
+   * porque en el exito no existe fuente de mensaje externa al body, y aplica el default
+   * FALLBACK_MESSAGE */
   normalize<T>(
     rawBody: unknown,
     status: number,
     fallbackMessage = FALLBACK_MESSAGE,
   ): ApiResponse<T> {
-    // Caso 1
+    /*
+     Caso 1:
+     la API SI cumple el contrato ApiResponse<T>  -> se retorna la respuesta tal cual, SIN modificar. */
     if (this.isApiContract<T>(rawBody)) return rawBody;
 
-    // Caso 2
+    /*
+    Caso 2:
+    la API NO cumple el contrato                  -> se envuelve en ApiResponse<T> (success se deriva del status). */
     return {
       success: this.isSuccessStatus(status),
       status,
