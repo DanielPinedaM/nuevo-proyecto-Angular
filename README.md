@@ -2190,7 +2190,7 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 
 3. **PROHIBIDO** propagar los errores de las peticiones HTTP: esta prohibido usar `throw new Error()`, `throw error` o `throwError()` de RxJS. Si nadie lanza errores, no existe nada que capturar y el `try/catch` (y sus equivalentes) pierde toda razon de existir
 
-4. **SIEMPRE** todas las peticiones HTTP exitosas y erroneas tienen que validarse con `response.success`: es la key `success: boolean` del contrato `ApiResponse<T>` que envuelve toda respuesta HTTP; la calcula `src\shared\http-client` a partir del http status real de la respuesta (`true` cuando el status es 2xx, `false` en cualquier otro caso). Validar con `response.success` es la sustitucion a la propagacion de errores y al `try/catch`: `if (!success) return;` es la unica validacion que necesita el consumidor
+4. **SIEMPRE** todas las peticiones HTTP exitosas y erroneas tienen que validarse con la key `success`: es la key `success: boolean` del contrato `ApiResponse<T>` que envuelve toda respuesta HTTP; la calcula `src\shared\http-client` a partir del http status real de la respuesta (`true` cuando el status es 2xx, `false` en cualquier otro caso). Validar con la key `success` (desestructurada, ver regla 6) es la sustitucion a la propagacion de errores y al `try/catch`: `if (!success) return;` es la unica validacion que necesita el consumidor
 
 5. **PROHIBIDO** (en la gran mayoria de los casos) crear un estado booleano propio (signal, variable, etc.) para mostrar y ocultar el icono de cargando: `src\shared\http-client\loader\interceptors\loader.interceptor.ts` ya se encarga de mostrarlo y ocultarlo automaticamente en TODAS las peticiones HTTP, a traves del componente `src\shared\http-client\loader\design\ui\fixed-loader`.
 
@@ -2219,6 +2219,8 @@ if (!response.success) return;
 
 this.bots.set(response.data);
 ```
+
+7. 
 
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
