@@ -31,13 +31,14 @@ export const timeoutInterceptor: HttpInterceptorFn = (req, next) => {
     timeout({
       each: TIMEOUT_MS,
       with: () => {
-        // 1) abortar la peticion: timeout cancela la suscripcion al source y aborta el fetch
-        // 2) mensaje de timeout
+        /**
+         * 1) abortar la peticion: timeout cancela la suscripcion al source y aborta el fetch
+         * 2) mensaje de timeout */
         console.error(
           '❌ [timeout.interceptor.ts] Se ha detenido la peticion HTTP porque ha demorado mas de un minuto en responder',
         );
 
-        // 3) logs del timeout
+        /** 3) logs del timeout */
         const normalized: ApiResponse<unknown> = normalizer.normalize(
           null,
           TIMEOUT_STATUS,
@@ -46,7 +47,7 @@ export const timeoutInterceptor: HttpInterceptorFn = (req, next) => {
 
         httpLog.timeoutLogs(req, normalized);
 
-        // respuesta sintetica envuelta en ApiResponse<T> (el error no se propaga al consumidor)
+        /** respuesta sintetica envuelta en ApiResponse<T> (el error no se propaga al consumidor) */
         return of(
           new HttpResponse({
             body: normalized,

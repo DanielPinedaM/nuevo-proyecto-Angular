@@ -20,11 +20,12 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
     map((event: HttpEvent<unknown>) => {
       if (!(event instanceof HttpResponse)) return event;
 
-      // event.body es unknown, se MANTIENE el tipado estricto en una constante
-      // aqui NO hay conversion, Angular ya tipa event.body como unknown, a diferencia de error.interceptor
+      /**
+       * event.body es unknown, se MANTIENE el tipado estricto en una constante
+       * aqui NO hay conversion, Angular ya tipa event.body como unknown, a diferencia de error.interceptor */
       const successBody: unknown = event.body;
 
-      // status declarado en el body, SOLO si el backend respondio un objeto literal {}
+      /** status declarado en el body, SOLO si el backend respondio un objeto literal {} */
       const apiStatus: unknown = httpClientHelpers.isLiteralObject(successBody)
         ? successBody?.[API_RESPONSE_KEYS.status]
         : undefined;
@@ -33,13 +34,14 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
 
       const realStatus: number = httpClientHelpers.getRealHttpStatus(apiStatus, httpStatus);
 
-      // normalizacion delegada al intermediario (mismo contrato que el error.interceptor);
-      // NO se pasa message: extraerlo/validarlo del body es responsabilidad del normalizer
+      /**
+       * normalizacion delegada al intermediario (mismo contrato que el error.interceptor);
+       * NO se pasa message: extraerlo/validarlo del body es responsabilidad del normalizer */
       const normalized: ApiResponse<unknown> = normalizer.normalize(successBody, realStatus);
 
       httpLog.successLogs(req, normalized);
 
-      // se reemplaza el body por la respuesta ya envuelta en ApiResponse<T>
+      /** se reemplaza el body por la respuesta ya envuelta en ApiResponse<T> */
       return event.clone({ body: normalized });
     }),
   );

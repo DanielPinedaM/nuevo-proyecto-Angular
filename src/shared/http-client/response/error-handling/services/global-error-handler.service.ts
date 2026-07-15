@@ -33,7 +33,7 @@ export class GlobalErrorHandlerService {
   private resolveHandler(status: number): (url: string) => void {
     const noop = (): void => {};
 
-    // objeto: status HTTP -> handler que lo resuelve
+    /** objeto: status HTTP -> handler que lo resuelve */
     const HANDLER_BY_STATUS: Record<number, (url: string) => void> = {
       401: (url: string) => this.unauthenticated.handle(url),
       403: (url: string) => this.forbidden.handle(url),
@@ -42,7 +42,7 @@ export class GlobalErrorHandlerService {
       500: (url: string) => this.serverError.handle(url),
     };
 
-    // normaliza cualquier status >= 500 al bucket 500 (errores de servidor)
+    /** normaliza cualquier status >= 500 al bucket 500 (errores de servidor) */
     const key: number = status >= 500 ? 500 : status;
 
     return HANDLER_BY_STATUS[key] ?? noop;

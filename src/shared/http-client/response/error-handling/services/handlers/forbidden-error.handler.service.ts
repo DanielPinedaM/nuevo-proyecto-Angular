@@ -20,7 +20,7 @@ export class ForbiddenErrorHandlerService {
       url: url,
     });
 
-    // devolverme a la web anterior en el historial cuando el status sea 403
+    /** devolverme a la web anterior en el historial cuando el status sea 403 */
     this.helper.returnToBrowserHistory();
 
     this.toast.info('Acceso denegado, no tiene permisos para realizar esta acción');

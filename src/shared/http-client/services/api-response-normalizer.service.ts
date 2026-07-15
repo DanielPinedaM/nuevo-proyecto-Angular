@@ -61,7 +61,7 @@ export class ApiResponseNormalizerService {
       : fallbackMessage;
 
     return {
-      success: this.isSuccessStatus(status), // success se deriva del status
+      success: this.isSuccessStatus(status), /** success se deriva del status */
       status,
       message: messageFromBodyOrFallback,
       data: (rawBody ?? null) as T,
@@ -78,12 +78,12 @@ export class ApiResponseNormalizerService {
 
     const response = value as Record<keyof ApiResponse, unknown>;
 
-    // (a) que las keys existan
+    /** (a) que las keys existan */
     const hasAllKeys: boolean = REQUIRED_KEYS.every((key) => key in response);
 
     if (!hasAllKeys) return false;
 
-    // (b) que los tipos de datos de los values sean correctos (data NO se valida porque es tipo <T>)
+    /** (b) que los tipos de datos de los values sean correctos (data NO se valida porque es tipo <T>) */
     return (
       typeof response?.[API_RESPONSE_KEYS.success] === 'boolean' &&
       typeof response?.[API_RESPONSE_KEYS.status] === 'number' &&
