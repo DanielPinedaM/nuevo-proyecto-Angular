@@ -2148,14 +2148,21 @@ import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-cli
 Toda petición tiene que pasa primero por `src\shared\http-client`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
 
 ```txt
-Frontend
-    ↓
-httpResource / HttpClient
-    ↓
-┌────────┴────────┐
-↓                 ↓
-Internal APIs     External APIs
-(Servicio interno)（Servicio externo / Third-Party)
+┌──────────────────────────────┐
+│           Frontend           │
+└──────────────┬───────────────┘
+               │
+               ↓
+┌──────────────────────────────┐
+│  httpResource / HttpClient   │
+└──────────────┬───────────────┘
+               │
+          ┌────┴─────────────────────────┐
+          ↓                              ↓
+┌────────────────────┐  ┌──────────────────────────────────┐
+│   Internal APIs    │  │          External APIs           │
+│ (Servicio interno) │  │ (Servicio externo / Third-Party) │
+└────────────────────┘  └──────────────────────────────────┘
 ```
 
 ## 📥 Estandarización de Respuestas al Contrato `ApiResponse<T>`
