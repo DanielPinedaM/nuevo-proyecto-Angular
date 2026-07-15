@@ -2186,6 +2186,14 @@ Internal APIs     External APIs
 
 4. **SIEMPRE** todas las peticiones HTTP exitosas y erroneas tienen que validarse con `response.success`: es la key `success: boolean` del contrato `ApiResponse<T>` que envuelve toda respuesta HTTP; la calcula `src\shared\http-client` a partir del http status real de la respuesta (`true` cuando el status es 2xx, `false` en cualquier otro caso). Validar con `response.success` es la sustitucion a la propagacion de errores y al `try/catch`: `if (!success) return;` es la unica validacion que necesita el consumidor
 
+5. **PROHIBIDO** (en la gran mayoria de los casos) crear un estado booleano propio (signal, variable, etc.) para mostrar y ocultar el icono de cargando: `src\shared\http-client\loader\interceptors\loader.interceptor.ts` ya se encarga de mostrarlo y ocultarlo automaticamente en TODAS las peticiones HTTP, a traves del componente `src\shared\http-client\loader\design\ui\fixed-loader`.
+
+   **Caso muy especial (extremadamente raro):** se permite desactivar el icono de cargando **EXCLUSIVAMENTE** en peticiones HTTP donde, por experiencia de usuario, sea totalmente necesario **NO** bloquear la UI (pantalla) con el `position: fixed` del componente `fixed-loader`. Para ese unico caso, pasar el token `SHOW_LOADER` (exportado por `loader.interceptor.ts`, por defecto `true`) en `false` en esa peticion concreta:
+
+   ```ts
+   this.http.get<ApiResponse<T>>(url, { context: new HttpContext().set(SHOW_LOADER, false) });
+   ```
+
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
 ## Casos Donde Usar Observable
