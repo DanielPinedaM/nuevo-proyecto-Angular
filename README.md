@@ -2126,6 +2126,19 @@ Cambiar la ubicación del icono y texto en el HTML, sin usar Sass ni Tailwind.
 
 # 🔌 Consumo de API
 
+## 📥 Estandarización de Respuestas al Contrato `ApiResponse<T>`
+Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiResponse<T>`, sin importar el escenario:
+
+| Escenario | Quién lo estandariza | Resultado |
+| --------- | -------------------- | --------- |
+| 2xx con body que cumple el contrato | `success.interceptor` → normalizer (Caso 1) | El body pasa tal cual |
+| 2xx con body fuera del contrato (array plano, string, objeto cualquiera, `null` de un 204) | `success.interceptor` → normalizer (Caso 2) | Se envuelve: `success: true`, `data` = body crudo, message del body o `FALLBACK_MESSAGE(status)` |
+| 4xx/5xx con o sin contrato | `error.interceptor` | Se envuelve, el error se "traga" y sale como respuesta sintética; además dispara los handlers globales (401/403/404/429/5xx) |
+| Error de red / servidor caído (`status 0`, body `ProgressEvent`) | `error.interceptor` | `success: false`, message = `error.message` de Angular; el handler global no actúa (status 0 se ignora a propósito) |
+| JSON malformado del backend | `error.interceptor` (Angular lo reporta como error de parsing) | Envuelto con el message de parsing de Angular |
+| Petición que tarda >1 minuto | `timeout.interceptor` | Respuesta sintética 408 envuelta |
+| Backend que "miente" (status del body ≠ status HTTP real) | `getRealHttpStatus` en ambos interceptores | Siempre gana el status real de `HttpClient` + `console.error` de alerta |
+
 ## 🔀 Flujo para Consumir API:
 Toda petición tiene que pasa primero por `src\shared\http-client`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
 
