@@ -2141,7 +2141,7 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 | Cualquier petición HTTP en curso (exitosa, errónea o con timeout) | `loader.interceptor` | No toca el body: estandariza el icono de carga global (`fixed-loader`). Un CONTADOR de peticiones activas muestra el loader mientras sea > 0 y `finalize()` lo oculta solo cuando llega a 0, incluso si la respuesta falló; se desactiva por petición con el token `SHOW_LOADER` en `false` |
 
 ## Contrato `ApiResponse<T>`
-Contrato que define el tipo de dato con el que responden todas las APIs:
+`ApiResponse<T>` es la interface que define la estructura unica con la que el frontend recibe **TODAS** las respuestas de las APIs (internas y externas). Sin importar que responda el backend, `src\shared\http-client` envuelve toda respuesta HTTP en este contrato; el generico `<T>` tipa el contenido de `data`:
 
 ```ts
 export interface ApiResponse<T = any> {
@@ -2152,12 +2152,11 @@ export interface ApiResponse<T = any> {
 }
 ```
 
-Se importa asi:
+Ruta del import:
 
 ```ts
 import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 ```
-
 
 ## 🔀 Flujo para Consumir API:
 Toda petición tiene que pasa primero por `src\shared\http-client`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
