@@ -1,7 +1,4 @@
-import {
-  API_RESPONSE_KEYS,
-  FALLBACK_MESSAGE,
-} from '@/shared/http-client/data-types/constants/http-client.const';
+import { API_RESPONSE_KEYS } from '@/shared/http-client/data-types/constants/http-client.const';
 import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
 import { ApiResponseNormalizerService } from '@/shared/http-client/services/api-response-normalizer.service';
 import { HttpClientHelpersService } from '@/shared/http-client/services/http-client-helpers.service';
@@ -32,21 +29,13 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
         ? successBody?.[API_RESPONSE_KEYS.status]
         : undefined;
 
-      // message declarado en el body, SOLO si el backend respondio un objeto literal {}
-      const apiMessage: unknown = httpClientHelpers.isLiteralObject(successBody)
-        ? successBody?.[API_RESPONSE_KEYS.message]
-        : undefined;
-
       const httpStatus: number = event.status;
 
       const realStatus: number = httpClientHelpers.getRealHttpStatus(apiStatus, httpStatus);
 
-      // normalizacion delegada al intermediario (mismo contrato que el error.interceptor)
-      const normalized: ApiResponse<unknown> = normalizer.normalize(
-        successBody,
-        realStatus,
-        typeof apiMessage === 'string' ? apiMessage : FALLBACK_MESSAGE,
-      );
+      // normalizacion delegada al intermediario (mismo contrato que el error.interceptor);
+      // NO se pasa message: extraerlo/validarlo del body es responsabilidad del normalizer
+      const normalized: ApiResponse<unknown> = normalizer.normalize(successBody, realStatus);
 
       httpLog.successLogs(req, normalized);
 
