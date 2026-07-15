@@ -2285,6 +2285,34 @@ async getTasks(): Promise<void> {
 }
 ```
 
+8. **OBLIGATORIO** importar los environment SIEMPRE desde el archivo base `@/environments/environment`. Esta **PROHIBIDO** importar directamente un archivo de entorno especifico (`environment.localhost`, `environment.test`, `environment.prod`): el build de Angular (`fileReplacements` segun el script de `package.json`) es quien reemplaza el archivo base por el del entorno que corresponda; importar uno especifico quema el entorno y rompe ese reemplazo.
+
+**correcto: importar el archivo base, el build resuelve el entorno**
+```ts
+import { environment } from '@/environments/environment';
+```
+
+**incorrecto: importar un archivo de entorno especifico**
+```ts
+import { environment } from '@/environments/environment.localhost';
+import { environment } from '@/environments/environment.test';
+import { environment } from '@/environments/environment.prod';
+```
+
+9. **OBLIGATORIO** construir la URL de toda peticion HTTP concatenando `environment.api` + el endpoint. `environment.api` es la URL base de la API segun el entorno de ejecucion (por ejemplo `'http://localhost:3000/api/v1/'`), asi el mismo codigo funciona en localhost, pruebas y produccion sin modificar nada. Esta **PROHIBIDO** quemar (hardcodear) la URL base en la peticion.
+
+**correcto: concatenar environment.api con el endpoint**
+```ts
+import { environment } from '@/environments/environment';
+
+this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`);
+```
+
+**incorrecto: quemar (hardcodear) la URL base en la peticion**
+```ts
+this.http.get<ApiResponse<Task[]>>('http://localhost:3000/api/v1/tasks');
+```
+
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
 ## Casos Donde Usar Observable
