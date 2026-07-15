@@ -2139,6 +2139,25 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 | Petición que tarda >1 minuto | `timeout.interceptor` | Respuesta sintética 408 envuelta |
 | Backend que "miente" (status del body ≠ status HTTP real) | `getRealHttpStatus` en ambos interceptores | Siempre gana el status real de `HttpClient` + `console.error` de alerta |
 
+## Contrato `ApiResponse<T>`
+Contrato que define el tipo de dato con el que responden todas las APIs:
+
+```ts
+export interface ApiResponse<T = any> {
+  success: boolean;
+  status: number;
+  message: string;
+  data: T;
+}
+```
+
+Se importa asi:
+
+```ts
+import { ApiResponse } from '@/shared/http-client/data-types/interfaces/http-client.interface';
+```
+
+
 ## 🔀 Flujo para Consumir API:
 Toda petición tiene que pasa primero por `src\shared\http-client`, y desde ahí se dirige a las APIs internas y externas. Los dos destinos posibles del flujo son:
 
@@ -2154,17 +2173,18 @@ Internal APIs     External APIs
 ```
 
 ## Reglas de `src\shared\http-client`
+1. **PROHIBIDO** meter logica de negocio/dominio dentro de cualquier archivo que esta dentro de `src\shared\http-client`, todo este codigo tiene que ser agnostico.
 
-## Reglas para Consumir API
-1. **PROHIBIDO** usar cualquier otro metodo que no sea HttpClient como fetch o axios directo
+## Reglas OBLIGATORIAS para Consumir API
+1. **PROHIBIDO** usar cualquier otro metodo para consumir APIs que no sea HttpClient como fetch o axios directo
 
-2. **PROHIBIDO** usar `try/catch` y sus equivalentes de Angular/RxJS: `catchError()` de RxJS, el callback `error` de `subscribe({ next, error })`, `.catch()` de Promises con `firstValueFrom()`. Esto **NO** es un bug, es una desicion de arquitectura de software, intencional para estandarizar respuesta de APIs.
+2. **PROHIBIDO** usar `try/catch` y sus equivalentes de Angular/RxJS: `catchError()` de RxJS, el callback `error` de `subscribe({ next, error })`, `.catch()` de Promises con `firstValueFrom()`. Esto **NO** es un bug, es una desición de arquitectura de software, intencional para estandarizar respuesta de APIs.
 
-  **Explicacion:** el `error.interceptor` de `src\shared\http-client` se "traga" el error: NUNCA se propaga con throw ni llega al consumidor; en su lugar emite una respuesta sintetica envuelta en el contrato `ApiResponse<T>`. **Las peticiones HTTP erroneas NUNCA llegaran al bloque catch**, por eso el `try/catch` (y sus equivalentes) seria codigo muerto que jamas se ejecuta.
+  **Explicacion:** El `src\shared\http-client\response\error-handling\error.interceptor.ts` se "traga" el error: **NUNCA** se propaga con `throw` ni llega al consumidor; en su lugar emite una respuesta sintetica envuelta en el contrato `ApiResponse<T>`. **Las peticiones HTTP erroneas NUNCA llegaran al bloque catch**, por eso el `try/catch` (y sus equivalentes) seria codigo muerto que jamas se ejecuta.
 
-3.
+3. **PROHIBIDO** propagar los errores de las peticiones HTTP: esta prohibido usar `throw new Error()`, `throw error` o `throwError()` de RxJS. Si nadie lanza errores, no existe nada que capturar y el `try/catch` (y sus equivalentes) pierde toda razon de existir
 
-4. **SIEMPRE** todas las peticiones HTTP exitosas y erroneas tienen que validarse con `response.success`: es la key `success: boolean` del contrato `ApiResponse<T>` que envuelve toda respuesta HTTP; la calcula `src\shared\http-client` a partir del http status real de la respuesta (`true` cuando el status es 2xx, `false` en cualquier otro caso), por eso reemplaza al `try/catch`: `if (!success) return;` es la unica validacion que necesita el consumidor
+4. **SIEMPRE** todas las peticiones HTTP exitosas y erroneas tienen que validarse con `response.success`: es la key `success: boolean` del contrato `ApiResponse<T>` que envuelve toda respuesta HTTP; la calcula `src\shared\http-client` a partir del http status real de la respuesta (`true` cuando el status es 2xx, `false` en cualquier otro caso). Validar con `response.success` es la sustitucion a la propagacion de errores y al `try/catch`: `if (!success) return;` es la unica validacion que necesita el consumidor
 
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
