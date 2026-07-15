@@ -63,7 +63,11 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
        * Esto significa que:
        * 1) Las peticiones HTTP erroneas NUNCA llegaran al bloque catch
        *
-       * 2) NO necesitas envolver el consumo de la API en un try/catch
+       * 2) NO necesitas envolver el consumo de la API en un
+       * try/catch y sus equivalentes de Angular/RxJS:
+       * `catchError()` de RxJS,
+       * el callback `error` de `subscribe({ next, error })`,
+       * `.catch()` de Promises con `firstValueFrom()`
        *
        * SOLUCION: validar con response.success cuando la peticion HTTP es exitosa y erronea
        *
