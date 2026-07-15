@@ -2165,7 +2165,6 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 | --------- | -------------------- | --------- |
 | 2xx con body que cumple el contrato | `success.interceptor` → normalizer (Caso 1) | El body pasa tal cual |
 | 2xx con body fuera del contrato (array plano, string, objeto cualquiera, `null` de un 204) | `success.interceptor` → normalizer (Caso 2) | Se envuelve: `success: true`, `data` = body crudo, message del body o `FALLBACK_MESSAGE(status)` |
-
 | Petición que tarda >1 minuto | `timeout.interceptor` | Respuesta sintética 408 envuelta |
 | Backend que "miente" (status del body ≠ status HTTP real) | `getRealHttpStatus` en ambos interceptores | Siempre gana el status real de `HttpClient` + `console.error` de alerta |
 | Cualquier petición HTTP en curso (exitosa, errónea o con timeout) | `loader.interceptor` | No toca el body: estandariza el icono de carga global (`fixed-loader`). Un CONTADOR de peticiones activas muestra el loader mientras sea > 0 y `finalize()` lo oculta solo cuando llega a 0, incluso si la respuesta falló; se desactiva por petición con el token `SHOW_LOADER` en `false` |
