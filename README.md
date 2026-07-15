@@ -2156,11 +2156,15 @@ Internal APIs     External APIs
 ## Reglas de `src\shared\http-client`
 
 ## Reglas para Consumir API
-* **PROHIBIDO** usar cualquier otro metodo que no sea HttpClient como fetch o axios directo
+1. **PROHIBIDO** usar cualquier otro metodo que no sea HttpClient como fetch o axios directo
 
-* **PROHIBIDO** usar `try/catch` y sus equivalentes de Angular/RxJS: `catchError()` de RxJS, el callback `error` de `subscribe({ next, error })`, `.catch()` de Promises con `firstValueFrom()`. Esto **NO** es un bug, es una desicion de arquitectura de software, intencional para estandarizar respuesta de APIs.
+2. **PROHIBIDO** usar `try/catch` y sus equivalentes de Angular/RxJS: `catchError()` de RxJS, el callback `error` de `subscribe({ next, error })`, `.catch()` de Promises con `firstValueFrom()`. Esto **NO** es un bug, es una desicion de arquitectura de software, intencional para estandarizar respuesta de APIs.
 
-* **SIEMPRE** todas las peticiones HTTP exitosas y erroneas tienen que validarse con `response.success`: es la key `success: boolean` del contrato `ApiResponse<T>` que envuelve toda respuesta HTTP; la calcula `src\shared\http-client` a partir del http status real de la respuesta (`true` cuando el status es 2xx, `false` en cualquier otro caso), por eso reemplaza al `try/catch`: `if (!success) return;` es la unica validacion que necesita el consumidor
+  **Explicacion:** el `error.interceptor` de `src\shared\http-client` se "traga" el error: NUNCA se propaga con throw ni llega al consumidor; en su lugar emite una respuesta sintetica envuelta en el contrato `ApiResponse<T>`. **Las peticiones HTTP erroneas NUNCA llegaran al bloque catch**, por eso el `try/catch` (y sus equivalentes) seria codigo muerto que jamas se ejecuta.
+
+3.
+
+4. **SIEMPRE** todas las peticiones HTTP exitosas y erroneas tienen que validarse con `response.success`: es la key `success: boolean` del contrato `ApiResponse<T>` que envuelve toda respuesta HTTP; la calcula `src\shared\http-client` a partir del http status real de la respuesta (`true` cuando el status es 2xx, `false` en cualquier otro caso), por eso reemplaza al `try/catch`: `if (!success) return;` es la unica validacion que necesita el consumidor
 
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
