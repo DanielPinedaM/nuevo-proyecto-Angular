@@ -2157,6 +2157,12 @@ Toda petición tiene que pasa primero por `src\shared\http-client`, y desde ahí
                      │  httpResource / HttpClient   │
                      └──────────────┬───────────────┘
                                     │
+                                    ↓
+             ┌──────────────────────────────────────────────┐
+             │    Interceptors de src\shared\http-client    │
+             │  (por aqui pasan TODAS las peticiones HTTP)  │
+             └──────────────────────┬───────────────────────┘
+                                    │
                  ┌──────────────────┴──────────────────┐
                  ↓                                     ↓
 ┌──────────────────────────────────┐  ┌──────────────────────────────────┐
