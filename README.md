@@ -2227,97 +2227,11 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 
 6. **OBLIGATORIO** desestructurar las keys del contrato `ApiResponse<T>` (`success`, `status`, `message`, `data`) al consumir la respuesta. Esta **PROHIBIDO** acceder directamente a las keys sin desestructurar: `response.success`, `response.status`, `response.message` y `response.data`.
 
-**correcto: desestructurar las keys que se necesiten**
-```ts
-import { environment } from '@/environments/environment';
-
-async getTasks(): Promise<void> {
-  const { success, data } = await firstValueFrom(
-    this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`),
-  );
-
-  if (!success) return;
-
-  this.tasks.set(data);
-}
-```
-
-**incorrecto: acceder con la notacion de punto sin desestructurar**
-```ts
-import { environment } from '@/environments/environment';
-
-async getTasks(): Promise<void> {
-  const response = await firstValueFrom(
-    this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`),
-  );
-
-  if (!response.success) return;
-
-  this.tasks.set(response.data);
-}
-```
-
 7. **OBLIGATORIO** usar early return pattern al validar la key `success` de las peticiones HTTP: validar primero el caso fallido y salir de inmediato con `if (!success) return;`, para que la logica principal quede en el nivel raiz de la funcion, sin anidacion.
-
-**correcto: early return, la logica principal queda sin anidacion**
-```ts
-import { environment } from '@/environments/environment';
-
-async getTasks(): Promise<void> {
-  const { success, data } = await firstValueFrom(
-    this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`),
-  );
-
-  if (!success) return;
-
-  this.tasks.set(data);
-}
-```
-
-**incorrecto: anidar la logica principal dentro del if**
-```ts
-import { environment } from '@/environments/environment';
-
-async getTasks(): Promise<void> {
-  const { success, data } = await firstValueFrom(
-    this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`),
-  );
-
-  if (success) {
-    if (data.length) {
-      this.tasks.set(data);
-    }
-  }
-}
-```
 
 8. **OBLIGATORIO** importar los environment SIEMPRE desde el archivo base `@/environments/environment`. Esta **PROHIBIDO** importar directamente un archivo de entorno especifico (`environment.localhost`, `environment.test`, `environment.prod`): el build de Angular (`fileReplacements` segun el script de `package.json`) es quien reemplaza el archivo base por el del entorno que corresponda; importar uno especifico quema el entorno y rompe ese reemplazo.
 
-**correcto: importar el archivo base, el build resuelve el entorno**
-```ts
-import { environment } from '@/environments/environment';
-```
-
-**incorrecto: importar un archivo de entorno especifico**
-```ts
-import { environment } from '@/environments/environment.localhost';
-import { environment } from '@/environments/environment.test';
-import { environment } from '@/environments/environment.prod';
-```
-
 9. **OBLIGATORIO** construir la URL de toda peticion HTTP concatenando `environment.api` + el endpoint. `environment.api` es la URL base de la API segun el entorno de ejecucion (por ejemplo `'http://localhost:3000/api/v1/'`), asi el mismo codigo funciona en localhost, pruebas y produccion sin modificar nada. Esta **PROHIBIDO** quemar (hardcodear) la URL base en la peticion.
-
-**correcto: concatenar environment.api con el endpoint**
-```ts
-import { environment } from '@/environments/environment';
-
-this.http.get<ApiResponse<Task[]>>(`${environment.api}tasks`);
-```
-
-**incorrecto: quemar (hardcodear) la URL base en la peticion**
-```ts
-this.http.get<ApiResponse<Task[]>>('http://localhost:3000/api/v1/tasks');
-```
 
 ## Casos Donde Usar `async/await con firstValueFrom()`
 
