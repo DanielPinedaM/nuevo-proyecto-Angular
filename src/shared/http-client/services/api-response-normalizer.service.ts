@@ -16,6 +16,15 @@ export class ApiResponseNormalizerService {
   /**
    * valida y normaliza el body crudo de CUALQUIER respuesta HTTP (exitosa o erronea) al contrato ApiResponse<T>.
    *
+   * Flujo del message:
+   * 1. Ambos interceptores (success.interceptor y error.interceptor) le entregan el body crudo al normalizer.
+   *
+   * 2. El normalizer intenta extraer API_RESPONSE_KEYS.message del body — esto pasa igual en exito y en error.
+   *
+   * 3. Si el body no lo trae:
+   *  en el error.interceptor usa el error.message de Angular;
+   *  en el success.interceptor usa el default FALLBACK_MESSAGE.
+   *
    * @param rawBody body crudo de la respuesta: event.body en success.interceptor,
    * error.error en error.interceptor
    *
