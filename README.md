@@ -2246,7 +2246,7 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 Re-fetch reactivo
 
 ## Casos Donde Usar `httpResource`
-* NO usar httpResource para mutaciones como POST o PUT. En su lugar, prefiera usar directamente las API subyacentes HttpClient.
+* Usar httpResource para peticiones HTTP GET que requieran reactividad. No utilizarlo para mutaciones (POST, PUT, PATCH o DELETE); en esos casos, utilizar directamente HttpClient.
 
 # INCOMPLETO - VERIFICAR Q EN "CONSUMO DE API" HAYA ESCRITO LO Q ESTA EN SIGUIENTE TEXTO
 
