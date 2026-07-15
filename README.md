@@ -2138,6 +2138,7 @@ Toda respuesta que pasa por `HttpClient` termina envuelta en el contrato `ApiRes
 | JSON malformado del backend | `error.interceptor` (Angular lo reporta como error de parsing) | Envuelto con el message de parsing de Angular |
 | Petición que tarda >1 minuto | `timeout.interceptor` | Respuesta sintética 408 envuelta |
 | Backend que "miente" (status del body ≠ status HTTP real) | `getRealHttpStatus` en ambos interceptores | Siempre gana el status real de `HttpClient` + `console.error` de alerta |
+| Cualquier petición HTTP en curso (exitosa, errónea o con timeout) | `loader.interceptor` | No toca el body: estandariza el icono de carga global (`fixed-loader`). Un CONTADOR de peticiones activas muestra el loader mientras sea > 0 y `finalize()` lo oculta solo cuando llega a 0, incluso si la respuesta falló; se desactiva por petición con el token `SHOW_LOADER` en `false` |
 
 ## Contrato `ApiResponse<T>`
 Contrato que define el tipo de dato con el que responden todas las APIs:
