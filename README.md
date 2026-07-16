@@ -245,17 +245,6 @@ Las IAs de pago y desde la terminal tienen mejoras respecto a otras plataformas:
 
 # [🔗 Enlace - Prompts para Desarrollo Full Stack con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
-Sirve para:
-1. Transformar ideas/notas en planes de ejecución solidos paso a paso que la IA puede ejecutar. Ocasiona que la IA haga mejor los cambios en codigo.
-
-2) Corregir errores ("bugs") en las ideas.
-
-3) Crear y ejecutar sub-agentes automáticamente.
-
-4) Analizar repositorios enormes sin "bloquear" la ejecución de la IA
-
-Ayuda mucho en tareas grandes y medianas: Migraciones, nuevas features, solucionar bugs ...
-
 # 🅰️ Configurar Angular para que Funcione con IA
 Estas configuraciones ya estan listas para funcionar. Solo debes seguir los pasos a continuación para verificar que funcionen correctamente.
 
