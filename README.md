@@ -2350,19 +2350,7 @@ Usar Angular 22 moderno. **NUNCA** usar Angular legacy:
 
 # INCOMPLETO - aqui me falta escribir que NO se puede usar ng model
 
-Angular 21 moderno introdujo los nuevos [**Signal Forms**](https://angular.dev/essentials/signal-forms), que permiten manejar formularios usando `signal()` y reactividad automática.
-
-Sin embargo, actualmente los Signal Forms siguen siendo **experimentales** y la propia documentación oficial de Angular recomienda tener precaución antes de usarlos en producción.
-
-Por esta razón, en este proyecto:
-
-- ✅ sí se usan `signals` para manejo de estado.
-
-- ❌ NO se usan todavía Signal Forms experimentales.
-
-- ✅ Se siguen usando formularios reactivos tradicionales con `FormGroup`, `FormControl` y `ReactiveFormsModule`
-
-Cuando Signal Forms sea estable y maduro, se podrá migrar gradualmente.
+OBLIGATORIO Utilizar Signal Forms junto con los componentes UI de formularios de Spartan NG. PROHIBIDO utilizar `ngModel` (Template-driven Forms) o `FormGroup` (Reactive Forms), incluyendo Typed Reactive Forms.
 
 ## 🧹 Sufijos en nombres de archivos
 
