@@ -332,7 +332,7 @@ Called angular-cli
 > !claude mcp add angular-cli --scope project -- pnpm dlx @angular/cli mcp
 > ```
 
-# [🔗 Enlace - Comandos del angular-cli MCP](https://angular.dev/ai/mcp)
+# [🔗 Enlace - Tools del angular-cli MCP](https://angular.dev/ai/mcp)
 
 
 ## Diferencia Entre Angular MCP y X
