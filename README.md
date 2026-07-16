@@ -2348,7 +2348,7 @@ Usar Angular 22 moderno. **NUNCA** usar Angular legacy:
 
 [Tutorial de formularios reactivos con signals](https://youtu.be/7V9I9_qwx74?si=m5Bn3_ygcEEuSpXx)
 
-# INCOMPLETO - aqui me falta escribir que NO se puede usar ng model
+# INCOMPLETO - aqui me falta agregar ejemplos del equivalente entre FormGroup y Signal forms
 
 OBLIGATORIO Utilizar Signal Forms junto con los componentes UI de formularios de Spartan NG. PROHIBIDO utilizar `ngModel` (Template-driven Forms) o `FormGroup` (Reactive Forms), incluyendo Typed Reactive Forms.
 
