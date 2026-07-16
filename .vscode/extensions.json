@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "usernamehw.errorlens",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode",
+    "WallabyJs.console-ninja",
+    "Angular.ng-template",
+    "johnpapa.Angular2",
+    "christian-kohler.path-intellisense",
+    "steoates.autoimport",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag"
+  ]
+}
