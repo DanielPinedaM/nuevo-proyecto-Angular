@@ -1,26 +1,26 @@
 {
-  // 🎨 Tema VS Code adaptado a la paleta moderna de Angular
+  // 🎨 Tema VS Code adaptado a la paleta de Angular
   "workbench.colorCustomizations": {
     // Barra lateral izquierda (explorador, extensiones, etc.)
-    "activityBar.background": "#DD0031",
+    "activityBar.background": "#E40035",
     "activityBar.foreground": "#FFFFFF",
     "activityBar.inactiveForeground": "#FFFFFFCC",
-    "activityBar.activeBackground": "#C3002F",
+    "activityBar.activeBackground": "#C8002F",
     "activityBar.activeBorder": "#FFFFFF",
     "activityBarBadge.background": "#FFFFFF",
-    "activityBarBadge.foreground": "#DD0031",
+    "activityBarBadge.foreground": "#E40035",
 
     // Barra superior (título)
-    "titleBar.activeBackground": "#DD0031",
+    "titleBar.activeBackground": "#E40035",
     "titleBar.activeForeground": "#FFFFFF",
-    "titleBar.inactiveBackground": "#C3002F",
+    "titleBar.inactiveBackground": "#C8002F",
     "titleBar.inactiveForeground": "#FFFFFFCC",
 
     // Barra inferior (status bar)
-    "statusBar.background": "#DD0031",
+    "statusBar.background": "#E40035",
     "statusBar.foreground": "#FFFFFF",
-    "statusBarItem.hoverBackground": "#C3002F",
-    "statusBarItem.remoteBackground": "#DD0031",
+    "statusBarItem.hoverBackground": "#C8002F",
+    "statusBarItem.remoteBackground": "#E40035",
     "statusBarItem.remoteForeground": "#FFFFFF",
 
     // Minimapa, bordes y elementos activos
@@ -30,7 +30,7 @@
   },
 
   // peacock extension
-  "peacock.color": "#DD0031",
+  "peacock.color": "#E40035",
 
   // Prettier: formateador de codigo
   "[css]": {
