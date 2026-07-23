@@ -89,6 +89,10 @@ Este proyecto usa *Angular 22*.
 
 SIEMPRE usar las tools `search_documentation` y `get_best_practices` del MCP server `angular-cli`, ya sea para responder una pregunta del usuario, explicar un concepto, analizar código existente, generar código nuevo o modificar archivos. Tus datos de entrenamiento de Angular están desactualizados porque Angular tiene breaking changes frecuentes entre versiones; el MCP de `angular-cli` es la fuente de la verdad.
 
+En caso de que falle la conexión al MCP server `angular-cli`, OBLIGATORIO detener la ejecución inmediatamente y mostrar el siguiente mensaje al usuario, sin modificaciones:
+
+> **La conexión con el MCP server `angular-cli` falló. Conecte el MCP y vuelva a enviar el prompt.**
+
 ## Compatibilidad con zone.js
 Esta PROHIBIDO:
 * Eliminar zone.js del build en `angular.json`
