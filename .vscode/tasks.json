@@ -1,0 +1,136 @@
+{
+  /**
+   * Tareas que levantan el dev server antes de iniciar el debugging.
+   * Cada tarea esta asociada a un "preLaunchTask" de .vscode/launch.json
+   *
+   * IMPORTANTE: los 3 entornos usan el puerto 4200, por lo tanto solo se puede
+   * depurar un entorno a la vez. Antes de cambiar de entorno hay que detener la
+   * tarea anterior desde el panel "Terminal > Tasks", de lo contrario ng serve
+   * aborta con el error "Port 4200 is already in use".
+   */
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "command": "pnpm run start:local",
+      "label": "start:local",
+      "isBackground": true,
+      "runOptions": {
+        /* evita que VS Code levante una segunda instancia de la misma tarea */
+        "instanceLimit": 1
+      },
+      "presentation": {
+        /* panel propio por entorno, para ubicarlo y detenerlo facilmente */
+        "panel": "dedicated",
+        "group": "dev-server",
+        "clear": true
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": {
+          /* patron que nunca coincide: esta tarea no reporta diagnosticos al panel de Problemas */
+          "regexp": "a^",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Building\\.\\.\\.",
+          /* mensaje del builder de esbuild de Angular 22, indica que el bundle ya esta listo */
+          "endsPattern": "Application bundle generation complete\\."
+        }
+      }
+    },
+    {
+      "type": "shell",
+      "command": "pnpm run start:test",
+      "label": "start:test",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": {
+          "regexp": "a^",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Building\\.\\.\\.",
+          "endsPattern": "Application bundle generation complete\\."
+        }
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "dev-server",
+        "clear": true
+      }
+    },
+    {
+      /*
+       * Entorno de produccion con source maps y sin minificacion, para que el
+       * debugger de VS Code muestre el codigo original de TypeScript.
+       * Usa environment.prod.ts igual que "start:prod".
+       */
+      "type": "shell",
+      "command": "pnpm run start:prod:debug",
+      "label": "start:prod:debug",
+      "isBackground": true,
+      "runOptions": {
+        "instanceLimit": 1
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "dev-server",
+        "clear": true
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": {
+          "regexp": "a^",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Building\\.\\.\\.",
+          "endsPattern": "Application bundle generation complete\\."
+        }
+      }
+    },
+    {
+      /* produccion optimizada, sin source maps: no sirve para debugging */
+      "type": "shell",
+      "command": "pnpm run start:prod",
+      "label": "start:prod",
+      "isBackground": true,
+      "runOptions": {
+        "instanceLimit": 1
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "dev-server",
+        "clear": true
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": {
+          "regexp": "a^",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Building\\.\\.\\.",
+          "endsPattern": "Application bundle generation complete\\."
+        }
+      }
+    }
+  ]
+}

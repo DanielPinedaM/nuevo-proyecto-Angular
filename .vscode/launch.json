@@ -5,10 +5,37 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "debugging en Chrome local host",
-      "url": "http://localhost:9000",
+      "name": "🐞 debugging en Chrome local host",
+      "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}",
-      "sourceMaps": true
+      "sourceMaps": true,
+      "preLaunchTask": "start:local",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "🐞 debugging en Chrome pruebas",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "preLaunchTask": "start:test",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "🐞 debugging en Chrome produccion",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      /*
+       * usa la configuracion "production-debug" de angular.json (environment.prod.ts
+       * + source maps + sin minificar). La configuracion "production" tiene
+       * sourceMap: false y solo mostraria el bundle compilado.
+       */
+      "preLaunchTask": "start:prod:debug",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
     }
   ]
 }
