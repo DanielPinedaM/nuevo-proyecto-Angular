@@ -2335,13 +2335,28 @@ Usar Angular 22 moderno. **NUNCA** usar Angular legacy:
 
 * Para servicios singleton usar `@Service()`
 
-## 📝 Formularios
+## Formularios
 
-[Tutorial de formularios reactivos con signals](https://youtu.be/7V9I9_qwx74?si=m5Bn3_ygcEEuSpXx)
+### Gestión del estado del formulario
 
-# INCOMPLETO - aqui me falta agregar ejemplos del equivalente entre FormGroup y Signal forms
+* OBLIGATORIO usar **Signal Forms** en TODOS los formularios.
 
-OBLIGATORIO Utilizar Signal Forms junto con los componentes UI de formularios de Spartan NG. PROHIBIDO utilizar `ngModel` (Template-driven Forms) o `FormGroup` (Reactive Forms), incluyendo Typed Reactive Forms.
+* PROHIBIDO usar cualquier alternativa a **Signal Forms**. Esto incluye, entre otros:
+  * `ngModel` (Template-driven Forms).
+  * Reactive Forms (`FormControl`, `FormGroup`, `FormArray`).
+  * Cualquier otra librería, patrón o implementación personalizada para gestionar el estado de formularios.
+
+* NO se permiten excepciones a esta regla.
+
+### Componentes de interfaz
+* OBLIGATORIO usar los componentes de formularios de **Spartan ng** ubicados en:
+```text
+src/shared/design/ui/spartan-ng/form
+```
+
+* En los archivos `.html`, PROHIBIDO usar elementos HTML nativos (`<input>`, `<select>`, `<textarea>`, etc.) cuando exista un componente equivalente en `src/shared/design/ui/spartan-ng/form`.
+
+* En caso de que no exista un componente equivalente en `src/shared/design/ui/spartan-ng/form`, OBLIGATORIO solicitar autorización explícita antes de instalar un componente de Spartan ng.
 
 ## 🧹 Sufijos en nombres de archivos
 
