@@ -13,9 +13,9 @@ export interface HlmDatePickerBase<T> {
 	disabledState: Signal<boolean>;
 	formattedDate: Signal<string | undefined>;
 	hasDate: Signal<boolean>;
-	/** Commit a date to the picker (e.g. from a parsed input). Pass `undefined` to clear. Optional. */
+	/** Confirmar una fecha al picker (p. ej. desde un input parseado). Pasar `undefined` para limpiar. Opcional. */
 	updateDate?(value: T | undefined): void;
-	// used for ControlValueAccessor
+	/** usado para ControlValueAccessor */
 	touched?(): void;
 }
 
@@ -26,7 +26,7 @@ export function provideHlmDatePicker(instance: Type<HlmDatePickerBase<unknown>>)
 }
 
 /**
- * Inject the date picker component.
+ * Inyecta el componente date picker.
  */
 export function injectHlmDatePicker<T>(): HlmDatePickerBase<T> {
 	return inject(HlmDatePickerToken) as HlmDatePickerBase<T>;
@@ -34,31 +34,31 @@ export function injectHlmDatePicker<T>(): HlmDatePickerBase<T> {
 
 export interface HlmDatePickerConfig<T> {
 	/**
-	 * If true, the date picker will close when a date is selected.
+	 * Si es true, el date picker se cerrará cuando se seleccione una fecha.
 	 */
 	autoCloseOnSelect: boolean;
 
 	/**
-	 * Defines how the date should be displayed in the UI.
+	 * Define cómo debe mostrarse la fecha en la UI.
 	 *
 	 * @param date
-	 * @returns formatted date
+	 * @returns fecha formateada
 	 */
 	formatDate: (date: T) => string;
 
 	/**
-	 * Defines how the date should be transformed before saving to model/form.
+	 * Define cómo debe transformarse la fecha antes de guardarla en el modelo/formulario.
 	 *
 	 * @param date
-	 * @returns transformed date
+	 * @returns fecha transformada
 	 */
 	transformDate: (date: T) => T;
 
 	/**
-	 * Parse a user-entered string into a date.
+	 * Parsea un string ingresado por el usuario a una fecha.
 	 *
-	 * @param value the raw string from the input
-	 * @returns the parsed date, or `undefined` when the value can't be parsed
+	 * @param value el string crudo del input
+	 * @returns la fecha parseada, o `undefined` cuando el valor no puede parsearse
 	 */
 	parseDate: (value: string) => T | undefined;
 }

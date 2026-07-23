@@ -4,7 +4,7 @@ import { Directive, booleanAttribute, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/utils';
 import { HlmDropdownMenuFocusOnHover } from '@/shared/design/ui/spartan-ng/overlay/dropdown-menu/src/lib/hlm-dropdown-menu-focus-on-hover';
 
-/** @internal. Use HlmDropdownMenuRadio instead. */
+/** @internal. Usar HlmDropdownMenuRadio en su lugar. */
 @Directive({
 	selector: '[hlmDropdownMenuRadioCdk]',
 	providers: [

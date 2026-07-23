@@ -17,7 +17,7 @@ import { HlmDrawerOverlay } from '@/shared/design/ui/spartan-ng/overlay/drawer/s
 			useExisting: forwardRef(() => HlmDrawer),
 		},
 		provideBrnDialogDefaultOptions({
-			// add custom options here
+			/** agregar opciones personalizadas aquí */
 		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,

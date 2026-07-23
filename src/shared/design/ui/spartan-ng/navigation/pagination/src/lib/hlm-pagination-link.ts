@@ -31,11 +31,11 @@ import { classes } from '@spartan-ng/utils';
 	},
 })
 export class HlmPaginationLink {
-	/** Whether the link is active (i.e., the current page). */
+	/** Si el link está activo (es decir, es la página actual). */
 	public readonly isActive = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
-	/** The size of the button. */
+	/** El tamaño del botón. */
 	public readonly size = input<ButtonVariants['size']>('icon');
-	/** The link to navigate to the page. */
+	/** El link para navegar a la página. */
 	public readonly link = input<RouterLink['routerLink']>();
 
 	constructor() {

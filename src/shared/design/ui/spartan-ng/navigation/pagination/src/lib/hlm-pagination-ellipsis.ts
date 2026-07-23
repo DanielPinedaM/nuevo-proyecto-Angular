@@ -11,7 +11,7 @@ import { classes } from '@spartan-ng/utils';
 	`,
 })
 export class HlmPaginationEllipsis {
-	/** Screen reader only text for the ellipsis */
+	/** Texto solo para lectores de pantalla del ellipsis */
 	public readonly srOnlyText = input<string>('More pages');
 
 	constructor() {

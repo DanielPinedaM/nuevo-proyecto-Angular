@@ -20,7 +20,7 @@ export class HlmCarouselSlideDisplay {
 
 	public readonly slideClass = input<ClassValue>('text-muted-foreground text-sm');
 
-	/** Screen reader only text for the slide display */
+	/** Texto solo para lectores de pantalla del indicador de slide */
 	public readonly label = input<string>('Slide');
 
 	protected readonly _labelContent = computed(() => {

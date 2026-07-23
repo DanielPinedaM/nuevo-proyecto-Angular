@@ -75,35 +75,35 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	public readonly inputValue = input<string>('');
 
 	/**
-	 * Parses input text into a date value. Return `undefined` for invalid
-	 * input - the picker's date is cleared while the text is preserved so
-	 * the user can fix it.
+	 * Parsea el texto del input a un valor de fecha. Retorna `undefined` para
+	 * un input inválido - la fecha del picker se limpia mientras se conserva
+	 * el texto para que el usuario pueda corregirlo.
 	 *
-	 * Defaults to `parseDate` from `HlmDatePickerConfig`.
+	 * Por defecto usa `parseDate` de `HlmDatePickerConfig`.
 	 */
 	public readonly parseDate = input<(value: string) => T | undefined>(this._config.parseDate);
 
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Show a clear button that resets the input and picker date. Hidden when empty. */
+	/** Mostrar un botón de limpiar que resetea el input y la fecha del picker. Oculto cuando está vacío. */
 	public readonly showClear = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
-	/** Open the popover on input click. */
+	/** Abrir el popover al hacer click en el input. */
 	public readonly openOnClick = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Accessible label for the clear button. */
+	/** Etiqueta accesible para el botón de limpiar. */
 	public readonly clearAriaLabel = input<string>('Limpiar fecha');
 
-	/** Accessible label for the calendar trigger button. */
+	/** Etiqueta accesible para el botón trigger del calendario. */
 	public readonly calendarAriaLabel = input<string>('Abrir calendario');
 
-	/** @internal Id used by the trigger contract for labeling. */
+	/** @internal Id usado por el contrato del trigger para el labeling. */
 	public readonly triggerId = this.inputId;
 
 	/**
-	 * Text shown in the input. Mirrors the picker's `formattedDate` and the
-	 * parent's `inputValue`, and accepts user writes via `_handleInputChange`.
-	 * Commits only happen on blur / Enter, so in-progress text isn't clobbered.
+	 * Texto mostrado en el input. Refleja el `formattedDate` del picker y el
+	 * `inputValue` del padre, y acepta escrituras del usuario mediante `_handleInputChange`.
+	 * Los commits solo ocurren en blur / Enter, así que el texto en progreso no se sobrescribe.
 	 */
 	protected readonly _inputValue = linkedSignal<{ formatted: string | undefined; inputValue: string }, string>({
 		source: () => ({
@@ -111,22 +111,24 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 			inputValue: this.inputValue(),
 		}),
 		computation: (source, previous) => {
-			// First render: prefer formatted, fall back to inputValue.
+			/** Primer render: preferir formatted, si no usar inputValue. */
 			if (previous === undefined) {
 				return source.formatted ?? source.inputValue;
 			}
 
-			// Picker's formatted date changed - snap to canonical format.
+			/** El formattedDate del picker cambió - ajustar al formato canónico. */
 			if (source.formatted !== previous.source.formatted) {
 				if (source.formatted !== undefined) {
 					return source.formatted;
 				}
-				// Cleared externally vs. user has invalid text in flight: only
-				// mirror the clear when the displayed text was in sync.
+				/**
+				 * Limpiado externamente vs. el usuario tiene texto inválido en curso: solo
+				 * reflejar la limpieza cuando el texto mostrado estaba sincronizado.
+				 */
 				return previous.value === previous.source.formatted ? '' : previous.value;
 			}
 
-			// Parent updated inputValue - reflect it.
+			/** El padre actualizó inputValue - reflejarlo. */
 			if (source.inputValue !== previous.source.inputValue) {
 				return source.inputValue;
 			}
@@ -167,7 +169,7 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 			return;
 		}
 
-		// Invalid parse: clear the picker date, keep the text so the user can fix it.
+		/** Parseo inválido: limpiar la fecha del picker, conservar el texto para que el usuario pueda corregirlo. */
 		const parsed = this.parseDate()(value);
 		this._datePicker.updateDate?.(parsed ?? undefined);
 		this._datePicker.touched?.();

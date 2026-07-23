@@ -60,31 +60,31 @@ export class HlmSwitch implements ControlValueAccessor {
 		),
 	);
 
-	/** The checked state of the switch. */
+	/** El estado checked del switch. */
 	public readonly checkedInput = input<boolean, BooleanInput>(false, { alias: 'checked', transform: booleanAttribute });
 	public readonly checked = linkedSignal(this.checkedInput);
 
-	/** Emits when the checked state of the switch changes. */
+	/** Emite cuando cambia el estado checked del switch. */
 	public readonly checkedChange = output<boolean>();
 
-	/** The disabled state of the switch. */
+	/** El estado disabled del switch. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
-	/** The size of the switch. */
+	/** El tamaño del switch. */
 	public readonly size = input<BrnSwitchSize>('default');
 
-	/** Used to set the id on the underlying brn element. */
+	/** Usado para establecer el id en el elemento brn subyacente. */
 	public readonly inputId = input<string | null>(null);
 
-	/** Used to set the aria-label attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-label en el elemento brn subyacente. */
 	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
-	/** Used to set the aria-labelledby attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-labelledby en el elemento brn subyacente. */
 	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 
-	/** Used to set the aria-describedby attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-describedby en el elemento brn subyacente. */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
 	protected readonly _disabled = linkedSignal(this.disabled);

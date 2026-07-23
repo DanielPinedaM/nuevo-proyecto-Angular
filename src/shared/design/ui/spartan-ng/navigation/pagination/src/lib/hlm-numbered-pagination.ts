@@ -86,49 +86,49 @@ import { HlmPaginationPrevious } from '@/shared/design/ui/spartan-ng/navigation/
 })
 export class HlmNumberedPagination {
 	/**
-	 * The current (active) page.
+	 * La página actual (activa).
 	 */
 	public readonly currentPage = model.required<number>();
 
 	/**
-	 * The number of items per paginated page.
+	 * El número de elementos por página paginada.
 	 */
 	public readonly itemsPerPage = model.required<number>();
 
 	/**
-	 * The total number of items in the collection. Only useful when
-	 * doing server-side paging, where the collection size is limited
-	 * to a single page returned by the server API.
+	 * El número total de elementos en la colección. Solo es útil cuando
+	 * se hace paginación en el servidor, donde el tamaño de la colección
+	 * se limita a una sola página retornada por la API del servidor.
 	 */
 	public readonly totalItems = input.required<number, NumberInput>({
 		transform: numberAttribute,
 	});
 
 	/**
-	 * The number of page links to show.
+	 * El número de links de página a mostrar.
 	 */
 	public readonly maxSize = input<number, NumberInput>(7, {
 		transform: numberAttribute,
 	});
 
 	/**
-	 * Show the first and last page buttons.
+	 * Mostrar los botones de primera y última página.
 	 */
 	public readonly showEdges = input<boolean, BooleanInput>(true, {
 		transform: booleanAttribute,
 	});
 
 	/**
-	 * The page sizes to show.
-	 * Defaults to [10, 20, 50, 100]
+	 * Los tamaños de página a mostrar.
+	 * Por defecto es [10, 20, 50, 100]
 	 */
 	public readonly pageSizes = input<number[]>([10, 20, 50, 100]);
 
 	protected readonly _pageSizesWithCurrent = computed(() => {
 		const pageSizes = this.pageSizes();
 		return pageSizes.includes(this.itemsPerPage())
-			? pageSizes // if current page size is included, return the same array
-			: [...pageSizes, this.itemsPerPage()].sort((a, b) => a - b); // otherwise, add current page size and sort the array
+			? pageSizes /** si el tamaño de página actual está incluido, retornar el mismo array */
+			: [...pageSizes, this.itemsPerPage()].sort((a, b) => a - b); /** de lo contrario, agregar el tamaño de página actual y ordenar el array */
 	});
 
 	protected readonly _isFirstPageActive = computed(() => this.currentPage() === 1);
@@ -136,8 +136,10 @@ export class HlmNumberedPagination {
 
 	protected readonly _lastPageNumber = computed(() => {
 		if (this.totalItems() < 1) {
-			// when there are 0 or fewer (an error case) items, there are no "pages" as such,
-			// but it makes sense to consider a single, empty page as the last page.
+			/**
+			 * Cuando hay 0 o menos (un caso de error) elementos, no hay "páginas" como tal,
+			 * pero tiene sentido considerar una sola página vacía como la última página.
+			 */
 			return 1;
 		}
 		return Math.ceil(this.totalItems() / this.itemsPerPage());
@@ -147,7 +149,7 @@ export class HlmNumberedPagination {
 		const correctedCurrentPage = outOfBoundCorrection(this.totalItems(), this.itemsPerPage(), this.currentPage());
 
 		if (correctedCurrentPage !== this.currentPage()) {
-			// update the current page
+			/** actualizar la página actual */
 			untracked(() => this.currentPage.set(correctedCurrentPage));
 		}
 
@@ -174,10 +176,10 @@ export class HlmNumberedPagination {
 type Page = number | '...';
 
 /**
- * Checks that the instance.currentPage property is within bounds for the current page range.
- * If not, return a correct value for currentPage, or the current value if OK.
+ * Verifica que la propiedad instance.currentPage esté dentro de los límites del rango de páginas actual.
+ * Si no lo está, retorna un valor correcto para currentPage, o el valor actual si está bien.
  *
- * Copied from 'ngx-pagination' package
+ * Copiado del paquete 'ngx-pagination'
  */
 export function outOfBoundCorrection(totalItems: number, itemsPerPage: number, currentPage: number): number {
 	const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -193,9 +195,9 @@ export function outOfBoundCorrection(totalItems: number, itemsPerPage: number, c
 }
 
 /**
- * Returns an array of Page objects to use in the pagination controls.
+ * Retorna un array de objetos Page para usar en los controles de paginación.
  *
- * Copied from 'ngx-pagination' package
+ * Copiado del paquete 'ngx-pagination'
  */
 export function createPageArray(
 	currentPage: number,
@@ -203,12 +205,14 @@ export function createPageArray(
 	totalItems: number,
 	paginationRange: number,
 ): Page[] {
-	// paginationRange could be a string if passed from attribute, so cast to number.
+	/** paginationRange podría ser un string si se pasa desde un atributo, por eso se convierte a number. */
 	paginationRange = +paginationRange;
 	const pages: Page[] = [];
 
-	// Return 1 as default page number
-	// Make sense to show 1 instead of empty when there are no items
+	/**
+	 * Retornar 1 como número de página por defecto.
+	 * Tiene sentido mostrar 1 en lugar de vacío cuando no hay elementos.
+	 */
 	const totalPages = Math.max(Math.ceil(totalItems / itemsPerPage), 1);
 	const halfWay = Math.ceil(paginationRange / 2);
 
@@ -237,10 +241,10 @@ export function createPageArray(
 }
 
 /**
- * Given the position in the sequence of pagination links [i],
- * figure out what page number corresponds to that position.
+ * Dada la posición en la secuencia de links de paginación [i],
+ * determina qué número de página corresponde a esa posición.
  *
- * Copied from 'ngx-pagination' package
+ * Copiado del paquete 'ngx-pagination'
  */
 function calculatePageNumber(i: number, currentPage: number, paginationRange: number, totalPages: number) {
 	const halfWay = Math.ceil(paginationRange / 2);

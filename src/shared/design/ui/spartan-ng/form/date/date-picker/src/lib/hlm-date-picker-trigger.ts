@@ -66,13 +66,13 @@ export class HlmDatePickerTrigger implements HlmDatePickerTriggerBase {
 
 	protected readonly _isPlaceholder = computed(() => !this._datePicker.hasDate());
 
-	/** The id of the button that opens the date picker. */
+	/** El id del botón que abre el date picker. */
 	public readonly buttonId = input<string>(`hlm-date-picker-${++HlmDatePickerTrigger._nextId}`);
 
-	/** @internal The id of the button that opens the date picker, used for labeling. */
+	/** @internal El id del botón que abre el date picker, usado para el labeling. */
 	public readonly triggerId = this.buttonId;
 
-	/** Forces the invalid state visually, regardless of form control state. */
+	/** Fuerza el estado inválido visualmente, sin importar el estado del form control. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	public readonly variant = input<ButtonVariants['variant']>('outline');

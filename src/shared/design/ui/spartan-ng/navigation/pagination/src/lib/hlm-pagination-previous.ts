@@ -27,18 +27,18 @@ import { HlmPaginationLink } from '@/shared/design/ui/spartan-ng/navigation/pagi
 })
 export class HlmPaginationPrevious {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	/** The link to navigate to the previous page. */
+	/** El link para navegar a la página anterior. */
 	public readonly link = input<RouterLink['routerLink']>();
-	/** The query parameters to pass to the previous page. */
+	/** Los query parameters a pasar a la página anterior. */
 	public readonly queryParams = input<RouterLink['queryParams']>();
-	/** How to handle query parameters when navigating to the previous page. */
+	/** Cómo manejar los query parameters al navegar a la página anterior. */
 	public readonly queryParamsHandling = input<RouterLink['queryParamsHandling']>();
 
-	/** The aria-label for the previous page link. */
+	/** El aria-label para el link de la página anterior. */
 	public readonly ariaLabel = input<string>('Go to previous page', { alias: 'aria-label' });
-	/** The text to display for the previous page link. */
+	/** El texto a mostrar para el link de la página anterior. */
 	public readonly text = input<string>('Previous');
-	/** Whether the button should only display the icon. */
+	/** Si el botón debe mostrar solo el icono. */
 	public readonly iconOnly = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});

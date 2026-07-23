@@ -133,19 +133,19 @@ import { classes, hlm } from '@spartan-ng/utils';
 	`,
 })
 export class HlmCalendarMulti<T> {
-	/** Show dropdowns to navigate between months or years. */
+	/** Mostrar dropdowns para navegar entre meses o años. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
-	/** Access the calendar i18n */
+	/** Acceder al i18n del calendario */
 	protected readonly _i18n = injectBrnCalendarI18n();
 
-	/** Access the date time adapter */
+	/** Acceder al adaptador de fecha y hora */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
-	/** Access the calendar directive */
+	/** Acceder a la directive del calendario */
 	private readonly _calendar = inject(BrnCalendarMulti);
 
-	/** Get the heading for the current month and year */
+	/** Obtener el encabezado del mes y año actuales */
 	protected readonly _heading = computed(() => {
 		const config = this._i18n.config();
 		const date = this._calendar.focusedDate();

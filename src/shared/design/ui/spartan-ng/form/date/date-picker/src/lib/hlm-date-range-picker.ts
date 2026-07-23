@@ -70,21 +70,21 @@ export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValue
 
 	private readonly _trigger = contentChild(HlmDatePickerTriggerToken);
 
-	/** Show dropdowns to navigate between months or years. */
+	/** Mostrar dropdowns para navegar entre meses o años. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
-	/** The minimum date that can be selected.*/
+	/** La fecha mínima que puede seleccionarse.*/
 	public readonly min = input<T>();
 
-	/** The maximum date that can be selected. */
+	/** La fecha máxima que puede seleccionarse. */
 	public readonly max = input<T>();
 
-	/** Determine if the date picker is disabled. */
+	/** Determina si el date picker está deshabilitado. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
-	/** The selected value. */
+	/** El valor seleccionado. */
 	public readonly date = input<[T, T]>();
 
 	protected readonly _mutableDate = linkedSignal(this.date);
@@ -92,22 +92,22 @@ export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValue
 	protected readonly _start = linkedSignal(() => this._mutableDate()?.[0]);
 	protected readonly _end = linkedSignal(() => this._mutableDate()?.[1]);
 
-	/** If true, the date picker will close when the end date is selected */
+	/** Si es true, el date picker se cerrará cuando se seleccione la fecha final */
 	public readonly autoCloseOnEndSelection = input<boolean, BooleanInput>(this._config.autoCloseOnEndSelection, {
 		transform: booleanAttribute,
 	});
 
-	/** Defines how the date should be displayed in the UI.  */
+	/** Define cómo debe mostrarse la fecha en la UI.  */
 	public readonly formatDates = input<(dates: [T | undefined, T | undefined]) => string>(this._config.formatDates);
 
-	/** Defines how the date should be transformed before saving to model/form. */
+	/** Define cómo debe transformarse la fecha antes de guardarla en el modelo/formulario. */
 	public readonly transformDates = input<(date: [T, T]) => [T, T]>(this._config.transformDates);
 
 	protected readonly _popoverState = signal<BrnOverlayState | null>(null);
 
 	protected readonly _disabled = linkedSignal(this.disabled);
 
-	/** @internal The disabled state as a readonly signal */
+	/** @internal El estado disabled como readonly signal */
 	public readonly disabledState = this._disabled.asReadonly();
 
 	public readonly formattedDate = computed(() => {

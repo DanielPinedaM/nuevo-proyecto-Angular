@@ -16,9 +16,9 @@ export function hlm(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-// Global map to track class managers per element
+/** Mapa global para rastrear los class managers por elemento */
 const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
-// Global mutation observer for all elements
+/** Mutation observer global para todos los elementos */
 let globalObserver: MutationObserver | null = null;
 const observedElements = new Set<HTMLElement>();
 
@@ -30,23 +30,23 @@ interface ElementClassManager {
 	nextOrder: number;
 	hasInitialized: boolean;
 	restoreRafId: number | null;
-	/** Transitions are suppressed until the first effect writes correct classes */
+	/** Las transiciones se suprimen hasta que el primer effect escribe las clases correctas */
 	transitionsSuppressed: boolean;
-	/** Original inline transition value to restore after suppression (empty string = none was set) */
+	/** Valor original de la transición inline a restaurar después de la supresión (string vacío = no había ninguna) */
 	previousTransition: string;
-	/** Original inline transition priority to preserve !important when restoring */
+	/** Prioridad original de la transición inline para preservar !important al restaurar */
 	previousTransitionPriority: string;
 }
 
 let sourceCounter = 0;
 
 /**
- * This function dynamically adds and removes classes for a given element without requiring
- * the a class binding (e.g. `[class]="..."`) which may interfere with other class bindings.
+ * Esta función agrega y quita clases dinámicamente para un elemento dado sin requerir
+ * un class binding (p. ej. `[class]="..."`) que podría interferir con otros class bindings.
  *
- * 1. This will merge the existing classes on the element with the new classes.
- * 2. It will also remove any classes that were previously added by this function but are no longer present in the new classes.
- * 3. Multiple calls to this function on the same element will be merged efficiently.
+ * 1. Esto fusionará las clases existentes en el elemento con las nuevas clases.
+ * 2. También eliminará cualquier clase que haya sido agregada previamente por esta función pero que ya no esté presente en las nuevas clases.
+ * 3. Múltiples llamadas a esta función en el mismo elemento se fusionarán de manera eficiente.
  */
 export function classes(computed: () => ClassValue[] | string, options: ClassesOptions = {}) {
 	runInInjectionContext(options.injector ?? inject(Injector), () => {
@@ -57,14 +57,14 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 
 		const element = elementRef.nativeElement;
 
-		// Create unique identifier for this source
+		/** Crear un identificador único para este source */
 		const sourceId = sourceCounter++;
 
-		// Get or create the class manager for this element
+		/** Obtener o crear el class manager para este elemento */
 		let manager = elementClassManagers.get(element);
 
 		if (!manager) {
-			// Initialize base classes from variation (host attribute 'class')
+			/** Inicializar las clases base a partir de la variación (atributo host 'class') */
 			const initialBaseClasses = new Set<string>();
 
 			if (baseClasses) {
@@ -85,13 +85,15 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 			};
 			elementClassManagers.set(element, manager);
 
-			// Setup global observer if needed and register this element
+			/** Configurar el observer global si es necesario y registrar este elemento */
 			setupGlobalObserver(platformId);
 			observedElements.add(element);
 
-			// Suppress transitions until the first effect writes correct classes and
-			// the browser has painted them. This prevents CSS transition animations
-			// during hydration when classes change from SSR state to client state.
+			/**
+			 * Suprimir las transiciones hasta que el primer effect escriba las clases correctas y
+			 * el navegador las haya pintado. Esto previene animaciones de transición CSS
+			 * durante la hidratación cuando las clases cambian del estado SSR al estado del cliente.
+			 */
 			if (isPlatformBrowser(platformId)) {
 				manager.previousTransition = element.style.getPropertyValue('transition');
 				manager.previousTransitionPriority = element.style.getPropertyPriority('transition');
@@ -100,25 +102,27 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 			}
 		}
 
-		// Assign order once at registration time
+		/** Asignar el order una sola vez en el momento del registro */
 		const sourceOrder = manager.nextOrder++;
 
 		function updateClasses(): void {
-			// Get the new classes from the computed function
+			/** Obtener las nuevas clases de la función computed */
 			const newClasses = toClassList(computed());
 
-			// Update this source's classes, keeping the original order
+			/** Actualizar las clases de este source, manteniendo el order original */
 			manager!.sources.set(sourceId, {
 				classes: new Set(newClasses),
 				order: sourceOrder,
 			});
 
-			// Update the element
+			/** Actualizar el elemento */
 			updateElement(manager!);
 
-			// Re-enable transitions after the first effect writes correct classes.
-			// Deferred to next animation frame so the browser paints the class change
-			// with transitions disabled first, then re-enables them.
+			/**
+			 * Reactivar las transiciones después de que el primer effect escriba las clases correctas.
+			 * Se difiere al siguiente animation frame para que el navegador pinte primero el cambio de
+			 * clase con las transiciones deshabilitadas, y luego las reactive.
+			 */
 			if (manager!.transitionsSuppressed) {
 				manager!.transitionsSuppressed = false;
 				manager!.restoreRafId = requestAnimationFrame(() => {
@@ -128,7 +132,7 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 			}
 		}
 
-		// Register cleanup with DestroyRef
+		/** Registrar la limpieza con DestroyRef */
 		destroyRef.onDestroy(() => {
 			if (manager!.restoreRafId !== null) {
 				cancelAnimationFrame(manager!.restoreRafId);
@@ -140,22 +144,22 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 				restoreTransitionSuppression(manager!);
 			}
 
-			// Remove this source from the manager
+			/** Quitar este source del manager */
 			manager!.sources.delete(sourceId);
 
-			// If no more sources, clean up the manager
+			/** Si ya no quedan sources, limpiar el manager */
 			if (manager!.sources.size === 0) {
 				cleanupManager(element);
 			} else {
-				// Update element without this source's classes
+				/** Actualizar el elemento sin las clases de este source */
 				updateElement(manager!);
 			}
 		});
 
 		/**
-		 * We need this effect to track changes to the computed classes. Ideally, we would use
-		 * afterRenderEffect here, but that doesn't run in SSR contexts, so we use a standard
-		 * effect which works in both browser and SSR.
+		 * Necesitamos este effect para rastrear cambios en las clases computadas. Idealmente usaríamos
+		 * afterRenderEffect aquí, pero eso no se ejecuta en contextos SSR, así que usamos un effect
+		 * estándar que funciona tanto en el navegador como en SSR.
 		 */
 		effect(updateClasses);
 	});
@@ -173,29 +177,29 @@ function restoreTransitionSuppression(manager: ElementClassManager): void {
 // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
 function setupGlobalObserver(platformId: Object): void {
 	if (isPlatformBrowser(platformId) && !globalObserver) {
-		// Create single global observer that watches the entire document
+		/** Crear un único observer global que vigila todo el documento */
 		globalObserver = new MutationObserver((mutations) => {
 			for (const mutation of mutations) {
 				if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
 					const element = mutation.target as HTMLElement;
 					const manager = elementClassManagers.get(element);
 
-					// Only process elements we're managing
+					/** Solo procesar los elementos que estamos gestionando */
 					if (manager && observedElements.has(element)) {
-						if (manager.isUpdating) continue; // Ignore changes we're making
+						if (manager.isUpdating) continue; /** Ignorar los cambios que estamos haciendo nosotros */
 
-						// Update base classes to include any externally added classes
+						/** Actualizar las clases base para incluir cualquier clase agregada externamente */
 						const currentClasses = toClassList(element.className);
 						const allSourceClasses = new Set<string>();
 
-						// Collect all classes from all sources
+						/** Recolectar todas las clases de todos los sources */
 						for (const source of manager.sources.values()) {
 							for (const className of source.classes) {
 								allSourceClasses.add(className);
 							}
 						}
 
-						// Any classes not from sources become new base classes
+						/** Cualquier clase que no venga de un source se convierte en una nueva clase base */
 						manager.baseClasses.clear();
 
 						for (const className of currentClasses) {
@@ -210,33 +214,35 @@ function setupGlobalObserver(platformId: Object): void {
 			}
 		});
 
-		// Start observing the entire document for class attribute changes
+		/** Comenzar a observar todo el documento en busca de cambios en el atributo class */
 		globalObserver.observe(document, {
 			attributes: true,
 			attributeFilter: ['class'],
-			subtree: true, // Watch all descendants
+			subtree: true, /** Vigilar todos los descendientes */
 		});
 	}
 }
 
 function updateElement(manager: ElementClassManager): void {
-	if (manager.isUpdating) return; // Prevent recursive updates
+	if (manager.isUpdating) return; /** Evitar actualizaciones recursivas */
 
 	manager.isUpdating = true;
 
-	// Handle initialization: capture base classes after first source registration
+	/** Manejar la inicialización: capturar las clases base después del primer registro de source */
 	if (!manager.hasInitialized && manager.sources.size > 0) {
-		// Get current classes on element (may include SSR classes)
+		/** Obtener las clases actuales en el elemento (pueden incluir clases SSR) */
 		const currentClasses = toClassList(manager.element.className);
 
-		// Get all classes that will be applied by sources
+		/** Obtener todas las clases que serán aplicadas por los sources */
 		const allSourceClasses = new Set<string>();
 		for (const source of manager.sources.values()) {
 			source.classes.forEach((className) => allSourceClasses.add(className));
 		}
 
-		// Only consider classes as "base" if they're not produced by any source
-		// This prevents SSR-rendered classes from being preserved as base classes
+		/**
+		 * Solo considerar las clases como "base" si no son producidas por ningún source.
+		 * Esto evita que las clases renderizadas por SSR se preserven como clases base.
+		 */
 		currentClasses.forEach((className) => {
 			if (!allSourceClasses.has(className)) {
 				manager.baseClasses.add(className);
@@ -246,7 +252,7 @@ function updateElement(manager: ElementClassManager): void {
 		manager.hasInitialized = true;
 	}
 
-	// Get classes from all sources, sorted by registration order (later takes precedence)
+	/** Obtener las clases de todos los sources, ordenadas por orden de registro (las últimas tienen precedencia) */
 	const sortedSources = Array.from(manager.sources.entries()).sort(([, a], [, b]) => a.order - b.order);
 
 	const allSourceClasses: string[] = [];
@@ -254,13 +260,13 @@ function updateElement(manager: ElementClassManager): void {
 		allSourceClasses.push(...source.classes);
 	}
 
-	// Combine base classes with all source classes, ensuring base classes take precedence
+	/** Combinar las clases base con todas las clases de los sources, asegurando que las clases base tengan precedencia */
 	const classesToApply =
 		allSourceClasses.length > 0 || manager.baseClasses.size > 0
 			? hlm([...allSourceClasses, ...manager.baseClasses])
 			: '';
 
-	// Apply the classes to the element
+	/** Aplicar las clases al elemento */
 	if (manager.element.className !== classesToApply) {
 		manager.element.className = classesToApply;
 	}
@@ -269,11 +275,11 @@ function updateElement(manager: ElementClassManager): void {
 }
 
 function cleanupManager(element: HTMLElement): void {
-	// Remove from global tracking
+	/** Quitar del rastreo global */
 	observedElements.delete(element);
 	elementClassManagers.delete(element);
 
-	// If no more elements being tracked, cleanup global observer
+	/** Si ya no quedan elementos rastreados, limpiar el observer global */
 	if (observedElements.size === 0 && globalObserver) {
 		globalObserver.disconnect();
 		globalObserver = null;
@@ -285,11 +291,11 @@ interface ClassesOptions {
 	injector?: Injector;
 }
 
-// Cache for parsed class lists to avoid repeated string operations
+/** Cache para las listas de clases parseadas para evitar operaciones repetidas de strings */
 const classListCache = new Map<string, string[]>();
 
 function toClassList(className: string | ClassValue[]): string[] {
-	// For simple string inputs, use cache to avoid repeated parsing
+	/** Para inputs simples de tipo string, usar el cache para evitar el parseo repetido */
 	if (typeof className === 'string' && classListCache.has(className)) {
 		return classListCache.get(className)!;
 	}
@@ -298,7 +304,7 @@ function toClassList(className: string | ClassValue[]): string[] {
 		.split(' ')
 		.filter((c) => c.length > 0);
 
-	// Cache string results, but limit cache size to prevent memory growth
+	/** Cachear los resultados de string, pero limitar el tamaño del cache para prevenir crecimiento de memoria */
 	if (typeof className === 'string' && classListCache.size < 1000) {
 		classListCache.set(className, result);
 	}

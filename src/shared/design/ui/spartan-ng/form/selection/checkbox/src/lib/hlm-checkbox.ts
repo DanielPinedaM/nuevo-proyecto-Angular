@@ -72,41 +72,41 @@ export class HlmCheckbox implements ControlValueAccessor {
 		),
 	);
 
-	/** Used to set the id on the underlying brn element. */
+	/** Usado para establecer el id en el elemento brn subyacente. */
 	public readonly inputId = input<string | null>(null);
 
-	/** Used to set the aria-label attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-label en el elemento brn subyacente. */
 	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
-	/** Used to set the aria-labelledby attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-labelledby en el elemento brn subyacente. */
 	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
 
-	/** Used to set the aria-describedby attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-describedby en el elemento brn subyacente. */
 	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
 
-	/** The checked state of the checkbox. */
+	/** El estado checked del checkbox. */
 	public readonly checkedInput = input<boolean, BooleanInput>(false, { alias: 'checked', transform: booleanAttribute });
 	public readonly checked = linkedSignal(this.checkedInput);
 
-	/** Emits when checked state changes. */
+	/** Emite cuando cambia el estado checked. */
 	public readonly checkedChange = output<boolean>();
 
 	/**
-	 * The indeterminate state of the checkbox.
-	 * For example, a "select all/deselect all" checkbox may be in the indeterminate state when some but not all of its sub-controls are checked.
+	 * El estado indeterminate del checkbox.
+	 * Por ejemplo, un checkbox de "seleccionar todo/deseleccionar todo" puede estar en estado indeterminate cuando algunos pero no todos sus sub-controles están marcados.
 	 */
 	public readonly indeterminate = model<boolean>(false);
 
-	/** The name attribute of the checkbox. */
+	/** El atributo name del checkbox. */
 	public readonly name = input<string | null>(null);
 
-	/** Whether the checkbox is required. */
+	/** Si el checkbox es requerido. */
 	public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Whether the checkbox is disabled. */
+	/** Si el checkbox está deshabilitado. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Whether to force the checkbox into an invalid state. */
+	/** Si se debe forzar al checkbox a un estado inválido. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	protected readonly _disabled = linkedSignal(this.disabled);

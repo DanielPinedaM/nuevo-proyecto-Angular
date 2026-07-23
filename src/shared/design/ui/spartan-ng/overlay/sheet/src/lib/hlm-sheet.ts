@@ -17,7 +17,7 @@ import { HlmSheetOverlay } from '@/shared/design/ui/spartan-ng/overlay/sheet/src
 			useExisting: forwardRef(() => HlmSheet),
 		},
 		provideBrnDialogDefaultOptions({
-			// add custom options here
+			/** agregar opciones personalizadas aquí */
 		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,

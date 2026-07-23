@@ -48,8 +48,10 @@ export class HlmCarousel {
 	public readonly plugins: InputSignal<EmblaPluginType[]> = input<EmblaPluginType[]>([]);
 
 	protected readonly _emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
-		// Default embla's direction to the ambient layout direction so the carousel scrolls RTL
-		// automatically; an explicit `direction` in `options` still wins.
+		/**
+		 * Por defecto, la dirección de embla usa la dirección de layout ambiental para que el carousel
+		 * se desplace en RTL automáticamente; una `direction` explícita en `options` sigue teniendo prioridad.
+		 */
 		direction: this._dir.valueSignal(),
 		...this.options(),
 		axis: this.orientation() === 'horizontal' ? 'x' : 'y',

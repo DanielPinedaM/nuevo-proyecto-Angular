@@ -2,23 +2,23 @@ import { inject, InjectionToken, type ValueProvider } from '@angular/core';
 
 export interface HlmDateRangePickerConfig<T> {
 	/**
-	 * If true, the date picker will close when the max selection of dates is reached.
+	 * Si es true, el date picker se cerrará cuando se alcance la selección máxima de fechas.
 	 */
 	autoCloseOnEndSelection: boolean;
 
 	/**
-	 * Defines how the date should be displayed in the UI.
+	 * Define cómo debe mostrarse la fecha en la UI.
 	 *
 	 * @param dates
-	 * @returns formatted date
+	 * @returns fecha formateada
 	 */
 	formatDates: (dates: [T | undefined, T | undefined]) => string;
 
 	/**
-	 * Defines how the date should be transformed before saving to model/form.
+	 * Define cómo debe transformarse la fecha antes de guardarla en el modelo/formulario.
 	 *
 	 * @param dates
-	 * @returns transformed date
+	 * @returns fecha transformada
 	 */
 	transformDates: (dates: [T, T]) => [T, T];
 }

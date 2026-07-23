@@ -12,7 +12,7 @@ import { HlmDialogOverlay } from '@/shared/design/ui/spartan-ng/overlay/dialog/s
 			useExisting: forwardRef(() => HlmDialog),
 		},
 		provideBrnDialogDefaultOptions({
-			// add custom options here
+			/** agregar opciones personalizadas aquí */
 		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,

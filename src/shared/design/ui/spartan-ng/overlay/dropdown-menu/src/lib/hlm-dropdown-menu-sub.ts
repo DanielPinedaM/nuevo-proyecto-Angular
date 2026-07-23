@@ -16,7 +16,7 @@ import { classes } from '@spartan-ng/utils';
 export class HlmDropdownMenuSub {
 	private readonly _host = inject(CdkMenu);
 	private readonly _elementRef = inject(ElementRef<HTMLElement>);
-	// The sub-trigger provides its configured side; CDK parents this content's injector under it.
+	/** El sub-trigger provee su side configurado; CDK asigna el injector de este contenido bajo él. */
 	private readonly _menuSide = inject(MENU_SIDE, { optional: true });
 
 	protected readonly _state = signal('open');
@@ -24,8 +24,10 @@ export class HlmDropdownMenuSub {
 
 	constructor() {
 		this.setSideFromTransformOrigin();
-		// this is a best effort, but does not seem to work currently
-		// TODO: figure out a way for us to know the host is about to be closed. might not be possible with CDK
+		/**
+		 * esto es un best effort, pero actualmente no parece funcionar
+		 * TODO: encontrar una manera de saber que el host está a punto de cerrarse. podría no ser posible con CDK
+		 */
 		this._host.closed.pipe(takeUntilDestroyed()).subscribe(() => this._state.set('closed'));
 
 		classes(() => 'motion-safe:data-open:animate-in motion-safe:data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-24 rounded-lg p-1 shadow-lg ring-1 duration-100 w-auto');
@@ -33,7 +35,7 @@ export class HlmDropdownMenuSub {
 
 	private setSideFromTransformOrigin() {
 		const side = this._menuSide?.side() ?? 'right';
-		// CDK sets transform-origin on this element synchronously on attach; read it next tick and derive side
+		/** CDK establece transform-origin en este elemento de forma síncrona al adjuntarse; leerlo en el siguiente tick y derivar el side */
 		setTimeout(() => {
 			this._side.set(deriveMenuSideFromTransformOrigin(this._elementRef.nativeElement.style.transformOrigin, side));
 		});

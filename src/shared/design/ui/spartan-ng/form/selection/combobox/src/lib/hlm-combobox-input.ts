@@ -64,7 +64,7 @@ export class HlmComboboxInput {
 	public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Manual override for aria-invalid. When not set, auto-detects from the parent combobox error state. */
+	/** Override manual para aria-invalid. Cuando no se establece, se autodetecta desde el estado de error del combobox padre. */
 	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',

@@ -4,14 +4,15 @@ import { Directive, inject } from '@angular/core';
 
 /**
  * @internal
- * Moves DOM focus to the hovered menu item. CDK menus only move focus with the keyboard, so on a pointer
- * the highlight would otherwise stay on the last keyboard-focused item (leaving two rows highlighted) and,
- * when a submenu closes, focus would fall to <body>, the menu stack would report no focus, and the whole
- * dropdown would collapse. Following the pointer with focus (Radix/shadcn behaviour) keeps a single
- * highlight and keeps focus inside the menu stack. setActiveMenuItem also syncs the key manager so keyboard
- * navigation continues from the hovered item.
+ * Mueve el foco del DOM al elemento del menú sobre el que está el cursor. Los menús de CDK solo mueven el foco
+ * con el teclado, así que con un puntero el highlight se quedaría en el último elemento enfocado con el teclado
+ * (dejando dos filas resaltadas) y, cuando un submenú se cierra, el foco caería en <body>, la pila de menús
+ * reportaría que no hay foco, y todo el dropdown colapsaría. Seguir el puntero con el foco (comportamiento de
+ * Radix/shadcn) mantiene un único highlight y mantiene el foco dentro de la pila de menús. setActiveMenuItem
+ * también sincroniza el key manager para que la navegación con teclado continúe desde el elemento sobre el que
+ * está el cursor.
  *
- * Applied as a host directive on every dropdown item type (item, checkbox, radio, sub-trigger).
+ * Aplicado como host directive en cada tipo de elemento del dropdown (item, checkbox, radio, sub-trigger).
  */
 @Directive({
 	selector: '[hlmDropdownMenuFocusOnHover]',
@@ -25,8 +26,11 @@ export class HlmDropdownMenuFocusOnHover {
 	private readonly _inputModality = inject(InputModalityDetector);
 
 	protected _focusOnHover(): void {
-		// Only skip synthetic hovers from touch taps; every real hover (mouse, or keyboard-then-hover,
-		// which leaves the modality as 'keyboard') should move focus to keep a single highlight.
+		/**
+		 * Solo omitir hovers sintéticos provenientes de toques táctiles; todo hover real (mouse, o
+		 * teclado-y-luego-hover, que deja la modalidad como 'keyboard') debe mover el foco para
+		 * mantener un único highlight.
+		 */
 		if (this._inputModality.mostRecentModality === 'touch' || this._cdkMenuItem.disabled) {
 			return;
 		}

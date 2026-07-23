@@ -12,7 +12,7 @@ export class HlmTableContainer {
 }
 
 /**
- * Directive to apply Shadcn-like styling to a <table> element.
+ * Directive para aplicar estilos tipo Shadcn a un elemento <table>.
  */
 @Directive({
 	selector: 'table[hlmTable]',
@@ -25,8 +25,8 @@ export class HlmTable {
 }
 
 /**
- * Directive to apply Shadcn-like styling to a <thead> element
- * within an HlmTable context.
+ * Directive para aplicar estilos tipo Shadcn a un elemento <thead>
+ * dentro de un contexto HlmTable.
  */
 @Directive({
 	selector: 'thead[hlmTHead],thead[hlmTableHeader]',
@@ -39,8 +39,8 @@ export class HlmTHead {
 }
 
 /**
- * Directive to apply Shadcn-like styling to a <tbody> element
- * within an HlmTable context.
+ * Directive para aplicar estilos tipo Shadcn a un elemento <tbody>
+ * dentro de un contexto HlmTable.
  */
 @Directive({
 	selector: 'tbody[hlmTBody],tbody[hlmTableBody]',
@@ -53,8 +53,8 @@ export class HlmTBody {
 }
 
 /**
- * Directive to apply Shadcn-like styling to a <tfoot> element
- * within an HlmTable context.
+ * Directive para aplicar estilos tipo Shadcn a un elemento <tfoot>
+ * dentro de un contexto HlmTable.
  */
 @Directive({
 	selector: 'tfoot[hlmTFoot],tfoot[hlmTableFooter]',
@@ -67,8 +67,8 @@ export class HlmTFoot {
 }
 
 /**
- * Directive to apply Shadcn-like styling to a <tr> element
- * within an HlmTable context.
+ * Directive para aplicar estilos tipo Shadcn a un elemento <tr>
+ * dentro de un contexto HlmTable.
  */
 @Directive({
 	selector: 'tr[hlmTr],tr[hlmTableRow]',
@@ -81,8 +81,8 @@ export class HlmTr {
 }
 
 /**
- * Directive to apply Shadcn-like styling to a <th> element
- * within an HlmTable context.
+ * Directive para aplicar estilos tipo Shadcn a un elemento <th>
+ * dentro de un contexto HlmTable.
  */
 @Directive({
 	selector: 'th[hlmTh],th[hlmTableHead]',
@@ -95,8 +95,8 @@ export class HlmTh {
 }
 
 /**
- * Directive to apply Shadcn-like styling to a <td> element
- * within an HlmTable context.
+ * Directive para aplicar estilos tipo Shadcn a un elemento <td>
+ * dentro de un contexto HlmTable.
  */
 @Directive({
 	selector: 'td[hlmTd],td[hlmTableCell]',
@@ -109,8 +109,8 @@ export class HlmTd {
 }
 
 /**
- * Directive to apply Shadcn-like styling to a <caption> element
- * within an HlmTable context.
+ * Directive para aplicar estilos tipo Shadcn a un elemento <caption>
+ * dentro de un contexto HlmTable.
  */
 @Directive({
 	selector: 'caption[hlmCaption],caption[hlmTableCaption]',

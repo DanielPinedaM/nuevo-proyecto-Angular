@@ -18,7 +18,7 @@ import { classes } from '@spartan-ng/utils';
 export class HlmDropdownMenu {
 	private readonly _host = inject(CdkMenu);
 	private readonly _elementRef = inject(ElementRef<HTMLElement>);
-	// The trigger provides its configured side; CDK parents this content's injector under the trigger's.
+	/** El trigger provee su side configurado; CDK asigna el injector de este contenido bajo el del trigger. */
 	private readonly _menuSide = inject(MENU_SIDE, { optional: true });
 
 	protected readonly _state = signal('open');
@@ -33,14 +33,16 @@ export class HlmDropdownMenu {
 		);
 
 		this.setSideFromTransformOrigin();
-		// this is a best effort, but does not seem to work currently
-		// TODO: figure out a way for us to know the host is about to be closed. might not be possible with CDK
+		/**
+		 * esto es un best effort, pero actualmente no parece funcionar
+		 * TODO: encontrar una manera de saber que el host está a punto de cerrarse. podría no ser posible con CDK
+		 */
 		this._host.closed.pipe(takeUntilDestroyed()).subscribe(() => this._state.set('closed'));
 	}
 
 	private setSideFromTransformOrigin() {
 		const side = this._menuSide?.side() ?? 'bottom';
-		// CDK sets transform-origin on this element synchronously on attach; read it next tick and derive side
+		/** CDK establece transform-origin en este elemento de forma síncrona al adjuntarse; leerlo en el siguiente tick y derivar el side */
 		setTimeout(() => {
 			this._side.set(deriveMenuSideFromTransformOrigin(this._elementRef.nativeElement.style.transformOrigin, side));
 		});

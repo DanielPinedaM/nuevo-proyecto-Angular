@@ -76,31 +76,31 @@ export class HlmRadio<T = unknown> {
 		),
 	);
 
-	/** Used to set the id on the underlying brn element. */
+	/** Usado para establecer el id en el elemento brn subyacente. */
 	public readonly inputId = input<string | undefined>(undefined);
 
-	/** Used to set the aria-label attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-label en el elemento brn subyacente. */
 	public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
 
-	/** Used to set the aria-labelledby attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-labelledby en el elemento brn subyacente. */
 	public readonly ariaLabelledby = input<string | undefined>(undefined, { alias: 'aria-labelledby' });
 
-	/** Used to set the aria-describedby attribute on the underlying brn element. */
+	/** Usado para establecer el atributo aria-describedby en el elemento brn subyacente. */
 	public readonly ariaDescribedby = input<string | undefined>(undefined, { alias: 'aria-describedby' });
 
 	/**
-	 * The value this radio button represents.
+	 * El valor que representa este radio button.
 	 */
 	public readonly value = input.required<T>();
 
-	/** Whether the checkbox is required. */
+	/** Si el checkbox es requerido. */
 	public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Whether the checkbox is disabled. */
+	/** Si el checkbox está deshabilitado. */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/**
-	 * Event emitted when the checked state of this radio button changes.
+	 * Evento emitido cuando cambia el estado checked de este radio button.
 	 */
 	// eslint-disable-next-line @angular-eslint/no-output-native
 	public readonly change = output<BrnRadioChange<T>>();

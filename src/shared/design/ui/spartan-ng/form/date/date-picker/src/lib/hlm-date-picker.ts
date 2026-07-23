@@ -63,44 +63,44 @@ export class HlmDatePicker<T> implements HlmDatePickerBase<T>, ControlValueAcces
 
 	private readonly _trigger = contentChild(HlmDatePickerTriggerToken);
 
-	/** Show dropdowns to navigate between months or years. */
+	/** Mostrar dropdowns para navegar entre meses o años. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
-	/** The minimum date that can be selected.*/
+	/** La fecha mínima que puede seleccionarse.*/
 	public readonly min = input<T>();
 
-	/** The maximum date that can be selected. */
+	/** La fecha máxima que puede seleccionarse. */
 	public readonly max = input<T>();
 
-	/** Determine if the date picker is disabled. */
+	/** Determina si el date picker está deshabilitado. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
-	/** The selected value. */
+	/** El valor seleccionado. */
 	public readonly date = input<T>();
 
-	/** The date the calendar focuses on first open when no date is selected. */
+	/** La fecha en la que el calendario enfoca al abrirse por primera vez cuando no hay fecha seleccionada. */
 	public readonly defaultFocusedDate = input<T>();
 
 	protected readonly _mutableDate = linkedSignal(this.date);
 
-	/** If true, the date picker will close when a date is selected. */
+	/** Si es true, el date picker se cerrará cuando se seleccione una fecha. */
 	public readonly autoCloseOnSelect = input<boolean, BooleanInput>(this._config.autoCloseOnSelect, {
 		transform: booleanAttribute,
 	});
 
-	/** Defines how the date should be displayed in the UI.  */
+	/** Define cómo debe mostrarse la fecha en la UI.  */
 	public readonly formatDate = input<(date: T) => string>(this._config.formatDate);
 
-	/** Defines how the date should be transformed before saving to model/form. */
+	/** Define cómo debe transformarse la fecha antes de guardarla en el modelo/formulario. */
 	public readonly transformDate = input<(date: T) => T>(this._config.transformDate);
 
 	protected readonly _popoverState = signal<BrnOverlayState | null>(null);
 
 	protected readonly _disabled = linkedSignal(this.disabled);
 
-	/** @internal The disabled state as a readonly signal */
+	/** @internal El estado disabled como readonly signal */
 	public readonly disabledState = this._disabled.asReadonly();
 
 	public readonly formattedDate = computed(() => {
@@ -132,10 +132,10 @@ export class HlmDatePicker<T> implements HlmDatePickerBase<T>, ControlValueAcces
 	}
 
 	/**
-	 * Commit a date to the picker. Updates the internal model, notifies form
-	 * controls, and emits `dateChange`. Unlike `_handleChange`, this does not
-	 * close the popover - it's intended to be called from a text input that
-	 * is parsing user-entered values while typing.
+	 * Confirma una fecha al picker. Actualiza el modelo interno, notifica a los
+	 * form controls, y emite `dateChange`. A diferencia de `_handleChange`, esto no
+	 * cierra el popover - está pensado para ser llamado desde un input de texto que
+	 * está parseando valores ingresados por el usuario mientras escribe.
 	 */
 	public updateDate(value: T | undefined) {
 		if (this._disabled()) return;
