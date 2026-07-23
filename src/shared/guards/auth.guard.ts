@@ -5,6 +5,8 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
+const LOGIN_URL: string = '/iniciar-sesion';
+
 export const AuthGuard: CanActivateFn = async (route, state) => {
   const http = inject(HttpClient);
   const router = inject(Router);
@@ -14,11 +16,18 @@ export const AuthGuard: CanActivateFn = async (route, state) => {
    * - Reemplazar URL "reemplazar-por-endpoint-de-autenticacion" por el endpoint de backend encargado de validar la sesión.
    * - Descomentar el código de validación ubicado más abajo para activar la protección de rutas.
    * Actualmente se encuentra comentado únicamente para facilitar pruebas y permitir la navegación sin restricciones durante el desarrollo. */
-  //const { success, message, status } = await firstValueFrom(
-  //  http.get<ApiResponse<unknown>>(`${environment.api}reemplazar-por-endpoint-de-autenticacion`),
-  //);
+  /* const { success, message, status } = await firstValueFrom(
+    http.get<ApiResponse<unknown>>(`${environment.api}reemplazar-por-endpoint-de-autenticacion`),
+  );
 
-  //if (!success) return router.createUrlTree(['/iniciar-sesion']);
+  if (!success) {
+    console.error('❌ [auth.guard.ts] Error de autenticación, respuesta de la API: ', {
+      success,
+      message,
+      status,
+    });
+    return router.createUrlTree([LOGIN_URL]);
+  } */
 
   return true;
 };
