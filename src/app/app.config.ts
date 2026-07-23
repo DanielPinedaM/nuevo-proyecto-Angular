@@ -14,7 +14,19 @@ import { provideRouter } from '@angular/router';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { provideDateAdapter } from '@spartan-ng/brain/date-time';
+import {
+  provideHlmDatePickerConfig,
+  provideHlmDatePickerMultiConfig,
+  provideHlmDateRangePickerConfig,
+} from '@spartan-ng/date-picker';
 import { provideSpartanHlm } from '@spartan-ng/utils';
+import { DateTime } from 'luxon';
+
+/**
+ * Formatea un DateTime de Luxon al texto legible por el usuario (ej: "23 de julio de 2026").
+ * Solo afecta la presentación visual: el value interno de los componentes de fecha
+ * sigue usando ISO 8601 con offset de zona horaria */
+const formatDisplayDate = (date: DateTime): string => date.setLocale('es').toFormat("d 'de' MMMM 'de' yyyy");
 
 // #region componentes de spartan ng
 const SPARTAN_NG = [
@@ -34,6 +46,28 @@ const SPARTAN_NG = [
    * 2. agregar otro provider de fecha
    * (provideNativeDateAdapter, provideUtcDateAdapter, provideDateAdapter(BrnJalaliDateAdapter), etc) */
   provideDateAdapter(BrnLuxonDateAdapterNormalized),
+
+  /**
+   * Texto mostrado al usuario en hlm-date-picker-trigger / hlm-date-picker-input
+   * para selección de una única fecha */
+  provideHlmDatePickerConfig<DateTime>({
+    formatDate: formatDisplayDate,
+  }),
+
+  /**
+   * Texto mostrado al usuario para selección de rango de fechas */
+  provideHlmDateRangePickerConfig<DateTime>({
+    formatDates: ([from, to]) => {
+      if (!from) return '';
+      return to ? `${formatDisplayDate(from)} - ${formatDisplayDate(to)}` : formatDisplayDate(from);
+    },
+  }),
+
+  /**
+   * Texto mostrado al usuario para selección de múltiples fechas */
+  provideHlmDatePickerMultiConfig<DateTime>({
+    formatDates: (dates) => dates.map(formatDisplayDate).join(', '),
+  }),
 
   /**
    * Traducir a español el calendario de spartan ng */
