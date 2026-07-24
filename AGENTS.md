@@ -7,18 +7,18 @@
 
 # Scripts de desarrollo
 
-| Comando            | Entorno      | Archivo de configuración                    |
+| Comando            | Ambiente     | Variable de Entorno                         |
 | ------------------ | ------------ | ------------------------------------------- |
-| `pnpm start:local` | local host   | `src/environments/environment.localhost.ts` |
-| `pnpm start:prod`  | producción   | `src/environments/environment.prod.ts`      |
-| `pnpm start:test`  | pruebas      | `src/environments/environment.test.ts`      |
+| `pnpm start:local` | Local host   | `src/environments/environment.localhost.ts` |
+| `pnpm start:prod`  | Producción   | `src/environments/environment.prod.ts`      |
+| `pnpm start:test`  | Pruebas      | `src/environments/environment.test.ts`      |
 
 # Builds para despliegue
 
-| Comando           | Entorno      | Archivo de configuración               |
+| Comando           | Ambiente     | Variable de Entorno                         |
 | ----------------- | ------------ | -------------------------------------- |
-| `pnpm build:test` | pruebas      | `src/environments/environment.test.ts` |
-| `pnpm build:prod` | producción   | `src/environments/environment.prod.ts` |
+| `pnpm build:test` | Pruebas      | `src/environments/environment.test.ts` |
+| `pnpm build:prod` | Producción   | `src/environments/environment.prod.ts` |
 
 # Reglas Obligatorias para la IA
 * No generes análisis, recomendaciones ni comentarios adicionales hasta que empiece a realizar preguntas.
