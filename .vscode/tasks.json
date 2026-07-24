@@ -72,39 +72,10 @@
     },
     {
       /*
-       * Entorno de produccion con source maps y sin minificacion, para que el
-       * debugger de VS Code muestre el codigo original de TypeScript.
-       * Usa environment.prod.ts igual que "start:prod".
+       * Usa environment.prod.ts, pero servido sin minificar y con source maps,
+       * para que el debugger de VS Code muestre el codigo original de TypeScript.
+       * Los builds de despliegue (build:prod) siguen minificados.
        */
-      "type": "shell",
-      "command": "pnpm run start:prod:debug",
-      "label": "start:prod:debug",
-      "isBackground": true,
-      "runOptions": {
-        "instanceLimit": 1
-      },
-      "presentation": {
-        "panel": "dedicated",
-        "group": "dev-server",
-        "clear": true
-      },
-      "problemMatcher": {
-        "owner": "typescript",
-        "pattern": {
-          "regexp": "a^",
-          "file": 1,
-          "location": 2,
-          "message": 3
-        },
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "Building\\.\\.\\.",
-          "endsPattern": "Application bundle generation complete\\."
-        }
-      }
-    },
-    {
-      /* produccion optimizada, sin source maps: no sirve para debugging */
       "type": "shell",
       "command": "pnpm run start:prod",
       "label": "start:prod",

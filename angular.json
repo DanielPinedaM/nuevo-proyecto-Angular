@@ -87,15 +87,8 @@
               ],
               "outputHashing": "all"
             },
-            "production-debug": {
-              "optimization": {
-                "scripts": false,
-                "styles": {
-                  "minify": false,
-                  "inlineCritical": false
-                },
-                "fonts": false
-              },
+            "debug": {
+              "optimization": false,
               "extractLicenses": false,
               "sourceMap": {
                 "scripts": true,
@@ -103,12 +96,7 @@
                 "vendor": true
               },
               "outputHashing": "none",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
+              "budgets": []
             },
             "test": {
               "optimization": false,
@@ -139,16 +127,13 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "localhost": {
-              "buildTarget": "front:build:localhost"
+              "buildTarget": "front:build:localhost,debug"
             },
             "production": {
-              "buildTarget": "front:build:production"
-            },
-            "production-debug": {
-              "buildTarget": "front:build:production-debug"
+              "buildTarget": "front:build:production,debug"
             },
             "test": {
-              "buildTarget": "front:build:test"
+              "buildTarget": "front:build:test,debug"
             }
           },
           "defaultConfiguration": "test"

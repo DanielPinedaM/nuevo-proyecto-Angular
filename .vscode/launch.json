@@ -29,12 +29,7 @@
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
-      /*
-       * usa la configuracion "production-debug" de angular.json (environment.prod.ts
-       * + source maps + sin minificar). La configuracion "production" tiene
-       * sourceMap: false y solo mostraria el bundle compilado.
-       */
-      "preLaunchTask": "start:prod:debug",
+      "preLaunchTask": "start:prod",
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
     }
   ]
